@@ -14,7 +14,6 @@ def get_entities_from_groovy(owl_path):
     groovy_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "extract_entities.groovy")
     
     # Run groovy script
-    # Assumes 'groovy' is in PATH. If not, this needs adjustment.
     cmd = ["groovy", groovy_script, owl_path]
     
     try:
@@ -69,6 +68,7 @@ def main():
                 "uri": cls['uri'],
                 "rigidity": props.get("rigidity", "N/A"),
                 "identity": props.get("identity", "N/A"),
+                "own_identity": props.get("own_identity", "N/A"),
                 "unity": props.get("unity", "N/A"),
                 "dependence": props.get("dependence", "N/A"),
                 "classification": analysis.get("classification", "N/A"),
@@ -94,7 +94,7 @@ def main():
         if args.format == "json":
             json.dump(results, out_stream, indent=2)
         else:
-            fieldnames = ["term", "uri", "rigidity", "identity", "unity", "dependence", "classification", "reasoning", "error"]
+            fieldnames = ["term", "uri", "rigidity", "identity", "own_identity", "unity", "dependence", "classification", "reasoning", "error"]
             writer = csv.DictWriter(out_stream, fieldnames=fieldnames, delimiter='\t', extrasaction='ignore')
             writer.writeheader()
             writer.writerows(results)

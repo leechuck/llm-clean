@@ -4,7 +4,7 @@ import requests
 import sys
 
 class OntologyAnalyzer:
-    def __init__(self, api_key=None, model="openai/gpt-4o"):
+    def __init__(self, api_key=None, model="google/gemini-3-flash-preview"):
         self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
         self.model = model
         self.api_url = "https://openrouter.ai/api/v1/chat/completions"
@@ -14,38 +14,43 @@ class OntologyAnalyzer:
 
     def analyze(self, term, description=None, usage=None):
         system_prompt = """You are an expert Ontological Analyst specializing in the "Formal Ontology of Properties" methodology by Guarino and Welty (2000). 
-Your task is to analyze a given entity (term) and assign its ontological meta-properties based on the paper's framework.
+Your task is to analyze a given entity (term) and assign its 5 ontological meta-properties based on the paper's framework.
 
-The meta-properties are:
+The 5 Meta-Properties:
 1. **Rigidity (R)**: 
-   - **+R (Rigid)**: The property is essential to all its instances in all possible worlds (e.g., Person).
-   - **-R (Non-Rigid)**: The property is not essential to some instances.
-   - **~R (Anti-Rigid)**: The property is essential *not* to be essential; instances can cease to be this property without ceasing to exist (e.g., Student).
+   - **+R (Rigid)**: Essential to all instances in all possible worlds.
+   - **-R (Non-Rigid)**: Not essential to some instances.
+   - **~R (Anti-Rigid)**: Essential *not* to be essential (e.g., Role, Phase).
 
-2. **Identity (I)**:
-   - **+O (Own Identity)**: The property supplies its own Identity Condition (IC) (e.g., Person).
-   - **+I (Carries Identity)**: The property carries an IC inherited from a subsuming property (e.g., Student carries IC from Person).
-   - **-I (No Identity)**: The property does not carry an IC (e.g., Red).
+2. **Identity (I) - Carries Identity**:
+   - **+I**: The property carries an Identity Condition (IC).
+   - **-I**: The property does not carry an IC.
 
-3. **Unity (U)**: 
-   - **+U (Unifying)**: Instances are intrinsic wholes (e.g., Ocean).
+3. **Own Identity (O) - Supplies Identity**:
+   - **+O**: The property supplies its *own* global Identity Condition.
+   - **-O**: The property does not supply its own IC (it might inherit it, or have none).
+   *Constraint*: If **+O**, then **+I** must be true.
+
+4. **Unity (U)**: 
+   - **+U (Unifying)**: Instances are intrinsic wholes.
    - **-U (Non-Unifying)**: Instances are not necessarily wholes.
-   - **~U (Anti-Unity)**: Instances are strictly sums/aggregates (e.g., Amount of Water).
+   - **~U (Anti-Unity)**: Instances are strictly sums/aggregates.
 
-4. **Dependence (D)**: 
-   - **+D (Dependent)**: Instances intrinsically depend on something else to exist (e.g., Parent depends on Child).
-   - **-D (Independent)**: Instances can exist alone (e.g., Person).
+5. **Dependence (D)**: 
+   - **+D (Dependent)**: Instances intrinsically depend on something else to exist.
+   - **-D (Independent)**: Instances can exist alone.
 
-Return your analysis in strict JSON format with the following structure:
+Return your analysis in strict JSON format:
 {
   "properties": {
     "rigidity": "+R" | "-R" | "~R",
-    "identity": "+O" | "+I" | "-I",
+    "identity": "+I" | "-I",
+    "own_identity": "+O" | "-O",
     "unity": "+U" | "-U" | "~U",
     "dependence": "+D" | "-D"
   },
   "classification": "Sortal/Role/Mixin/etc",
-  "reasoning": "Brief explanation of why these values were chosen."
+  "reasoning": "Brief explanation."
 }
 """
 
@@ -77,7 +82,12 @@ Return your analysis in strict JSON format with the following structure:
             result = response.json()
             
             content = result['choices'][0]['message']['content']
-            return json.loads(content)
+            
+            # Robust parsing: handle potential trailing commas or other minor LLM output quirks
+            import re
+            content_cleaned = re.sub(r",\s*([\]}])", r"\1", content)
+            
+            return json.loads(content_cleaned)
                 
         except requests.exceptions.RequestException as e:
             error_msg = f"API Request failed: {e}"
