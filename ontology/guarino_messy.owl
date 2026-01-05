@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Butterfly">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Animal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Red">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Food">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#PhysicalObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Animal">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#LivingBeing"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#RedApple">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Apple"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Red"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Group">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Country">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Location"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#SocialEntity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#AmountOfMatter">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#PhysicalObject">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#AmountOfMatter"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#GroupOfPeople">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Group"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#LivingBeing">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#AmountOfMatter"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#SocialEntity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Group"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Location">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Fruit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#PhysicalObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Vertebrate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Animal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Caterpillar">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Animal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Person">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Vertebrate"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#LegalAgent"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#LegalAgent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Agent"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Entity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Organization">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#SocialEntity"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#LegalAgent"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Agent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Entity"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/guarino-messy#Apple">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Fruit"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Food"/>
+  </rdf:Description>
+</rdf:RDF>
