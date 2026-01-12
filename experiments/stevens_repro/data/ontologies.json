@@ -1,0 +1,108 @@
+{
+  "BFO": {
+    "root": "Entity",
+    "classes": {
+      "Entity": ["Continuant", "Occurrent"],
+      "Continuant": ["Independent Continuant", "Generically Dependent Continuant", "Specifically Dependent Continuant"],
+      "Independent Continuant": ["Material Entity", "Immaterial Entity"],
+      "Material Entity": ["Object", "Object Aggregate", "Fiat Object Part"],
+      "Immaterial Entity": ["Site", "Spatial Region", "Continuant Fiat Boundary"],
+      "Generically Dependent Continuant": ["Information Content Entity"],
+      "Specifically Dependent Continuant": ["Quality", "Realizable Entity"],
+      "Realizable Entity": ["Role", "Disposition", "Function"],
+      "Occurrent": ["Process", "Process Boundary", "Spatiotemporal Region", "Temporal Region"],
+      "Spatiotemporal Region": ["Spatiotemporal Interval", "Spatiotemporal Instant"],
+      "Temporal Region": ["Temporal Interval", "Temporal Instant"]
+    },
+    "descriptions": {
+      "Continuant": "An entity that persists, endures, or continues to exist through time while maintaining its identity.",
+      "Occurrent": "An entity that happens, unfolds, or develops in time. It has temporal parts.",
+      "Material Entity": "A continuant that has some matter as a part.",
+      "Immaterial Entity": "A continuant that has no matter as a part.",
+      "Object": "A material entity that is spatially extended and maximally self-connected (e.g., a cell, a planet).",
+      "Object Aggregate": "A material entity that is a mereological sum of separate objects (e.g., a fleet of ships).",
+      "Fiat Object Part": "A material entity that is part of an object but is not an object itself (e.g., the north half of a planet).",
+      "Site": "An immaterial entity in which other entities can be located (e.g., a room, a hole).",
+      "Role": "A realizable entity that exists because the bearer is in some special physical, social, or institutional set of circumstances.",
+      "Disposition": "A realizable entity that is an intrinsic potential to undergo a specific process.",
+      "Function": "A disposition that exists because of how the entity came into being (e.g., by design or evolution).",
+      "Process": "An occurrent that has temporal parts and depends on a participant.",
+      "Process Boundary": "The instantaneous beginning or end of a process."
+    },
+    "examples": {
+      "Object": ["Apple", "Human", "Car"],
+      "Object Aggregate": ["A flock of birds", "A pile of sand"],
+      "Site": ["The interior of a room", "A tunnel"],
+      "Role": ["Student", "Nurse", "President"],
+      "Disposition": ["Fragility", "Solubility"],
+      "Function": ["The function of a heart to pump blood", "The function of a hammer to drive nails"],
+      "Process": ["Running", "Smiling", "The life of an organism"],
+      "Process Boundary": ["The start of a race", "The moment of death"]
+    }
+  },
+  "DOLCE": {
+    "root": "Entity",
+    "classes": {
+      "Entity": ["Endurant", "Perdurant", "Quality", "Abstract"],
+      "Endurant": ["Physical Endurant", "Non-physical Endurant", "Arbitrary Sum"],
+      "Physical Endurant": ["Amount of Matter", "Physical Object", "Feature"],
+      "Non-physical Endurant": ["Mental Object", "Social Object"],
+      "Perdurant": ["Stative", "Eventive"],
+      "Stative": ["State", "Process"],
+      "Eventive": ["Achievement", "Accomplishment"],
+      "Quality": ["Physical Quality", "Abstract Quality", "Temporal Quality"],
+      "Abstract": ["Region", "Set", "Fact"],
+      "Region": ["Time Region", "Space Region", "Color Region"]
+    },
+    "descriptions": {
+      "Endurant": "An entity that is wholly present at any time it exists (e.g., an apple, a person).",
+      "Perdurant": "An entity that extends in time and has temporal parts (e.g., a run, a meeting).",
+      "Physical Object": "An endurant that has spatial location and is not an amount of matter (e.g., a table).",
+      "Amount of Matter": "An endurant that is a mereological sum of matter (e.g., the gold in a ring).",
+      "Social Object": "A non-physical endurant that depends on a community of agents (e.g., a law, a currency).",
+      "Process": "A perdurant that is homeomerous (every part of the process is of the same type, e.g., running).",
+      "Accomplishment": "A perdurant that is not homeomerous and has a natural endpoint (e.g., walking a mile).",
+      "Achievement": "A perdurant that is instantaneous (e.g., reaching the summit)."
+    },
+    "examples": {
+      "Physical Object": ["Hammer", "Statue"],
+      "Amount of Matter": ["Water in a glass", "Clay"],
+      "Social Object": ["The US Constitution", "The Euro"],
+      "Process": ["Raining", "Sitting"],
+      "Accomplishment": ["Building a house", "Writing a book"],
+      "Achievement": ["Winning a race", "Exploding"]
+    }
+  },
+  "UFO": {
+    "root": "Entity",
+    "classes": {
+      "Entity": ["Individual", "Universal"],
+      "Individual": ["Substantial", "Event"],
+      "Substantial": ["Independent Substantial", "Dependent Substantial"],
+      "Independent Substantial": ["Object", "Amount of Matter", "Collective"],
+      "Object": ["Material Object", "Social Object"],
+      "Dependent Substantial": ["Moment"],
+      "Moment": ["Quality", "Mode", "Relator"],
+      "Event": ["Process", "Atomic Event"],
+      "Universal": ["Sortal", "Non-Sortal"],
+      "Sortal": ["Kind", "SubKind", "Phase", "Role"],
+      "Non-Sortal": ["Category", "Mixin", "RoleMixin", "PhaseMixin"]
+    },
+    "descriptions": {
+      "Substantial": "An individual that exists in space and time (comparable to Endurant).",
+      "Event": "An individual that happens in time (comparable to Perdurant).",
+      "Moment": "An individual that depends on another individual (e.g., a headache depends on a person).",
+      "Kind": "A rigid sortal that provides a principle of identity (e.g., Person, Dog).",
+      "Role": "A non-rigid sortal that an entity plays in a context (e.g., Student).",
+      "Phase": "A non-rigid sortal that represents a stage in a life cycle (e.g., Child, Adult).",
+      "Relator": "A moment that connects two or more individuals (e.g., a marriage, a contract)."
+    },
+    "examples": {
+      "Kind": ["Human", "Car", "Planet"],
+      "Role": ["President", "Employee"],
+      "Phase": ["Caterpillar", "Teenager"],
+      "Relator": ["Employment contract", "Marriage bond"],
+      "Process": ["Walking", "Breathing"]
+    }
+  }
+}

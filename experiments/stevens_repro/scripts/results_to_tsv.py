@@ -3,11 +3,18 @@ import csv
 import sys
 import os
 
+import argparse
+
 def main():
+    parser = argparse.ArgumentParser(description="Convert JSON results to TSV")
+    parser.add_argument("--input", help="Input JSON path")
+    parser.add_argument("--output", help="Output TSV path")
+    args = parser.parse_args()
+
     # Adjust paths relative to script location
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    json_path = os.path.join(base_dir, "results", "experiment_results.json")
-    tsv_path = os.path.join(base_dir, "results", "experiment_results.tsv")
+    json_path = args.input if args.input else os.path.join(base_dir, "results", "experiment_results.json")
+    tsv_path = args.output if args.output else os.path.join(base_dir, "results", "experiment_results.tsv")
     
     if not os.path.exists(json_path):
         print(f"No results found at {json_path}")

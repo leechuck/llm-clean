@@ -71,6 +71,7 @@ def main():
     parser = argparse.ArgumentParser(description="Run Ontology Classification Experiment")
     parser.add_argument("--limit", type=int, default=0, help="Limit number of terms to process (0 for all)")
     parser.add_argument("--model", default="openai/gpt-4o", help="Model ID")
+    parser.add_argument("--output", help="Custom output JSON path")
     args = parser.parse_args()
 
     # Paths relative to this script location or project root? 
@@ -88,7 +89,7 @@ def main():
     classifier = OntologyClassifier(model=args.model)
     
     results = []
-    results_path = os.path.join(results_dir, "experiment_results.json")
+    results_path = args.output if args.output else os.path.join(results_dir, "experiment_results.json")
     
     # Load existing to append/resume if needed
     if os.path.exists(results_path):
