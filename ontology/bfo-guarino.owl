@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:terms="http://purl.org/dc/terms/">
+    <Ontology rdf:about="http://example.org/bfo-guarino.owl">
+        <imports rdf:resource="http://purl.obolibrary.org/obo/bfo/2020/bfo-core.owl"/>
+    </Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://example.org/guarino-messy#Agent -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Agent">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#AmountOfMatter -->
+
+    <Class rdf:about="http://example.org/guarino-messy#AmountOfMatter">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Animal -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Animal">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#LivingBeing"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Apple -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Apple">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Fruit"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Butterfly -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Butterfly">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Animal"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Caterpillar -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Caterpillar">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Animal"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Country -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Country">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000196"/>
+                <someValuesFrom rdf:resource="http://example.org/guarino-messy#Location"/>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000196"/>
+                <someValuesFrom rdf:resource="http://example.org/guarino-messy#SocialEntity"/>
+            </Restriction>
+        </rdfs:subClassOf>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Entity -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Entity"/>
+    
+
+
+    <!-- http://example.org/guarino-messy#Food -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Food">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#PhysicalObject"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Fruit -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Fruit">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Food"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Group -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Group">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000027"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#GroupOfPeople -->
+
+    <Class rdf:about="http://example.org/guarino-messy#GroupOfPeople">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Group"/>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000115"/>
+                <someValuesFrom rdf:resource="http://example.org/guarino-messy#Person"/>
+            </Restriction>
+        </rdfs:subClassOf>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#LegalAgent -->
+
+    <Class rdf:about="http://example.org/guarino-messy#LegalAgent">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Agent"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#LivingBeing -->
+
+    <Class rdf:about="http://example.org/guarino-messy#LivingBeing">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#PhysicalObject"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Location -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Location">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Organization -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Organization">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000027"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Person -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Person">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Vertebrate"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#PhysicalObject -->
+
+    <Class rdf:about="http://example.org/guarino-messy#PhysicalObject">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000178"/>
+                <someValuesFrom rdf:resource="http://example.org/guarino-messy#AmountOfMatter"/>
+            </Restriction>
+        </rdfs:subClassOf>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Red -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Red">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#RedApple -->
+
+    <Class rdf:about="http://example.org/guarino-messy#RedApple">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Apple"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#SocialEntity -->
+
+    <Class rdf:about="http://example.org/guarino-messy#SocialEntity">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    </Class>
+    
+
+
+    <!-- http://example.org/guarino-messy#Vertebrate -->
+
+    <Class rdf:about="http://example.org/guarino-messy#Vertebrate">
+        <rdfs:subClassOf rdf:resource="http://example.org/guarino-messy#Animal"/>
+    </Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
