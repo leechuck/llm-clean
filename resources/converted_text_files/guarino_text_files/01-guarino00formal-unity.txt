@@ -1,0 +1,50 @@
+Unity
+
+Before addressing what it means for a certain property to carry a unity condition (UC), we must first clarify what it means for a certain object to have a UC, that is to be a whole.
+
+Definition 9 Let omega be an equivalence relation. At a given time t, an object x is a contingent whole under omega if:
+
+not(P(y,x,t) and P(z,x,t) and omega(z,y,t))     (7)
+forall y(P(y,x,t) implies (forall z(P(z,x,t) iff omega(z,y,t))))     (8)
+
+We can read the above definition as follows: at time t, each part of x must be bound by omega to all other parts and to nothing else. (7) is a non-triviality condition on omega, that avoids considering any mereological sum as a contingent whole. (8) expresses a condition of maximal self-connectedness according to a suitable relation of "generalized connection," omega.
+
+Depending on the ontological nature of such a generalized connection relation, we may distinguish three main kinds of unity for concrete entities (i.e., those having a spatio-temporal location):
+
+• Topological unity: based on some kind of topological connection (a piece of coal, a lump of coal)
+• Morphological unity: based on shape (a ball, a constellation)
+• Functional unity (a hammer, a bikini)
+
+As the examples show, nothing prevents a whole from having parts that are themselves wholes (with a different UC). This can be the foundation of a theory of pluralities, which is however out of this paper's scope.
+
+We define a stronger notion of whole by assuming that a UC must hold for an object throughout its existence, i.e. by assuming unity as an essential property:
+
+Definition 10 Let omega be an equivalence relation. An object x is an intrinsic whole under omega if, at any time where x exists, it is a contingent whole under omega.
+
+An important remark is that, if an object is always atomic (i.e., it has no proper parts), then it is an intrinsic whole under the identity relation. We are now in the position to state the following:
+
+Definition 11 A property phi carries a unity condition (+U) iff there exists an equivalence relation omega such that all its instances are intrinsic wholes under omega.
+
+Notice that the above definition does not imply a second order existential quantification in order to get the relation omega: simply, if such relation is part of our ontology, then phi is +U. It is important to make clear that carrying a UC does not imply carrying a necessary IC. This is due to the way Definition 2 is formulated. To see that, suppose that phi carries a UC. We may think that the persistence of such condition across time could be a good candidate for a necessary IC for phi, since it satisfies (3). However, it fails to satisfy (4), and does not qualify as a necessary identity condition: thus, a UC is a persistence condition, but not an identity condition.
+
+As with rigidity, in some situations it maybe important to distinguish properties that do not carry a common UC for all its instances, from properties all of whose instances are not intrinsic wholes. As we shall see, an example of the former kind may be Legal Agent, all of whose instances are intrinsic wholes (some people, some companies), however there is not a single relation omega for all of them (since persons and companies may have different UCs). Amount of Matter is usually an example of the latter kind, since none of its instances can be intrinsic wholes. Therefore we define:
+
+Definition 12 A property has anti-unity (~U) if every instance of the property is not an intrinsic whole.
+
+Of course, ~U implies -U.
+
+Unity constraints
+
++U can't subsume -U     (12)
+~U can't subsume +U     (13)
+Properties with incompatible UCs are disjoint.     (14)
+
+Again, constraints ((12)-(13)) trivially follow from our definitions. As an example of (13), suppose we wonder if VASE is subsumed by AMOUNT OF CLAY. We may think of a vase as an amount of clay that has "just" the property of being a whole, satisfying a suitable UC for vases. In this case however it would not be an intrinsic whole, since it would remain the same amount of clay after the vase is crashed. This analysis of UCs brings to light a very common misuse of the subsumption relation, the fact is that vases are constituted of amounts of clay, not subsumed by them.
+
+Assumptions
+
+Finally, we make the following assumptions regarding identity, adapted from (Lowe, 1989):
+
+• Sortal Individuation. Every domain element must instantiate some property carrying an IC (+I). In this way we satisfy Quine's dictum "No entity without identity" (1969).
+
+• Sortal Expandability. If two entities (instances of different properties) are the same, they must be instances of a property carrying a condition for their identity.

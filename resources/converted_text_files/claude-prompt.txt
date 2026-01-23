@@ -1,0 +1,3 @@
+convert the file 01-guarino00formal.pdf to text. when you see a greek symbol use the ASCII equivalent word, such      
+  as phi or psi. For the unviersal quantification symbol, which looks like an upside down A, use the phrase             
+  'forall'. For the existential quantification symbol, which looks like a backward E, use the phrase 'some'.

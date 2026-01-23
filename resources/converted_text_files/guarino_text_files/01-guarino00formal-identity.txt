@@ -1,0 +1,67 @@
+Identity
+
+In the philosophical literature, an identity condition (IC) for a arbitrary property phi is usually defined as a suitable relation rho satisfying the following formula:
+
+forall x,y((phi(x) and phi(y)) implies (rho(x,y) iff x = y))     (1)
+
+Since identity is an equivalence relation, it follows that rho restricted to phi must also be an equivalence relation. For example, the property PERSON can be seen as carrying an IC if relations like having-the-same-SSN or having-the-same-fingerprints are assumed to satisfy (1).
+
+As discussed in more detail elsewhere (Guarino & Welty, 2000), the above formulation has some problems, in our opinion. The first problem is related to the need of distinguishing between supplying an IC and simply carrying an IC: it seems that non-rigid properties like STUDENT can only carry their ICs, inheriting those supplied by their subsuming rigid properties like PERSON. The intuition behind this is that, since the same person can be a student at different times in different schools, an IC allegedly supplied by STUDENT (say, having the same registration number) may be only local, within a certain studenthood experience. It would not supply therefore a "global" condition for identity, satisfying (1) only as a sufficient condition, not as a necessary one.
+
+The second problem regards the nature of the rho relation: what makes it an IC, and how can we index it with respect to time to account for the difference between synchronic and diachronic identity?
+
+Finally, deciding whether a property carries an IC may be difficult, since finding a rho that is both necessary and sufficient for identity is often hard, especially for natural kinds and artifacts.
+
+For these reasons, we introduce below a notion of identity conditions that have the following characteristics: i) they can only be supplied by rigid properties; ii) they reformulate the relation above in terms of a formula that explicitly takes two different times into account, allowing the distinction between synchronic (same time) and diachronic (different times) identity; iii) they can be only sufficient or only necessary.
+
+Definition 1 Let phi be a rigid property, and Gamma(x,y,t,t') a formula containing x,y,t,t' as the only free variables, such that
+
+not(forall xytt'(Gamma(x,y,t,t') iff x=y))     (2)
+
+We say that phi carries the IC Gamma iff one of the following conditions is verified:
+
+Definition 2 Gamma is a necessary IC carried by phi when:
+
+(E(x,t) and phi(x,t) and E(y,t') and phi(y,t') and x=y implies) Gamma(x,y,t,t'))     (3)
+
+not(forall xy((E(x,t) and phi(x,t) and E(y,t) and phi(y,t')) implies Gamma(x,y,t,t'))     (4)
+
+Definition 3 Gamma is a sufficient IC carried by phi when:
+
+(E(x,t) and phi(x,t) and E(y,t') and phi(y,t') and Gamma(x,y,t,t')) implies x=y     (5)
+some xytt'(Gamma(x,y,t,t')).     (6)
+
+In the formulas above, (2) guarantees that Gamma is bound to identity under a certain sortal, and not to arbitrary identity, (4) is needed to guarantee that the last conjunct in (3) is relevant and not tautological, and (6) ensures that Gamma is not trivially false.
+
+ICs are "inherited" along a hierarchy of properties, in the sense that, if phi subsumes psi and, for example, Gamma is a necessary IC for psi, then (3) above will hold for phi replacing psi.
+
+Definition 4 A non-rigid property carries an IC Gamma iff it is subsumed by a rigid property carrying Gamma.
+
+Definition 5 Any property carrying an IC is marked with the meta-property +I (-I otherwise).
+
+Definition 6 A property phi supplies an IC Gamma iff i) it is rigid; ii) it carries Gamma; and iii) Gamma is not carried by all the properties subsuming phi. This means that, if phi inherits different (but compatible) ICs from multiple properties, it still counts as supplying an IC.
+
+1. Note that this is not a second order quantification, since the properties we are talking of are those fixed within a certain conceptualization.
+
+Definition 7 Any property supplying an IC is marked with the meta-property +O (-O otherwise). The letter "O" is a mnemonic for "own identity".
+
+From the above definitions, it is obvious that +O implies +I and +R. For example, both PERSON and STUDENT do carry identity (they are therefore +I), but only the former supplies it (+O). Supplying an IC is analogous to defining the equality predicate for a class in an object-oriented language, except that ICs can not be "overridden" by a sub-property, merely augmented. See the "Identity constraints" section below for further discussion of this.
+
+Definition 8 Any property carrying an IC (+I) is called a sortal (Strawson, 1959).
+
+Notice that to recognize that a property is a sortal we are not forced to know which IC it carries: as we shall see, distinguishing between sortals and non-sortals is often enough to start bringing order to taxonomies.
+
+Identity constraints
+
++I can't subsume -I     (10)
+Properties with incompatible ICs are disjoint.     (11)
+
+The first constraint follows immediately from our definitions, while the second one deserves some comment. An important point is the difference between different and incompatible ICs, related to the fact that they can be inherited and specialized along taxonomies. Consider the domain of abstract geometrical figures, for example, where the property POLYGON subsumes TRIANGLE. A necessary and sufficient IC for polygons is, "Having the same edges and the same angles". On the other hand, an additional necessary and sufficient IC for triangles is, "Having two edges and their internal angle in common" (note that this condition is only-necessary for polygons). So the two properties have different ICs (although they have one IC in common), but their extensions are not disjoint. On the other hand, consider AMOUNT OF MATTER and PERSON. If we admit mereological extensionality for the former but not for the latter (since persons can replace their parts), they have incompatible ICs, so they must be disjoint (in this case, we can't say that a person is an amount of matter).
+
+Assumptions
+
+Finally, we make the following assumptions regarding identity, adapted from (Lowe, 1989):
+
+• Sortal Individuation. Every domain element must instantiate some property carrying an IC (+I). In this way we satisfy Quine's dictum "No entity without identity" (1969).
+
+• Sortal Expandability. If two entities (instances of different properties) are the same, they must be instances of a property carrying a condition for their identity.

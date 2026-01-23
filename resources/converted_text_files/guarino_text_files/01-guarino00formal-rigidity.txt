@@ -1,0 +1,32 @@
+Rigidity
+
+A rigid property has been defined in (Guarino, Carrara & Giaretta, 1994) as a property that necessarily holds for all its instances. For example, we normally think of PERSON as rigid; if x is an instance of PERSON, it must be an instance of PERSON in every possible world. The STUDENT property, on the other hand, is normally not rigid; we can easily imagine an entity moving in and out of the STUDENT property while being the same individual. This notion was later refined in (Guarino, 1998), as shown in Table 2, where the notion of anti-rigidity was added to gain a further restriction. The ~R meta-property is subsumed by –R, but is stronger, as the former constrains all instances of a property and the latter, as the simple negation of +R, constrains at least one instance. Anti-rigidity attempts to capture the intuition that all instances of certain properties must possibly not be instances of that property. Consider the property STUDENT, for example: in its normal usage, every instance of student is not necessarily so.
+
+Rigidity as a meta-property is not "inherited" by sub-properties of properties that carry it, e.g. if we have PERSON+R and forall x(STUDENT(x) implies PERSON(x)) then we know that all instances of STUDENT are necessarily instances of PERSON, but not necessarily (in the modal sense) instances of STUDENT, and we furthermore have STUDENT~R. In simpler terms, an instance of STUDENT can cease to be a student but may not cease to be a person.
+
+Rigid +R: phi is a necessary property for all its instances
+NonRigid -R: phi is not a necessary property of all its instances
+AntiRigid ~R: phi is an optional property for all its instances
+
+Table 2. Rigidity behavior for a property phi.
+
+Rigidity constraints
+
+~R can't subsume +R     (9)
+
+This constraint follows immediately from the definitions reported in Table 2. As we shall see, this means that, if PERSON+R and AGENT~R, the latter cannot subsume the former.
+
+Identity constraints
+
++I can't subsume -I     (10)
+Properties with incompatible ICs are disjoint.     (11)
+
+The first constraint follows immediately from our definitions, while the second one deserves some comment. An important point is the difference between different and incompatible ICs, related to the fact that they can be inherited and specialized along taxonomies. Consider the domain of abstract geometrical figures, for example, where the property POLYGON subsumes TRIANGLE. A necessary and sufficient IC for polygons is, "Having the same edges and the same angles". On the other hand, an additional necessary and sufficient IC for triangles is, "Having two edges and their internal angle in common" (note that this condition is only-necessary for polygons). So the two properties have different ICs (although they have one IC in common), but their extensions are not disjoint. On the other hand, consider AMOUNT OF MATTER and PERSON. If we admit mereological extensionality for the former but not for the latter (since persons can replace their parts), they have incompatible ICs, so they must be disjoint (in this case, we can't say that a person is an amount of matter).
+
+Assumptions
+
+Finally, we make the following assumptions regarding identity, adapted from (Lowe, 1989):
+
+• Sortal Individuation. Every domain element must instantiate some property carrying an IC (+I). In this way we satisfy Quine's dictum "No entity without identity" (1969).
+
+• Sortal Expandability. If two entities (instances of different properties) are the same, they must be instances of a property carrying a condition for their identity.

@@ -1,0 +1,21 @@
+Dependence
+
+The final meta-property we employ as a formal ontological tool is based on the notion of dependence. This is a very general notion, whose various forms and variations are discussed in detail in (Simons, 1987). We shall introduce here a specific kind of dependence, which we call external notional dependence (or simply external dependence), based on Simons' notional dependence. Intuitively, we say that a property phi is externally dependent on a property psi if, for all its instances x, necessarily some instance of psi must exist, which is not a part nor a constituent of x^1. For example, PARENT is externally dependent on CHILD (one can not be a parent without having a child), but PERSON is not externally dependent on heart nor on body (because any person has a heart as a part and is constituted of a body).
+
+1. We should also exclude the case where this instance of psi is a quality of x (such as its color), and also those where this instance necessarily exists (suppose it is the whole universe, for instance). A full discussion would take to much space.
+
+A formal account of this definition requires a definition of the constitution relationship, which in turn is based on non-extensional mereology (see again Simons' book). It will suffice here to say that x constitutes y if x and y share the same basic parts, and y is existentially dependent on x, that is, x cannot actually exist without y actually existing. For example, a castle and the lump of bricks it is constituted of are formed of the same constituent parts, and the castle cannot exist without the lump of bricks also existing (but not vice-versa). A property which is externally dependent on some other property will be marked with the meta-property +D.
+
+Dependence constraints
+
++D can't subsume -D     (15)
+
+This constraint trivially follows from our definitions.
+
+Assumptions
+
+Finally, we make the following assumptions regarding identity, adapted from (Lowe, 1989):
+
+• Sortal Individuation. Every domain element must instantiate some property carrying an IC (+I). In this way we satisfy Quine's dictum "No entity without identity" (1969).
+
+• Sortal Expandability. If two entities (instances of different properties) are the same, they must be instances of a property carrying a condition for their identity.

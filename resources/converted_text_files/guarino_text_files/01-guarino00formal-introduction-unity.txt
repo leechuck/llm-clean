@@ -1,0 +1,98 @@
+Introduction
+
+Ontologies are becoming increasingly popular in practice, and the number of poor quality ontologies have made clear the need for a principled methodology for building them. Perhaps the most common problem we have seen in practice with ontologies is that, while they are expected to bring order and structure to information, their taxonomic structure is often poor and confusing. This is typically exemplified by the unrestrained use of subsumption to accomplish a variety of reasoning and representation tasks. For example, in previous work (Guarino, 1999) several unclear uses of the is-a relation in existing ontologies were identified, such as:
+
+1. a physical object is an amount of matter (Pangloss)
+2. an amount of matter is a physical object (WordNet)
+
+This striking dissimilarity poses a difficult integration problem, since the standard approach of generalizing overlapping concepts would not work, and shows that even the most experienced modelers need some guidance for using subsumption consistently.
+
+In this paper we show how a formal ontology of unary properties (corresponding to concepts in taxonomies) can help using the subsumption relation in a disciplined way. This formal ontology is based on some meta-properties built around the fundamental philosophical notions of rigidity, identity, unity, and dependence. These meta-properties impose some constraints on the subsumption relation that clarify many misconceptions about taxonomies – misconceptions that normally turn taxonomies into a tangled mess. We discuss these misconceptions by means of real examples, and show how our analysis can bring true order to taxonomies, facilitating their understanding, comparison and integration. This is a first step towards a general methodology for ontology-driven conceptual analysis (ODCA) which combines the established tradition of formal ontology in Philosophy with the needs of information systems design.
+
+The Formal Tools of Ontological Analysis
+
+Our methodology is based on four fundamental ontological notions, which will be discussed in this section: identity, unity, rigidity, and dependence. We shall represent the behavior of a property with respect to these notions by means of a set of meta-properties. Our goal is to show how these meta-properties impose some constraints on the way subsumption is used to model a domain.
+
+Preliminaries
+
+Let's assume we have a first-order language L_0 (the modeling language) whose intended domain is the world to be modeled, and another first order language L_1 (the meta-language) whose constant symbols are the predicates of L_0. Our meta-properties will be represented by predicate symbols of L_1. Primitive meta-properties will correspond to axiom schemes of L_0. When a certain axiom scheme holds in L_0 for a certain property, then the corresponding meta-property holds in L_1. This correspondence can be seen as a system of reflection rules between L_0 and L_1, which allow us to define a particular meta-property in our meta-language, avoiding a second-order logical definition. Meta-properties will be used as analysis tools to characterize the ontological nature of properties in L_0, and will always be defined with respect to a given conceptualization.
+
+We shall denote primitive meta-properties by bolded letters preceded by the sign "+", "-" or "~" corresponding to carrying the meta-property, not carrying the meta-property, and anti the meta-property. The latter will be used to denote special restrictions that are stronger than the simple negation, and will be described in more detail, when relevant, for each meta-property. We use the notation M to indicate that the property has the meta-property M.
+
+We shall furthermore adopt a first order logic with identity. This will be occasionally extended to a simple temporal logic, where all predicates are temporally indexed by means of an extra argument. If the time argument is omitted for a certain predicate phi, then the predicate is assumed to be time invariant, that is forall t phi(x,t) iff phi(x,t'). Note that the identity relation will be assumed as time invariant: if two things are identical, they are identical forever. This means that Leibniz's rule holds with no exceptions.
+
+We also adopt a time-indexed mereological relation P(x,y,t), meaning that x is a (proper or improper) part of y at time t, satisfying the minimal set of axioms and definitions (adapted from (Simons, 1987), p. 362) shown in Table 1.
+
+Our domain of quantification will be that of possibilia. That is, the extension of predicates will not be limited to what exists in the actual world, but to what exists in any possible world (Lewis, 1983). For example, a predicate like "Unicorn" will not be empty in our world, although no instance has actual existence there. Actual existence is therefore different from existential quantification ("logical existence"), and will be represented by the temporally indexed predicate E(x,t), meaning that x has actual existence at time t (Hirst, 1991).
+
+Finally, in order to avoid trivial cases in our meta-property definitions, we shall implicitly assume the property variables as restricted to discriminating properties (Guarino, Carrara & Giaretta, 1994), i.e. properties P such that possibly((some x(P(x))) and (some x(not P(x)))).
+
+PP(x,y,t) =def P(x,y,t) and not x=y (proper part)
+O(x,y,t) =def some z(P(z,x,t) and P(z,y,t)) (overlap)
+P(x,y,t) implies E(x,t) and E(y,t) (actual existence of parts)
+P(x,y,t) and P(y,x,t) implies x=y (antisymmetry)
+P(x,y,t) and P(y,z,t) implies P(x,z,t) (transitivity)
+PP(x,y,t) implies some z(PP(z,y,t) and not O(z,x,t)) (weak supplementation)
+
+Table 1. Axiomatization of the part relation.
+
+The Basic Notions
+
+The notion of identity is at the core of our methodology. Despite its fundamental importance in Philosophy, it has been slow in making its way into the practice of conceptual modeling, although it has been recognized from time to time by various communities. In object-oriented languages, for example, uniquely identifying an object (as a collection of data) is critical, in particular when a system has persistence or distributed components (Wieringa, De Jonge & Spruit, 1994). In databases, globally unique id's have been introduced into most commercial systems to address this issue. These solutions approach the notion of identity we use here, but do not account for it completely, as they merely provide a framework for identifying unique descriptions and not for understanding the nature of the identity relationship that holds among the entities they describe.
+
+Understanding the distinctions and similarities between identity and unity appears to be of crucial importance. These notions are different, albeit closely related and often confused under a generic notion of identity. Strictly speaking, identity is related to the problem of distinguishing a specific instance of a certain class from other instances by means of a characteristic property, which is unique for it (that whole instance). Unity, on the other hand, is related to the problem of distinguishing the parts of an instance from the rest of the world by means of a unifying relation that binds them together (not involving anything else). For example, asking "Is that my dog?" would be a problem of identity, whereas asking "is the collar part of my dog?" would be a problem of unity.
+
+Both notions encounter problems when time is involved. The classical one is that of identity through change: in order to account for common sense, we need to admit that an individual may remain the same while exhibiting different properties at different times. But which properties can change, and which must not? And how can we reidentify an instance of a certain property after some time? The former issue leads to the notion of rigidity, discussed below, while the latter is related to the distinction between synchronic and diachronic identity. An extensive analysis of these issues in the context of conceptual modeling has been made elsewhere (Guarino & Welty, 2000).
+
+Finally, it is important to note that, while we use examples to clarify the notions central to our analysis, the examples are not the point of this paper. The everyday use of these analysis tools ultimately depend on the assumptions resulting from our conceptualization of the world (Guarino, 1998). For example, the decision as to whether a cat remains the same cat after it loses its tail, or whether a statue is identical with the marble it is made of, are ultimately the result of our sensory system, our culture, etc. The aim of the present analysis is to clarify the formal tools that can both make such assumptions explicit, and reveal the logical consequences of them. When we say, e.g. that "having the same fingerprint" may be considered an identity criterion for PERSON, we do not mean to claim this is the universal identity criterion for PERSONs, but that if this were to be taken as an identity criterion in some conceptualization, what would that mean for the property, for its instances, and its relationships to other properties?
+
+Unity
+
+Before addressing what it means for a certain property to carry a unity condition (UC), we must first clarify what it means for a certain object to have a UC, that is to be a whole.
+
+Definition 9 Let omega be an equivalence relation. At a given time t, an object x is a contingent whole under omega if:
+
+not(P(y,x,t) and P(z,x,t) and omega(z,y,t))     (7)
+forall y(P(y,x,t) implies (forall z(P(z,x,t) iff omega(z,y,t))))     (8)
+
+We can read the above definition as follows: at time t, each part of x must be bound by omega to all other parts and to nothing else. (7) is a non-triviality condition on omega, that avoids considering any mereological sum as a contingent whole. (8) expresses a condition of maximal self-connectedness according to a suitable relation of "generalized connection," omega.
+
+Depending on the ontological nature of such a generalized connection relation, we may distinguish three main kinds of unity for concrete entities (i.e., those having a spatio-temporal location):
+
+• Topological unity: based on some kind of topological connection (a piece of coal, a lump of coal)
+• Morphological unity: based on shape (a ball, a constellation)
+• Functional unity (a hammer, a bikini)
+
+As the examples show, nothing prevents a whole from having parts that are themselves wholes (with a different UC). This can be the foundation of a theory of pluralities, which is however out of this paper's scope.
+
+We define a stronger notion of whole by assuming that a UC must hold for an object throughout its existence, i.e. by assuming unity as an essential property:
+
+Definition 10 Let omega be an equivalence relation. An object x is an intrinsic whole under omega if, at any time where x exists, it is a contingent whole under omega.
+
+An important remark is that, if an object is always atomic (i.e., it has no proper parts), then it is an intrinsic whole under the identity relation. We are now in the position to state the following:
+
+Definition 11 A property phi carries a unity condition (+U) iff there exists an equivalence relation omega such that all its instances are intrinsic wholes under omega.
+
+Notice that the above definition does not imply a second order existential quantification in order to get the relation omega: simply, if such relation is part of our ontology, then phi is +U. It is important to make clear that carrying a UC does not imply carrying a necessary IC. This is due to the way Definition 2 is formulated. To see that, suppose that phi carries a UC. We may think that the persistence of such condition across time could be a good candidate for a necessary IC for phi, since it satisfies (3). However, it fails to satisfy (4), and does not qualify as a necessary identity condition: thus, a UC is a persistence condition, but not an identity condition.
+
+As with rigidity, in some situations it maybe important to distinguish properties that do not carry a common UC for all its instances, from properties all of whose instances are not intrinsic wholes. As we shall see, an example of the former kind may be Legal Agent, all of whose instances are intrinsic wholes (some people, some companies), however there is not a single relation omega for all of them (since persons and companies may have different UCs). Amount of Matter is usually an example of the latter kind, since none of its instances can be intrinsic wholes. Therefore we define:
+
+Definition 12 A property has anti-unity (~U) if every instance of the property is not an intrinsic whole.
+
+Of course, ~U implies -U.
+
+Unity constraints
+
++U can't subsume -U     (12)
+~U can't subsume +U     (13)
+Properties with incompatible UCs are disjoint.     (14)
+
+Again, constraints ((12)-(13)) trivially follow from our definitions. As an example of (13), suppose we wonder if VASE is subsumed by AMOUNT OF CLAY. We may think of a vase as an amount of clay that has "just" the property of being a whole, satisfying a suitable UC for vases. In this case however it would not be an intrinsic whole, since it would remain the same amount of clay after the vase is crashed. This analysis of UCs brings to light a very common misuse of the subsumption relation, the fact is that vases are constituted of amounts of clay, not subsumed by them.
+
+Assumptions
+
+Finally, we make the following assumptions regarding identity, adapted from (Lowe, 1989):
+
+• Sortal Individuation. Every domain element must instantiate some property carrying an IC (+I). In this way we satisfy Quine's dictum "No entity without identity" (1969).
+
+• Sortal Expandability. If two entities (instances of different properties) are the same, they must be instances of a property carrying a condition for their identity.

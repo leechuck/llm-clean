@@ -1,0 +1,38 @@
+Constraints and Assumptions
+
+Let us now discuss the constraints that follow from our definitions. We distinguish between four kinds of constraints, which are largely overlooked in many practical cases (Guarino, 1999). Concrete examples will be discussed at the end of this paper. In the following, we take phi and psi to be arbitrary properties.
+
+Rigidity constraints
+
+~R can't subsume +R     (9)
+
+This constraint follows immediately from the definitions reported in Table 2. As we shall see, this means that, if PERSON+R and AGENT~R, the latter cannot subsume the former.
+
+Identity constraints
+
++I can't subsume -I     (10)
+Properties with incompatible ICs are disjoint.     (11)
+
+The first constraint follows immediately from our definitions, while the second one deserves some comment. An important point is the difference between different and incompatible ICs, related to the fact that they can be inherited and specialized along taxonomies. Consider the domain of abstract geometrical figures, for example, where the property POLYGON subsumes TRIANGLE. A necessary and sufficient IC for polygons is, "Having the same edges and the same angles". On the other hand, an additional necessary and sufficient IC for triangles is, "Having two edges and their internal angle in common" (note that this condition is only-necessary for polygons). So the two properties have different ICs (although they have one IC in common), but their extensions are not disjoint. On the other hand, consider AMOUNT OF MATTER and PERSON. If we admit mereological extensionality for the former but not for the latter (since persons can replace their parts), they have incompatible ICs, so they must be disjoint (in this case, we can't say that a person is an amount of matter).
+
+Unity constraints
+
++U can't subsume -U     (12)
+~U can't subsume +U     (13)
+Properties with incompatible UCs are disjoint.     (14)
+
+Again, constraints ((12)-(13)) trivially follow from our definitions. As an example of (13), suppose we wonder if VASE is subsumed by AMOUNT OF CLAY. We may think of a vase as an amount of clay that has "just" the property of being a whole, satisfying a suitable UC for vases. In this case however it would not be an intrinsic whole, since it would remain the same amount of clay after the vase is crashed. This analysis of UCs brings to light a very common misuse of the subsumption relation, the fact is that vases are constituted of amounts of clay, not subsumed by them.
+
+Dependence constraints
+
++D can't subsume -D     (15)
+
+This constraint trivially follows from our definitions.
+
+Assumptions
+
+Finally, we make the following assumptions regarding identity, adapted from (Lowe, 1989):
+
+• Sortal Individuation. Every domain element must instantiate some property carrying an IC (+I). In this way we satisfy Quine's dictum "No entity without identity" (1969).
+
+• Sortal Expandability. If two entities (instances of different properties) are the same, they must be instances of a property carrying a condition for their identity.

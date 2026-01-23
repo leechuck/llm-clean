@@ -1,0 +1,115 @@
+Introduction
+
+Ontologies are becoming increasingly popular in practice, and the number of poor quality ontologies have made clear the need for a principled methodology for building them. Perhaps the most common problem we have seen in practice with ontologies is that, while they are expected to bring order and structure to information, their taxonomic structure is often poor and confusing. This is typically exemplified by the unrestrained use of subsumption to accomplish a variety of reasoning and representation tasks. For example, in previous work (Guarino, 1999) several unclear uses of the is-a relation in existing ontologies were identified, such as:
+
+1. a physical object is an amount of matter (Pangloss)
+2. an amount of matter is a physical object (WordNet)
+
+This striking dissimilarity poses a difficult integration problem, since the standard approach of generalizing overlapping concepts would not work, and shows that even the most experienced modelers need some guidance for using subsumption consistently.
+
+In this paper we show how a formal ontology of unary properties (corresponding to concepts in taxonomies) can help using the subsumption relation in a disciplined way. This formal ontology is based on some meta-properties built around the fundamental philosophical notions of rigidity, identity, unity, and dependence. These meta-properties impose some constraints on the subsumption relation that clarify many misconceptions about taxonomies – misconceptions that normally turn taxonomies into a tangled mess. We discuss these misconceptions by means of real examples, and show how our analysis can bring true order to taxonomies, facilitating their understanding, comparison and integration. This is a first step towards a general methodology for ontology-driven conceptual analysis (ODCA) which combines the established tradition of formal ontology in Philosophy with the needs of information systems design.
+
+The Formal Tools of Ontological Analysis
+
+Our methodology is based on four fundamental ontological notions, which will be discussed in this section: identity, unity, rigidity, and dependence. We shall represent the behavior of a property with respect to these notions by means of a set of meta-properties. Our goal is to show how these meta-properties impose some constraints on the way subsumption is used to model a domain.
+
+Preliminaries
+
+Let's assume we have a first-order language L_0 (the modeling language) whose intended domain is the world to be modeled, and another first order language L_1 (the meta-language) whose constant symbols are the predicates of L_0. Our meta-properties will be represented by predicate symbols of L_1. Primitive meta-properties will correspond to axiom schemes of L_0. When a certain axiom scheme holds in L_0 for a certain property, then the corresponding meta-property holds in L_1. This correspondence can be seen as a system of reflection rules between L_0 and L_1, which allow us to define a particular meta-property in our meta-language, avoiding a second-order logical definition. Meta-properties will be used as analysis tools to characterize the ontological nature of properties in L_0, and will always be defined with respect to a given conceptualization.
+
+We shall denote primitive meta-properties by bolded letters preceded by the sign "+", "-" or "~" corresponding to carrying the meta-property, not carrying the meta-property, and anti the meta-property. The latter will be used to denote special restrictions that are stronger than the simple negation, and will be described in more detail, when relevant, for each meta-property. We use the notation M to indicate that the property has the meta-property M.
+
+We shall furthermore adopt a first order logic with identity. This will be occasionally extended to a simple temporal logic, where all predicates are temporally indexed by means of an extra argument. If the time argument is omitted for a certain predicate phi, then the predicate is assumed to be time invariant, that is forall t phi(x,t) iff phi(x,t'). Note that the identity relation will be assumed as time invariant: if two things are identical, they are identical forever. This means that Leibniz's rule holds with no exceptions.
+
+We also adopt a time-indexed mereological relation P(x,y,t), meaning that x is a (proper or improper) part of y at time t, satisfying the minimal set of axioms and definitions (adapted from (Simons, 1987), p. 362) shown in Table 1.
+
+Our domain of quantification will be that of possibilia. That is, the extension of predicates will not be limited to what exists in the actual world, but to what exists in any possible world (Lewis, 1983). For example, a predicate like "Unicorn" will not be empty in our world, although no instance has actual existence there. Actual existence is therefore different from existential quantification ("logical existence"), and will be represented by the temporally indexed predicate E(x,t), meaning that x has actual existence at time t (Hirst, 1991).
+
+Finally, in order to avoid trivial cases in our meta-property definitions, we shall implicitly assume the property variables as restricted to discriminating properties (Guarino, Carrara & Giaretta, 1994), i.e. properties P such that possibly((some x(P(x))) and (some x(not P(x)))).
+
+PP(x,y,t) =def P(x,y,t) and not x=y (proper part)
+O(x,y,t) =def some z(P(z,x,t) and P(z,y,t)) (overlap)
+P(x,y,t) implies E(x,t) and E(y,t) (actual existence of parts)
+P(x,y,t) and P(y,x,t) implies x=y (antisymmetry)
+P(x,y,t) and P(y,z,t) implies P(x,z,t) (transitivity)
+PP(x,y,t) implies some z(PP(z,y,t) and not O(z,x,t)) (weak supplementation)
+
+Table 1. Axiomatization of the part relation.
+
+The Basic Notions
+
+The notion of identity is at the core of our methodology. Despite its fundamental importance in Philosophy, it has been slow in making its way into the practice of conceptual modeling, although it has been recognized from time to time by various communities. In object-oriented languages, for example, uniquely identifying an object (as a collection of data) is critical, in particular when a system has persistence or distributed components (Wieringa, De Jonge & Spruit, 1994). In databases, globally unique id's have been introduced into most commercial systems to address this issue. These solutions approach the notion of identity we use here, but do not account for it completely, as they merely provide a framework for identifying unique descriptions and not for understanding the nature of the identity relationship that holds among the entities they describe.
+
+Understanding the distinctions and similarities between identity and unity appears to be of crucial importance. These notions are different, albeit closely related and often confused under a generic notion of identity. Strictly speaking, identity is related to the problem of distinguishing a specific instance of a certain class from other instances by means of a characteristic property, which is unique for it (that whole instance). Unity, on the other hand, is related to the problem of distinguishing the parts of an instance from the rest of the world by means of a unifying relation that binds them together (not involving anything else). For example, asking "Is that my dog?" would be a problem of identity, whereas asking "is the collar part of my dog?" would be a problem of unity.
+
+Both notions encounter problems when time is involved. The classical one is that of identity through change: in order to account for common sense, we need to admit that an individual may remain the same while exhibiting different properties at different times. But which properties can change, and which must not? And how can we reidentify an instance of a certain property after some time? The former issue leads to the notion of rigidity, discussed below, while the latter is related to the distinction between synchronic and diachronic identity. An extensive analysis of these issues in the context of conceptual modeling has been made elsewhere (Guarino & Welty, 2000).
+
+Finally, it is important to note that, while we use examples to clarify the notions central to our analysis, the examples are not the point of this paper. The everyday use of these analysis tools ultimately depend on the assumptions resulting from our conceptualization of the world (Guarino, 1998). For example, the decision as to whether a cat remains the same cat after it loses its tail, or whether a statue is identical with the marble it is made of, are ultimately the result of our sensory system, our culture, etc. The aim of the present analysis is to clarify the formal tools that can both make such assumptions explicit, and reveal the logical consequences of them. When we say, e.g. that "having the same fingerprint" may be considered an identity criterion for PERSON, we do not mean to claim this is the universal identity criterion for PERSONs, but that if this were to be taken as an identity criterion in some conceptualization, what would that mean for the property, for its instances, and its relationships to other properties?
+
+Identity
+
+In the philosophical literature, an identity condition (IC) for a arbitrary property phi is usually defined as a suitable relation rho satisfying the following formula:
+
+forall x,y((phi(x) and phi(y)) implies (rho(x,y) iff x = y))     (1)
+
+Since identity is an equivalence relation, it follows that rho restricted to phi must also be an equivalence relation. For example, the property PERSON can be seen as carrying an IC if relations like having-the-same-SSN or having-the-same-fingerprints are assumed to satisfy (1).
+
+As discussed in more detail elsewhere (Guarino & Welty, 2000), the above formulation has some problems, in our opinion. The first problem is related to the need of distinguishing between supplying an IC and simply carrying an IC: it seems that non-rigid properties like STUDENT can only carry their ICs, inheriting those supplied by their subsuming rigid properties like PERSON. The intuition behind this is that, since the same person can be a student at different times in different schools, an IC allegedly supplied by STUDENT (say, having the same registration number) may be only local, within a certain studenthood experience. It would not supply therefore a "global" condition for identity, satisfying (1) only as a sufficient condition, not as a necessary one.
+
+The second problem regards the nature of the rho relation: what makes it an IC, and how can we index it with respect to time to account for the difference between synchronic and diachronic identity?
+
+Finally, deciding whether a property carries an IC may be difficult, since finding a rho that is both necessary and sufficient for identity is often hard, especially for natural kinds and artifacts.
+
+For these reasons, we introduce below a notion of identity conditions that have the following characteristics: i) they can only be supplied by rigid properties; ii) they reformulate the relation above in terms of a formula that explicitly takes two different times into account, allowing the distinction between synchronic (same time) and diachronic (different times) identity; iii) they can be only sufficient or only necessary.
+
+Definition 1 Let phi be a rigid property, and Gamma(x,y,t,t') a formula containing x,y,t,t' as the only free variables, such that
+
+not(forall xytt'(Gamma(x,y,t,t') iff x=y))     (2)
+
+We say that phi carries the IC Gamma iff one of the following conditions is verified:
+
+Definition 2 Gamma is a necessary IC carried by phi when:
+
+(E(x,t) and phi(x,t) and E(y,t') and phi(y,t') and x=y implies) Gamma(x,y,t,t'))     (3)
+
+not(forall xy((E(x,t) and phi(x,t) and E(y,t) and phi(y,t')) implies Gamma(x,y,t,t'))     (4)
+
+Definition 3 Gamma is a sufficient IC carried by phi when:
+
+(E(x,t) and phi(x,t) and E(y,t') and phi(y,t') and Gamma(x,y,t,t')) implies x=y     (5)
+some xytt'(Gamma(x,y,t,t')).     (6)
+
+In the formulas above, (2) guarantees that Gamma is bound to identity under a certain sortal, and not to arbitrary identity, (4) is needed to guarantee that the last conjunct in (3) is relevant and not tautological, and (6) ensures that Gamma is not trivially false.
+
+ICs are "inherited" along a hierarchy of properties, in the sense that, if phi subsumes psi and, for example, Gamma is a necessary IC for psi, then (3) above will hold for phi replacing psi.
+
+Definition 4 A non-rigid property carries an IC Gamma iff it is subsumed by a rigid property carrying Gamma.
+
+Definition 5 Any property carrying an IC is marked with the meta-property +I (-I otherwise).
+
+Definition 6 A property phi supplies an IC Gamma iff i) it is rigid; ii) it carries Gamma; and iii) Gamma is not carried by all the properties subsuming phi. This means that, if phi inherits different (but compatible) ICs from multiple properties, it still counts as supplying an IC.
+
+1. Note that this is not a second order quantification, since the properties we are talking of are those fixed within a certain conceptualization.
+
+Definition 7 Any property supplying an IC is marked with the meta-property +O (-O otherwise). The letter "O" is a mnemonic for "own identity".
+
+From the above definitions, it is obvious that +O implies +I and +R. For example, both PERSON and STUDENT do carry identity (they are therefore +I), but only the former supplies it (+O). Supplying an IC is analogous to defining the equality predicate for a class in an object-oriented language, except that ICs can not be "overridden" by a sub-property, merely augmented. See the "Identity constraints" section below for further discussion of this.
+
+Definition 8 Any property carrying an IC (+I) is called a sortal (Strawson, 1959).
+
+Notice that to recognize that a property is a sortal we are not forced to know which IC it carries: as we shall see, distinguishing between sortals and non-sortals is often enough to start bringing order to taxonomies.
+
+Identity constraints
+
++I can't subsume -I     (10)
+Properties with incompatible ICs are disjoint.     (11)
+
+The first constraint follows immediately from our definitions, while the second one deserves some comment. An important point is the difference between different and incompatible ICs, related to the fact that they can be inherited and specialized along taxonomies. Consider the domain of abstract geometrical figures, for example, where the property POLYGON subsumes TRIANGLE. A necessary and sufficient IC for polygons is, "Having the same edges and the same angles". On the other hand, an additional necessary and sufficient IC for triangles is, "Having two edges and their internal angle in common" (note that this condition is only-necessary for polygons). So the two properties have different ICs (although they have one IC in common), but their extensions are not disjoint. On the other hand, consider AMOUNT OF MATTER and PERSON. If we admit mereological extensionality for the former but not for the latter (since persons can replace their parts), they have incompatible ICs, so they must be disjoint (in this case, we can't say that a person is an amount of matter).
+
+Assumptions
+
+Finally, we make the following assumptions regarding identity, adapted from (Lowe, 1989):
+
+• Sortal Individuation. Every domain element must instantiate some property carrying an IC (+I). In this way we satisfy Quine's dictum "No entity without identity" (1969).
+
+• Sortal Expandability. If two entities (instances of different properties) are the same, they must be instances of a property carrying a condition for their identity.
