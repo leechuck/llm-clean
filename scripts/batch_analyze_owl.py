@@ -41,8 +41,12 @@ def main():
     parser.add_argument("--format", choices=["tsv", "json"], default="tsv", help="Output format (tsv or json).")
     parser.add_argument("--output", help="Output file path (default: stdout).")
     parser.add_argument("--model",
-                       default="google/gemini-3-flash-preview",
-                       help="OpenRouter model ID. Supported: google/gemini-3-flash-preview (default), anthropic/claude-sonnet-4-5-20250929")
+                       default="gemini-3-flash-preview",
+                       help="""
+                                OpenRouter model ID. Supported: google/gemini-3-flash-preview (default), anthropic/claude-sonnet-4-5. \n
+                                You can also use 'gemini' or 'anthropic' as shortcuts for the default models.
+                            """
+                        )
     
     args = parser.parse_args()
     
