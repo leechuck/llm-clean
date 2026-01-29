@@ -26,10 +26,10 @@ class OntologyAnalyzer:
         # Set up defaul models for Anthropic and Gemini
         if model == "antropic":
             model = "anthropic/claude-sonnet-4-5"
-            self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
+            self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY") or os.getenv("OPENROUTER_API_KEY")
         elif model == "gemeni":
             model = "google/gemini-3-flash-preview"
-            self.api_key = api_key or os.environ.get("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
+            self.api_key = api_key or os.environ.get("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
         else:
             model = model
             self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
