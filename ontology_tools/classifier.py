@@ -3,13 +3,17 @@ import json
 import requests
 import re
 import time
+from dotenv import load_dotenv
 
 class OntologyClassifier:
     def __init__(self, api_key=None, model="openai/gpt-4o"):
+        # Load environment variables from .env file
+        load_dotenv()
+
         self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
         self.model = model
         self.api_url = "https://openrouter.ai/api/v1/chat/completions"
-        
+
         if not self.api_key:
             raise ValueError("OPENROUTER_API_KEY environment variable not set or not provided.")
 
