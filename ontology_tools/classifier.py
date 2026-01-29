@@ -6,16 +6,42 @@ import time
 from dotenv import load_dotenv
 
 class OntologyClassifier:
-    def __init__(self, api_key=None, model="openai/gpt-4o"):
+    # Supported models for ontology classification
+    SUPPORTED_MODELS = [
+        "gemeni",
+        "antropic",
+        "google/gemini-3-flash-preview",
+        "anthropic/claude-sonnet-4-5-20250929",
+        "openai/gpt-4o"
+    ]
+
+    def __init__(self, api_key=None, model="gemeni"):
         # Load environment variables from .env file
         load_dotenv()
 
-        self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
+        # Validate model
+        if model not in self.SUPPORTED_MODELS:
+            raise ValueError(
+                f"Unsupported model: {model}. "
+                f"Supported models are: {', '.join(self.SUPPORTED_MODELS)}"
+            )
+
+        # Set up default models for Anthropic and Gemini
+        if model == "antropic":
+            model = "anthropic/claude-sonnet-4-5"
+            self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
+        elif model == "gemeni":
+            model = "google/gemini-3-flash-preview"
+            self.api_key = api_key or os.environ.get("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
+        else:
+            model = model
+            self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
+
         self.model = model
         self.api_url = "https://openrouter.ai/api/v1/chat/completions"
 
         if not self.api_key:
-            raise ValueError("OPENROUTER_API_KEY environment variable not set or not provided.")
+            raise ValueError("api key environment variable not set or not provided.")
 
     def _call_llm(self, system_prompt, user_content):
         payload = {

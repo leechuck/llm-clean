@@ -28,11 +28,12 @@ OPENROUTER_API_KEY=your_openrouter_api_key_here
 
 **Dependencies**: Install via `pip install -r requirements.txt` (requires: rdflib, requests, python-dotenv, tqdm)
 
-**Supported Models** (OntologyAnalyzer):
-- `gemeni` - Shorthand for `google/gemini-3-flash-preview` (default), uses GOOGLE_API_KEY or GEMINI_API_KEY
+**Supported Models**:
+- `gemeni` - Shorthand for `google/gemini-3-flash-preview` (default for both OntologyAnalyzer and OntologyClassifier), uses GOOGLE_API_KEY or GEMINI_API_KEY
 - `antropic` - Shorthand for `anthropic/claude-sonnet-4-5`, uses ANTHROPIC_API_KEY
 - `google/gemini-3-flash-preview` - Full model name, uses OPENROUTER_API_KEY
 - `anthropic/claude-sonnet-4-5-20250929` - Full model name, uses OPENROUTER_API_KEY
+- `openai/gpt-4o` - Full model name (OntologyClassifier only), uses OPENROUTER_API_KEY
 
 ## Common Commands
 
@@ -63,8 +64,14 @@ python3 scripts/batch_analyze_owl.py path/to/ontology.owl --format json --output
 
 Run the full classification experiment:
 ```bash
+# Uses default "gemeni" model
+python3 experiments/stevens_repro/scripts/run_experiment.py
+
+# Test on first 5 terms with Anthropic Claude (shorthand)
+python3 experiments/stevens_repro/scripts/run_experiment.py --limit 5 --model antropic
+
+# Use OpenAI GPT-4o
 python3 experiments/stevens_repro/scripts/run_experiment.py --model openai/gpt-4o
-python3 experiments/stevens_repro/scripts/run_experiment.py --limit 5  # Test on first 5 terms
 ```
 
 Convert results to TSV format:
@@ -89,13 +96,20 @@ python3 experiments/stevens_repro/scripts/results_to_tsv.py
 - All models use OpenRouter API endpoint regardless of shorthand vs full name
 - Includes robust JSON parsing with trailing comma cleanup
 
-**`OntologyClassifier`** (classifier.py:7-115)
+**`OntologyClassifier`** (classifier.py:8-125)
 - Implements two classification strategies:
   - **One-shot**: Present all ontology classes at once, select best match
   - **Hierarchical**: Traverse ontology tree from root, selecting best subclass at each level
-- Default model: `openai/gpt-4o`
-- Uses python-dotenv to load API key from `.env` file
+- Default model: `gemeni` (shorthand that resolves to `google/gemini-3-flash-preview`)
+- Supports shorthand model names with native API key variables:
+  - `gemeni` → uses GOOGLE_API_KEY or GEMINI_API_KEY
+  - `antropic` → uses ANTHROPIC_API_KEY, resolves to `anthropic/claude-sonnet-4-5`
+- Full model names (e.g., `google/gemini-3-flash-preview`, `anthropic/claude-sonnet-4-5-20250929`, `openai/gpt-4o`) use OPENROUTER_API_KEY
+- Model validation enforced at initialization (raises ValueError for unsupported models)
+- Uses python-dotenv to load API keys from `.env` file
+- All models use OpenRouter API endpoint regardless of shorthand vs full name
 - Includes exponential backoff for rate limiting (429 errors)
+- Robust JSON parsing with trailing comma cleanup
 
 ### Stevens Reproduction Structure
 
