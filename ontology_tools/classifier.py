@@ -15,7 +15,7 @@ class OntologyClassifier:
         "openai/gpt-4o"
     ]
 
-    def __init__(self, api_key=None, model="gemeni"):
+    def __init__(self, api_key=None, model="gemini"):
         # Load environment variables from .env file
         load_dotenv()
 
@@ -27,10 +27,10 @@ class OntologyClassifier:
             )
 
         # Set up default models for Anthropic and Gemini
-        if model == "antropic":
+        if model == "anthropic":
             model = "anthropic/claude-sonnet-4-5"
             self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY") or os.getenv("OPENROUTER_API_KEY")
-        elif model == "gemeni":
+        elif model == "gemini":
             model = "google/gemini-3-flash-preview"
             self.api_key = api_key or os.environ.get("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
         else:

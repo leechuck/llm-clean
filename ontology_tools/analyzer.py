@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 class OntologyAnalyzer:
     # Supported models for ontological analysis
     SUPPORTED_MODELS = [
-        "gemeni",
-        "antropic",
+        "gemini",
+        "anthropic",
         "google/gemini-3-flash-preview",
         "anthropic/claude-sonnet-4-5-20250929"
     ]
@@ -24,10 +24,10 @@ class OntologyAnalyzer:
                 f"Supported models are: {', '.join(self.SUPPORTED_MODELS)}"
             )
         # Set up defaul models for Anthropic and Gemini
-        if model == "antropic":
+        if model == "anthropic":
             model = "anthropic/claude-sonnet-4-5"
             self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY") or os.getenv("OPENROUTER_API_KEY")
-        elif model == "gemeni":
+        elif model == "gemini":
             model = "google/gemini-3-flash-preview"
             self.api_key = api_key or os.environ.get("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
         else:
