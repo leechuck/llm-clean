@@ -12,7 +12,9 @@ def main():
     parser.add_argument("term", help="The entity term to analyze.")
     parser.add_argument("--desc", help="Additional description of the entity.")
     parser.add_argument("--usage", help="Example usage context.")
-    parser.add_argument("--model", default="openai/gpt-4o", help="OpenRouter model ID (default: openai/gpt-4o).")
+    parser.add_argument("--model",
+                       default="google/gemini-3-flash-preview",
+                       help="OpenRouter model ID. Supported: google/gemini-3-flash-preview (default), anthropic/claude-sonnet-4-5-20250929")
     
     args = parser.parse_args()
     

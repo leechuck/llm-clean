@@ -11,9 +11,28 @@ This repository contains tools for ontological analysis using LLMs, with two mai
 
 ## Environment Setup
 
-**API Key Required**: All scripts require the `OPENROUTER_API_KEY` environment variable to be set.
+**API Keys**: The analyzer supports multiple API key configurations depending on the model used. Create a `.env` file in the project root:
 
-**Dependencies**: Install via `pip install -r requirements.txt` (requires: rdflib, requests, tqdm)
+```
+# For shorthand "gemeni" model (default)
+GOOGLE_API_KEY=your_google_api_key_here
+# OR
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# For shorthand "antropic" model
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+
+# For full model names (google/gemini-3-flash-preview, anthropic/claude-sonnet-4-5-20250929, etc.)
+OPENROUTER_API_KEY=your_openrouter_api_key_here
+```
+
+**Dependencies**: Install via `pip install -r requirements.txt` (requires: rdflib, requests, python-dotenv, tqdm)
+
+**Supported Models** (OntologyAnalyzer):
+- `gemeni` - Shorthand for `google/gemini-3-flash-preview` (default), uses GOOGLE_API_KEY or GEMINI_API_KEY
+- `antropic` - Shorthand for `anthropic/claude-sonnet-4-5`, uses ANTHROPIC_API_KEY
+- `google/gemini-3-flash-preview` - Full model name, uses OPENROUTER_API_KEY
+- `anthropic/claude-sonnet-4-5-20250929` - Full model name, uses OPENROUTER_API_KEY
 
 ## Common Commands
 
@@ -21,14 +40,23 @@ This repository contains tools for ontological analysis using LLMs, with two mai
 
 Analyze a single entity for ontological meta-properties:
 ```bash
+# Uses default "gemeni" model
 uv run scripts/analyze_entity.py "Student" --desc "A person enrolled in a university"
-uv run scripts/analyze_entity.py "Employee" --desc "Person working for organization" --model openai/gpt-4o
+
+# Use Anthropic Claude (shorthand)
+uv run scripts/analyze_entity.py "Employee" --desc "Person working for organization" --model antropic
+
+# Use full model name with OpenRouter
+uv run scripts/analyze_entity.py "Employee" --desc "Person working for organization" --model anthropic/claude-sonnet-4-5-20250929
 ```
 
 Batch analyze entities from an OWL file:
 ```bash
+# Uses default "gemeni" model
 python3 scripts/batch_analyze_owl.py path/to/ontology.owl --output results.tsv
-python3 scripts/batch_analyze_owl.py path/to/ontology.owl --format json --output results.json
+
+# Use Anthropic Claude (shorthand)
+python3 scripts/batch_analyze_owl.py path/to/ontology.owl --format json --output results.json --model antropic
 ```
 
 ### Stevens et al. Reproduction Experiment
@@ -48,17 +76,25 @@ python3 experiments/stevens_repro/scripts/results_to_tsv.py
 
 ### Core Library: `ontology_tools/`
 
-**`OntologyAnalyzer`** (analyzer.py:6-98)
+**`OntologyAnalyzer`** (analyzer.py:7-115)
 - Uses OpenRouter API to analyze entities for Guarino & Welty meta-properties
 - Returns JSON with properties (rigidity, identity, own_identity, unity, dependence), classification, and reasoning
-- Default model: `google/gemini-3-flash-preview`
-- Includes retry logic and robust JSON parsing
+- Default model: `gemeni` (shorthand that resolves to `google/gemini-3-flash-preview`)
+- Supports shorthand model names with native API key variables:
+  - `gemeni` → uses GOOGLE_API_KEY or GEMINI_API_KEY
+  - `antropic` → uses ANTHROPIC_API_KEY, resolves to `anthropic/claude-sonnet-4-5`
+- Full model names (e.g., `google/gemini-3-flash-preview`, `anthropic/claude-sonnet-4-5-20250929`) use OPENROUTER_API_KEY
+- Model validation enforced at initialization (raises ValueError for unsupported models)
+- Uses python-dotenv to load API keys from `.env` file
+- All models use OpenRouter API endpoint regardless of shorthand vs full name
+- Includes robust JSON parsing with trailing comma cleanup
 
-**`OntologyClassifier`** (classifier.py:7-109)
+**`OntologyClassifier`** (classifier.py:7-115)
 - Implements two classification strategies:
   - **One-shot**: Present all ontology classes at once, select best match
   - **Hierarchical**: Traverse ontology tree from root, selecting best subclass at each level
 - Default model: `openai/gpt-4o`
+- Uses python-dotenv to load API key from `.env` file
 - Includes exponential backoff for rate limiting (429 errors)
 
 ### Stevens Reproduction Structure

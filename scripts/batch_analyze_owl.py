@@ -40,7 +40,9 @@ def main():
     parser.add_argument("input_owl", help="Path to the input OWL file.")
     parser.add_argument("--format", choices=["tsv", "json"], default="tsv", help="Output format (tsv or json).")
     parser.add_argument("--output", help="Output file path (default: stdout).")
-    parser.add_argument("--model", default="openai/gpt-4o", help="OpenRouter model ID.")
+    parser.add_argument("--model",
+                       default="google/gemini-3-flash-preview",
+                       help="OpenRouter model ID. Supported: google/gemini-3-flash-preview (default), anthropic/claude-sonnet-4-5-20250929")
     
     args = parser.parse_args()
     
