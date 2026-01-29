@@ -14,8 +14,11 @@ def main():
     parser.add_argument("--usage", help="Example usage context.")
     parser.add_argument("--model",
                        default="google/gemini-3-flash-preview",
-                       help="OpenRouter model ID. Supported: google/gemini-3-flash-preview (default), anthropic/claude-sonnet-4-5-20250929")
-    
+                       help="""
+                                OpenRouter model ID. Supported: google/gemini-3-flash-preview (default), anthropic/claude-sonnet-4-5. \n
+                                You can also use 'gemini' or 'anthropic' as shortcuts for the default models.
+                            """
+                        )
     args = parser.parse_args()
     
     try:
