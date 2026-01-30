@@ -1,0 +1,309 @@
+term	uri	rigidity	identity	unity	dependence	classification	reasoning	error
+Butterfly	http://example.org/guarino-messy#Butterfly							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Natural Kind)"",
+  ""reasoning"": ""Butterfly is a rigid (+R) property because any instance that is a butterfly is essentially a butterfly in all possible worlds - a butterfly cannot cease to be a butterfly and remain the same individual. It carries identity (+I) and supplies its own identity criterion (+O) as a biological natural kind, with identity based on its organized biological structure and developmental lineage. Butterfly exhibits unity (+U) as instances are intrinsic wholes with integrated biological organization (body parts functionally connected). It is independent (-D) because individual butterflies exist as autonomous organisms without intrinsic existential dependence on other entities. As a substance sortal with +R, +O, +U properties, Butterfly qualifies as a Natural Kind category in the ontological framework.""
+}
+```"
+Red	http://example.org/guarino-messy#Red							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""-R"",
+    ""identity"": ""-I"",
+    ""own_identity"": ""-O"",
+    ""unity"": ""-U"",
+    ""dependence"": ""+D""
+  },
+  ""classification"": ""Quality"",
+  ""reasoning"": ""Red is a quality (color property) that is non-rigid (-R) because entities can gain or lose redness across possible worlds (e.g., an apple can be painted, ripen from green to red). It does not carry identity (-I, -O) because 'being red' does not provide criteria to distinguish one red thing from another - two red apples are distinguished by being apples, not by being red. Red is non-unifying (-U) as red things don't form intrinsic wholes merely by being red (a collection of red objects is just a collection). Red is dependent (+D) because redness cannot exist without being instantiated in some substrate - there is no free-floating redness, it must inhere in surfaces, objects, or light. As a quality/attribute, Red functions as a non-sortal property that characterizes but does not individuate entities.""
+}
+```"
+Food	http://example.org/guarino-messy#Food							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""-R"",
+    ""identity"": ""-I"",
+    ""own_identity"": ""-O"",
+    ""unity"": ""-U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Mixin"",
+  ""reasoning"": ""Food is a non-rigid property because entities can be food in some contexts but not in others (e.g., a plant may be food for herbivores but not for carnivores; bread is food when edible but not after it becomes inedible). It does not carry identity conditions - what makes something 'the same food' is determined by its underlying substance (apple, bread, meat), not by the property of being food itself. Food does not supply its own identity condition, as it relies on the identity of the underlying material or substance. Unity is non-unifying because food can be a whole item (an apple) or a portion/aggregate (a plate of rice). Dependence is independent in the formal sense - while food must be consumable by some organism conceptually, the physical instance (the apple, the grain) can exist independently of being consumed or of a consumer being present. Food is best classified as a Mixin - a non-rigid dispersive property that can apply to entities with different identity conditions across different contexts.""
+}
+```"
+Animal	http://example.org/guarino-messy#Animal							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Natural Kind (Sortal)"",
+  ""reasoning"": ""Animal is +R (Rigid) because any instance that is an animal is necessarily an animal in all possible worlds - an individual cannot cease being an animal while continuing to exist. It is +I (carries identity) and +O (supplies own identity) because 'Animal' provides intrinsic identity conditions based on biological organization, genetic constitution, and continuity of life. The property is +U (Unifying) as individual animals are paradigmatic examples of intrinsic wholes with functional and spatial unity - they have integrated biological systems forming complete organisms. Finally, Animal is -D (Independent) because animals are substances that exist independently without requiring external entities for their existence (they are not dependent particulars like qualities or moments). This classification makes Animal a prototypical Natural Kind Sortal.""
+}
+```"
+RedApple	http://example.org/guarino-messy#RedApple							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""~R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""-O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Phase"",
+  ""reasoning"": ""RedApple is a Phase (Anti-Rigid). An apple can be red at one time and not red at another (ripening/painting), so being red is not essential across all possible worlds (~R). It carries identity inherited from 'Apple' (+I) but doesn't supply its own identity condition (-O), as the identity comes from being an apple, not from being red. Instances are intrinsic wholes—individual apples (+U). Apples exist independently of being red (-D). This is a phased-sortal: a temporal/contingent restriction on the base sortal 'Apple'.""
+}
+```"
+Group	http://example.org/guarino-messy#Group							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""-R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""-U"",
+    ""dependence"": ""+D""
+  },
+  ""classification"": ""Category"",
+  ""reasoning"": ""Group is analyzed as follows: (1) Rigidity: -R (Non-Rigid) because an entity can become a group when members join together and cease being a group when dispersed - membership is not essential in all possible worlds. (2) Identity: +I (Carries Identity) because groups have identity conditions based on their members and membership criteria. (3) Own Identity: +O (Supplies Identity) because Group supplies its own identity condition - what makes a group the same group over time involves criteria about membership, purpose, or composition. (4) Unity: -U (Non-Unifying) because a group is typically a collection of distinct members rather than an intrinsic whole - members maintain separate existence. (5) Dependence: +D (Dependent) because a group necessarily depends on its members for existence - without members, there is no group. Given -R and +I/+O, Group classifies as a Category - a non-rigid type that carries identity. It subsumes various rigid sortals (e.g., Committee, Team) and roles (e.g., Study Group, Working Group).""
+}
+```"
+Country	http://example.org/guarino-messy#Country							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Natural Kind or Category)"",
+  ""reasoning"": ""A Country is rigid (+R) because an entity that is a country must be a country in all possible worlds where it exists - if the United States ceased to be a country, it would cease to exist as that entity. It carries identity (+I) and supplies its own identity condition (+O) through criteria such as territorial sovereignty, recognized government, and international recognition. Countries exhibit unity (+U) as they constitute integrated wholes with defined territories, populations, and governance structures rather than mere aggregates. Countries are independent (-D) as they exist as sovereign entities without intrinsic dependence on other entities for their existence, though they may have external political or economic relations. This makes Country a sortal that provides criteria for identifying and distinguishing individual instances.""
+}
+```"
+AmountOfMatter	http://example.org/guarino-messy#AmountOfMatter							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""-U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Natural Kind)"",
+  ""reasoning"": ""AmountOfMatter is a rigid property (+R) because anything that is an amount of matter is essentially so across all possible worlds - matter cannot contingently be matter. It carries identity (+I) and supplies its own identity condition (+O) based on material constitution and physical properties (mass, composition, spatiotemporal continuity). However, amounts of matter do not necessarily form intrinsic wholes (-U) - they can be scattered, dispersed, or arbitrarily bounded portions without natural unity criteria. An amount of matter is independent (-D) as it does not intrinsically require other entities to exist; it is a fundamental ontological category. This makes AmountOfMatter a sortal, specifically a natural kind or substance sortal, as it provides essential classification and identity conditions for its instances.""
+}
+```"
+PhysicalObject	http://example.org/guarino-messy#PhysicalObject							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Natural Kind/Category)"",
+  ""reasoning"": ""PhysicalObject is +R (Rigid) because anything that is a physical object is essentially a physical object in all possible worlds - it cannot cease being physical while continuing to exist. It is +I (Carries Identity) because physical objects have identity conditions based on spatiotemporal continuity and material constitution. It is +O (Supplies Own Identity) because PhysicalObject provides its own global identity criterion - typically based on occupying space, having mass/matter, and spatiotemporal localization. It is +U (Unifying) because each physical object instance constitutes an intrinsic whole with structural unity and boundaries in space. It is -D (Independent) because physical objects can exist without intrinsically depending on other entities - they are foundational material entities. This combination (+R, +O, +U) classifies PhysicalObject as a Sortal, specifically a high-level natural kind or category that provides identity and unity criteria for its instances.""
+}
+```"
+GroupOfPeople	http://example.org/guarino-messy#GroupOfPeople							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""-R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""~U"",
+    ""dependence"": ""+D""
+  },
+  ""classification"": ""Category"",
+  ""reasoning"": ""GroupOfPeople is **non-rigid (-R)** because individuals can gain or lose membership in groups across different possible worlds - a person can be part of a group at one time and not at another. It **carries identity (+I)** and **supplies its own identity (+O)** through criteria such as membership composition, formation purpose, or organizational structure that distinguish one group from another. It exhibits **anti-unity (~U)** because a group is fundamentally a collection/aggregate of distinct individual persons rather than an intrinsic whole - the parts (people) maintain their separate identities and the group is their sum. It is **dependent (+D)** because a group cannot exist without its constituent members - there cannot be a group of people without actual people. The combination of non-rigidity with supplying identity makes this a **Category** in Guarino-Welty's taxonomy, representing a general classification that provides identity criteria but allows instances to change their membership status.""
+}
+```"
+LivingBeing	http://example.org/guarino-messy#LivingBeing							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Natural Kind)"",
+  ""reasoning"": ""LivingBeing is rigid (+R) because any instance that is a living being must be essentially so across all possible worlds - something cannot lose the property of being a living being and remain the same individual (death would terminate its existence as that individual). It carries identity (+I) and supplies its own identity criteria (+O) through biological/organic principles that distinguish one living being from another (e.g., continuous biological organization, metabolic processes). LivingBeing has unity (+U) as instances are intrinsic wholes with integrated biological systems, not mere aggregates. It is independent (-D) because living beings exist as autonomous entities without requiring intrinsic dependence on other specific entities (though they may have external dependencies like environment, they are not intrinsically founded on other particulars). This makes LivingBeing a sortal that provides principles of identity, individuation, and persistence for its instances.""
+}
+```"
+SocialEntity	http://example.org/guarino-messy#SocialEntity							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""-R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""-U"",
+    ""dependence"": ""+D""
+  },
+  ""classification"": ""Category"",
+  ""reasoning"": ""SocialEntity is a high-level category representing entities that exist through social construction and collective intentionality (e.g., organizations, institutions, social groups). **Rigidity (-R)**: Non-rigid because an entity can become or cease to be a social entity - a group of people can form an organization or dissolve it, while the individuals persist. **Identity (+I, +O)**: Carries and supplies identity through social recognition and institutional facts - what makes a corporation the same corporation over time is determined by social-legal frameworks, not physical continuity. **Unity (-U)**: Non-unifying because social entities can have various mereological structures - some are tightly integrated (a committee), others are loosely coupled aggregates (a social movement), and some are distributed (an online community). **Dependence (+D)**: Dependent because social entities intrinsically depend on cognitive agents for their existence through collective acceptance, recognition, or agreement - without people to recognize and participate in them, social entities cannot exist. As a Category, it's a non-rigid property that carries identity and subsumes various kinds of social constructs.""
+}
+```"
+Location	http://example.org/guarino-messy#Location							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""-U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Category)"",
+  ""reasoning"": ""Location is analyzed as a rigid property because any instance of a location must be a location in all possible worlds - a place cannot cease to be a location while continuing to exist. It carries identity (+I) as locations have identity conditions based on spatial coordinates or geographic boundaries. It supplies its own identity (+O) as locations are identified by their spatial properties independently of what occupies them. Unity is negative (-U) because locations are not necessarily intrinsic wholes - they can be arbitrarily bounded regions (e.g., 'the northwest corner of the room'). Dependence is negative (-D) as locations can exist independently - a geographic position exists regardless of whether anything occupies it. This makes Location a rigid sortal, specifically a Category, as it provides identity and essence across all instances throughout their existence.""
+}
+```"
+Fruit	http://example.org/guarino-messy#Fruit							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Natural Kind)"",
+  ""reasoning"": ""Fruit is analyzed as a botanical concept (the mature ovary of a flowering plant). Rigidity (+R): An instance that is a fruit is essentially a fruit across all possible worlds - an apple cannot cease being a fruit while continuing to exist as the same entity. Identity (+I) and Own Identity (+O): Fruit carries and supplies its own identity condition based on its biological origin and developmental structure (mature ovary containing seeds). Unity (+U): Each fruit is an intrinsic whole with clear spatial and functional boundaries - a single apple is a unified biological entity, not merely an aggregate. Dependence (-D): While fruits develop from flowers and depend on plants during formation, once mature, a fruit exists as an independent physical object that persists even when separated from the parent plant. This makes Fruit a rigid sortal (natural kind) with its own identity criteria and unity principle.""
+}
+```"
+Vertebrate	http://example.org/guarino-messy#Vertebrate							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Natural Kind)"",
+  ""reasoning"": ""Vertebrate is a biological taxonomic category referring to animals with a backbone/spinal column. RIGIDITY (+R): Being a vertebrate is essential - an organism cannot gain or lose a backbone across possible worlds; if something is a vertebrate, it is necessarily so throughout its existence. IDENTITY (+I) and OWN IDENTITY (+O): Vertebrate carries and supplies its own identity condition based on biological/anatomical structure (possession of vertebral column, specific body plan, developmental characteristics). This is a fundamental natural kind with intrinsic identity criteria. UNITY (+U): Individual vertebrates are intrinsic wholes - they are integrated organisms with systematic organization, not arbitrary sums of parts. DEPENDENCE (-D): Individual vertebrate organisms exist independently as complete entities, not requiring external entities for their existence (though they depend on environmental conditions, this is not the intrinsic dependence meant by +D). As a rigid property that supplies identity and unity, Vertebrate qualifies as a Sortal, specifically a Natural Kind in biological taxonomy.""
+}
+```"
+Caterpillar	http://example.org/guarino-messy#Caterpillar							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""~R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""-O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Phase"",
+  ""reasoning"": ""Caterpillar is a developmental phase in the life cycle of Lepidoptera (butterflies and moths). It is ~R (Anti-Rigid) because being a caterpillar is a temporary, essential characteristic of that life stage - an entity cannot remain a caterpillar across all possible worlds or times (it must either die or metamorphose). It carries identity (+I) inherited from the organism it is part of, but does not supply its own identity condition (-O) - the identity comes from being the same organism throughout metamorphosis. It has unity (+U) as caterpillars are intrinsic wholes with functionally integrated parts. It is independent (-D) as a caterpillar can exist without intrinsically depending on other entities. As an anti-rigid property with inherited identity and unity, it classifies as a Phase - a temporal stage in an organism's lifecycle.""
+}
+```"
+Person	http://example.org/guarino-messy#Person							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Natural Kind)"",
+  ""reasoning"": ""Person is a rigid property (+R) because an entity that is a person is necessarily a person in all possible worlds where it exists - you cannot cease being a person and continue to exist as the same entity. It carries identity (+I) and supplies its own identity condition (+O) based on spatio-temporal continuity and psychological/biological criteria that distinguish one person from another. Person exhibits unity (+U) as each instance is an intrinsic whole with clear boundaries - a person is not merely an aggregate of parts but an integrated organism. Finally, Person is independent (-D) as persons are substance-like entities that can exist without intrinsically depending on other entities (though they may causally depend on environment, they don't have the existential dependence characteristic of qualities or moments). This makes Person a paradigmatic Sortal, specifically a Natural Kind that provides identity, unity, and rigidity to its instances.""
+}
+```"
+LegalAgent	http://example.org/guarino-messy#LegalAgent							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""-R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""-O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Role"",
+  ""reasoning"": ""LegalAgent is a non-rigid property because an entity can gain or lose legal agency status (e.g., a person becomes a legal agent through authorization, or loses it when authorization expires). It carries identity (+I) inherited from its base kind (Person, Organization), but does not supply its own identity condition (-O) - a legal agent is identified as the person or organization playing that role. It has unity (+U) as legal agents are whole entities (individual persons or organizations acting as units). It is independent (-D) as the underlying entity (person/organization) can exist without being a legal agent. The non-rigid, anti-rigid nature where being a legal agent is not essential to any instance in all contexts, combined with carrying but not supplying identity, classifies this as a Role.""
+}
+```"
+Entity	http://example.org/guarino-messy#Entity							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""-I"",
+    ""own_identity"": ""-O"",
+    ""unity"": ""-U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Category"",
+  ""reasoning"": ""Entity is the most general, top-level universal in ontology. It is +R (Rigid) because everything that exists is necessarily an entity in all possible worlds - it's essential to all instances. It is -I (does not carry identity) because 'entity' is too broad to provide identity conditions; specific kinds of entities have their own ICs. Consequently, it is -O (does not supply own identity). It is -U (non-unifying) because entities can be either wholes or aggregates - the property itself doesn't enforce unity. It is -D (independent) as the notion of 'entity' doesn't intrinsically require dependence on other entities to exist. As a rigid, non-identity-carrying universal, Entity is classified as a Category - the highest level of abstraction that subsumes all sortals, roles, and other properties.""
+}
+```"
+Organization	http://example.org/guarino-messy#Organization							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""-U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Kind)"",
+  ""reasoning"": ""Organization is a rigid property because an entity cannot cease being an organization and remain the same entity - if something stops being organized as an organization, it ceases to exist as that organization (e.g., a dissolved company no longer exists). It carries identity (+I) and supplies its own identity condition (+O) through criteria like founding documents, legal registration, or constitutional structure that distinguish one organization from another. Organizations show non-unity (-U) because they are typically composed of distributed parts (members, departments, assets) that don't form intrinsic wholes - they're held together by social/legal bonds rather than physical unity. Organizations are independent (-D) because while they depend on members to function, this is not an intrinsic dependence - the organization as a legal/social entity can persist through complete member turnover, making the dependence extrinsic rather than intrinsic. As a +R/+O property, Organization qualifies as a Sortal Kind.""
+}
+```"
+Agent	http://example.org/guarino-messy#Agent							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Natural Kind/Category)"",
+  ""reasoning"": ""Agent is analyzed as a rigid property because anything that is an agent is essentially an agent across all possible worlds - the capacity for autonomous action and goal-directed behavior is essential to the entity's identity. It carries identity (+I) as agents are individuated by their autonomous nature and cognitive/volitional capacities. It supplies its own identity condition (+O) - being an agent provides a criterion for distinguishing one agent from another based on their autonomous existence and intentional states. Agent is unifying (+U) because instances must be intrinsic wholes capable of integrated goal-directed behavior - an agent cannot be an arbitrary sum of parts but must be a unified entity with coherent agency. Finally, agents are independent (-D) as they exist autonomously and do not intrinsically depend on other entities for their existence - their defining characteristic is precisely their capacity for independent action and self-determination.""
+}
+```"
+Apple	http://example.org/guarino-messy#Apple							"Error parsing JSON response from LLM.
+Raw output: ```json
+{
+  ""properties"": {
+    ""rigidity"": ""+R"",
+    ""identity"": ""+I"",
+    ""own_identity"": ""+O"",
+    ""unity"": ""+U"",
+    ""dependence"": ""-D""
+  },
+  ""classification"": ""Sortal (Natural Kind)"",
+  ""reasoning"": ""An apple is a rigid natural kind - anything that is an apple must remain an apple in all possible worlds where it exists (cannot cease being an apple and continue existing as the same entity). It carries and supplies its own identity condition based on biological/physical criteria (specific fruit produced by apple trees, genetic structure, etc.). Instances of apples are intrinsic wholes with natural unity - they have clear boundaries and parts that form a complete biological entity. Apples are independent entities that do not intrinsically require other entities beyond their constitutive matter to exist (though they depend causally on apple trees for origin, this is not intrinsic dependence in the ontological sense).""
+}
+```"
