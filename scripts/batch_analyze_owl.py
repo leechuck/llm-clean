@@ -43,8 +43,8 @@ def main():
     parser.add_argument("--model",
                        default="gemini-3-flash-preview",
                        help="""
-                                OpenRouter model ID. Supported: google/gemini-3-flash-preview (default), anthropic/claude-sonnet-4-5. \n
-                                You can also use 'gemini' or 'anthropic' as shortcuts for the default models.
+                                OpenRouter model ID. Supported: google/gemini-3-flash-preview (default), anthropic/claude-4.5-sonnet. \n
+                                You can also use 'gemini' or 'anthropic' as shortcuts for the models.
                             """
                         )
     

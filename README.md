@@ -33,7 +33,4 @@ An experiment to classify travel domain entities into BFO, DOLCE, and UFO using 
 ## Prerequisites
 * [uv](https://github.com/astral-sh/uv) (recommended) or Python 3.
 * [python-dotenv](https://pypi.org/project/python-dotenv/)
-* In the `.env` file, you specify the api keys.
-  * Set `OPENROUTER_API_KEY` if you only a general api key.
-  * Set `ANTHROPIC_API_KEY` for Anthropic.
-  * Set `GOOGLE_API_KEY` for `GEMINI_API_KEY` for Gemini.
+* In the `.env` file, specify the `OPENROUTER_API_KEY`. (Requires an [OpenRouter](https://openrouter.ai/) account.)

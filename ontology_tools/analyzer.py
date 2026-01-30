@@ -10,7 +10,7 @@ class OntologyAnalyzer:
         "gemini",
         "anthropic",
         "google/gemini-3-flash-preview",
-        "anthropic/claude-sonnet-4-5-20250929"
+        "anthropic/claude-4.5-sonnet"
     ]
 
     def __init__(self, api_key=None, model="gemini"):
@@ -25,15 +25,13 @@ class OntologyAnalyzer:
             )
         # Set up defaul models for Anthropic and Gemini
         if model == "anthropic":
-            model = "anthropic/claude-sonnet-4-5"
-            self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY") or os.getenv("OPENROUTER_API_KEY")
+            model = "anthropic/claude-4.5-sonnet"
         elif model == "gemini":
             model = "google/gemini-3-flash-preview"
-            self.api_key = api_key or os.environ.get("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
         else:
             model = model
-            self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
-        
+
+        self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
         self.model = model
         self.api_url = "https://openrouter.ai/api/v1/chat/completions"
 

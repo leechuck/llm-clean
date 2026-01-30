@@ -72,7 +72,7 @@ def main():
     parser.add_argument("--limit", type=int, default=0, help="Limit number of terms to process (0 for all)")
     parser.add_argument("--model",
                        default="gemeni",
-                       help="Model ID. Supported: gemeni (default), antropic, google/gemini-3-flash-preview, anthropic/claude-sonnet-4-5-20250929, openai/gpt-4o")
+                       help="Model ID. Supported: gemini (default), anthropic, google/gemini-3-flash-preview, anthropic/claude-4.5-sonnet, openai/gpt-4o")
     parser.add_argument("--output", help="Custom output JSON path")
     args = parser.parse_args()
 

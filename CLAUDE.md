@@ -14,25 +14,25 @@ This repository contains tools for ontological analysis using LLMs, with two mai
 **API Keys**: The analyzer supports multiple API key configurations depending on the model used. Create a `.env` file in the project root:
 
 ```
-# For shorthand "gemeni" model (default)
+# For shorthand "gemini" model (default)
 GOOGLE_API_KEY=your_google_api_key_here
 # OR
 GEMINI_API_KEY=your_gemini_api_key_here
 
-# For shorthand "antropic" model
+# For shorthand "anthropic" model
 ANTHROPIC_API_KEY=your_anthropic_api_key_here
 
-# For full model names (google/gemini-3-flash-preview, anthropic/claude-sonnet-4-5-20250929, etc.)
+# For full model names (google/gemini-3-flash-preview, anthropic/claude-4.5-sonnet, etc.)
 OPENROUTER_API_KEY=your_openrouter_api_key_here
 ```
 
 **Dependencies**: Install via `pip install -r requirements.txt` (requires: rdflib, requests, python-dotenv, tqdm)
 
 **Supported Models**:
-- `gemeni` - Shorthand for `google/gemini-3-flash-preview` (default for both OntologyAnalyzer and OntologyClassifier), uses GOOGLE_API_KEY or GEMINI_API_KEY
-- `antropic` - Shorthand for `anthropic/claude-sonnet-4-5`, uses ANTHROPIC_API_KEY
+- `gemini` - Shorthand for `google/gemini-3-flash-preview` (default for both OntologyAnalyzer and OntologyClassifier), uses GOOGLE_API_KEY or GEMINI_API_KEY
+- `anthropic` - Shorthand for `anthropic/claude-4.5-sonnet`, uses ANTHROPIC_API_KEY
 - `google/gemini-3-flash-preview` - Full model name, uses OPENROUTER_API_KEY
-- `anthropic/claude-sonnet-4-5-20250929` - Full model name, uses OPENROUTER_API_KEY
+- `anthropic/claude-4.5-sonnet` - Full model name, uses OPENROUTER_API_KEY
 - `openai/gpt-4o` - Full model name (OntologyClassifier only), uses OPENROUTER_API_KEY
 
 ## Common Commands
@@ -41,34 +41,34 @@ OPENROUTER_API_KEY=your_openrouter_api_key_here
 
 Analyze a single entity for ontological meta-properties:
 ```bash
-# Uses default "gemeni" model
+# Uses default "gemini" model
 uv run scripts/analyze_entity.py "Student" --desc "A person enrolled in a university"
 
 # Use Anthropic Claude (shorthand)
-uv run scripts/analyze_entity.py "Employee" --desc "Person working for organization" --model antropic
+uv run scripts/analyze_entity.py "Employee" --desc "Person working for organization" --model anthropic
 
 # Use full model name with OpenRouter
-uv run scripts/analyze_entity.py "Employee" --desc "Person working for organization" --model anthropic/claude-sonnet-4-5-20250929
+uv run scripts/analyze_entity.py "Employee" --desc "Person working for organization" --model anthropic/claude-4.5-sonnet
 ```
 
 Batch analyze entities from an OWL file:
 ```bash
-# Uses default "gemeni" model
+# Uses default "gemini" model
 python3 scripts/batch_analyze_owl.py path/to/ontology.owl --output results.tsv
 
 # Use Anthropic Claude (shorthand)
-python3 scripts/batch_analyze_owl.py path/to/ontology.owl --format json --output results.json --model antropic
+python3 scripts/batch_analyze_owl.py path/to/ontology.owl --format json --output results.json --model anthropic
 ```
 
 ### Stevens et al. Reproduction Experiment
 
 Run the full classification experiment:
 ```bash
-# Uses default "gemeni" model
+# Uses default "gemini" model
 python3 experiments/stevens_repro/scripts/run_experiment.py
 
 # Test on first 5 terms with Anthropic Claude (shorthand)
-python3 experiments/stevens_repro/scripts/run_experiment.py --limit 5 --model antropic
+python3 experiments/stevens_repro/scripts/run_experiment.py --limit 5 --model anthropic
 
 # Use OpenAI GPT-4o
 python3 experiments/stevens_repro/scripts/run_experiment.py --model openai/gpt-4o
@@ -86,11 +86,11 @@ python3 experiments/stevens_repro/scripts/results_to_tsv.py
 **`OntologyAnalyzer`** (analyzer.py:7-115)
 - Uses OpenRouter API to analyze entities for Guarino & Welty meta-properties
 - Returns JSON with properties (rigidity, identity, own_identity, unity, dependence), classification, and reasoning
-- Default model: `gemeni` (shorthand that resolves to `google/gemini-3-flash-preview`)
+- Default model: `gemini` (shorthand that resolves to `google/gemini-3-flash-preview`)
 - Supports shorthand model names with native API key variables:
-  - `gemeni` → uses GOOGLE_API_KEY or GEMINI_API_KEY
-  - `antropic` → uses ANTHROPIC_API_KEY, resolves to `anthropic/claude-sonnet-4-5`
-- Full model names (e.g., `google/gemini-3-flash-preview`, `anthropic/claude-sonnet-4-5-20250929`) use OPENROUTER_API_KEY
+  - `gemini` → uses GOOGLE_API_KEY or GEMINI_API_KEY
+  - `anthropic` → uses ANTHROPIC_API_KEY, resolves to `anthropic/claude-4.5-sonnet`
+- Full model names (e.g., `google/gemini-3-flash-preview`, `anthropic/claude-4.5-sonnet`) use OPENROUTER_API_KEY
 - Model validation enforced at initialization (raises ValueError for unsupported models)
 - Uses python-dotenv to load API keys from `.env` file
 - All models use OpenRouter API endpoint regardless of shorthand vs full name
@@ -100,11 +100,11 @@ python3 experiments/stevens_repro/scripts/results_to_tsv.py
 - Implements two classification strategies:
   - **One-shot**: Present all ontology classes at once, select best match
   - **Hierarchical**: Traverse ontology tree from root, selecting best subclass at each level
-- Default model: `gemeni` (shorthand that resolves to `google/gemini-3-flash-preview`)
+- Default model: `gemini` (shorthand that resolves to `google/gemini-3-flash-preview`)
 - Supports shorthand model names with native API key variables:
-  - `gemeni` → uses GOOGLE_API_KEY or GEMINI_API_KEY
-  - `antropic` → uses ANTHROPIC_API_KEY, resolves to `anthropic/claude-sonnet-4-5`
-- Full model names (e.g., `google/gemini-3-flash-preview`, `anthropic/claude-sonnet-4-5-20250929`, `openai/gpt-4o`) use OPENROUTER_API_KEY
+  - `gemini` → uses GOOGLE_API_KEY or GEMINI_API_KEY
+  - `anthropic` → uses ANTHROPIC_API_KEY, resolves to `anthropic/claude-4.5-sonnet`
+- Full model names (e.g., `google/gemini-3-flash-preview`, `anthropic/claude-4.5-sonnet`, `openai/gpt-4o`) use OPENROUTER_API_KEY
 - Model validation enforced at initialization (raises ValueError for unsupported models)
 - Uses python-dotenv to load API keys from `.env` file
 - All models use OpenRouter API endpoint regardless of shorthand vs full name
