@@ -94,7 +94,9 @@ python3 experiments/stevens_repro/scripts/results_to_tsv.py
 - Model validation enforced at initialization (raises ValueError for unsupported models)
 - Uses python-dotenv to load API keys from `.env` file
 - All models use OpenRouter API endpoint regardless of shorthand vs full name
-- Includes robust JSON parsing with trailing comma cleanup
+- Includes robust JSON parsing with:
+  - Markdown code fence removal (handles ` ```json ... ``` ` wrappers)
+  - Trailing comma cleanup
 
 **`OntologyClassifier`** (classifier.py:8-125)
 - Implements two classification strategies:
@@ -109,7 +111,9 @@ python3 experiments/stevens_repro/scripts/results_to_tsv.py
 - Uses python-dotenv to load API keys from `.env` file
 - All models use OpenRouter API endpoint regardless of shorthand vs full name
 - Includes exponential backoff for rate limiting (429 errors)
-- Robust JSON parsing with trailing comma cleanup
+- Robust JSON parsing with:
+  - Markdown code fence removal (handles ` ```json ... ``` ` wrappers)
+  - Trailing comma cleanup
 
 ### Stevens Reproduction Structure
 

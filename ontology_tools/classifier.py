@@ -69,8 +69,13 @@ class OntologyClassifier:
                 result = response.json()
                 
                 content = result['choices'][0]['message']['content']
-                
+
                 # Robust parsing
+                # Strip markdown code fences if present
+                content = re.sub(r'^```(?:json)?\s*\n?', '', content.strip())
+                content = re.sub(r'\n?```\s*$', '', content.strip())
+
+                # Remove trailing commas
                 content_cleaned = re.sub(r",\s*([\}\]])", r"\1", content)
                 return json.loads(content_cleaned)
                     
