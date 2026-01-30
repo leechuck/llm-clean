@@ -1,5 +1,9 @@
-@Grab(group='net.sourceforge.owlapi', module='owlapi-distribution', version='5.1.20')
-@Grab(group='org.slf4j', module='slf4j-simple', version='1.7.36')
+@GrabResolver(name='central', root='https://repo1.maven.org/maven2/')
+@Grapes([
+    @Grab(group='net.sourceforge.owlapi', module='owlapi-distribution', version='5.5.0'),
+    @Grab(group='org.slf4j', module='slf4j-simple', version='2.0.9'),
+    @GrabExclude('commons-logging:commons-logging')
+])
 
 import org.semanticweb.owlapi.apibinding.OWLManager
 import org.semanticweb.owlapi.model.*

@@ -129,7 +129,7 @@ python3 experiments/stevens_repro/scripts/results_to_tsv.py
 ### Batch Analysis Scripts
 
 - `batch_analyze_owl.py`: Extracts OWL classes using rdflib, analyzes each with OntologyAnalyzer
-- `batch_analyze_owl_hybrid.py`: Variant batch analyzer (check specific implementation if needed)
+- `batch_analyze_owl_hybrid.py`: Attempts to use Groovy/OWLAPI for entity extraction, automatically falls back to rdflib if Groovy dependencies fail. Provides more robust OWL parsing when Groovy is configured properly, but works reliably even when it's not.
 
 ### Path Resolution Pattern
 
