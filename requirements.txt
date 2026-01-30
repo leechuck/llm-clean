@@ -1,3 +1,5 @@
 rdflib
 requests
 python-dotenv
+PyPDF2
+tqdm

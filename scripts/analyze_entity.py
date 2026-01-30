@@ -19,10 +19,12 @@ def main():
                                 You can also use 'gemini' or 'anthropic' as shortcuts for the models.
                             """
                         )
+    parser.add_argument("--background-file", dest="background_file",
+                       help="Path to background information file (.txt or .pdf)")
     args = parser.parse_args()
-    
+
     try:
-        analyzer = OntologyAnalyzer(model=args.model)
+        analyzer = OntologyAnalyzer(model=args.model, background_file=args.background_file)
         result = analyzer.analyze(args.term, args.desc, args.usage)
         
         props = result.get("properties", {})

@@ -15,7 +15,7 @@ class OntologyClassifier:
         "openai/gpt-4o"
     ]
 
-    def __init__(self, api_key=None, model="gemini"):
+    def __init__(self, api_key=None, model="gemini", background_file=None):
         # Load environment variables from .env file
         load_dotenv()
 
@@ -33,13 +33,48 @@ class OntologyClassifier:
             model = "google/gemini-3-flash-preview"
         else:
             model = model
-            
+
         self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
         self.model = model
         self.api_url = "https://openrouter.ai/api/v1/chat/completions"
+        self.background_file = background_file
+        self.background_content = None
 
         if not self.api_key:
             raise ValueError("api key environment variable not set or not provided.")
+
+        # Load background information if provided
+        if self.background_file:
+            self._load_background_file()
+
+    def _load_background_file(self):
+        """Load background information from a file (supports .txt and .pdf)."""
+        if not os.path.exists(self.background_file):
+            raise FileNotFoundError(f"Background file not found: {self.background_file}")
+
+        file_ext = os.path.splitext(self.background_file)[1].lower()
+
+        if file_ext == '.txt':
+            with open(self.background_file, 'r', encoding='utf-8') as f:
+                self.background_content = f.read()
+        elif file_ext == '.pdf':
+            # Try to import PDF library
+            try:
+                import PyPDF2
+                with open(self.background_file, 'rb') as f:
+                    pdf_reader = PyPDF2.PdfReader(f)
+                    text_parts = []
+                    for page in pdf_reader.pages:
+                        text_parts.append(page.extract_text())
+                    self.background_content = '\n'.join(text_parts)
+            except ImportError:
+                raise ImportError(
+                    "PyPDF2 is required to read PDF files. "
+                    "Install it with: pip install PyPDF2\n"
+                    "Alternatively, convert your PDF to .txt format first."
+                )
+        else:
+            raise ValueError(f"Unsupported file type: {file_ext}. Supported types: .txt, .pdf")
 
     def _call_llm(self, system_prompt, user_content):
         payload = {
@@ -102,8 +137,30 @@ class OntologyClassifier:
 
     def classify_one_shot(self, term, description, ontology_name, all_classes, descriptions=None, examples=None):
         class_info = self._format_class_info(all_classes, descriptions, examples)
-        
-        system_prompt = f"""You are an expert Ontologist specializing in the {ontology_name} upper ontology.
+
+        # Build system prompt with optional background content
+        if self.background_content:
+            system_prompt = f"""You are an expert Ontologist specializing in the {ontology_name} upper ontology.
+
+Use the following background information to guide your classification:
+
+{self.background_content}
+
+Your task is to classify a given domain entity into exactly one of the provided {ontology_name} classes.
+Choose the most specific and ontologically correct class.
+
+Available Classes and Definitions:
+{class_info}
+
+Return your answer in JSON format:
+{{
+  "classification": "ClassName",
+  "confidence": "High/Medium/Low",
+  "reasoning": "Brief explanation referencing the definition."
+}}
+"""
+        else:
+            system_prompt = f"""You are an expert Ontologist specializing in the {ontology_name} upper ontology.
 Your task is to classify a given domain entity into exactly one of the provided {ontology_name} classes.
 Choose the most specific and ontologically correct class.
 
@@ -123,7 +180,30 @@ Return your answer in JSON format:
     def classify_hierarchical_step(self, term, description, ontology_name, current_class, children, descriptions=None, examples=None):
         class_info = self._format_class_info(children, descriptions, examples)
 
-        system_prompt = f"""You are an expert Ontologist specializing in the {ontology_name} upper ontology.
+        # Build system prompt with optional background content
+        if self.background_content:
+            system_prompt = f"""You are an expert Ontologist specializing in the {ontology_name} upper ontology.
+
+Use the following background information to guide your classification:
+
+{self.background_content}
+
+We are traversing the ontology hierarchically. The entity '{term}' has been identified as a type of '{current_class}'.
+Now, choose the best sub-class for '{term}' from the following candidates.
+
+Candidates:
+{class_info}
+
+If the entity clearly belongs to the parent '{current_class}' but does not fit well into any of the specific children (i.e. it is a leaf at this level or ambiguous), you can choose '{current_class}' itself.
+
+Return your answer in JSON format:
+{{
+  "selected_class": "ClassName",
+  "reasoning": "Brief explanation referencing the definition."
+}}
+"""
+        else:
+            system_prompt = f"""You are an expert Ontologist specializing in the {ontology_name} upper ontology.
 We are traversing the ontology hierarchically. The entity '{term}' has been identified as a type of '{current_class}'.
 Now, choose the best sub-class for '{term}' from the following candidates.
 

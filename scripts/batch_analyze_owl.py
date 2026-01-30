@@ -47,18 +47,20 @@ def main():
                                 You can also use 'gemini' or 'anthropic' as shortcuts for the models.
                             """
                         )
-    
+    parser.add_argument("--background-file", dest="background_file",
+                       help="Path to background information file (.txt or .pdf)")
+
     args = parser.parse_args()
-    
+
     try:
         classes = extract_classes(args.input_owl)
     except Exception as e:
         print(f"Error loading OWL file: {e}", file=sys.stderr)
         sys.exit(1)
-        
+
     analyzer = None
     try:
-        analyzer = OntologyAnalyzer(model=args.model)
+        analyzer = OntologyAnalyzer(model=args.model, background_file=args.background_file)
     except ValueError as e:
         print(f"Configuration Error: {e}", file=sys.stderr)
         sys.exit(1)
