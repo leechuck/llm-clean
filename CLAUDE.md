@@ -37,6 +37,19 @@ OPENROUTER_API_KEY=your_openrouter_api_key_here
 
 ## Common Commands
 
+### Testing Groovy Setup
+
+Test if Groovy can successfully parse OWL files:
+```bash
+# Test with default file (ontology/guarino_messy.owl)
+python3 scripts/test_groovy.py
+
+# Test with a specific OWL file
+python3 scripts/test_groovy.py --input ontology/bfo-core.owl
+```
+
+This diagnostic script helps identify Groovy/OWLAPI dependency issues. If it fails, the hybrid batch analyzer will automatically use the rdflib fallback.
+
 ### Guarino & Welty OntoClean Analysis
 
 Analyze a single entity for ontological meta-properties:

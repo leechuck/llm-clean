@@ -120,6 +120,9 @@ nbdist/
 .vscode/
 *.code-workspace
 
+# Claude Code
+.claude/
+
 # macOS
 .DS_Store
 .AppleDouble
