@@ -40,7 +40,7 @@ def main():
     parser.add_argument("input_owl", help="Path to the input OWL file.")
     parser.add_argument("--format", choices=["tsv", "json"], default="tsv", help="Output format (tsv or json).")
     parser.add_argument("--output", help="Output file path (default: stdout).")
-    parser.add_argument("--num-classes", type=int, help="Number of classes to analyze (None for all). Useful for testing.")
+    parser.add_argument("--limit", type=int, help="Limit number of classes to analyze (for testing)")
     parser.add_argument("--model",
                        default="gemini-3-flash-preview",
                        help="""
@@ -58,6 +58,11 @@ def main():
     except Exception as e:
         print(f"Error loading OWL file: {e}", file=sys.stderr)
         sys.exit(1)
+
+    # Limit classes if requested
+    if args.limit:
+        classes = classes[:args.limit]
+        print(f"Limiting analysis to first {args.limit} classes", file=sys.stderr)
 
     analyzer = None
     try:
@@ -86,6 +91,7 @@ def main():
                 "uri": cls['uri'],
                 "rigidity": props.get("rigidity", "N/A"),
                 "identity": props.get("identity", "N/A"),
+                "own_identity": props.get("own_identity", "N/A"),
                 "unity": props.get("unity", "N/A"),
                 "dependence": props.get("dependence", "N/A"),
                 "classification": analysis.get("classification", "N/A"),
@@ -93,10 +99,6 @@ def main():
             }
             results.append(row)
 
-            # check if we should limit number of classes analyzed
-            if args.num_classes and i > args.num_classes:
-                break
-            
         except Exception as e:
             print(f"Failed to analyze '{term}': {e}", file=sys.stderr)
             results.append({
@@ -115,7 +117,7 @@ def main():
         if args.format == "json":
             json.dump(results, out_stream, indent=2)
         else:
-            fieldnames = ["term", "uri", "rigidity", "identity", "unity", "dependence", "classification", "reasoning", "error"]
+            fieldnames = ["term", "uri", "rigidity", "identity", "own_identity", "unity", "dependence", "classification", "reasoning", "error"]
             writer = csv.DictWriter(out_stream, fieldnames=fieldnames, delimiter='\t', extrasaction='ignore')
             writer.writeheader()
             writer.writerows(results)

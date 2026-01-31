@@ -61,7 +61,7 @@ def main():
     parser.add_argument("input_owl", help="Path to the input OWL file.")
     parser.add_argument("--format", choices=["tsv", "json"], default="tsv", help="Output format (tsv or json).")
     parser.add_argument("--output", help="Output file path (default: stdout).")
-    parser.add_argument("--num-classes", type=int, help="Number of classes to analyze (None for all). Useful for testing.")
+    parser.add_argument("--limit", type=int, help="Limit number of classes to analyze (for testing)")
     parser.add_argument("--model",
                        default="gemini-3-flash-preview",
                        help="""
@@ -80,6 +80,11 @@ def main():
     except Exception as e:
         print(f"Error extracting entities: {e}", file=sys.stderr)
         sys.exit(1)
+
+    # Limit classes if requested
+    if args.limit:
+        classes = classes[:args.limit]
+        print(f"Limiting analysis to first {args.limit} classes", file=sys.stderr)
 
     analyzer = None
     try:
@@ -114,10 +119,6 @@ def main():
             }
             results.append(row)
 
-            # check if we should limit number of classes analyzed
-            if args.num_classes and i > args.num_classes:
-                break
-            
         except Exception as e:
             print(f"Failed to analyze '{term}': {e}", file=sys.stderr)
             results.append({
