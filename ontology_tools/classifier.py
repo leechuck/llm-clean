@@ -76,6 +76,14 @@ class OntologyClassifier:
         else:
             raise ValueError(f"Unsupported file type: {file_ext}. Supported types: .txt, .pdf")
 
+        # Warn if background content is very large (may cause context issues)
+        MAX_CHARS = 50000  # ~12,500 tokens at 4 chars/token
+        if len(self.background_content) > MAX_CHARS:
+            import sys
+            print(f"Warning: Background file is large ({len(self.background_content)} chars). "
+                  f"Truncating to {MAX_CHARS} chars to avoid context issues.", file=sys.stderr)
+            self.background_content = self.background_content[:MAX_CHARS]
+
     def _call_llm(self, system_prompt, user_content):
         payload = {
             "model": self.model,
@@ -107,22 +115,46 @@ class OntologyClassifier:
 
                 # Robust parsing
                 # Strip markdown code fences if present
-                content = re.sub(r'^```(?:json)?\s*\n?', '', content.strip())
-                content = re.sub(r'\n?```\s*$', '', content.strip())
+                content = content.strip()
+                content = re.sub(r'^```(?:json)?\s*\n?', '', content)
+                content = re.sub(r'\n?```\s*$', '', content)
+                content = content.strip()
+
+                # Try to extract JSON if there's text before/after it
+                json_match = re.search(r'\{.*\}', content, re.DOTALL)
+                if json_match:
+                    content = json_match.group(0)
 
                 # Remove trailing commas
                 content_cleaned = re.sub(r",\s*([\}\]])", r"\1", content)
-                return json.loads(content_cleaned)
-                    
+
+                # Try to parse
+                try:
+                    return json.loads(content_cleaned)
+                except json.JSONDecodeError as e:
+                    # Try additional cleanup
+                    content_cleaned = re.sub(r'//.*?\n', '\n', content_cleaned)
+                    content_cleaned = re.sub(r'/\*.*?\*/', '', content_cleaned, flags=re.DOTALL)
+                    content_cleaned = re.sub(r',(\s*[}\]])', r'\1', content_cleaned)
+                    try:
+                        return json.loads(content_cleaned)
+                    except json.JSONDecodeError:
+                        if attempt == retries - 1:
+                            raise RuntimeError(
+                                f"Error parsing JSON response from LLM.\n"
+                                f"Parse error: {e}\n"
+                                f"Raw output (first 1000 chars): {content[:1000]}\n"
+                                f"Cleaned output (first 1000 chars): {content_cleaned[:1000]}"
+                            )
+                        # If not last attempt, continue to retry
+                        continue
+
             except requests.exceptions.RequestException as e:
                 if attempt == retries - 1:
                     error_msg = f"API Request failed: {e}"
                     if hasattr(e, 'response') and e.response is not None:
                         error_msg += f"\nStatus Code: {e.response.status_code}\nResponse: {e.response.text}"
                     raise RuntimeError(error_msg)
-            except json.JSONDecodeError:
-                if attempt == retries - 1:
-                    raise RuntimeError(f"Error parsing JSON response from LLM.\nRaw output: {content}")
         return None
 
     def _format_class_info(self, classes, descriptions, examples):

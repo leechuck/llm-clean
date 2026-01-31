@@ -73,6 +73,14 @@ class OntologyAnalyzer:
         else:
             raise ValueError(f"Unsupported file type: {file_ext}. Supported types: .txt, .pdf")
 
+        # Warn if background content is very large (may cause context issues)
+        MAX_CHARS = 50000  # ~12,500 tokens at 4 chars/token
+        if len(self.background_content) > MAX_CHARS:
+            import sys
+            print(f"Warning: Background file is large ({len(self.background_content)} chars). "
+                  f"Truncating to {MAX_CHARS} chars to avoid context issues.", file=sys.stderr)
+            self.background_content = self.background_content[:MAX_CHARS]
+
     def analyze(self, term, description=None, usage=None):
         # Use custom background content if provided, otherwise use default
         if self.background_content:
@@ -87,7 +95,7 @@ Use the following definitions for the meta-properties:"""
 Your task is to analyze a given entity (term) and assign its 5 ontological meta-properties based on the paper's framework.
 Use the following definitions for the meta-properties:"""
 
-            system_prompt += """
+        system_prompt += """
 
 The 5 Meta-Properties:
 1. **Rigidity (R)**:
@@ -153,25 +161,54 @@ Return your analysis in strict JSON format:
             response = requests.post(self.api_url, headers=headers, data=json.dumps(payload))
             response.raise_for_status()
             result = response.json()
-            
+
             content = result['choices'][0]['message']['content']
 
             # Robust parsing: handle potential trailing commas or other minor LLM output quirks
             import re
 
             # Strip markdown code fences if present
-            content = re.sub(r'^```(?:json)?\s*\n?', '', content.strip())
-            content = re.sub(r'\n?```\s*$', '', content.strip())
+            content = content.strip()
+            content = re.sub(r'^```(?:json)?\s*\n?', '', content)
+            content = re.sub(r'\n?```\s*$', '', content)
+            content = content.strip()
 
-            # Remove trailing commas
+            # Try to extract JSON if there's text before/after it
+            json_match = re.search(r'\{.*\}', content, re.DOTALL)
+            if json_match:
+                content = json_match.group(0)
+
+            # Remove trailing commas before closing braces/brackets
             content_cleaned = re.sub(r",\s*([\]}])", r"\1", content)
 
-            return json.loads(content_cleaned)
-                
+            # Try to parse the cleaned content
+            try:
+                return json.loads(content_cleaned)
+            except json.JSONDecodeError as e:
+                # If parsing still fails, try additional cleanup
+                # Remove comments (// or /* */)
+                content_cleaned = re.sub(r'//.*?\n', '\n', content_cleaned)
+                content_cleaned = re.sub(r'/\*.*?\*/', '', content_cleaned, flags=re.DOTALL)
+
+                # Remove trailing commas more aggressively
+                content_cleaned = re.sub(r',(\s*[}\]])', r'\1', content_cleaned)
+
+                # Try parsing again
+                try:
+                    return json.loads(content_cleaned)
+                except json.JSONDecodeError:
+                    # Last attempt: show detailed error
+                    raise RuntimeError(
+                        f"Error parsing JSON response from LLM.\n"
+                        f"Parse error: {e}\n"
+                        f"Raw output (first 1000 chars): {content[:1000]}\n"
+                        f"Cleaned output (first 1000 chars): {content_cleaned[:1000]}"
+                    )
+
         except requests.exceptions.RequestException as e:
             error_msg = f"API Request failed: {e}"
             if hasattr(e, 'response') and e.response is not None:
                 error_msg += f"\nStatus Code: {e.response.status_code}\nResponse: {e.response.text}"
             raise RuntimeError(error_msg)
-        except json.JSONDecodeError:
-            raise RuntimeError(f"Error parsing JSON response from LLM.\nRaw output: {content}")
+        except KeyError as e:
+            raise RuntimeError(f"Unexpected API response format: {e}\nResponse: {result}")
