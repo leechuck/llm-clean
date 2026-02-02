@@ -12,12 +12,19 @@ def main():
     parser.add_argument("term", help="The entity term to analyze.")
     parser.add_argument("--desc", help="Additional description of the entity.")
     parser.add_argument("--usage", help="Example usage context.")
-    parser.add_argument("--model", default="openai/gpt-4o", help="OpenRouter model ID (default: openai/gpt-4o).")
-    
+    parser.add_argument("--model",
+                       default="google/gemini-3-flash-preview",
+                       help="""
+                                OpenRouter model ID. Supported: google/gemini-3-flash-preview (default), anthropic/claude-4.5-sonnet. \n
+                                You can also use 'gemini' or 'anthropic' as shortcuts for the models.
+                            """
+                        )
+    parser.add_argument("--background-file", dest="background_file",
+                       help="Path to background information file (.txt or .pdf)")
     args = parser.parse_args()
-    
+
     try:
-        analyzer = OntologyAnalyzer(model=args.model)
+        analyzer = OntologyAnalyzer(model=args.model, background_file=args.background_file)
         result = analyzer.analyze(args.term, args.desc, args.usage)
         
         props = result.get("properties", {})

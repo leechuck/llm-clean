@@ -4,48 +4,91 @@ import os
 import json
 import csv
 import subprocess
+from rdflib import Graph, RDF, OWL, RDFS
 
 # Ensure the project root is in sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from ontology_tools.analyzer import OntologyAnalyzer
 
+def extract_classes_rdflib(owl_path):
+    """Fallback method using rdflib to extract classes from OWL file."""
+    g = Graph()
+    g.parse(owl_path)
+
+    classes = []
+    for s, p, o in g.triples((None, RDF.type, OWL.Class)):
+        # Extract label or use local name
+        label = g.value(s, RDFS.label)
+        if not label:
+            # simple local name extraction from URI
+            if "#" in str(s):
+                label = str(s).split("#")[-1]
+            else:
+                label = str(s).split("/")[-1]
+
+        # Extract comment/description if available
+        comment = g.value(s, RDFS.comment)
+
+        classes.append({
+            "uri": str(s),
+            "term": str(label),
+            "description": str(comment) if comment else None
+        })
+    return classes
+
 def get_entities_from_groovy(owl_path):
     groovy_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "extract_entities.groovy")
-    
+
     # Run groovy script
     cmd = ["groovy", groovy_script, owl_path]
-    
+
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
         return json.loads(result.stdout)
     except subprocess.CalledProcessError as e:
         print(f"Groovy script execution failed: {e.stderr}", file=sys.stderr)
-        raise
+        print(f"Falling back to rdflib parser...", file=sys.stderr)
+        return extract_classes_rdflib(owl_path)
     except json.JSONDecodeError as e:
         print(f"Failed to parse Groovy output as JSON: {e}", file=sys.stderr)
         print(f"Groovy STDOUT: {result.stdout}", file=sys.stderr)
-        raise
+        print(f"Falling back to rdflib parser...", file=sys.stderr)
+        return extract_classes_rdflib(owl_path)
 
 def main():
     parser = argparse.ArgumentParser(description="Batch analyze entities from an OWL file using OWLAPI (via Groovy).")
     parser.add_argument("input_owl", help="Path to the input OWL file.")
     parser.add_argument("--format", choices=["tsv", "json"], default="tsv", help="Output format (tsv or json).")
     parser.add_argument("--output", help="Output file path (default: stdout).")
-    parser.add_argument("--model", default="openai/gpt-4o", help="OpenRouter model ID.")
-    
+    parser.add_argument("--limit", type=int, help="Limit number of classes to analyze (for testing)")
+    parser.add_argument("--model",
+                       default="gemini-3-flash-preview",
+                       help="""
+                                OpenRouter model ID. Supported: google/gemini-3-flash-preview (default), anthropic/claude-4.5-sonnet. \n
+                                You can also use 'gemini' or 'anthropic' as shortcuts for the models.
+                            """
+                        )
+    parser.add_argument("--background-file", dest="background_file",
+                       help="Path to background information file (.txt or .pdf)")
+
     args = parser.parse_args()
-    
+
     print("Extracting entities using Groovy/OWLAPI...", file=sys.stderr)
     try:
         classes = get_entities_from_groovy(args.input_owl)
     except Exception as e:
         print(f"Error extracting entities: {e}", file=sys.stderr)
         sys.exit(1)
-        
+
+    # Limit classes if requested
+    if args.limit:
+        classes = classes[:args.limit]
+        print(f"Limiting analysis to first {args.limit} classes", file=sys.stderr)
+
     analyzer = None
     try:
-        analyzer = OntologyAnalyzer(model=args.model)
+        analyzer = OntologyAnalyzer(model=args.model, background_file=args.background_file)
     except ValueError as e:
         print(f"Configuration Error: {e}", file=sys.stderr)
         sys.exit(1)
@@ -75,7 +118,7 @@ def main():
                 "reasoning": analysis.get("reasoning", "N/A")
             }
             results.append(row)
-            
+
         except Exception as e:
             print(f"Failed to analyze '{term}': {e}", file=sys.stderr)
             results.append({
