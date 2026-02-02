@@ -1,0 +1,894 @@
+{
+  "datasets": [
+    {
+      "domain": "eCommerce",
+      "dataset": [
+        {
+          "term": "Entity",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Top-level essential category."
+        },
+        {
+          "term": "Tangible_Good",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A physical item that can be bought or sold."
+        },
+        {
+          "term": "Digital_Good",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Non-physical item, such as software or media."
+        },
+        {
+          "term": "Item",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A single, distinct unit of a product type."
+        },
+        {
+          "term": "Product_Offering",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific type of good or service available for purchase."
+        },
+        {
+          "term": "Apparel",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Clothing items as a category of Tangible Good."
+        },
+        {
+          "term": "Footwear",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Shoes and other items worn on feet, subtype of Apparel."
+        },
+        {
+          "term": "Sneaker",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Athletic shoe, subtype of Footwear."
+        },
+        {
+          "term": "Running_Shoe",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Specialized sneaker for running, deepest branch 1."
+        },
+        {
+          "term": "Electronics",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Devices and gadgets powered by electricity."
+        },
+        {
+          "term": "Smartphone",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Mobile phone with advanced computing capabilities, subtype of Electronics."
+        },
+        {
+          "term": "Tablet",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Portable computer with a touchscreen, subtype of Electronics."
+        },
+        {
+          "term": "Laptop",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Portable computer, subtype of Electronics."
+        },
+        {
+          "term": "Gaming_Console",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Electronic device for playing video games, subtype of Electronics."
+        },
+        {
+          "term": "Video_Game",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Interactive digital entertainment, deepest branch 2."
+        },
+        {
+          "term": "Customer_Review",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A piece of feedback dependent on a product and customer."
+        },
+        {
+          "term": "Shopping_Cart",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A temporary collection of items a customer intends to purchase, dependent on user and items."
+        },
+        {
+          "term": "Payment_Method",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A way a customer can pay; can change roles (e.g., credit card)."
+        },
+        {
+          "term": "Sold_Out_Item",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "An item that is currently unavailable, dependent on its stock status."
+        },
+        {
+          "term": "Pre_Owned_Item",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "An item that has been used before, a state/role of an item."
+        },
+        {
+          "term": "Order_Confirmation",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Document confirming an order, dependent on the order."
+        },
+        {
+          "term": "Recommendation_Algorithm",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A software system for suggesting products."
+        },
+        {
+          "term": "Inventory_Stock",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "The quantity of available goods at a given time, dependent on goods."
+        },
+        {
+          "term": "Product_Image",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A visual representation of a product, dependent on the product."
+        },
+        {
+          "term": "Website_Session",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A period of user activity on a website, transient and dependent on user."
+        },
+        {
+          "term": "Customer_Care_Agent",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Individual providing customer support, a role of a person."
+        },
+        {
+          "term": "Brand_Loyalist",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A customer who consistently buys from a specific brand, a role of a customer."
+        },
+        {
+          "term": "Promotional_Offer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A temporary discount or special deal, transient state."
+        },
+        {
+          "term": "E_wallet",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A digital payment service, can represent different underlying payment methods"
+        },
+        {
+          "term": "Customer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "An individual who purchases goods or services, a role of a person."
+        },
+        {
+          "term": "Product_Description",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Textual information about a product, dependent on the product."
+        },
+        {
+          "term": "Search_Query",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A request for information, dependent on user and search engine."
+        },
+        {
+          "term": "Refund_Process",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "The sequence of steps to return money to a customer, a transient process."
+        },
+        {
+          "term": "Gift_Card",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A stored-value money card, a role for a form of payment."
+        },
+        {
+          "term": "Delivery_Address",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Location for product shipment, dependent on an order."
+        },
+        {
+          "term": "Checkout_Flow",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "The sequence of steps a user takes to complete a purchase, a transient phase of an interaction."
+        },
+        {
+          "term": "Coupon_Code",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A code providing a discount, can be active or expired."
+        },
+        {
+          "term": "User_Account",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A personalized profile for a customer, dependent on the customer."
+        },
+        {
+          "term": "Shipping_Cost",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "The monetary amount charged for delivery, dependent on delivery service."
+        },
+        {
+          "term": "Return_Policy",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The rules governing product returns."
+        }
+      ]
+    },
+    {
+      "domain": "Naval Warfare",
+      "dataset": [
+        {
+          "term": "Naval Entity",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "General concept for anything involved in naval operations."
+        },
+        {
+          "term": "Vessel",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A primary subdivision of Naval Entity; a floating craft."
+        },
+        {
+          "term": "Warship",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A vessel designed for combat."
+        },
+        {
+          "term": "Submarine",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A warship capable of operating underwater."
+        },
+        {
+          "term": "Attack Submarine",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A submarine designed primarily for engaging other vessels."
+        },
+        {
+          "term": "Ballistic Missile Submarine",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A submarine equipped with nuclear ballistic missiles."
+        },
+        {
+          "term": "Carrier",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A warship serving as a mobile airbase."
+        },
+        {
+          "term": "Aircraft",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A vehicle designed for flight, distinct from vessels."
+        },
+        {
+          "term": "Naval Aircraft",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Aircraft designed for use from naval vessels or for naval operations."
+        },
+        {
+          "term": "Fighter Jet",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A naval aircraft designed primarily for air-to-air combat."
+        },
+        {
+          "term": "Patrol Boat",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A small warship designed for coastal defense or policing."
+        },
+        {
+          "term": "Engine",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "A component of a vessel, providing propulsion. Cannot exist independently as a Vessel."
+        },
+        {
+          "term": "Hull",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "The main body/frame of a vessel. Constitutes the vessel but is not a whole vessel itself."
+        },
+        {
+          "term": "Propeller",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "A device for propelling a vessel. Dependent on the vessel for its function."
+        },
+        {
+          "term": "Crew Member",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person fulfilling a role on a vessel. Not rigid, as they can cease to be a crew member."
+        },
+        {
+          "term": "Captain",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "The commander of a vessel. A specific role within 'Crew Member'."
+        },
+        {
+          "term": "Navigator",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A crew member responsible for navigation. A specific role."
+        },
+        {
+          "term": "Armor",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "Protective plating on a vessel. A material, not a complete vessel or discrete part."
+        },
+        {
+          "term": "Steel",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "The material from which many vessels are built. Can exist independently."
+        },
+        {
+          "term": "Explosive",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A substance used in munitions. A material property, not a weapon itself."
+        },
+        {
+          "term": "Weapon",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An instrument of combat."
+        },
+        {
+          "term": "Missile",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A self-propelled weapon."
+        },
+        {
+          "term": "Torpedo",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A self-propelled underwater missile."
+        },
+        {
+          "term": "Combatant",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person involved in actual combat. A role, not a rigid type of person."
+        },
+        {
+          "term": "Admiral",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A high-ranking naval officer. A role, not a rigid type of person."
+        },
+        {
+          "term": "Flotilla",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A group of small warships. A collective entity."
+        },
+        {
+          "term": "Battle Group",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A large naval formation centered around a capital ship. A collective entity."
+        },
+        {
+          "term": "Radar System",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "An electronic system for detection. A part of a larger naval entity."
+        },
+        {
+          "term": "Sonar System",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "An acoustic system for underwater detection. A part of a larger naval entity."
+        },
+        {
+          "term": "Communication Device",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "An instrument for transmitting information. A part of a larger naval entity."
+        },
+        {
+          "term": "Active Duty Sailor",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A sailor currently serving. A phase/role, they can be retired."
+        },
+        {
+          "term": "Decommissioned Vessel",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "A vessel no longer in active service. Represents a phase or state of a vessel."
+        },
+        {
+          "term": "Under Repair Vessel",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "A vessel that is currently being repaired. A temporal phase."
+        },
+        {
+          "term": "Flag Officer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A general term for an admiral or commodore. A role."
+        },
+        {
+          "term": "Navigation Bridge",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "A specific section of a vessel. A defined part."
+        },
+        {
+          "term": "Deck",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "A flooring surface on a vessel. A part, often a continuous surface rather than a discrete countable item."
+        },
+        {
+          "term": "Fuel",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Substance used to power a vessel. A material, can exist independently."
+        },
+        {
+          "term": "Ammunition",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material used to load weapons. A mass/material."
+        },
+        {
+          "term": "Patrol Mission",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A specific type of naval operation, dependent on naval entities."
+        },
+        {
+          "term": "Fleet",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A large formation of warships operating together. A collective entity, rigid in its type."
+        }
+      ]
+    }
+  ]
+}

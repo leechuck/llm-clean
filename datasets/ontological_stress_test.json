@@ -1,0 +1,1704 @@
+{
+  "datasets": [
+    {
+      "domain": "Quantum Electrodynamics",
+      "dataset": [
+        {
+          "term": "Electron",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A fundamental particle; if it ceases to be an electron, it ceases to exist. Has identity and unity."
+        },
+        {
+          "term": "Photon",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A fundamental particle; if it ceases to be a photon, it ceases to exist. Has identity and unity."
+        },
+        {
+          "term": "Quantized Electromagnetic Field",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A background/substance, not a countable entity. No inherent identity or unity for arbitrary parts. Trap: Similar to 'Photon' but distinct in identity."
+        },
+        {
+          "term": "Virtual Photon",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Exists only in the context of mediating an interaction between other particles; cannot exist independently. Trap: Similar to 'Photon' but is a role."
+        },
+        {
+          "term": "Interaction Vertex",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific point in spacetime where fundamental particles interact. It is what it is, and can be identified."
+        },
+        {
+          "term": "Feynman Diagram",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A representation of an interaction, dependent on the interaction itself. If the interaction doesn't exist, the diagram (in its role as a representation) doesn't either."
+        },
+        {
+          "term": "Electron Field",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "The fundamental field from which electrons emerge; not a countable entity. Trap: Similar to 'Electron' but distinct as a material."
+        },
+        {
+          "term": "Electron-Positron Pair",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "A temporary state or combination that can annihilate. Maintains identity during its existence, but can transition out of this state. Trap: A temporary 'kind' of entity."
+        },
+        {
+          "term": "Vacuum",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "The state of lowest energy, but filled with virtual particles. Not a countable entity."
+        },
+        {
+          "term": "Gauge Boson",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A fundamental type of particle; photons are a type of gauge boson. If it ceases to be a gauge boson, it ceases to exist."
+        },
+        {
+          "term": "Propagator",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Describes the propagation of a particle between interaction points; dependent on the particle and interaction. Trap: Not a particle itself, but its role in interaction."
+        },
+        {
+          "term": "Coupling Constant",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A scalar value describing the strength of an interaction; not a countable entity, nor does it have parts. No identity or unity."
+        },
+        {
+          "term": "Renormalization Procedure",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A technique or method in QED; it exists as a procedure to address infinities. Its existence is dependent on the theory's need for it. Trap: An abstract 'thing' whose role is its primary characteristic."
+        },
+        {
+          "term": "QED Lagrangian",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The mathematical formulation defining QED; it is what it is, a specific mathematical expression. Has identity and unity."
+        },
+        {
+          "term": "Electromagnetic Wave",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "A manifestation or state of the electromagnetic field, or a collection of photons. It can cease to exist as a distinct wave (e.g., absorbed) without the field ceasing to exist. Trap: Distinct from a single 'Photon' or the 'Electromagnetic Field'."
+        }
+      ]
+    },
+    {
+      "domain": "Ancient Egyptian Mortuary Practices",
+      "dataset": [
+        {
+          "term": "Mummy",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A preserved body maintains its identity and cannot cease to be a mummy and continue to exist. It is a whole entity."
+        },
+        {
+          "term": "Deceased Person",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "A person can transition from being 'living' to 'deceased' and can still exist as a person (e.g., in memory, as remains). It's a phase of a person."
+        },
+        {
+          "term": "Burial Chamber",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific, identifiable structure. Cannot cease to be a burial chamber without ceasing to exist as that chamber."
+        },
+        {
+          "term": "Sarcophagus",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific container for a body. It's identifiable and a complete object."
+        },
+        {
+          "term": "Canopic Jar",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific type of vessel; cannot cease to be a canopic jar and still exist as that specific jar."
+        },
+        {
+          "term": "Offering Recipient (Deity)",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A deity exists independently, but its 'offering recipient' role depends on the act of offering. It can cease to be an offering recipient and still exist."
+        },
+        {
+          "term": "Embalmer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person acts as an embalmer during the embalming process. They can cease to be an embalmer and still exist as a person. Depends on the 'embalming process'."
+        },
+        {
+          "term": "Offerings",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material/Collection",
+          "note": "Refers to a collection of items or substances grouped by purpose. Lacks intrinsic identity and unity; depends on being offered."
+        },
+        {
+          "term": "Linen Wrappings",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Refers to the material itself, linen. Lacks intrinsic identity and unity as specific wrappings, but the material is rigid."
+        },
+        {
+          "term": "Mummification Process",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A specific, identifiable series of events. It is a process that depends on a body to be performed, and cannot cease to be that process without ceasing to exist as that process."
+        },
+        {
+          "term": "Soul (Ba/Ka)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "In the Egyptian belief system, a soul is a distinct and persistent entity. It carries identity and unity."
+        },
+        {
+          "term": "Tomb Wall Painting",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An identifiable artistic composition on a given wall. It's a complete, rigid entity."
+        },
+        {
+          "term": "Natron (Salt)",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A chemical substance used in mummification. It is a rigid material, but lacks identity or unity as an arbitrary amount."
+        },
+        {
+          "term": "Funerary Priest",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person assumes this role during funerary rites. They can cease to be a funerary priest and still exist as a person. Depends on the 'funerary rites'."
+        },
+        {
+          "term": "Tomb Robber",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person acting in this capacity. Can cease to be a robber and still exist as a person. Depends on the 'tomb' and act of 'robbing'."
+        }
+      ]
+    },
+    {
+      "domain": "Post-Keynesian Economic Theory",
+      "dataset": [
+        {
+          "term": "Effective Demand",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A generic amount or concept, not an identifiable individual entity. Can't be counted or re-identified."
+        },
+        {
+          "term": "Money Supply",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A quantity or aggregate, lacking inherent identity criteria for individual units in a 'sum' sense."
+        },
+        {
+          "term": "Investment Spending",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "An amount or aggregate of expenditure, which can vary without losing its 'identity' as a concept."
+        },
+        {
+          "term": "Financial Institution",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A distinct individual entity (e.g., a specific bank), maintains identity through changes, unified parts."
+        },
+        {
+          "term": "Central Bank",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific, identifiable institution with clear identity and unity, essential to its existence."
+        },
+        {
+          "term": "Economic Agent",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A fundamental individual entity in economic analysis, maintains identity and unity."
+        },
+        {
+          "term": "Portfolio Holder",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person or institution performing a specific function, dependent on holding a portfolio. Can cease to be one and still exist."
+        },
+        {
+          "term": "Borrower",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A specific economic agent playing a temporary role, dependent on a loan. Can stop being a borrower and still exist."
+        },
+        {
+          "term": "Lender",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A specific economic agent playing a temporary role, dependent on a loan. Can stop being a lender and still exist."
+        },
+        {
+          "term": "State of Uncertainty",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A general condition or characteristic, not an identifiable individual entity. Can't be counted."
+        },
+        {
+          "term": "Animal Spirits (Keynesian)",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A general quality or driver of economic behavior, not a distinct entity with identity or unity."
+        },
+        {
+          "term": "Capitalist (Phase)",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "A person who owns capital and employs labor; can transition out of this phase but still exist as a person. Not externally dependent on a specific entity."
+        },
+        {
+          "term": "Shareholder",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Dependent on holding shares in a corporation. A person can cease being a shareholder and still exist."
+        },
+        {
+          "term": "Firm (as an ongoing entity)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An identifiable, independent legal or economic entity. Its existence is tied to its nature as a firm."
+        },
+        {
+          "term": "Rate of Profit",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "A ratio or measure, lacking identity. It is dependent on the existence of profit and capital."
+        }
+      ]
+    },
+    {
+      "domain": "Cognitive Linguistics of Causality",
+      "dataset": [
+        {
+          "term": "Cause",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A 'cause' is a role an entity plays with respect to an effect; it can cease to be a cause and still exist. It depends on an effect."
+        },
+        {
+          "term": "Causality",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "An abstract property or relation, not a countable entity. No inherent unity or identity."
+        },
+        {
+          "term": "Effect",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "An 'effect' is a role an entity plays with respect to a cause; it can cease to be an effect (if its cause never happened retrospectively) and still exist. It depends on a cause."
+        },
+        {
+          "term": "Event",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An instance of an event is essentially that event. It has identity criteria and intrinsic unity."
+        },
+        {
+          "term": "Agent",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "An agent is a role performed by an entity; the entity can exist without being an agent. It depends on an action."
+        },
+        {
+          "term": "Patient (Grammatical)",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A 'patient' is a grammatical role. An entity can cease to be a patient (e.g., if the action ceases) and still exist. It depends on an action/agent."
+        },
+        {
+          "term": "Action",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An individual action is an essential event of a certain type. It provides identity for its occurrences. "
+        },
+        {
+          "term": "Causal Chain",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific sequence of causally linked events. It is a structured whole with identity."
+        },
+        {
+          "term": "Force (Abstract)",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "An abstract concept of force, not a specific, countable instance of force. Similar to 'energy'."
+        },
+        {
+          "term": "Initiator",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A specific role within a causal chain, implying dependence on the chain and the initiated event."
+        },
+        {
+          "term": "Mechanism",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of process or system that brings about an effect. It has a definite structure and identity."
+        },
+        {
+          "term": "Process",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Similar to an Event, but often implying duration and transformation, yet still a countable entity with an inherent identity."
+        },
+        {
+          "term": "Consequence",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Similar to 'Effect', a consequence is a role an event plays in relation to a prior event. It depends on that prior event."
+        },
+        {
+          "term": "Mental Representation of Causality",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific, countable cognitive structure. Its identity is tied to being that particular representation."
+        },
+        {
+          "term": "Causation (Act of)",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A temporal phase of an event or agent. An entity can exist before or after 'causing' something without ceasing to be. It implicitly depends on the entities involved."
+        }
+      ]
+    },
+    {
+      "domain": "Epistemology of Artificial Intelligence",
+      "dataset": [
+        {
+          "term": "Artificial Intelligence",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Refers to the general field or substance/capability, not specific instances. No clear identity criterion for 'AI' as a whole."
+        },
+        {
+          "term": "AI Model",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific, identifiable instance of an AI system. If it ceases to be 'that specific model', it ceases to exist. Carries identity."
+        },
+        {
+          "term": "Trained AI Model",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "A specific AI Model can be 'trained' or 'untrained'. It can cease to be 'trained' (e.g., reset, partially reconfigured) and still be the same AI Model."
+        },
+        {
+          "term": "AI System Developer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person can stop being a developer and continue to exist. The role is dependent on the existence of an 'AI System' to develop."
+        },
+        {
+          "term": "Algorithmic Bias",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "An amount or quality of bias present in an algorithm, cannot be counted as discrete instances. Dependent on an 'Algorithm'."
+        },
+        {
+          "term": "AI's Knowledge Base",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A specific identifiable repository of information. Essential to its identity. Dependent on an 'AI System' that 'has' it."
+        },
+        {
+          "term": "Ethical AI Principle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific concept or rule. While abstract, it retains identity. Not a 'sum' or 'amount'."
+        },
+        {
+          "term": "Fairness (in AI)",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "An amount or quality. An AI can have 'more' or 'less' fairness. Dependent on the 'AI' exhibiting it."
+        },
+        {
+          "term": "Explainable AI (XAI) Technique",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific method or approach. Essential identity. Can be distinguished and identified."
+        },
+        {
+          "term": "Autonomous Agent",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An entity that acts independently. If it ceases to be an 'autonomous agent', it ceases to exist as that entity."
+        },
+        {
+          "term": "AI as a Service (AIaaS) Provider",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A company or individual can stop providing AIaaS and still exist. Role is dependent on clients and AI services."
+        },
+        {
+          "term": "Uncertainty (in AI)",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "An amount or quality of uncertainty. Cannot be counted. Dependent on the 'AI System' exhibiting it."
+        },
+        {
+          "term": "AI Model's Output",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A specific, identifiable result or consequence generated by an AI model. Cannot exist without the 'AI Model' that produced it."
+        },
+        {
+          "term": "AI Governance Framework",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific structured set of rules/principles. Possesses its own identity and parts. Does not inherently depend on a 'governed' entity to exist conceptually."
+        },
+        {
+          "term": "Data Scientist",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person can cease to be a data scientist and still exist. The role is dependent on the existence of 'data' and 'science'."
+        }
+      ]
+    },
+    {
+      "domain": "Hydrothermal Vent Ecosystems",
+      "dataset": [
+        {
+          "term": "Black Smoker Vent",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific type of vent, a physical object that exists independently."
+        },
+        {
+          "term": "Hydrothermal Fluid",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A quantity of matter; cannot be counted, has no inherent identity."
+        },
+        {
+          "term": "Chemoautotrophic Bacterium",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A fundamental biological type; if it ceases to be this, it ceases to exist."
+        },
+        {
+          "term": "Vent Chimney",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A distinct physical structure, a type of object."
+        },
+        {
+          "term": "Sulfide Mineral Deposit",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A non-unified amount of material."
+        },
+        {
+          "term": "Tubeworm Colony",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A collection forming a single, identifiable biological entity."
+        },
+        {
+          "term": "Primary Producer Organism",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "An organism takes on this role within an ecosystem; it can exist and cease to be a primary producer."
+        },
+        {
+          "term": "Hydrothermal Plume",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A transient, undifferentiated mass of water and suspended particles. No intrinsic unity or identity."
+        },
+        {
+          "term": "Vent-Associated Species",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A species takes on this role in relation to a vent. It can exist apart from a vent (e.g., migrating)."
+        },
+        {
+          "term": "Immature Larva",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "A transient developmental stage of an organism."
+        },
+        {
+          "term": "Sulfide-Oxidizing Microbial Mat",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A distinct biological community with identifiable boundaries."
+        },
+        {
+          "term": "Vent Community Structure",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A complex, identifiable arrangement of organisms and their interactions."
+        },
+        {
+          "term": "Seafloor",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A fundamental geographical Feature/Type upon which the vent exists."
+        },
+        {
+          "term": "Vent Plume Particulate Matter",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Undifferentiated, non-identifiable suspended solids."
+        },
+        {
+          "term": "Microbial Symbiont",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A microorganism acting as a symbiont. It can exist independently or in other roles."
+        }
+      ]
+    },
+    {
+      "domain": "Ethnomusicology of Sub-Saharan Africa",
+      "dataset": [
+        {
+          "term": "Djembe Drum",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific type of musical instrument, instances are rigid, have identity, and coherent unity."
+        },
+        {
+          "term": "Drummer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person playing a drum; they can cease being a drummer and still exist. Requires a drum."
+        },
+        {
+          "term": "Performance",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "An event with a start and end, instances have identity but lack intrinsic unity in a physical sense. Requires performers."
+        },
+        {
+          "term": "Rhythm",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Quality",
+          "note": "An abstract quality of music, no identity criterion or intrinsic unity. Depends on musical sound."
+        },
+        {
+          "term": "Kora (instrument)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific type of string instrument. Each kora is a distinct entity."
+        },
+        {
+          "term": "Griotte (Female Griot)",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A professional storyteller, musician, and praise singer; a person can cease to practice this role but still exist. Dependent on cultural context and community."
+        },
+        {
+          "term": "Palm Wood",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Matter, an arbitrary amount of wood. Lacks identity and intrinsic unity."
+        },
+        {
+          "term": "Palm Wood Djembe",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific Djembe drum made of palm wood. The material defines part of its identity but not its existence as a drum type."
+        },
+        {
+          "term": "Melody",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Quality",
+          "note": "An abstract sequence of musical notes. Lacks identity criterion and unity. Depends on sound."
+        },
+        {
+          "term": "Balafon Player",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person playing a balafon. Can cease being a player. Depends on the balafon."
+        },
+        {
+          "term": "Oral Tradition",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A form of cultural transmission. Lacks clear identity for individual instances (it's a process, not a singular object) and unity. Depends on community and stories."
+        },
+        {
+          "term": "Tuning Peg",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific component of an instrument. Retains its identity and unity, not dependent in a way that implies its existence is solely tied to one instrument."
+        },
+        {
+          "term": "Ceremonial Music",
+          "properties": {
+            "R": "~R",
+            "I": "~I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A category of musical practice. Can be rigid if defining a specific tradition, but anti-rigid if referring to performance. For a category, identity can be fuzzy. Depends on a ceremony."
+        },
+        {
+          "term": "Xylophone",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A class of musical instrument. Instances are rigid, have identity and intrinsic unity."
+        },
+        {
+          "term": "Sound (acoustic phenomena)",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Quality",
+          "note": "An abstract, transient phenomenon. No identity criterion or intrinsic unity. Dependent on a source."
+        }
+      ]
+    },
+    {
+      "domain": "Discourse Analysis of Online Political Forums",
+      "dataset": [
+        {
+          "term": "Political Thread",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific thread is intrinsically defined by its content and structure; it exists independently."
+        },
+        {
+          "term": "Post",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A post is a distinct entity with its own identity, inherently part of a thread/forum."
+        },
+        {
+          "term": "Forum User",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A 'user' as an individual entity; their existence is not dependent on being a user of THIS forum."
+        },
+        {
+          "term": "Moderator",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Someone can stop being a moderator and still be the same person. The role depends on the forum."
+        },
+        {
+          "term": "Political Argument",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "An utterance can be expressed as an argument in one context, but not in another. It depends on the discourse."
+        },
+        {
+          "term": "Online Discussion",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The discussion itself has intrinsic unity and identity."
+        },
+        {
+          "term": "Toxic Language",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Refers to the general phenomenon/type of language, an uncountable 'mass' not individuated."
+        },
+        {
+          "term": "Piece of Toxic Language",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "This refers to an identified segment of text exhibiting toxicity, a phase in the text's existence."
+        },
+        {
+          "term": "Reply Chain",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A distinct structure of posts linked together; dependent on the posts themselves."
+        },
+        {
+          "term": "Disinformation Campaign",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A specific, identifiable campaign, dependent on its actors and targets."
+        },
+        {
+          "term": "Political Stance",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Refers to the general concept, a continuum or quality, not an individuated entity."
+        },
+        {
+          "term": "Expressed Stance",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A documented act of expressing a political stance, dependent on the expression occurring."
+        },
+        {
+          "term": "Community Guideline",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A specific rule or set of rules, inherently dependent on the forum/platform."
+        },
+        {
+          "term": "Offensive Content",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "General category of content, not a specific, countable instance."
+        },
+        {
+          "term": "Offensive Post",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A post that, during a certain period or context, is considered offensive. It can cease to be offensive based on context or re-evaluation and still be the same post. Dependent on criteria for offensiveness."
+        }
+      ]
+    },
+    {
+      "domain": "Statistical Mechanics of Soft Matter",
+      "dataset": [
+        {
+          "term": "Polymer Chain",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific polymer chain, if it ceases to be that chain, it ceases to exist. It has a clear identity and unity. Independent."
+        },
+        {
+          "term": "Monomer Unit",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A single fundamental unit. Essential to its existence, has identity, and is unified. Independent."
+        },
+        {
+          "term": "Polymer Solution",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A quantity of solution. It can cease to be a 'solution' (e.g., polymer precipitates) and still exist. No clear identity criterion for a 'solution' as a whole, arbitrary amounts. No intrinsic unity. Independent."
+        },
+        {
+          "term": "Colloidal Particle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific particle. Essential properties. Has identity and is a unified whole. Independent."
+        },
+        {
+          "term": "Glassy State",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "-D",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "A substance can transition out of the glassy state and still exist. It has identity as 'that material' but is in a specific phase. The unity is of the material itself. Independent."
+        },
+        {
+          "term": "Crystallized Phase",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "A material can transition from a crystallized phase and still exist. Refers to a state of a material, not the material itself. Identity as 'that material in that phase', but the phase itself doesn't possess identity. Unity may be due to the material, not the phase intrinsically. Independent."
+        },
+        {
+          "term": "Interfacial Tension",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Quality",
+          "note": "A property of an interface, cannot exist without the interface. No identity criterion (it's a scalar value/property). No unity. Dependent on an interface."
+        },
+        {
+          "term": "Brush Polymer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A polymer acting in a specific configuration (brush-like). It can cease to be a brush polymer and still be the same polymer. Identity as 'that polymer chain'. Unity of the chain. Dependent on its attachment or configuration."
+        },
+        {
+          "term": "Micelle",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "An aggregate that can form and disperse, but still be the same constituent molecules. It has identity as a 'micelle' structure while it exists. It's a unified structure. Independent formation."
+        },
+        {
+          "term": "Elastomer",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A specific type of material. Elasticity is essential. No identity criterion for 'elastomer' in general, refers to amounts of material. No intrinsic unity. Independent."
+        },
+        {
+          "term": "Cross-link",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type/Relation",
+          "note": "A specific chemical bond or connection, essential to its nature. It has identity and unity. Dependent on the molecules it connects."
+        },
+        {
+          "term": "Gel Network",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "A system can transition in and out of a gel state and still exist. It has identity as 'that gel network'. It forms a unified structure. Independent."
+        },
+        {
+          "term": "Melt",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A material can be in a melt state and then solidify, still existing. No identity for 'the melt' as a distinct entity, refers to an amount of melted substance. No intrinsic unity. Independent."
+        },
+        {
+          "term": "Ordered Phase",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "A material can move in and out of an ordered phase. It relates to the material's identity, but the phase itself isn't a rigid type. No intrinsic unity for 'the phase'. Independent."
+        },
+        {
+          "term": "Entanglement",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A topological interaction between polymer chains, which can form and unform. It describes a 'state' of interaction between specific chains. Has identity because it refers to the entangled state of *those* specific chains. Unity of the entanglement. Dependent on the existence of the polymer chains."
+        }
+      ]
+    },
+    {
+      "domain": "Comparative Mythology of Creation Narratives",
+      "dataset": [
+        {
+          "term": "Creator Deity",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A deity can cease to be a 'Creator Deity' (e.g., after creation is complete or if they are just one of many deities in a pantheon) and still exist as a deity. Its existence as a 'Creator Deity' is dependent on the act of creation or the existence of a created world."
+        },
+        {
+          "term": "Chaos",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Often described as primeval undifferentiated matter or void; lacks intrinsic identity or unity. It is what it is, and cannot cease to be Chaos and still exist as something else. Not dependent on anything specific."
+        },
+        {
+          "term": "Cosmic Egg",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific, identifiable entity within a narrative. If an instance ceases to be a 'Cosmic Egg' (e.g., hatches), it ceases to exist as that specific entity. It is a distinct whole and independent."
+        },
+        {
+          "term": "World Tree",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A distinct, identifiable entity fundamental to many cosmologies. If an instance ceases to be a 'World Tree', it ceases to exist as that specific type of entity. It's an intrinsic whole and independent."
+        },
+        {
+          "term": "Primeval Ocean",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Similar to Chaos, often a vast, undifferentiated body of water before creation. Lacks intrinsic identity and unity. It is inherently a 'Primeval Ocean' and not dependent."
+        },
+        {
+          "term": "First Human",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "An individual (identifiable, whole). They are 'First Human' only during a particular phase of existence/narrative; they later become just a 'Human'. Can cease to be the 'First Human' and still exist as a human. Not externally dependent."
+        },
+        {
+          "term": "Creation Act",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Refers to a specific event or process. Its nature is inherently an 'Act of Creation'. An instance of a creation act is a discernible whole, but it is dependent on both a creator and what is created."
+        },
+        {
+          "term": "Cosmic Serpent",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific type of entity. An instance cannot cease to be a Cosmic Serpent and still exist as that specific entity. It's a distinct whole and independent."
+        },
+        {
+          "term": "Primordial Being",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Describes a foundational type of entity. If it ceases to be a 'Primordial Being', it ceases to exist as such. It's a distinct whole and independent."
+        },
+        {
+          "term": "Sky Father",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A deity can cease to hold the 'Sky Father' role (e.g., superseded, or if the 'father' aspect is no longer relevant) and still exist as a deity. Its existence as 'Sky Father' implies dependence on offspring or an associated 'Earth Mother'."
+        },
+        {
+          "term": "Void",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Similar to Chaos, an undifferentiated expanse or nothingness. Lacks identity and unity. It inherently is 'Void'. Not externally dependent."
+        },
+        {
+          "term": "Divine Spark",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "An amount or quality of divine essence. Lacks intrinsic identity or unity when conceptualized as a fluid or transferable element. It is 'divine' rigidly, but its existence is dependent on a divine source or the entity it animates."
+        },
+        {
+          "term": "Myth Teller",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person can cease to be a 'Myth Teller' (e.g., stop telling myths) and still exist as a person. The role 'Myth Teller' is dependent on the existence of myths to tell and an audience."
+        },
+        {
+          "term": "Created World",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A specific, identifiable entity (a world). Cannot cease to be a created world and still exist as that type of entity. It's a distinct whole, and its existence is inherently dependent on a prior act of creation and potentially a creator."
+        },
+        {
+          "term": "Pre-Cosmic State",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "This refers to the state of existence before the cosmos. A specific 'state' can change (e.g., into the cosmic state) and still be a state of reality. Its existence as 'Pre-Cosmic' is relative to the 'Cosmic' state."
+        }
+      ]
+    }
+  ]
+}

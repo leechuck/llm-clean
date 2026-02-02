@@ -1,0 +1,993 @@
+{
+  "datasets": [
+    {
+      "domain": "Treatment of bronchitis",
+      "dataset": [
+        {
+          "term": "Patient",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person becomes a patient in the context of receiving medical care; they can cease being a patient and still exist. Depends on a healthcare provider/system."
+        },
+        {
+          "term": "Human",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A human is essentially a human; if it ceases to be human, it ceases to exist. Has identity and unity, independent."
+        },
+        {
+          "term": "Bronchitis",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A state or condition of an organism; an organism can cease to have bronchitis and still exist. Depends on an organism."
+        },
+        {
+          "term": "Antibiotic",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Amounts of antibiotic medicine. Can't count individual instances in a generic sense. Independent of specific context."
+        },
+        {
+          "term": "Antibiotic Prescription",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A document or order that is a prescription only because it is issued by a doctor and acted upon. Depends on a prescriber and a patient."
+        },
+        {
+          "term": "Lung",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "An organ that is essentially a lung; if it ceases to be a lung in its functional sense, it ceases to exist (e.g., as part of a living being). Anatomically, it depends on an organism."
+        },
+        {
+          "term": "Inflammation",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A state or process within a body part; the body part can exist without inflammation. Depends on a body part."
+        },
+        {
+          "term": "Mucus",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A substance. Amounts of mucus. No clear identity criterion; parts are arbitrary. Independent."
+        },
+        {
+          "term": "Doctor",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person acting in the capacity of a healthcare provider. They can cease being a doctor and still exist. Depends on patients and a healthcare system."
+        },
+        {
+          "term": "Medical Chart",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A document that serves a specific role within a medical context. Can cease to be a medical chart (e.g., if destroyed) and the constituent paper might still exist, or it could be a 'historical document'. Depends on a patient and healthcare system."
+        },
+        {
+          "term": "Diagnosis",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "An assessment or conclusion. It's a state of knowledge or a judgment that can change. Depends on a patient and a diagnostician."
+        },
+        {
+          "term": "Bacteria",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of microorganism. Essential to its nature. Has identity and unity. Independent of a specific host in its definition."
+        },
+        {
+          "term": "Bacteria Culture",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "A specific amount or sample of bacteria grown in a lab. It's a 'culture' only in a lab context. It depends on the lab process/environment. Could be seen as similar to 'amounts' of something."
+        },
+        {
+          "term": "Treatment Plan",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A structured set of actions or instructions. It serves a specific role in managing a patient's condition. Can be revised or abandoned, changing its 'role'. Depends on a patient and medical professional."
+        },
+        {
+          "term": "Cough",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A symptom or physical act. An individual can stop coughing and still exist. Depends on a person or animal."
+        }
+      ],
+      "taxonomy": {
+        "Patient": [
+          "Human"
+        ],
+        "Human": [],
+        "Bronchitis": [
+          "Inflammation"
+        ],
+        "Antibiotic": [],
+        "Antibiotic Prescription": [
+          "Treatment Plan"
+        ],
+        "Lung": [],
+        "Inflammation": [],
+        "Mucus": [],
+        "Doctor": [
+          "Human"
+        ],
+        "Medical Chart": [],
+        "Diagnosis": [],
+        "Bacteria": [],
+        "Bacteria Culture": [],
+        "Treatment Plan": [],
+        "Cough": []
+      }
+    },
+    {
+      "domain": "Cycling",
+      "dataset": [
+        {
+          "term": "Bicycle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific instance of a bicycle retains its identity and existence."
+        },
+        {
+          "term": "Cyclist",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A human being. Even if they stop cycling, they are still a person (a cyclist is a person role)."
+        },
+        {
+          "term": "Racer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person can stop being a racer and still exist. Depends on a race event."
+        },
+        {
+          "term": "Road Cyclist",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "A person who cycles on roads. They can stop and still exist as a person, but it's not a role dependent on a specific entity like a race."
+        },
+        {
+          "term": "Wheel",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific wheel retains its identity and existence."
+        },
+        {
+          "term": "Rubber",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "An amount of rubber. No intrinsic identity or parts."
+        },
+        {
+          "term": "Tire",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific tire retains its identity and existence. Trap: contrasted with 'Rubber'."
+        },
+        {
+          "term": "Gear",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific gear component."
+        },
+        {
+          "term": "Gear Ratio",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Quality",
+          "note": "A ratio is a quality/property of gears, it cannot exist without the gears themselves and lacks identity or unity."
+        },
+        {
+          "term": "Brake Lever",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific brake lever part."
+        },
+        {
+          "term": "Cycling Team Member",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person can cease to be a team member and still exist. Depends on a cycling team."
+        },
+        {
+          "term": "Handlebar Grip",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific grip element."
+        },
+        {
+          "term": "Carbon Fiber",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "An amount of carbon fiber. Lacks identity and unity."
+        },
+        {
+          "term": "Frame",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific bicycle frame. Trap: contrasted with 'Carbon Fiber'."
+        },
+        {
+          "term": "Peloton",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Collective",
+          "note": "A group of cyclists in a race. It can disperse and the individual cyclists still exist. It depends on the presence of cyclists in a race context."
+        }
+      ],
+      "taxonomy": {
+        "Bicycle": [],
+        "Cyclist": [],
+        "Racer": [
+          "Cyclist"
+        ],
+        "Road Cyclist": [
+          "Cyclist"
+        ],
+        "Wheel": [],
+        "Rubber": [],
+        "Tire": [],
+        "Gear": [],
+        "Gear Ratio": [],
+        "Brake Lever": [],
+        "Cycling Team Member": [
+          "Cyclist"
+        ],
+        "Handlebar Grip": [],
+        "Carbon Fiber": [],
+        "Frame": [],
+        "Peloton": []
+      }
+    },
+    {
+      "domain": "High-Frequency Trading",
+      "dataset": [
+        {
+          "term": "Trader",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A person acts as a Trader; they can cease being a Trader but still exist. Depends on the 'Trading Firm' or 'Market Position'."
+        },
+        {
+          "term": "Trading Firm",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A fundamental organizational entity. If it ceases to be a firm, it ceases to exist. Independent."
+        },
+        {
+          "term": "Algorithm",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A defined computational procedure. If it ceases to be an algorithm, it ceases to exist. Independent."
+        },
+        {
+          "term": "Order",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific request to buy or sell. If it ceases to be an order, it ceases to exist as that specific order."
+        },
+        {
+          "term": "High-Frequency Data Stream",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A continuous flow of information. Can exist in different forms (e.g., historical data). Depends on its source (e.g., Exchange)."
+        },
+        {
+          "term": "Trade",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "An atomic execution of an order. Cannot exist without at least two parties and a security."
+        },
+        {
+          "term": "Market Participant",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "An entity (person, firm, algorithm) engaging in the market. Can cease being a participant and still exist. Depends on the 'Market'."
+        },
+        {
+          "term": "Liquidity",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "An amount or quality present in a market. Cannot be counted individually. Depends on the 'Market' it's describing."
+        },
+        {
+          "term": "Price Action",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A sequence of price movements. The 'price' itself (a quality) has no identity, but the 'action' (the sequence/event) does. Dependent on a 'Security'."
+        },
+        {
+          "term": "Capital",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "An amount of financial resources. Cannot be individually counted or identified over time. Independent, as it can exist without being deployed."
+        },
+        {
+          "term": "Market Data",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A structured set of information about the market (e.g., quotes, trades). Dependent on events in the market."
+        },
+        {
+          "term": "Exchange",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A central marketplace. If it ceases to be an exchange, it ceases to exist. Independent as an entity."
+        },
+        {
+          "term": "Latency",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "An amount or quality of delay. Cannot be counted. Intrinsically dependent on a 'Process' or 'Communication'."
+        },
+        {
+          "term": "Active Order",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "An Order that is currently in the market. The specific 'Order' is preserved, but its 'active' state is optional. Depends on being placed on an 'Exchange'."
+        },
+        {
+          "term": "Fill (of an Order)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A specific partial or complete execution of an order. It's a distinct event. Cannot exist without the original 'Order'."
+        }
+      ],
+      "taxonomy": {
+        "Trader": [
+          "Market Participant"
+        ],
+        "Trading Firm": [
+          "Market Participant"
+        ],
+        "Algorithm": [],
+        "Order": [],
+        "High-Frequency Data Stream": [
+          "Market Data"
+        ],
+        "Trade": [],
+        "Market Participant": [],
+        "Liquidity": [],
+        "Price Action": [
+          "Market Data"
+        ],
+        "Capital": [],
+        "Market Data": [],
+        "Exchange": [],
+        "Latency": [],
+        "Active Order": [
+          "Order"
+        ],
+        "Fill (of an Order)": []
+      }
+    },
+    {
+      "domain": "Myrmecology",
+      "dataset": [
+        {
+          "term": "Queen Ant",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific biological type of ant; if it ceases to be a queen ant, it ceases to exist as that specific ant."
+        },
+        {
+          "term": "Worker Ant",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific biological type of ant; if it ceases to be a worker ant, it ceases to exist as that specific ant."
+        },
+        {
+          "term": "Forager Ant",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "An ant can stop being a forager (e.g., become a nurse) and still exist. It depends on the colony's foraging needs."
+        },
+        {
+          "term": "Nurse Ant",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "An ant can stop being a nurse (e.g., become a soldier) and still exist. It depends on the colony's brood care needs."
+        },
+        {
+          "term": "Ant Colony",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific, identifiable superorganism. If it ceases to be an ant colony, it ceases to exist."
+        },
+        {
+          "term": "Ant Hill",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "The physical structure can be destroyed or abandoned, but the colony (which built it) can still exist elsewhere. It's a phase of the colony's dwelling."
+        },
+        {
+          "term": "Pupa (Ant)",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "An ant in its pupal stage; it can cease to be a pupa (eclose) and still exist as an ant."
+        },
+        {
+          "term": "Larva (Ant)",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "An ant in its larval stage; it can cease to be a larva (pupate) and still exist as an ant."
+        },
+        {
+          "term": "Chitin",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A chemical substance, not countable, lacks intrinsic unity. If it ceases to be chitin, it ceases to exist as chitin."
+        },
+        {
+          "term": "Soil",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A generic amount of matter. Lacks identity and unity."
+        },
+        {
+          "term": "Ant Egg",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "An ant in its embryonic phase; it can cease to be an egg (hatch) and still exist as an ant."
+        },
+        {
+          "term": "Ant Nest",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Refers to the persistent structure that provides shelter and organization for a colony. Unlike 'Ant Hill' which refers to a specific type of nest or its external mound, 'Ant Nest' is the general, rigid concept of the habitation."
+        },
+        {
+          "term": "Gaster (Ant Abdomen)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Dependent Part",
+          "note": "A specific, identifiable part of an ant. If it ceases to be a gaster, the ant it belongs to has ceased to exist in its complete form. It depends on the ant to exist."
+        },
+        {
+          "term": "Colony Member",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "An ant is a colony member only in the context of being part of a colony. If the colony dissolves, it ceases to be a colony member, but the ant can still exist."
+        },
+        {
+          "term": "Pheromone",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A chemical substance used for communication. Lacks identity and intrinsic unity as an amount. If it ceases to be a pheromone, it ceases to exist as that specific chemical."
+        }
+      ],
+      "taxonomy": {
+        "Queen Ant": [
+          "Colony Member"
+        ],
+        "Worker Ant": [
+          "Colony Member"
+        ],
+        "Forager Ant": [
+          "Worker Ant"
+        ],
+        "Nurse Ant": [
+          "Worker Ant"
+        ],
+        "Ant Colony": [],
+        "Ant Hill": [
+          "Ant Nest"
+        ],
+        "Pupa (Ant)": [
+          "Colony Member"
+        ],
+        "Larva (Ant)": [
+          "Colony Member"
+        ],
+        "Chitin": [],
+        "Soil": [],
+        "Ant Egg": [
+          "Colony Member"
+        ],
+        "Ant Nest": [],
+        "Gaster (Ant Abdomen)": [],
+        "Colony Member": [],
+        "Pheromone": []
+      }
+    },
+    {
+      "domain": "Urban Parkour",
+      "dataset": [
+        {
+          "term": "Parkour Practitioner",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A human, a rigid type that can be identified and has unity."
+        },
+        {
+          "term": "Traceur",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "A person currently practicing Parkour; can cease being a traceur and still exist. Note the difference to 'Parkour Practitioner' which is generally rigid to a specific person type. 'Traceur' is a temporary state of a Parkour Practitioner."
+        },
+        {
+          "term": "Obstacle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A physical entity in the environment, rigid, identifiable, and unified."
+        },
+        {
+          "term": "Wall",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific type of obstacle, rigid, identifiable, and unified."
+        },
+        {
+          "term": "Jump",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A specific action or maneuver performed by a practitioner onto/over an obstacle. Cannot exist without a practitioner and an obstacle."
+        },
+        {
+          "term": "Concrete",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Generic amount of matter, rigid, lacks identity criterion and unity. Differs from 'Wall' (a concrete entity made of concrete)."
+        },
+        {
+          "term": "Building",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A rigid, identifiable, and unified physical structure."
+        },
+        {
+          "term": "Roof",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A part of a building, cannot exist without the building. It's a structured part, but its existence is dependent ON the building it's a roof OF. It's not a Phased Sortal of a building, but rather dependent existence for a part."
+        },
+        {
+          "term": "Gap",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A space between two entities. Its existence is dependent on the entities defining its boundaries. It has unity and identity but its existence is relational."
+        },
+        {
+          "term": "Landing",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "The act of finishing a jump. It's a phase in a movement sequence. It needs a jumper and a surface. Not a type of thing, but a phase and dependent on the action leading to it."
+        },
+        {
+          "term": "Parkour Route",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A conceptual path taken by a practitioner through an environment. It is defined by the sequence of movements and is dependent on the practitioner and the environment. Can be altered, so anti-rigid with respect to specific properties, yet identifiable over time. Dependent on traversal."
+        },
+        {
+          "term": "Handhold",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A part of an obstacle that is *used* for grip. Can cease to be a handhold if not used as such, and still exist as part of the wall. Dependent on the active interaction."
+        },
+        {
+          "term": "Athlete",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phased Sortal",
+          "note": "A person playing a sport. A person can cease being an athlete and still exist. Note it is independent, unlike 'Traceur' which is more specifically linked to the *activity*."
+        },
+        {
+          "term": "Equipment",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Any item used in Parkour (e.g., shoes, gloves). Rigid, identifiable, unified."
+        },
+        {
+          "term": "Skill",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "An abstract, inherent ability. It's 'rigid' inherently to the person possessing it. It lacks identity (you can have 'a lot of skill' but not 'three skills' in the same way you have three jumps). It's dependent on a thinking entity."
+        }
+      ],
+      "taxonomy": {
+        "Parkour Practitioner": [
+          "Athlete"
+        ],
+        "Traceur": [
+          "Parkour Practitioner"
+        ],
+        "Obstacle": [],
+        "Wall": [
+          "Obstacle"
+        ],
+        "Jump": [
+          "Skill"
+        ],
+        "Concrete": [],
+        "Building": [
+          "Obstacle"
+        ],
+        "Roof": [
+          "Obstacle"
+        ],
+        "Gap": [
+          "Obstacle"
+        ],
+        "Landing": [],
+        "Parkour Route": [],
+        "Handhold": [],
+        "Athlete": [],
+        "Equipment": [],
+        "Skill": []
+      }
+    }
+  ]
+}

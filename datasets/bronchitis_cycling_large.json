@@ -1,0 +1,894 @@
+{
+  "datasets": [
+    {
+      "domain": "Treatment of bronchitis",
+      "dataset": [
+        {
+          "term": "Medical Entity",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Top-level abstract entity in the medical domain."
+        },
+        {
+          "term": "Healthcare Intervention",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A planned action or set of actions undertaken to achieve a specific health-related goal."
+        },
+        {
+          "term": "Therapeutic Procedure",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific type of intervention designed to treat a disease or condition."
+        },
+        {
+          "term": "Pharmacological Treatment",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Treatment involving the administration of drugs."
+        },
+        {
+          "term": "Antibiotic Therapy",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Pharmacological treatment using antimicrobial agents."
+        },
+        {
+          "term": "Macrolide Antibiotic Therapy",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Specific type of antibiotic therapy using macrolide drugs."
+        },
+        {
+          "term": "Azithromycin Prescription",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific instance of prescribing azithromycin."
+        },
+        {
+          "term": "Non-Pharmacological Treatment",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Treatment not involving drugs, such as physical therapy or lifestyle changes."
+        },
+        {
+          "term": "Respiratory Therapy",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Non-pharmacological treatment focusing on respiratory function."
+        },
+        {
+          "term": "Oxygen Therapy",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific respiratory therapy involving oxygen administration."
+        },
+        {
+          "term": "Cough Suppressant",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of medication used to reduce coughing."
+        },
+        {
+          "term": "Expectorant",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of medication that helps clear mucus from the airways."
+        },
+        {
+          "term": "Bronchodilator",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A medication that widens the airways."
+        },
+        {
+          "term": "Anti-inflammatory Agent",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A medication that reduces inflammation."
+        },
+        {
+          "term": "Treatment Plan",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A structured course of medical treatment."
+        },
+        {
+          "term": "Patient Education",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The process of informing patients about their condition and care."
+        },
+        {
+          "term": "Hydration Status",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "The state of fluid balance in the body, which can be part of patient management."
+        },
+        {
+          "term": "Nebulizer Machine",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Medical device used to administer medication in mist form."
+        },
+        {
+          "term": "Inhaler Device",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Portable device used for delivering medication to the lungs."
+        },
+        {
+          "term": "Corticosteroid",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A powerful anti-inflammatory drug, often used in bronchitis."
+        },
+        {
+          "term": "Dosage Regimen",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The prescribed amount and frequency of a medication."
+        },
+        {
+          "term": "Infection Control Measure",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Actions taken to prevent the spread of infection."
+        },
+        {
+          "term": "Steam Inhalation",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A home remedy, non-pharmacological treatment for respiratory relief."
+        },
+        {
+          "term": "Mucus",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "Biological substance found in the respiratory tract, a target for expectorants."
+        },
+        {
+          "term": "Inflammation",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "Biological response, a target for anti-inflammatory agents."
+        },
+        {
+          "term": "Airway Obstruction",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A condition in the respiratory system targeted by bronchodilators."
+        },
+        {
+          "term": "Doctor's Recommendation",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A specific piece of advice given by a doctor, dependent on the doctor and patient context."
+        },
+        {
+          "term": "Patient Compliance",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "The extent to which a patient follows medical advice, influences treatment effectiveness."
+        },
+        {
+          "term": "Symptom Relief",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "The state of reduced symptoms, often a goal of treatment."
+        },
+        {
+          "term": "Treatment Adherence",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "Similar to compliance, focusing on consistency with the treatment plan."
+        },
+        {
+          "term": "Respiratory System",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The biological system affected by bronchitis."
+        },
+        {
+          "term": "Bronchial Tubes",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "Parts of the respiratory system directly impacted by bronchitis."
+        },
+        {
+          "term": "Lungs",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Major organ of the respiratory system."
+        },
+        {
+          "term": "Airway Lining",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "The inner surface of the airways, often inflamed in bronchitis."
+        },
+        {
+          "term": "Capillary Blood",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "Blood within capillaries, relevant for drug absorption, a part and material."
+        },
+        {
+          "term": "Immune Response",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "The body's reaction to infection or inflammation."
+        },
+        {
+          "term": "Patient",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A person receiving medical treatment, a role of a human."
+        },
+        {
+          "term": "Caregiver",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Someone providing care, often dependent on the patient."
+        },
+        {
+          "term": "Pharmaceutical Drug",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A substance used for medicinal purposes."
+        },
+        {
+          "term": "Active Pharmaceutical Ingredient",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "The biologically active component of a drug."
+        }
+      ]
+    },
+    {
+      "domain": "Cycling",
+      "dataset": [
+        {
+          "term": "Cycling Entity",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Top-level abstract entity in the cycling domain."
+        },
+        {
+          "term": "Bicycle Component",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A physical part designed for a bicycle. Depends on a bicycle for full function."
+        },
+        {
+          "term": "Frame (Bicycle)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "The main structural part of a bicycle. A type of Bicycle Component."
+        },
+        {
+          "term": "Wheel (Bicycle)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A circular component that rotates on an axle. A type of Bicycle Component."
+        },
+        {
+          "term": "Spoke",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "A individual rod connecting the hub to the rim of a wheel. Part of a Wheel."
+        },
+        {
+          "term": "Rim",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "The outer edge of a wheel, holding the tire. Part of a Wheel."
+        },
+        {
+          "term": "Tire (Bicycle)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A component that fits around the wheel rim. Part of a wheel."
+        },
+        {
+          "term": "Rubber",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "The material tires are made from. Mass noun."
+        },
+        {
+          "term": "Handlebar",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A steering component. A type of Bicycle Component."
+        },
+        {
+          "term": "Grip (Handlebar)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "A covering for handlebars. Part of a Handlebar assembly."
+        },
+        {
+          "term": "Bicycle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A two-wheeled, human-powered vehicle. A type of Cycling Entity."
+        },
+        {
+          "term": "Road Bicycle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A bicycle designed for paved surfaces. A type of Bicycle."
+        },
+        {
+          "term": "Mountain Bicycle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A bicycle designed for off-road use. A type of Bicycle."
+        },
+        {
+          "term": "Cyclist",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A person who rides a bicycle. A role."
+        },
+        {
+          "term": "Amateur Cyclist",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A cyclist who does not compete professionally. A sub-role of person."
+        },
+        {
+          "term": "Professional Cyclist",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A cyclist who competes professionally. A sub-role of person."
+        },
+        {
+          "term": "Bicycle Rider (Person)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An instance of a person."
+        },
+        {
+          "term": "Helmet",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A piece of protective equipment."
+        },
+        {
+          "term": "Visor",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "A part of a helmet. Depends on helmet."
+        },
+        {
+          "term": "Jersey (Cycling)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A piece of cycling apparel."
+        },
+        {
+          "term": "Sleeve (Jersey)",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "A part of a jersey. Cannot exist independently."
+        },
+        {
+          "term": "Cycling Event",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An organized occurrence related to cycling."
+        },
+        {
+          "term": "Race",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A competition of speed. A type of Cycling Event."
+        },
+        {
+          "term": "Time Trial",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A race against the clock. A type of Race."
+        },
+        {
+          "term": "Peloton",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "The main group of riders in a road race. A dynamic formation/role."
+        },
+        {
+          "term": "Breakaway Group",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A small group of riders ahead of the peloton. A dynamic formation/role."
+        },
+        {
+          "term": "Cycling Training",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The process of preparing for cycling performance."
+        },
+        {
+          "term": "Training Session",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A discrete period of training. A type of Cycling Training."
+        },
+        {
+          "term": "Warm-up",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "An initial phase of a training session or race. A temporal phase."
+        },
+        {
+          "term": "Cool-down",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "A final phase of a training session or race. A temporal phase."
+        },
+        {
+          "term": "Cycling Route",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A defined path for cycling."
+        },
+        {
+          "term": "Road Segment",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "A portion of a cycling route. Can be arbitrarily divided."
+        },
+        {
+          "term": "Road Surface Material",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Physical material like asphalt or gravel."
+        },
+        {
+          "term": "Asphalt",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A common material for roads. Type of Road Surface Material."
+        },
+        {
+          "term": "Gravel",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Loose aggregate. Type of Road Surface Material."
+        },
+        {
+          "term": "Cycling Accessory",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An additional item used with a bicycle or by a cyclist."
+        },
+        {
+          "term": "Water Bottle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A container for hydration. A type of Cycling Accessory."
+        },
+        {
+          "term": "Water (Content)",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "The liquid inside a water bottle. Mass noun."
+        },
+        {
+          "term": "Bicycle Repair",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The act or process of fixing a bicycle."
+        },
+        {
+          "term": "Puncture Repair Kit",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A kit containing items for fixing a flat tire. A type of Cycling Accessory."
+        }
+      ]
+    }
+  ]
+}
