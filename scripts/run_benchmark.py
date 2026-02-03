@@ -19,7 +19,13 @@ MODELS = {
     "Llama 3.2 3B": "meta-llama/llama-3.2-3b-instruct",
     "Mistral Large": "mistralai/mistral-large-2411",
     "Qwen 2.5 72B": "qwen/qwen-2.5-72b-instruct",
-    "DeepSeek V3": "deepseek/deepseek-chat"
+    "DeepSeek V3": "deepseek/deepseek-chat",
+    # Small Models
+    "Llama 3.1 8B": "meta-llama/llama-3.1-8b-instruct",
+    "Gemini 2.0 Flash Lite": "google/gemini-2.0-flash-lite-001",
+    "Gemini 2.5 Flash Lite": "google/gemini-2.5-flash-lite",
+    "Qwen 2.5 7B": "qwen/qwen-2.5-7b-instruct",
+    "Gemma 2 9B": "google/gemma-2-9b-it"
 }
 
 def run_experiment(model_name, model_id):

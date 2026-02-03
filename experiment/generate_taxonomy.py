@@ -68,8 +68,13 @@ JSON object. Keys are the terms, values are lists of parents strings.
             content = json_match.group(0)
             
         return json.loads(content)
+    except requests.exceptions.HTTPError as e:
+        print(f"Error generating taxonomy for domain '{domain}': {e}", file=sys.stderr)
+        if e.response is not None:
+             print(f"Response text: {e.response.text}", file=sys.stderr)
+        return None
     except Exception as e:
-        # print(f"Error generating taxonomy for domain '{domain}': {e}", file=sys.stderr)
+        print(f"Error generating taxonomy for domain '{domain}': {e}", file=sys.stderr)
         return None
 
 def main():
