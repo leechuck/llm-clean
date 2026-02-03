@@ -60,9 +60,16 @@ JSON object. Keys are the terms, values are lists of parents strings.
         response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, data=json.dumps(payload))
         response.raise_for_status()
         content = response.json()['choices'][0]['message']['content']
+        
+        # Robust JSON extraction
+        import re
+        json_match = re.search(r'\{.*\}', content, re.DOTALL)
+        if json_match:
+            content = json_match.group(0)
+            
         return json.loads(content)
     except Exception as e:
-        print(f"Error generating taxonomy for domain '{domain}': {e}", file=sys.stderr)
+        # print(f"Error generating taxonomy for domain '{domain}': {e}", file=sys.stderr)
         return None
 
 def main():
@@ -123,7 +130,7 @@ def main():
             dataset_result["taxonomy"] = taxonomy_data.get("taxonomy", {})
             results.append(dataset_result)
             
-    final_output = {"datasets": results}
+    final_output = {"model": args.model, "datasets": results}
     
     # Write to file
     with open(args.output_file, 'w', encoding='utf-8') as f:

@@ -144,9 +144,18 @@ def main():
     
     print(f"2. Generating {args.num_terms} terms for each domain...")
     for domain in tqdm(domains):
-        data = generate_domain_data(args.model, domain, args.num_terms, api_key)
-        if data:
-            all_datasets.append(data)
+        success = False
+        for attempt in range(3):
+            data = generate_domain_data(args.model, domain, args.num_terms, api_key)
+            if data:
+                all_datasets.append(data)
+                success = True
+                break
+            else:
+                print(f"  [Attempt {attempt+1}/3] Failed for '{domain}'. Retrying...", file=sys.stderr)
+        
+        if not success:
+            print(f"  [Error] Failed to generate data for '{domain}' after 3 attempts.", file=sys.stderr)
             
     final_output = {"datasets": all_datasets}
     

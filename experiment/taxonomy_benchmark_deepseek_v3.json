@@ -1,0 +1,4665 @@
+{
+  "model": "deepseek/deepseek-chat",
+  "datasets": [
+    {
+      "domain": "Treatment of bronchitis",
+      "dataset": [
+        {
+          "term": "Medical Procedure",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A general process aimed at improving health."
+        },
+        {
+          "term": "Bronchitis Treatment",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A medical procedure specifically for bronchitis."
+        },
+        {
+          "term": "Pharmacological Treatment",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Treatment using medication."
+        },
+        {
+          "term": "Antibiotic Therapy",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Treatment using antibiotics."
+        },
+        {
+          "term": "Bronchodilator Administration",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Administration of bronchodilators."
+        },
+        {
+          "term": "Home Remedy",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A treatment done at home."
+        },
+        {
+          "term": "Rest",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Resting to recover."
+        },
+        {
+          "term": "Cough Suppressant",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Medication to stop cough."
+        },
+        {
+          "term": "Bronchodilator",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Type of drug"
+        },
+        {
+          "term": "Steroid",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Type of drug"
+        },
+        {
+          "term": "Mucolytic",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Type of drug"
+        },
+        {
+          "term": "Patient",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Individual receiving medical care."
+        },
+        {
+          "term": "Bronchitis Sufferer",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Role of patient suffering from bronchitis."
+        },
+        {
+          "term": "Recovering Patient",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Patient in a state of recovering from bronchitis."
+        },
+        {
+          "term": "Lung Tissue",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Tissue comprising the lungs."
+        },
+        {
+          "term": "Lung Area",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Specific section of lung."
+        },
+        {
+          "term": "Bronchial Tube",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Part of the respiratory system"
+        },
+        {
+          "term": "Inflammation",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Inflammatory process"
+        },
+        {
+          "term": "Airway Inflammation",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Inflammation of the airways"
+        },
+        {
+          "term": "Mucus",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A viscous substance secreted in the respiratory tract."
+        },
+        {
+          "term": "Disease",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A disorder of structure or function."
+        },
+        {
+          "term": "Respiratory Disease",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Disease of the respiratory system."
+        },
+        {
+          "term": "Infectious Disease",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Disease of the respiratory system."
+        },
+        {
+          "term": "Viral Infection",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Disease of the respiratory system."
+        },
+        {
+          "term": "Bronchitis",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Inflammation of the bronchial tubes."
+        },
+        {
+          "term": "Acute Bronchitis",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Short term bronchitis."
+        },
+        {
+          "term": "Chronic Bronchitis",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Long term bronchitis."
+        },
+        {
+          "term": "Cough",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Reflex to clear airways."
+        },
+        {
+          "term": "Sputum",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material expelled from the respiratory tract by coughing"
+        },
+        {
+          "term": "Breathing Difficulty",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Difficulty in breathing"
+        },
+        {
+          "term": "Wheezing",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "High-pitched whistling sound during breathing."
+        },
+        {
+          "term": "Air",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "The mixture of gases that surrounds the earth and that people breathe."
+        },
+        {
+          "term": "Influenza",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Flu Virus"
+        },
+        {
+          "term": "Influenza A",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Type of flu"
+        },
+        {
+          "term": "Influenza B",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Type of flu"
+        }
+      ],
+      "taxonomy": {
+        "Medical Procedure": [],
+        "Bronchitis Treatment": [
+          "Medical Procedure"
+        ],
+        "Pharmacological Treatment": [
+          "Medical Procedure"
+        ],
+        "Antibiotic Therapy": [
+          "Pharmacological Treatment"
+        ],
+        "Bronchodilator Administration": [
+          "Pharmacological Treatment"
+        ],
+        "Home Remedy": [],
+        "Rest": [],
+        "Cough Suppressant": [],
+        "Bronchodilator": [],
+        "Steroid": [],
+        "Mucolytic": [],
+        "Patient": [],
+        "Bronchitis Sufferer": [
+          "Patient"
+        ],
+        "Recovering Patient": [
+          "Patient"
+        ],
+        "Lung Tissue": [],
+        "Lung Area": [],
+        "Bronchial Tube": [],
+        "Inflammation": [],
+        "Airway Inflammation": [
+          "Inflammation"
+        ],
+        "Mucus": [],
+        "Disease": [],
+        "Respiratory Disease": [
+          "Disease"
+        ],
+        "Infectious Disease": [
+          "Disease"
+        ],
+        "Viral Infection": [
+          "Infectious Disease"
+        ],
+        "Bronchitis": [
+          "Respiratory Disease"
+        ],
+        "Acute Bronchitis": [
+          "Bronchitis"
+        ],
+        "Chronic Bronchitis": [
+          "Bronchitis"
+        ],
+        "Cough": [],
+        "Sputum": [],
+        "Breathing Difficulty": [],
+        "Wheezing": [],
+        "Air": [],
+        "Influenza": [
+          "Viral Infection"
+        ],
+        "Influenza A": [
+          "Influenza"
+        ],
+        "Influenza B": [
+          "Influenza"
+        ]
+      }
+    },
+    {
+      "domain": "Cycling",
+      "dataset": [
+        {
+          "term": "Entity",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Root class"
+        },
+        {
+          "term": "Physical Object",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An object with physical existence"
+        },
+        {
+          "term": "Equipment",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Equipment used for cycling"
+        },
+        {
+          "term": "Bicycle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A two-wheeled vehicle"
+        },
+        {
+          "term": "Mountain Bike",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Designed for off-road cycling"
+        },
+        {
+          "term": "Road Bike",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Designed for speed on paved roads"
+        },
+        {
+          "term": "Gravel Bike",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Designed for gravel roads"
+        },
+        {
+          "term": "Bicycle Part",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A component of a bicycle"
+        },
+        {
+          "term": "Wheel",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Circular component that rotates"
+        },
+        {
+          "term": "Tire",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Rubber covering for the wheel"
+        },
+        {
+          "term": "Frame",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Structural component of the bicycle"
+        },
+        {
+          "term": "Handlebar",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Steering component"
+        },
+        {
+          "term": "Saddle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Seat of the bicycle"
+        },
+        {
+          "term": "Gear",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Component used for changing speed"
+        },
+        {
+          "term": "Chain",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Mechanism for power transfer"
+        },
+        {
+          "term": "Pedal",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Foot support on the bicycle"
+        },
+        {
+          "term": "Bicycle Material",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Raw Materials a bike is made off."
+        },
+        {
+          "term": "Aluminum",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material for frames."
+        },
+        {
+          "term": "Steel",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material for frames and components."
+        },
+        {
+          "term": "Carbon Fiber",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material for lightweight frames."
+        },
+        {
+          "term": "Rubber",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material for tire."
+        },
+        {
+          "term": "Cyclist",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A person who rides a bicycle"
+        },
+        {
+          "term": "Racer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Cyclist in a race"
+        },
+        {
+          "term": "Commuter",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Cyclist commuting to work"
+        },
+        {
+          "term": "Tourist",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Cyclist on recreational holiday"
+        },
+        {
+          "term": "Sponsor",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Organization that sponsers the team"
+        },
+        {
+          "term": "Bicycle Shop",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A shop selling bicycles"
+        },
+        {
+          "term": "Bike Track",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Area for cyclists to race"
+        },
+        {
+          "term": "Cycling Event",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Organized cycling activity"
+        },
+        {
+          "term": "Race",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Competition for cyclists"
+        },
+        {
+          "term": "Tour de France",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Famous cycling race."
+        },
+        {
+          "term": "Cycling Club",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A club for cyclists."
+        },
+        {
+          "term": "Cycling Group",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Informal cyclists."
+        },
+        {
+          "term": "Cycling Season",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Period for cycling."
+        },
+        {
+          "term": "Dry Season",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Dry environmental season."
+        }
+      ],
+      "taxonomy": {
+        "Entity": [],
+        "Physical Object": [
+          "Entity"
+        ],
+        "Equipment": [
+          "Physical Object"
+        ],
+        "Bicycle": [
+          "Equipment"
+        ],
+        "Mountain Bike": [
+          "Bicycle"
+        ],
+        "Road Bike": [
+          "Bicycle"
+        ],
+        "Gravel Bike": [
+          "Bicycle"
+        ],
+        "Bicycle Part": [
+          "Physical Object"
+        ],
+        "Wheel": [
+          "Bicycle Part"
+        ],
+        "Tire": [
+          "Bicycle Part"
+        ],
+        "Frame": [
+          "Bicycle Part"
+        ],
+        "Handlebar": [
+          "Bicycle Part"
+        ],
+        "Saddle": [
+          "Bicycle Part"
+        ],
+        "Gear": [
+          "Bicycle Part"
+        ],
+        "Chain": [
+          "Bicycle Part"
+        ],
+        "Pedal": [
+          "Bicycle Part"
+        ],
+        "Bicycle Material": [],
+        "Aluminum": [
+          "Bicycle Material"
+        ],
+        "Steel": [
+          "Bicycle Material"
+        ],
+        "Carbon Fiber": [
+          "Bicycle Material"
+        ],
+        "Rubber": [
+          "Bicycle Material"
+        ],
+        "Cyclist": [],
+        "Racer": [
+          "Cyclist"
+        ],
+        "Commuter": [
+          "Cyclist"
+        ],
+        "Tourist": [
+          "Cyclist"
+        ],
+        "Sponsor": [],
+        "Bicycle Shop": [],
+        "Bike Track": [],
+        "Cycling Event": [],
+        "Race": [
+          "Cycling Event"
+        ],
+        "Tour de France": [
+          "Race"
+        ],
+        "Cycling Club": [],
+        "Cycling Group": [],
+        "Cycling Season": [],
+        "Dry Season": []
+      }
+    },
+    {
+      "domain": "Naval Warfare",
+      "dataset": [
+        {
+          "term": "Naval Entity",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Root class for all naval entities."
+        },
+        {
+          "term": "Naval Vessel",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of Naval Entity capable of navigation."
+        },
+        {
+          "term": "Warship",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A Naval Vessel designed for combat."
+        },
+        {
+          "term": "Aircraft Carrier",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Warship designed to deploy and recover aircraft."
+        },
+        {
+          "term": "Submarine",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Warship capable of underwater operation."
+        },
+        {
+          "term": "Frigate",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A small, fast warship."
+        },
+        {
+          "term": "Naval Weapon",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Instrument of Naval Warfare"
+        },
+        {
+          "term": "Torpedo",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Self-propelled underwater missile."
+        },
+        {
+          "term": "Naval Mine",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Explosive device placed in water."
+        },
+        {
+          "term": "Naval Personnel",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "People involved in Naval Warfare."
+        },
+        {
+          "term": "Admiral",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "High-ranking officer."
+        },
+        {
+          "term": "Sailor",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Enlisted personnel on a warship."
+        },
+        {
+          "term": "Naval Aircrew",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Aircrew operating from naval vessels."
+        },
+        {
+          "term": "Hull",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "The body or frame of a ship."
+        },
+        {
+          "term": "Propeller",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "Rotating device that propels a ship."
+        },
+        {
+          "term": "Radar System",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Part",
+          "note": "Detection system used on ships."
+        },
+        {
+          "term": "Steel",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material used in ship construction."
+        },
+        {
+          "term": "Aluminum",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Lightweight material used in shipbuilding."
+        },
+        {
+          "term": "Explosive",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material used in weapons."
+        },
+        {
+          "term": "Combatant",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Currently engaged in combat."
+        },
+        {
+          "term": "Patrolling Vessel",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Vessel performing a patrolling role."
+        },
+        {
+          "term": "Amphibious Warfare Vessel",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Warship designed to land ground forces."
+        },
+        {
+          "term": "Missile",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Guided weapon."
+        },
+        {
+          "term": "Nuclear Submarine",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Submarine powered by a nuclear reactor."
+        },
+        {
+          "term": "Ballistic Missile Submarine",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Submarine carrying ballistic missiles."
+        },
+        {
+          "term": "Diesel Submarine",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Submarine powered by a Diesel engine."
+        },
+        {
+          "term": "Shipyard",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Facility for building and repairing ships."
+        },
+        {
+          "term": "Naval Base",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Land base for naval operations."
+        },
+        {
+          "term": "Commanding Officer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "The officer in command of a vessel."
+        },
+        {
+          "term": "Sonar Operator",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Personnel operating sonar."
+        },
+        {
+          "term": "In Transit",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A vessel that is moving."
+        },
+        {
+          "term": "Under Repair",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A vessel undergoing repairs."
+        },
+        {
+          "term": "Naval Exercise",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Planned training activity at sea."
+        },
+        {
+          "term": "Coastal Water",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Ocean water near the coast."
+        },
+        {
+          "term": "Ship Captain",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Captain of a specific ship."
+        }
+      ],
+      "taxonomy": {
+        "Naval Entity": [],
+        "Naval Vessel": [
+          "Naval Entity"
+        ],
+        "Warship": [
+          "Naval Vessel"
+        ],
+        "Aircraft Carrier": [
+          "Warship"
+        ],
+        "Submarine": [
+          "Naval Vessel"
+        ],
+        "Frigate": [
+          "Warship"
+        ],
+        "Naval Weapon": [
+          "Naval Entity"
+        ],
+        "Torpedo": [
+          "Naval Weapon"
+        ],
+        "Naval Mine": [
+          "Naval Weapon"
+        ],
+        "Naval Personnel": [
+          "Naval Entity"
+        ],
+        "Admiral": [
+          "Naval Personnel"
+        ],
+        "Sailor": [
+          "Naval Personnel"
+        ],
+        "Naval Aircrew": [
+          "Naval Personnel"
+        ],
+        "Hull": [],
+        "Propeller": [],
+        "Radar System": [],
+        "Steel": [],
+        "Aluminum": [],
+        "Explosive": [],
+        "Combatant": [
+          "Naval Vessel"
+        ],
+        "Patrolling Vessel": [
+          "Naval Vessel"
+        ],
+        "Amphibious Warfare Vessel": [
+          "Naval Vessel"
+        ],
+        "Missile": [],
+        "Nuclear Submarine": [
+          "Submarine"
+        ],
+        "Ballistic Missile Submarine": [
+          "Submarine"
+        ],
+        "Diesel Submarine": [
+          "Submarine"
+        ],
+        "Shipyard": [],
+        "Naval Base": [],
+        "Commanding Officer": [
+          "Naval Personnel"
+        ],
+        "Sonar Operator": [
+          "Naval Personnel"
+        ],
+        "In Transit": [],
+        "Under Repair": [],
+        "Naval Exercise": [],
+        "Coastal Water": [],
+        "Ship Captain": [
+          "Naval Personnel"
+        ]
+      }
+    },
+    {
+      "domain": "eCommerce",
+      "dataset": [
+        {
+          "term": "Product",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Top level class"
+        },
+        {
+          "term": "Electronics",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Category of products"
+        },
+        {
+          "term": "Mobile Device",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of electronics"
+        },
+        {
+          "term": "Smartphone",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of mobile device"
+        },
+        {
+          "term": "Screen",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Part of a smartphone"
+        },
+        {
+          "term": "Glass",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material of a screen"
+        },
+        {
+          "term": "Charger",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Role for a smartphone: something that charges it"
+        },
+        {
+          "term": "Appliance",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Another type of electronics"
+        },
+        {
+          "term": "Kitchen Appliance",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of appliance"
+        },
+        {
+          "term": "Blender",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of kitchen appliance"
+        },
+        {
+          "term": "Blade",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Part of a blender"
+        },
+        {
+          "term": "Steel",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material of a blade"
+        },
+        {
+          "term": "Food Processor",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Role of a Kitchen Appliance"
+        },
+        {
+          "term": "Clothing",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Another type of Product"
+        },
+        {
+          "term": "Outerwear",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of Clothing"
+        },
+        {
+          "term": "Coat",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of Outerwear"
+        },
+        {
+          "term": "Sleeve",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Part of a coat"
+        },
+        {
+          "term": "Wool",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material of a coat"
+        },
+        {
+          "term": "Raincoat",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Role of a coat"
+        },
+        {
+          "term": "Furniture",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Another type of Product"
+        },
+        {
+          "term": "Seating",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of furniture"
+        },
+        {
+          "term": "Chair",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of seating"
+        },
+        {
+          "term": "Leg",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Part of a chair"
+        },
+        {
+          "term": "Wood",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material of a leg"
+        },
+        {
+          "term": "Rocker",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Role of a chair"
+        },
+        {
+          "term": "Book",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Another type of Product"
+        },
+        {
+          "term": "Fiction",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of book"
+        },
+        {
+          "term": "Novel",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of fiction"
+        },
+        {
+          "term": "Page",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Part of a novel"
+        },
+        {
+          "term": "Paper",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material of a page"
+        },
+        {
+          "term": "Best Seller",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Role of a novel"
+        },
+        {
+          "term": "Jewelry",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Another type of Product"
+        },
+        {
+          "term": "Necklace",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of jewelry"
+        },
+        {
+          "term": "Pendant",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "A part of a necklace"
+        },
+        {
+          "term": "Gold",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material of a pendant"
+        }
+      ],
+      "taxonomy": {
+        "Product": [],
+        "Electronics": [
+          "Product"
+        ],
+        "Mobile Device": [
+          "Electronics"
+        ],
+        "Smartphone": [
+          "Mobile Device"
+        ],
+        "Screen": [],
+        "Glass": [],
+        "Charger": [],
+        "Appliance": [
+          "Product"
+        ],
+        "Kitchen Appliance": [
+          "Appliance"
+        ],
+        "Blender": [
+          "Kitchen Appliance"
+        ],
+        "Blade": [],
+        "Steel": [],
+        "Food Processor": [
+          "Kitchen Appliance"
+        ],
+        "Clothing": [
+          "Product"
+        ],
+        "Outerwear": [
+          "Clothing"
+        ],
+        "Coat": [
+          "Outerwear"
+        ],
+        "Sleeve": [],
+        "Wool": [],
+        "Raincoat": [
+          "Outerwear"
+        ],
+        "Furniture": [
+          "Product"
+        ],
+        "Seating": [
+          "Furniture"
+        ],
+        "Chair": [
+          "Seating"
+        ],
+        "Leg": [],
+        "Wood": [],
+        "Rocker": [
+          "Chair"
+        ],
+        "Book": [
+          "Product"
+        ],
+        "Fiction": [
+          "Book"
+        ],
+        "Novel": [
+          "Fiction"
+        ],
+        "Page": [],
+        "Paper": [],
+        "Best Seller": [],
+        "Jewelry": [
+          "Product"
+        ],
+        "Necklace": [
+          "Jewelry"
+        ],
+        "Pendant": [
+          "Necklace"
+        ],
+        "Gold": []
+      }
+    },
+    {
+      "domain": "Myrmecology",
+      "dataset": [
+        {
+          "term": "Entity",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Root of the ontology."
+        },
+        {
+          "term": "Living Thing",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Entities capable of life functions."
+        },
+        {
+          "term": "Animal",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Multicellular eukaryotic heterotrophs"
+        },
+        {
+          "term": "Insect",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Class of arthropods with three-part body."
+        },
+        {
+          "term": "Hymenopteran",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Insect order including ants, bees, wasps"
+        },
+        {
+          "term": "Ant",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Social insects of the family formicidae"
+        },
+        {
+          "term": "Formicinae",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Subfamily of ants."
+        },
+        {
+          "term": "Camponotus",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Genus of carpenter ants"
+        },
+        {
+          "term": "Camponotus Pennsylvanicus",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Species of carpenter ant"
+        },
+        {
+          "term": "Myrmicinae",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Subfamily of ants."
+        },
+        {
+          "term": "Solenopsis",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Genus of ants including fire ants"
+        },
+        {
+          "term": "Solenopsis Invicta",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Species of red imported fire ant."
+        },
+        {
+          "term": "Ant Colony",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A social grouping of ants."
+        },
+        {
+          "term": "Queen Ant",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Reproductive female ant."
+        },
+        {
+          "term": "Forager",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "An ant with the role of foraging."
+        },
+        {
+          "term": "Soldier Ant",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Ant specialized for defense"
+        },
+        {
+          "term": "Ant Larva",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "Larval stage of an ant"
+        },
+        {
+          "term": "Worker Ant",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Sterile female ant that performs tasks."
+        },
+        {
+          "term": "Ant Pupa",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "Pupal stage of ant development"
+        },
+        {
+          "term": "Mandible",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Mouthpart of an ant."
+        },
+        {
+          "term": "Ant Wing",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Wing of an Ant."
+        },
+        {
+          "term": "Chitin",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Material that composes exoskeletons."
+        },
+        {
+          "term": "Ant Cuticle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Ant's outer protective layer."
+        },
+        {
+          "term": "Hydrocarbon",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Chemical compounds used for ant communication."
+        },
+        {
+          "term": "Caste Member",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Ant with the role of member."
+        },
+        {
+          "term": "Ant Brood",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "Collective term for ant larvae and pupae."
+        },
+        {
+          "term": "Trophallaxis Participant",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Ant engaged in food exchange."
+        },
+        {
+          "term": "Nestmate",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Ant living in the same nest."
+        },
+        {
+          "term": "Petiole",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Narrow waist segment of ants."
+        },
+        {
+          "term": "Propodeum",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "First abdominal segment fused to the thorax."
+        },
+        {
+          "term": "Exoskeleton",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "External covering of chitin."
+        },
+        {
+          "term": "Formic Acid",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Acid produced by ants."
+        },
+        {
+          "term": "Ant Leg",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Leg of an ant"
+        },
+        {
+          "term": "Larval Instar",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "A stage between molts in larva"
+        },
+        {
+          "term": "Ovary",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Ovary of an insect"
+        }
+      ],
+      "taxonomy": {
+        "Entity": [],
+        "Living Thing": [
+          "Entity"
+        ],
+        "Animal": [
+          "Living Thing"
+        ],
+        "Insect": [
+          "Animal"
+        ],
+        "Hymenopteran": [
+          "Insect"
+        ],
+        "Ant": [
+          "Hymenopteran"
+        ],
+        "Formicinae": [
+          "Ant"
+        ],
+        "Camponotus": [
+          "Formicinae"
+        ],
+        "Camponotus Pennsylvanicus": [
+          "Camponotus"
+        ],
+        "Myrmicinae": [
+          "Ant"
+        ],
+        "Solenopsis": [
+          "Myrmicinae"
+        ],
+        "Solenopsis Invicta": [
+          "Solenopsis"
+        ],
+        "Ant Colony": [],
+        "Queen Ant": [
+          "Ant"
+        ],
+        "Forager": [
+          "Worker Ant"
+        ],
+        "Soldier Ant": [
+          "Worker Ant"
+        ],
+        "Ant Larva": [
+          "Ant Brood"
+        ],
+        "Worker Ant": [
+          "Ant"
+        ],
+        "Ant Pupa": [
+          "Ant Brood"
+        ],
+        "Mandible": [],
+        "Ant Wing": [],
+        "Chitin": [],
+        "Ant Cuticle": [],
+        "Hydrocarbon": [],
+        "Caste Member": [
+          "Ant"
+        ],
+        "Ant Brood": [],
+        "Trophallaxis Participant": [
+          "Ant"
+        ],
+        "Nestmate": [
+          "Ant"
+        ],
+        "Petiole": [],
+        "Propodeum": [],
+        "Exoskeleton": [],
+        "Formic Acid": [],
+        "Ant Leg": [],
+        "Larval Instar": [
+          "Ant Larva"
+        ],
+        "Ovary": []
+      }
+    },
+    {
+      "domain": "High-Frequency Trading",
+      "dataset": [
+        {
+          "term": "Financial Instrument",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A tradable asset."
+        },
+        {
+          "term": "Equity",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A stock representing ownership."
+        },
+        {
+          "term": "Common Stock",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Standard voting shares of a company."
+        },
+        {
+          "term": "Preferred Stock",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Stock with preferential dividend payments."
+        },
+        {
+          "term": "Fixed Income Instrument",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Debt-based securities."
+        },
+        {
+          "term": "Bond",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A debt security."
+        },
+        {
+          "term": "Corporate Bond",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Bond issued by a corporation."
+        },
+        {
+          "term": "Government Bond",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Bond issued by a government."
+        },
+        {
+          "term": "Option",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Contract giving the right to buy/sell an asset."
+        },
+        {
+          "term": "Call Option",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Option to buy an asset."
+        },
+        {
+          "term": "Put Option",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Option to sell an asset."
+        },
+        {
+          "term": "Trading Floor",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Physical location where trading occurs."
+        },
+        {
+          "term": "Trading Algorithm",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Automated program for executing trades."
+        },
+        {
+          "term": "Order Book",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Electronic list of buy/sell orders."
+        },
+        {
+          "term": "Market Data Feed",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Real-time stream of market prices and volumes."
+        },
+        {
+          "term": "Trader",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A person who executes trades."
+        },
+        {
+          "term": "High-Frequency Trader",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Trader using HFT strategies."
+        },
+        {
+          "term": "Liquidity Provider",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Entity providing liquidity to the market."
+        },
+        {
+          "term": "Market Maker",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Similar to liquidity provider. Provides both buy and sell orders to create market depth."
+        },
+        {
+          "term": "Volatility",
+          "properties": {
+            "R": "-R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Measure of price fluctuations."
+        },
+        {
+          "term": "Market Sentiment",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Overall attitude of investors."
+        },
+        {
+          "term": "Share Volume",
+          "properties": {
+            "R": "-R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Total number of shares traded."
+        },
+        {
+          "term": "Trade Execution",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "The successful completion of a trade."
+        },
+        {
+          "term": "Order Placement",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Process of submitting an order to a market."
+        },
+        {
+          "term": "Market Open",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "The beginning of a trading day."
+        },
+        {
+          "term": "Automated Trading System",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A system that automatically executes trades based on pre-set rules."
+        },
+        {
+          "term": "Latency",
+          "properties": {
+            "R": "-R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "The delay in data transmission."
+        },
+        {
+          "term": "Colocation Server",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Server housed near exchange's matching engine."
+        },
+        {
+          "term": "Broker",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Intermediary between buyer and seller."
+        },
+        {
+          "term": "Dark Pool",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Private exchange for large trades."
+        },
+        {
+          "term": "Exchange",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Marketplace for trading."
+        },
+        {
+          "term": "Clearing House",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Entity that facilitates clearing and settlement of trades."
+        },
+        {
+          "term": "Regulatory Body",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Organization overseeing market activity."
+        },
+        {
+          "term": "Market Manipulation",
+          "properties": {
+            "R": "-R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Illegal activity to artificially inflate or deflate prices."
+        },
+        {
+          "term": "Algorithmic Error",
+          "properties": {
+            "R": "-R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Error in the automated trading system or algo that causes inaccurate trading."
+        }
+      ],
+      "taxonomy": {
+        "Financial Instrument": [],
+        "Equity": [
+          "Financial Instrument"
+        ],
+        "Common Stock": [
+          "Equity"
+        ],
+        "Preferred Stock": [
+          "Equity"
+        ],
+        "Fixed Income Instrument": [
+          "Financial Instrument"
+        ],
+        "Bond": [
+          "Fixed Income Instrument"
+        ],
+        "Corporate Bond": [
+          "Bond"
+        ],
+        "Government Bond": [
+          "Bond"
+        ],
+        "Option": [
+          "Financial Instrument"
+        ],
+        "Call Option": [
+          "Option"
+        ],
+        "Put Option": [
+          "Option"
+        ],
+        "Trading Floor": [],
+        "Trading Algorithm": [],
+        "Order Book": [],
+        "Market Data Feed": [],
+        "Trader": [],
+        "High-Frequency Trader": [
+          "Trader"
+        ],
+        "Liquidity Provider": [],
+        "Market Maker": [
+          "Liquidity Provider"
+        ],
+        "Volatility": [],
+        "Market Sentiment": [],
+        "Share Volume": [],
+        "Trade Execution": [],
+        "Order Placement": [],
+        "Market Open": [],
+        "Automated Trading System": [],
+        "Latency": [],
+        "Colocation Server": [],
+        "Broker": [],
+        "Dark Pool": [],
+        "Exchange": [],
+        "Clearing House": [],
+        "Regulatory Body": [],
+        "Market Manipulation": [],
+        "Algorithmic Error": []
+      }
+    },
+    {
+      "domain": "Urban Parkour",
+      "dataset": [
+        {
+          "term": "Parkour Action",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A discrete action in parkour."
+        },
+        {
+          "term": "Movement",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A basic type of movement."
+        },
+        {
+          "term": "Vault",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A specific type of parkour action involving jumping over an obstacle."
+        },
+        {
+          "term": "Precision Jump",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A jump emphasizing accuracy."
+        },
+        {
+          "term": "Wall Run",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Running up a wall."
+        },
+        {
+          "term": "Kong Vault",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Specific vaulting technique."
+        },
+        {
+          "term": "Dash Vault",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Vault using a forward motion."
+        },
+        {
+          "term": "Parkour Training Session",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Designated time for parkour training"
+        },
+        {
+          "term": "Training Regimen",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Structured plan"
+        },
+        {
+          "term": "Warm-Up",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Preparatory exercise."
+        },
+        {
+          "term": "Conditioning",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Exercise build up muscles."
+        },
+        {
+          "term": "Parkour Obstacle",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Challenges in Parkour environment"
+        },
+        {
+          "term": "Wall",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Vertical barrier."
+        },
+        {
+          "term": "Railing",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Horizontal bar"
+        },
+        {
+          "term": "Park Bench",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Bench in park"
+        },
+        {
+          "term": "Grip Strength",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "Ability to hold position."
+        },
+        {
+          "term": "Impact Force",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Material",
+          "note": "Force from contacts. "
+        },
+        {
+          "term": "Parkour Practitioner",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "One who does Parkour."
+        },
+        {
+          "term": "Beginner",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "New Practitioner."
+        },
+        {
+          "term": "Professional",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Skilled Practitioner"
+        },
+        {
+          "term": "Coach",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Instructive role"
+        },
+        {
+          "term": "Sweat",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Body Moisture."
+        },
+        {
+          "term": "Concrete",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Building Medium"
+        },
+        {
+          "term": "Physical Exhaustion",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "Feeling of being Tired"
+        },
+        {
+          "term": "Muscle Soreness",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Phase",
+          "note": "Damaged feeling"
+        },
+        {
+          "term": "Hand",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Grasping Part"
+        },
+        {
+          "term": "Elbow",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Arm Joint"
+        },
+        {
+          "term": "Running Start",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Initializing Run."
+        },
+        {
+          "term": "Landing",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Ending an activity."
+        },
+        {
+          "term": "Parkour Shoe",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Used for griping."
+        },
+        {
+          "term": "Rubber",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": " Shoe part."
+        },
+        {
+          "term": "Lace",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Shoe part to adjust."
+        },
+        {
+          "term": "Textile",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Cloth components."
+        },
+        {
+          "term": "Parkour Route",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Planned path on challenges."
+        },
+        {
+          "term": "Strategy",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "For completing path"
+        }
+      ],
+      "taxonomy": {
+        "Parkour Action": [
+          "Movement"
+        ],
+        "Movement": [],
+        "Vault": [
+          "Parkour Action"
+        ],
+        "Precision Jump": [
+          "Parkour Action"
+        ],
+        "Wall Run": [
+          "Parkour Action"
+        ],
+        "Kong Vault": [
+          "Vault"
+        ],
+        "Dash Vault": [
+          "Vault"
+        ],
+        "Parkour Training Session": [
+          "Training Regimen"
+        ],
+        "Training Regimen": [],
+        "Warm-Up": [
+          "Parkour Training Session"
+        ],
+        "Conditioning": [
+          "Parkour Training Session"
+        ],
+        "Parkour Obstacle": [],
+        "Wall": [
+          "Parkour Obstacle"
+        ],
+        "Railing": [
+          "Parkour Obstacle"
+        ],
+        "Park Bench": [
+          "Parkour Obstacle"
+        ],
+        "Grip Strength": [],
+        "Impact Force": [],
+        "Parkour Practitioner": [],
+        "Beginner": [
+          "Parkour Practitioner"
+        ],
+        "Professional": [
+          "Parkour Practitioner"
+        ],
+        "Coach": [],
+        "Sweat": [],
+        "Concrete": [],
+        "Physical Exhaustion": [],
+        "Muscle Soreness": [],
+        "Hand": [],
+        "Elbow": [],
+        "Running Start": [],
+        "Landing": [],
+        "Parkour Shoe": [],
+        "Rubber": [
+          "Parkour Shoe"
+        ],
+        "Lace": [
+          "Parkour Shoe"
+        ],
+        "Textile": [
+          "Parkour Shoe"
+        ],
+        "Parkour Route": [],
+        "Strategy": []
+      }
+    },
+    {
+      "domain": "Quantum Computing",
+      "dataset": [
+        {
+          "term": "Quantum System",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A general system exhibiting quantum behavior."
+        },
+        {
+          "term": "Qubit",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The basic unit of quantum information."
+        },
+        {
+          "term": "Encoded Qubit",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A Qubit protected by an error correcting code."
+        },
+        {
+          "term": "Surface Code Qubit",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A Qubit specifically encoded using the surface code."
+        },
+        {
+          "term": "Quantum Circuit",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A sequence of quantum gates."
+        },
+        {
+          "term": "Quantum Algorithm",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An algorithm designed to run on a quantum computer."
+        },
+        {
+          "term": "Shor's Algorithm",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A quantum algorithm for integer factorization."
+        },
+        {
+          "term": "Grover's Algorithm",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A quantum algorithm for searching unsorted databases"
+        },
+        {
+          "term": "Quantum Memory",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A device that stores qubits"
+        },
+        {
+          "term": "Superconducting Qubit",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A qubit implemented using superconducting circuits."
+        },
+        {
+          "term": "Transmon",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of superconducting qubit."
+        },
+        {
+          "term": "Fluxonium",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Another type of superconducting qubit."
+        },
+        {
+          "term": "Quantum State",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The state of a quantum system."
+        },
+        {
+          "term": "Entangled State",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "A quantum state where multiple qubits are correlated."
+        },
+        {
+          "term": "Ground State",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Lowest energy state of the system."
+        },
+        {
+          "term": "Logical Qubit",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A qubit that represents reliable information."
+        },
+        {
+          "term": "Error Correction Code",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A code used to protect the logical qubit."
+        },
+        {
+          "term": "Quantum Computer Programmer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "A role of individual designing quantum software."
+        },
+        {
+          "term": "Quantum Program",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A program written for a quantum computer."
+        },
+        {
+          "term": "Code Fragment",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Part of larger program."
+        },
+        {
+          "term": "Processor Core",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Part of processor."
+        },
+        {
+          "term": "Quantum Gate",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Basic operation on a qubit."
+        },
+        {
+          "term": "Hadamard Gate",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A fundamental quantum gate."
+        },
+        {
+          "term": "CNOT Gate",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A controlled-NOT gate."
+        },
+        {
+          "term": "Quantum Error",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An error in a quantum computation."
+        },
+        {
+          "term": "Bit-Flip Error",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of quantum error."
+        },
+        {
+          "term": "Phase-Flip Error",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Similar to bit-flip, but changes phase"
+        },
+        {
+          "term": "Topology",
+          "properties": {
+            "R": "-R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "How various qubits are connected"
+        },
+        {
+          "term": "Researcher",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Person studying QComputing."
+        },
+        {
+          "term": "Design Engineer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Engineer responsible for design."
+        },
+        {
+          "term": "Aluminum",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A common material used in superconducting circuits."
+        },
+        {
+          "term": "Niobium",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Another material for superconducting circuits."
+        },
+        {
+          "term": "Superconducting Wire",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Part of the circuit."
+        },
+        {
+          "term": "Josephson Junction",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Critical component for Transmon, Fluxonium."
+        },
+        {
+          "term": "Software Stack",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Software for QPU execution."
+        }
+      ],
+      "taxonomy": {
+        "Quantum System": [],
+        "Qubit": [
+          "Quantum System"
+        ],
+        "Encoded Qubit": [
+          "Qubit"
+        ],
+        "Surface Code Qubit": [
+          "Qubit"
+        ],
+        "Quantum Circuit": [],
+        "Quantum Algorithm": [],
+        "Shor's Algorithm": [
+          "Quantum Algorithm"
+        ],
+        "Grover's Algorithm": [
+          "Quantum Algorithm"
+        ],
+        "Quantum Memory": [],
+        "Superconducting Qubit": [
+          "Qubit"
+        ],
+        "Transmon": [
+          "Superconducting Qubit"
+        ],
+        "Fluxonium": [
+          "Superconducting Qubit"
+        ],
+        "Quantum State": [],
+        "Entangled State": [
+          "Quantum State"
+        ],
+        "Ground State": [
+          "Quantum State"
+        ],
+        "Logical Qubit": [
+          "Qubit"
+        ],
+        "Error Correction Code": [],
+        "Quantum Computer Programmer": [],
+        "Quantum Program": [],
+        "Code Fragment": [],
+        "Processor Core": [],
+        "Quantum Gate": [],
+        "Hadamard Gate": [
+          "Quantum Gate"
+        ],
+        "CNOT Gate": [
+          "Quantum Gate"
+        ],
+        "Quantum Error": [],
+        "Bit-Flip Error": [
+          "Quantum Error"
+        ],
+        "Phase-Flip Error": [
+          "Quantum Error"
+        ],
+        "Topology": [],
+        "Researcher": [],
+        "Design Engineer": [],
+        "Aluminum": [],
+        "Niobium": [],
+        "Superconducting Wire": [],
+        "Josephson Junction": [],
+        "Software Stack": []
+      }
+    },
+    {
+      "domain": "Sourdough Baking",
+      "dataset": [
+        {
+          "term": "Entity",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The root term"
+        },
+        {
+          "term": "Baking Product",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A baked item."
+        },
+        {
+          "term": "Bread",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A type of baking product."
+        },
+        {
+          "term": "Sourdough Bread",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Bread made with a sourdough starter."
+        },
+        {
+          "term": "Rye Sourdough",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Sourdough made with rye flour"
+        },
+        {
+          "term": "Wheat Sourdough",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Sourdough made with wheat flour"
+        },
+        {
+          "term": "Dough",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "An intermediate stage."
+        },
+        {
+          "term": "Leavened Dough",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Dough that has risen."
+        },
+        {
+          "term": "Sourdough Starter",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The culture used for sourdough."
+        },
+        {
+          "term": "Flour",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Ground grain"
+        },
+        {
+          "term": "Water",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "H2O"
+        },
+        {
+          "term": "Salt",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Sodium Chloride"
+        },
+        {
+          "term": "Gluten",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A protein"
+        },
+        {
+          "term": "Crumb",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Interior of the bread"
+        },
+        {
+          "term": "Crust",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Exterior Shell of the bread."
+        },
+        {
+          "term": "Bubble",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Gas pocket in the dough."
+        },
+        {
+          "term": "Baker",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Person who bakes"
+        },
+        {
+          "term": "Consumer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Person who eats."
+        },
+        {
+          "term": "Ingredient",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "-U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Component of dough."
+        },
+        {
+          "term": "Rising Dough",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Leavened dough in process."
+        },
+        {
+          "term": "Fermented Dough",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Dough after fermentation."
+        },
+        {
+          "term": "Baked Bread",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Bread after baking."
+        },
+        {
+          "term": "Unbaked Bread",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Bread before baking - refers to shape."
+        },
+        {
+          "term": "Acidity Regulator",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "Function of an ingredient"
+        },
+        {
+          "term": "Food",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Edible substance"
+        },
+        {
+          "term": "Artisan Baker",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A baker who uses traditional method"
+        },
+        {
+          "term": "Commercial Baker",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Role",
+          "note": "A baker who produces in large amount"
+        },
+        {
+          "term": "Loaf Shape",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The Shape of the bread after baking"
+        },
+        {
+          "term": "Boule",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Round Shape of bread"
+        },
+        {
+          "term": "Batard",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Oblong shape of bread"
+        },
+        {
+          "term": "Baguette",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Long thin shape of bread"
+        },
+        {
+          "term": "Alveoli",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "-U",
+            "D": "-D"
+          },
+          "derived_class": "Part",
+          "note": "Hole inside baked good"
+        },
+        {
+          "term": "Overproofed Dough",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Dough that has fermented for too long"
+        },
+        {
+          "term": "Underproofed Dough",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Dough that has not fermented enough"
+        }
+      ],
+      "taxonomy": {
+        "Entity": [],
+        "Baking Product": [
+          "Food"
+        ],
+        "Bread": [
+          "Baking Product"
+        ],
+        "Sourdough Bread": [
+          "Bread"
+        ],
+        "Rye Sourdough": [
+          "Sourdough Bread"
+        ],
+        "Wheat Sourdough": [
+          "Sourdough Bread"
+        ],
+        "Dough": [
+          "Baking Product"
+        ],
+        "Leavened Dough": [
+          "Dough"
+        ],
+        "Sourdough Starter": [
+          "Baking Product"
+        ],
+        "Flour": [
+          "Ingredient"
+        ],
+        "Water": [
+          "Ingredient"
+        ],
+        "Salt": [
+          "Ingredient"
+        ],
+        "Gluten": [],
+        "Crumb": [],
+        "Crust": [],
+        "Bubble": [],
+        "Baker": [],
+        "Consumer": [],
+        "Ingredient": [],
+        "Rising Dough": [
+          "Dough"
+        ],
+        "Fermented Dough": [
+          "Dough"
+        ],
+        "Baked Bread": [
+          "Bread"
+        ],
+        "Unbaked Bread": [
+          "Bread"
+        ],
+        "Acidity Regulator": [
+          "Ingredient"
+        ],
+        "Food": [],
+        "Artisan Baker": [
+          "Baker"
+        ],
+        "Commercial Baker": [
+          "Baker"
+        ],
+        "Loaf Shape": [],
+        "Boule": [
+          "Loaf Shape"
+        ],
+        "Batard": [
+          "Loaf Shape"
+        ],
+        "Baguette": [
+          "Loaf Shape"
+        ],
+        "Alveoli": [],
+        "Overproofed Dough": [
+          "Dough"
+        ],
+        "Underproofed Dough": [
+          "Dough"
+        ]
+      }
+    },
+    {
+      "domain": "Wastewater Treatment",
+      "dataset": [
+        {
+          "term": "Entity",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Root class for all entities."
+        },
+        {
+          "term": "Substance",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Any kind of physical stuff."
+        },
+        {
+          "term": "Wastewater",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Water that has been used."
+        },
+        {
+          "term": "Contaminant",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A polluting substance."
+        },
+        {
+          "term": "Organic Matter",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Decomposed plant and animal material."
+        },
+        {
+          "term": "Inorganic Matter",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Minerals, salts, metals, etc."
+        },
+        {
+          "term": "Pathogen",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Disease-causing organism."
+        },
+        {
+          "term": "Bacteria",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Single-celled microorganisms."
+        },
+        {
+          "term": "Virus",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Type",
+          "note": "Infectious agent that replicates inside living cells."
+        },
+        {
+          "term": "Treatment Process",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "General class for treatment methods."
+        },
+        {
+          "term": "Physical Process",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A treatment process using physical methods."
+        },
+        {
+          "term": "Chemical Process",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A treatment process using chemical methods."
+        },
+        {
+          "term": "Biological Process",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A treatment process using biological methods."
+        },
+        {
+          "term": "Sedimentation",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A physical process to settle solids."
+        },
+        {
+          "term": "Coagulation",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A chemical destabilization process."
+        },
+        {
+          "term": "Activated Sludge",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A biological treatment process with sludge flocs."
+        },
+        {
+          "term": "Clarifier",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Tank used for settling solids."
+        },
+        {
+          "term": "Flocculant",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "A chemical used to cause floc formation."
+        },
+        {
+          "term": "Sludge",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Material",
+          "note": "Solid waste from wastewater treatment."
+        },
+        {
+          "term": "Effluent",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Treated wastewater being discharged."
+        },
+        {
+          "term": "Untreated Wastewater",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Wastewater before any treatment begins."
+        },
+        {
+          "term": "Operator",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "Person who operates the treatment plant."
+        },
+        {
+          "term": "Engineer",
+          "properties": {
+            "R": "~R",
+            "I": "+I",
+            "U": "+U",
+            "D": "+D"
+          },
+          "derived_class": "Role",
+          "note": "The person that designs the system."
+        },
+        {
+          "term": "Aeration Basin",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Tank holding activated sludge."
+        },
+        {
+          "term": "Membrane Bioreactor",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "System using membranes for filtration."
+        },
+        {
+          "term": "Nutrient",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Nitrogen, phosphorus, etc."
+        },
+        {
+          "term": "Nitrogen",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A key element in wastewater."
+        },
+        {
+          "term": "Ammonia",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "A form of nitrogen."
+        },
+        {
+          "term": "Nitrate",
+          "properties": {
+            "R": "+R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Another form of nitrogen."
+        },
+        {
+          "term": "Dechlorination",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "The process of removing chlorine."
+        },
+        {
+          "term": "Influent",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Incoming Wastewater Stream"
+        },
+        {
+          "term": "Screen",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Device to remove large solids"
+        },
+        {
+          "term": "Grit Chamber",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Device to remove grit, sand, stones, etc."
+        },
+        {
+          "term": "Anaerobic Digestion",
+          "properties": {
+            "R": "+R",
+            "I": "+I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Type",
+          "note": "Biological process in the absence of oxygen"
+        },
+        {
+          "term": "Digestate",
+          "properties": {
+            "R": "~R",
+            "I": "-I",
+            "U": "+U",
+            "D": "-D"
+          },
+          "derived_class": "Phase",
+          "note": "Final product of the digestation procedure"
+        }
+      ],
+      "taxonomy": {
+        "Entity": [],
+        "Substance": [],
+        "Wastewater": [
+          "Entity"
+        ],
+        "Contaminant": [
+          "Entity"
+        ],
+        "Organic Matter": [
+          "Substance"
+        ],
+        "Inorganic Matter": [
+          "Substance"
+        ],
+        "Pathogen": [
+          "Entity"
+        ],
+        "Bacteria": [
+          "Pathogen"
+        ],
+        "Virus": [
+          "Pathogen"
+        ],
+        "Treatment Process": [
+          "Entity"
+        ],
+        "Physical Process": [
+          "Treatment Process"
+        ],
+        "Chemical Process": [
+          "Treatment Process"
+        ],
+        "Biological Process": [
+          "Treatment Process"
+        ],
+        "Sedimentation": [
+          "Physical Process"
+        ],
+        "Coagulation": [
+          "Chemical Process"
+        ],
+        "Activated Sludge": [
+          "Biological Process"
+        ],
+        "Clarifier": [
+          "Entity"
+        ],
+        "Flocculant": [
+          "Entity"
+        ],
+        "Sludge": [
+          "Substance"
+        ],
+        "Effluent": [
+          "Entity"
+        ],
+        "Untreated Wastewater": [
+          "Wastewater"
+        ],
+        "Operator": [],
+        "Engineer": [],
+        "Aeration Basin": [
+          "Entity"
+        ],
+        "Membrane Bioreactor": [
+          "Entity"
+        ],
+        "Nutrient": [
+          "Entity"
+        ],
+        "Nitrogen": [
+          "Nutrient"
+        ],
+        "Ammonia": [
+          "Nitrogen"
+        ],
+        "Nitrate": [
+          "Nitrogen"
+        ],
+        "Dechlorination": [
+          "Chemical Process"
+        ],
+        "Influent": [
+          "Entity"
+        ],
+        "Screen": [
+          "Entity"
+        ],
+        "Grit Chamber": [
+          "Entity"
+        ],
+        "Anaerobic Digestion": [
+          "Biological Process"
+        ],
+        "Digestate": [
+          "Entity"
+        ]
+      }
+    }
+  ]
+}
