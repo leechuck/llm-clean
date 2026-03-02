@@ -101,8 +101,8 @@ def main():
     )
     parser.add_argument(
         "--input",
-        default="ontology/guarino_messy.owl",
-        help="Path to the OWL file to test (default: ontology/guarino_messy.owl)"
+        default="output/ontologies/guarino_messy.owl",
+        help="Path to the OWL file to test (default: output/ontologies/guarino_messy.owl)"
     )
 
     args = parser.parse_args()

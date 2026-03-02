@@ -7,11 +7,11 @@ import json
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from evaluate_taxonomy import load_data, evaluate_domain
 
-DATASET_FILE = "datasets/benchmark_10_domains.json"
+DATASET_FILE = "data/benchmark_10_domains.json"
 FILES = {
-    "Llama 3.2 3B (Agentic)": "experiment/taxonomy_agentic_llama-3.2-3b-instruct.json",
-    "Llama 3.1 8B (Agentic)": "experiment/taxonomy_agentic_llama-3.1-8b-instruct.json",
-    # "Qwen 2.5 7B (Agentic)": "experiment/taxonomy_agentic_qwen-2.5-7b-instruct.json"
+    "Llama 3.2 3B (Agentic)": "output/experiments/taxonomy_agentic_llama-3.2-3b-instruct.json",
+    "Llama 3.1 8B (Agentic)": "output/experiments/taxonomy_agentic_llama-3.1-8b-instruct.json",
+    # "Qwen 2.5 7B (Agentic)": "output/experiments/taxonomy_agentic_qwen-2.5-7b-instruct.json"
 }
 
 def evaluate_results(dataset_file, taxonomy_file):
@@ -67,7 +67,7 @@ def main():
         print(df.to_markdown(index=False))
         
         # Save to file
-        with open("experiment/AGENTIC_BENCHMARK_REPORT.md", "w") as f:
+        with open("output/experiments/AGENTIC_BENCHMARK_REPORT.md", "w") as f:
             f.write("# Agentic Benchmark Results\n\n")
             f.write(df.to_markdown(index=False))
             f.write("\n\n*Note: Agentic workflow involves a Taxonomist Agent proposing links and a Critic Agent (OntoClean Expert) vetting them.*")

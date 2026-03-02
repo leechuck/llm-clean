@@ -1,0 +1,83 @@
+{
+  "Naval Entity": [],
+  "Naval Vessel": [
+    "Naval Entity"
+  ],
+  "Warship": [
+    "Naval Vessel"
+  ],
+  "Aircraft Carrier": [
+    "Naval Vessel"
+  ],
+  "Submarine": [
+    "Naval Vessel"
+  ],
+  "Frigate": [
+    "Naval Vessel"
+  ],
+  "Naval Weapon": [
+    "Naval Entity"
+  ],
+  "Torpedo": [
+    "Naval Weapon"
+  ],
+  "Naval Mine": [
+    "Naval Weapon"
+  ],
+  "Naval Personnel": [
+    "Naval Entity"
+  ],
+  "Admiral": [
+    "Naval Personnel"
+  ],
+  "Sailor": [
+    "Naval Personnel"
+  ],
+  "Naval Aircrew": [
+    "Naval Personnel"
+  ],
+  "Hull": [],
+  "Propeller": [
+    "Hull"
+  ],
+  "Radar System": [],
+  "Steel": [],
+  "Aluminum": [],
+  "Explosive": [],
+  "Combatant": [
+    "Naval Personnel"
+  ],
+  "Patrolling Vessel": [
+    "Naval Vessel"
+  ],
+  "Amphibious Warfare Vessel": [
+    "Naval Vessel"
+  ],
+  "Missile": [
+    "Naval Weapon"
+  ],
+  "Nuclear Submarine": [
+    "Naval Vessel"
+  ],
+  "Ballistic Missile Submarine": [
+    "Naval Vessel"
+  ],
+  "Diesel Submarine": [
+    "Naval Vessel"
+  ],
+  "Shipyard": [],
+  "Naval Base": [],
+  "Commanding Officer": [
+    "Naval Personnel"
+  ],
+  "Sonar Operator": [
+    "Naval Personnel"
+  ],
+  "In Transit": [],
+  "Under Repair": [],
+  "Naval Exercise": [],
+  "Coastal Water": [],
+  "Ship Captain": [
+    "Naval Personnel"
+  ]
+}

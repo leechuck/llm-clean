@@ -1,0 +1,18 @@
+LLMs to use:
+- Gemini, Claude, GPT
+- Llama 3.2, Mistral, Qwen, Deepseek, GPT-OSS
+
+
+Todo:
+- generate 100 taxonomies, on different topics, and evaluate with
+  LLM-Clean
+
+- prompt: "Generate a strict is-a hierarchy for the domain of
+  [treatments of bronchitis]; include all relevant concepts, including
+  structures, processes, properties, materials, etc.; depth should be
+  4-5 levels "
+
+- bronchitis and cycling
+
+- agentic workflow to improve generation
+

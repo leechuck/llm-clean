@@ -3,3 +3,8 @@ requests
 python-dotenv
 PyPDF2
 tqdm
+pandas
+tabulate
+numpy
+langchain-openai
+langchain-core

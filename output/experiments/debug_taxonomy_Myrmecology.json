@@ -1,0 +1,87 @@
+{
+  "Entity": [],
+  "Living Thing": [],
+  "Animal": [
+    "Living Thing"
+  ],
+  "Insect": [],
+  "Hymenopteran": [
+    "Insect"
+  ],
+  "Ant": [],
+  "Formicinae": [
+    "Hymenopteran"
+  ],
+  "Camponotus": [
+    "Ant"
+  ],
+  "Camponotus Pennsylvanicus": [
+    "Camponotus"
+  ],
+  "Myrmicinae": [
+    "Hymenopteran"
+  ],
+  "Solenopsis": [
+    "Insect"
+  ],
+  "Solenopsis Invicta": [
+    "Solenopsis"
+  ],
+  "Ant Colony": [],
+  "Queen Ant": [
+    "Ant"
+  ],
+  "Forager": [
+    "Caste Member"
+  ],
+  "Soldier Ant": [
+    "Ant"
+  ],
+  "Ant Larva": [
+    "Living Thing"
+  ],
+  "Worker Ant": [
+    "Ant"
+  ],
+  "Ant Pupa": [
+    "Ant"
+  ],
+  "Mandible": [
+    "Exoskeleton"
+  ],
+  "Ant Wing": [
+    "Exoskeleton"
+  ],
+  "Chitin": [
+    "Exoskeleton"
+  ],
+  "Ant Cuticle": [
+    "Chitin"
+  ],
+  "Hydrocarbon": [],
+  "Caste Member": [],
+  "Ant Brood": [
+    "Ant"
+  ],
+  "Trophallaxis Participant": [
+    "Ant Colony"
+  ],
+  "Nestmate": [
+    "Ant Colony"
+  ],
+  "Petiole": [],
+  "Propodeum": [
+    "Exoskeleton"
+  ],
+  "Exoskeleton": [
+    "Chitin"
+  ],
+  "Formic Acid": [],
+  "Ant Leg": [
+    "Exoskeleton"
+  ],
+  "Larval Instar": [],
+  "Ovary": [
+    "Entity"
+  ]
+}

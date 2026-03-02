@@ -7,7 +7,7 @@ import subprocess
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from evaluate_taxonomy import load_data, evaluate_domain
 
-DATASET_FILE = "datasets/benchmark_10_domains.json"
+DATASET_FILE = "data/benchmark_10_domains.json"
 MODELS = {
     "Llama 3.2 3B (Agentic)": "meta-llama/llama-3.2-3b-instruct",
     "Llama 3.1 8B (Agentic)": "meta-llama/llama-3.1-8b-instruct",
@@ -46,7 +46,7 @@ def main():
     
     for friendly_name, model_id in MODELS.items():
         print(f"\n>>> Running Agentic Experiment for {friendly_name}")
-        output_file = f"experiment/taxonomy_agentic_{model_id.split('/')[-1]}.json"
+        output_file = f"output/experiments/taxonomy_agentic_{model_id.split('/')[-1]}.json"
         
         # Run agentic generation
         cmd = [
@@ -83,7 +83,7 @@ def main():
         print(df.to_markdown(index=False))
         
         # Save to file
-        with open("experiment/AGENTIC_BENCHMARK_REPORT.md", "w") as f:
+        with open("output/experiments/AGENTIC_BENCHMARK_REPORT.md", "w") as f:
             f.write("# Agentic Benchmark Results\n\n")
             f.write(df.to_markdown(index=False))
 

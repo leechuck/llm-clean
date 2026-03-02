@@ -1,0 +1,83 @@
+{
+  "Entity": [],
+  "Physical Object": [],
+  "Equipment": [],
+  "Bicycle": [
+    "Physical Object"
+  ],
+  "Mountain Bike": [
+    "Bicycle"
+  ],
+  "Road Bike": [
+    "Bicycle"
+  ],
+  "Gravel Bike": [
+    "Bicycle"
+  ],
+  "Bicycle Part": [
+    "Equipment"
+  ],
+  "Wheel": [
+    "Physical Object"
+  ],
+  "Tire": [
+    "Physical Object"
+  ],
+  "Frame": [
+    "Physical Object"
+  ],
+  "Handlebar": [
+    "Equipment"
+  ],
+  "Saddle": [
+    "Bicycle Part"
+  ],
+  "Gear": [
+    "Equipment"
+  ],
+  "Chain": [
+    "Gear"
+  ],
+  "Pedal": [
+    "Bicycle Part"
+  ],
+  "Bicycle Material": [
+    "Physical Object"
+  ],
+  "Aluminum": [
+    "Bicycle Material"
+  ],
+  "Steel": [
+    "Bicycle Material"
+  ],
+  "Carbon Fiber": [
+    "Bicycle Material"
+  ],
+  "Rubber": [
+    "Physical Object"
+  ],
+  "Cyclist": [],
+  "Racer": [
+    "Cyclist"
+  ],
+  "Commuter": [
+    "Cyclist"
+  ],
+  "Tourist": [],
+  "Sponsor": [],
+  "Bicycle Shop": [],
+  "Bike Track": [],
+  "Cycling Event": [],
+  "Race": [],
+  "Tour de France": [
+    "Cycling Event"
+  ],
+  "Cycling Club": [],
+  "Cycling Group": [
+    "Cycling Club"
+  ],
+  "Cycling Season": [],
+  "Dry Season": [
+    "Cycling Season"
+  ]
+}

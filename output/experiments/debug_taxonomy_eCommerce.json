@@ -1,0 +1,71 @@
+{
+  "Product": [],
+  "Electronics": [
+    "Product"
+  ],
+  "Mobile Device": [
+    "Product"
+  ],
+  "Smartphone": [
+    "Mobile Device"
+  ],
+  "Screen": [
+    "Electronics"
+  ],
+  "Glass": [],
+  "Charger": [
+    "Appliance"
+  ],
+  "Appliance": [],
+  "Kitchen Appliance": [
+    "Appliance"
+  ],
+  "Blender": [
+    "Appliance"
+  ],
+  "Blade": [],
+  "Steel": [],
+  "Food Processor": [
+    "Appliance"
+  ],
+  "Clothing": [],
+  "Outerwear": [
+    "Clothing"
+  ],
+  "Coat": [
+    "Clothing"
+  ],
+  "Sleeve": [
+    "Coat"
+  ],
+  "Wool": [],
+  "Raincoat": [
+    "Clothing"
+  ],
+  "Furniture": [],
+  "Seating": [
+    "Furniture"
+  ],
+  "Chair": [],
+  "Leg": [],
+  "Wood": [],
+  "Rocker": [],
+  "Book": [],
+  "Fiction": [],
+  "Novel": [
+    "Book"
+  ],
+  "Page": [],
+  "Paper": [],
+  "Best Seller": [
+    "Product"
+  ],
+  "Jewelry": [],
+  "Necklace": [
+    "Jewelry"
+  ],
+  "Pendant": [
+    "Jewelry"
+  ],
+  "Gold": []
+}

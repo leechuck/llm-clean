@@ -10,7 +10,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from evaluate_taxonomy import load_data, evaluate_domain
 
 # Configuration
-DATASET_FILE = "datasets/benchmark_10_domains.json"
+DATASET_FILE = "data/benchmark_10_domains.json"
 MODELS = {
     "Gemini 2.5 Flash": "google/gemini-2.5-flash",
     "Claude 3.5 Sonnet": "anthropic/claude-3.5-sonnet",
@@ -29,7 +29,7 @@ MODELS = {
 }
 
 def run_experiment(model_name, model_id):
-    output_file = f"experiment/taxonomy_benchmark_{model_name.replace(' ', '_').lower()}.json"
+    output_file = f"output/experiments/taxonomy_benchmark_{model_name.replace(' ', '_').lower()}.json"
     
     if os.path.exists(output_file):
         print(f"--- Skipping generation for {model_name}: File already exists.")
@@ -41,7 +41,7 @@ def run_experiment(model_name, model_id):
     cmd = [
         "uv", "run", 
         "--with", "requests", "--with", "python-dotenv", "--with", "tqdm",
-        "experiment/generate_taxonomy.py",
+        "output/experiments/generate_taxonomy.py",
         DATASET_FILE,
         output_file,
         "--model", model_id
@@ -141,10 +141,10 @@ def main():
 
 """
     
-    with open("experiment/BENCHMARK_REPORT.md", "w") as f:
+    with open("output/experiments/BENCHMARK_REPORT.md", "w") as f:
         f.write(report_content)
         
-    print("\nBenchmark Complete! Report saved to experiment/BENCHMARK_REPORT.md")
+    print("\nBenchmark Complete! Report saved to output/experiments/BENCHMARK_REPORT.md")
     print(markdown_table)
 
 if __name__ == "__main__":

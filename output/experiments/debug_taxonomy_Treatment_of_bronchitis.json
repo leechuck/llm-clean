@@ -1,0 +1,81 @@
+{
+  "Medical Procedure": [],
+  "Bronchitis Treatment": [
+    "Pharmacological Treatment"
+  ],
+  "Pharmacological Treatment": [
+    "Medical Procedure"
+  ],
+  "Antibiotic Therapy": [
+    "Pharmacological Treatment"
+  ],
+  "Bronchodilator Administration": [
+    "Bronchodilator"
+  ],
+  "Home Remedy": [],
+  "Rest": [],
+  "Cough Suppressant": [],
+  "Bronchodilator": [
+    "Pharmacological Treatment"
+  ],
+  "Steroid": [],
+  "Mucolytic": [],
+  "Patient": [],
+  "Bronchitis Sufferer": [
+    "Patient"
+  ],
+  "Recovering Patient": [
+    "Patient"
+  ],
+  "Lung Tissue": [],
+  "Lung Area": [],
+  "Bronchial Tube": [
+    "Lung Area"
+  ],
+  "Inflammation": [
+    "Disease"
+  ],
+  "Airway Inflammation": [
+    "Inflammation"
+  ],
+  "Mucus": [],
+  "Disease": [],
+  "Respiratory Disease": [
+    "Disease"
+  ],
+  "Infectious Disease": [
+    "Disease"
+  ],
+  "Viral Infection": [
+    "Infectious Disease"
+  ],
+  "Bronchitis": [
+    "Disease"
+  ],
+  "Acute Bronchitis": [
+    "Bronchitis"
+  ],
+  "Chronic Bronchitis": [
+    "Disease"
+  ],
+  "Cough": [
+    "Disease"
+  ],
+  "Sputum": [
+    "Mucus"
+  ],
+  "Breathing Difficulty": [
+    "Cough"
+  ],
+  "Wheezing": [
+    "Breathing Difficulty"
+  ],
+  "Air": [],
+  "Influenza": [],
+  "Influenza A": [
+    "Influenza"
+  ],
+  "Influenza B": [
+    "Influenza"
+  ]
+}
