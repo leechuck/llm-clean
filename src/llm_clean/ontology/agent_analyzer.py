@@ -24,11 +24,11 @@ class AgentOntologyAnalyzer:
 
     # Default background files for each property
     DEFAULT_BACKGROUND_FILES = {
-        "rigidity": "resources/converted_text_files/guarino_text_files/01-guarino00formal-rigidity.txt",
-        "identity": "resources/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt",
-        "own_identity": "resources/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt",
-        "unity": "resources/converted_text_files/guarino_text_files/01-guarino00formal-unity.txt",
-        "dependence": "resources/converted_text_files/guarino_text_files/01-guarino00formal-dependence.txt"
+        "rigidity": "data/raw/converted_text_files/guarino_text_files/01-guarino00formal-rigidity.txt",
+        "identity": "data/raw/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt",
+        "own_identity": "data/raw/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt",
+        "unity": "data/raw/converted_text_files/guarino_text_files/01-guarino00formal-unity.txt",
+        "dependence": "data/raw/converted_text_files/guarino_text_files/01-guarino00formal-dependence.txt"
     }
 
     def __init__(self, api_key=None, model="gemini", background_files=None, default_background_file=None, use_default_backgrounds=True):

@@ -7,10 +7,10 @@ import sys
 import os
 import json
 
-# Ensure the project root is in sys.path so we can import ontology_tools
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Ensure the project root is in sys.path so we can import llm_clean
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
 
-from ontology_tools.agent_analyzer import AgentOntologyAnalyzer
+from llm_clean.ontology.agent_analyzer import AgentOntologyAnalyzer
 
 
 def main():

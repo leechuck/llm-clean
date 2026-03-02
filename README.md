@@ -44,13 +44,50 @@ chmod +x reproduce.sh
 ./reproduce.sh
 ```
 
+## 🧪 OntoClean Property Analysis
+
+LLM-Clean provides two primary modes for analyzing entity meta-properties (Rigidity, Identity, Unity, Dependence).
+
+### 1. Analysis Modes
+
+#### **Standard Mode (All-at-once)**
+The model is prompted to predict all meta-properties in a single pass. This is faster and more cost-effective but may miss subtle nuances.
+```bash
+# Analyze a single entity
+uv run scripts/analyze_entity.py "Student" --desc "A person enrolled in an educational institution"
+
+# Batch analyze an OWL file
+uv run scripts/batch_analyze_owl.py output/ontologies/guarino_messy.owl --output output/analyzed_entities/results.tsv
+```
+
+#### **Agentic Mode (Property-by-property)**
+Uses specialized agents for each property. The workflow triggers a separate LLM call for each meta-property, ensuring the model focuses exclusively on the specific criteria for that property.
+```bash
+# Analyze a single entity with specialized agents
+uv run scripts/analyze_entity_agents.py "Student" --verbose
+
+# Batch analyze an OWL file with specialized agents
+uv run scripts/batch_analyze_owl_agents.py output/ontologies/guarino_messy.owl --output output/analyzed_entities/agent_results.tsv
+```
+
+### 2. Contextual Background Options
+
+The analysis can be grounded in the original Guarino & Welty (2000) paper using two strategies:
+
+#### **Full Source Text**
+Provide the entire corrected text of the paper as context.
+```bash
+uv run scripts/analyze_entity.py "Student" --background-file data/raw/converted_text_files/guarino_text_files/01-guarino00formal-converted-corrected.txt
+```
+
+#### **Sectioned Context (Recommended for Agentic Mode)**
+The `AgentOntologyAnalyzer` automatically uses property-specific sections of the paper (e.g., just the "Rigidity" section for rigidity analysis). This minimizes "distraction" from unrelated parts of the text.
+- Section files are located in: `data/raw/converted_text_files/guarino_text_files/`
+- Custom sections can be provided via flags: `--rigidity-background`, `--identity-background`, etc.
+
 ---
 
-## 🧪 Benchmarking
-
-LLM-Clean evaluates models based on their adherence to OntoClean constraints (Rigidity, Identity, Unity, Dependence).
-
-### 1. Zero-Shot Benchmark
+## 🧪 Taxonomy Benchmarking
 Runs 13 different models (Gemini, Claude, GPT-4, Llama, etc.) on 10 domains.
 ```bash
 uv run scripts/run_benchmark.py

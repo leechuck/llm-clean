@@ -10,9 +10,9 @@ import csv
 from rdflib import Graph, RDF, OWL, RDFS
 
 # Ensure the project root is in sys.path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
 
-from ontology_tools.agent_analyzer import AgentOntologyAnalyzer
+from llm_clean.ontology.agent_analyzer import AgentOntologyAnalyzer
 
 
 def extract_classes(owl_path):
