@@ -122,6 +122,10 @@ Examples:
         choices=['csv', 'tsv', 'md', 'json'],
         help="Output format (overrides extension-based inference). Choices: csv, tsv, md, json"
     )
+    parser.add_argument(
+        '--agent-name',
+        help="Adds an 'agent_name' column to the output with the specified value (optional)"
+    )
 
     args = parser.parse_args()
 
@@ -134,12 +138,20 @@ Examples:
         )
         sys.exit(1)
 
+    # store agent name if provided in dict
+    agent_info = {'agent_name': args.agent_name} if args.agent_name else {}
+
     # Collect data from all files
     rows = []
     for file_path, index in zip(args.files, args.indexes):
         print(f"Loading {file_path} with index '{index}'...")
         summary = load_evaluation(file_path)
         summary['index'] = index  # add index to summary for DataFrame
+
+        # if agent name is provided, merge agent info into summary
+        if agent_info:
+            summary = {**agent_info, **summary} 
+
         rows.append(summary)
 
     # Create DataFrame
