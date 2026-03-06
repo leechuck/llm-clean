@@ -6,15 +6,17 @@ The `AgentOntologyAnalyzer` has been updated to automatically load property-spec
 
 ## Default Background Files
 
-The following property-specific files are loaded by default:
+The following property-specific files are loaded by default (augmented versions with introduction sections):
 
 | Property | Default File Path |
 |----------|------------------|
-| Rigidity | `resources/converted_text_files/guarino_text_files/01-guarino00formal-rigidity.txt` |
-| Identity | `resources/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt` |
-| Own Identity | `resources/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt` |
-| Unity | `resources/converted_text_files/guarino_text_files/01-guarino00formal-unity.txt` |
-| Dependence | `resources/converted_text_files/guarino_text_files/01-guarino00formal-dependence.txt` |
+| Rigidity | `data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-rigidity.txt` |
+| Identity | `data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-identity.txt` |
+| Own Identity | `data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-identity.txt` |
+| Unity | `data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-unity.txt` |
+| Dependence | `data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-dependence.txt` |
+
+**Note**: These are augmented files that include introduction context in addition to property-specific content. To use simpler versions without introduction sections, initialize the analyzer with `default_background_file_type='simple'`.
 
 ## Behavior
 
@@ -31,11 +33,11 @@ analyzer = AgentOntologyAnalyzer(model="gemini")
 Output when initializing:
 ```
 Loading default property-specific background files...
-  ✓ Loaded rigidity: resources/converted_text_files/guarino_text_files/01-guarino00formal-rigidity.txt
-  ✓ Loaded identity: resources/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt
-  ✓ Loaded own_identity: resources/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt
-  ✓ Loaded unity: resources/converted_text_files/guarino_text_files/01-guarino00formal-unity.txt
-  ✓ Loaded dependence: resources/converted_text_files/guarino_text_files/01-guarino00formal-dependence.txt
+  ✓ Loaded rigidity: data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-rigidity.txt
+  ✓ Loaded identity: data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-identity.txt
+  ✓ Loaded own_identity: data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-identity.txt
+  ✓ Loaded unity: data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-unity.txt
+  ✓ Loaded dependence: data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-dependence.txt
 ```
 
 ### Disabling Defaults
@@ -71,7 +73,17 @@ To use **one background file for all properties** (overrides defaults):
 ```python
 analyzer = AgentOntologyAnalyzer(
     model="gemini",
-    default_background_file="resources/complete_guarino_paper.txt"
+    background_file="resources/complete_guarino_paper.txt"
+)
+```
+
+### Switching to Simple Background Files
+To use the simpler background files (without introduction sections):
+
+```python
+analyzer = AgentOntologyAnalyzer(
+    model="gemini",
+    default_background_file_type='simple'
 )
 ```
 

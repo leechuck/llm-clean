@@ -11,15 +11,15 @@ The `AgentOntologyAnalyzer` uses **specialized agents** to analyze each ontologi
 
 ## Default Background Files
 
-By default, the analyzer loads property-specific background files:
+By default, the analyzer loads property-specific background files (augmented versions with introduction sections):
 
-- **Rigidity**: `resources/converted_text_files/guarino_text_files/01-guarino00formal-rigidity.txt`
-- **Identity**: `resources/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt`
-- **Own Identity**: `resources/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt`
-- **Unity**: `resources/converted_text_files/guarino_text_files/01-guarino00formal-unity.txt`
-- **Dependence**: `resources/converted_text_files/guarino_text_files/01-guarino00formal-dependence.txt`
+- **Rigidity**: `data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-rigidity.txt`
+- **Identity**: `data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-identity.txt`
+- **Own Identity**: `data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-identity.txt`
+- **Unity**: `data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-unity.txt`
+- **Dependence**: `data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-dependence.txt`
 
-These files contain relevant excerpts from the Guarino & Welty (2000) paper focused on each specific meta-property.
+These augmented files contain relevant excerpts from the Guarino & Welty (2000) paper including introduction context, focused on each specific meta-property. You can switch to simpler versions without introduction context by setting `default_background_file_type='simple'`.
 
 ## Architecture
 

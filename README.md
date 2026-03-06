@@ -80,8 +80,10 @@ Provide the entire corrected text of the paper as context.
 uv run scripts/analyze_entity.py "Student" --background-file data/raw/converted_text_files/guarino_text_files/01-guarino00formal-converted-corrected.txt
 ```
 
-#### **Sectioned Context (Recommended for Agentic Mode)**
+#### **Sectioned Context (Default for Agentic Mode)**
 The `AgentOntologyAnalyzer` automatically uses property-specific sections of the paper (e.g., just the "Rigidity" section for rigidity analysis). This minimizes "distraction" from unrelated parts of the text.
+- **Default**: Uses augmented sections with introduction context (e.g., `01-guarino00formal-introduction-rigidity.txt`)
+- **Alternative**: Switch to simpler sections with `default_background_file_type='simple'`
 - Section files are located in: `data/raw/converted_text_files/guarino_text_files/`
 - Custom sections can be provided via flags: `--rigidity-background`, `--identity-background`, etc.
 
