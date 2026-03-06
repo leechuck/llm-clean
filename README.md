@@ -70,6 +70,45 @@ uv run scripts/analyze_entity_agents.py "Student" --verbose
 uv run scripts/batch_analyze_owl_agents.py output/ontologies/guarino_messy.owl --output output/analyzed_entities/agent_results.tsv
 ```
 
+#### **Batch Analysis Tools**
+
+Two tools are provided for batch analyzing OWL files:
+
+**`batch_analyze_owl.py`** - Standard rdflib-based parser:
+```bash
+# Basic batch analysis
+uv run scripts/batch_analyze_owl.py output/ontologies/guarino_messy.owl --output results.tsv
+
+# With specific model and background context
+uv run scripts/batch_analyze_owl.py input.owl \
+  --model anthropic \
+  --background-file data/raw/converted_text_files/guarino_text_files/01-guarino00formal-converted-corrected.txt \
+  --output results.json \
+  --format json
+
+# Test with limited entities
+uv run scripts/batch_analyze_owl.py input.owl --limit 5
+```
+
+**`batch_analyze_owl_hybrid.py`** - Enhanced parser with Groovy/OWLAPI fallback:
+```bash
+# Attempts Groovy/OWLAPI first, automatically falls back to rdflib if needed
+uv run scripts/batch_analyze_owl_hybrid.py output/ontologies/guarino_messy.owl --output results.tsv
+```
+
+**Common Options:**
+- `--format {tsv,json}`: Output format (default: tsv)
+- `--output FILE`: Save results to file (default: stdout)
+- `--model MODEL`: LLM model to use (default: gemini-3-flash-preview, also supports shortcuts: `gemini`, `anthropic`)
+- `--background-file FILE`: Path to background text/PDF for contextual analysis
+- `--limit N`: Analyze only first N entities (useful for testing)
+
+**Output includes:**
+- Term name and URI
+- All five meta-properties (rigidity, identity, own_identity, unity, dependence)
+- OntoClean classification
+- Reasoning/justification
+
 ### 2. Contextual Background Options
 
 The analysis can be grounded in the original Guarino & Welty (2000) paper using two strategies:
@@ -86,6 +125,44 @@ The `AgentOntologyAnalyzer` automatically uses property-specific sections of the
 - **Alternative**: Switch to simpler sections with `default_background_file_type='simple'`
 - Section files are located in: `data/raw/converted_text_files/guarino_text_files/`
 - Custom sections can be provided via flags: `--rigidity-background`, `--identity-background`, etc.
+
+### 3. Evaluating Analysis Results
+
+After analyzing entities, you can evaluate predictions against ground truth data and aggregate results across multiple evaluations.
+
+#### **Single Evaluation**
+Compare predictions to ground truth and optionally save detailed results as JSON:
+```bash
+# Display evaluation metrics
+python scripts/evaluate_analysis.py predictions.tsv ground_truth.tsv
+
+# Save detailed results as JSON
+python scripts/evaluate_analysis.py predictions.tsv ground_truth.tsv --output evaluation.json
+```
+
+The JSON output includes:
+- Overall accuracy metrics for each meta-property
+- Per-term detailed comparisons (predicted vs. ground truth)
+- Exact match statistics
+
+#### **Aggregate Multiple Evaluations**
+Collect and compare results from multiple evaluation runs (e.g., different models):
+```bash
+# Compare two models
+python scripts/collect_evaluations.py \
+  --files eval_gemini.json eval_claude.json \
+  --indexes gemini-flash claude-sonnet \
+  --output comparison.csv
+
+# Compare multiple models with custom format
+python scripts/collect_evaluations.py \
+  --files eval1.json eval2.json eval3.json \
+  --indexes model1 model2 model3 \
+  --output results.tsv \
+  --output-format tsv
+```
+
+Supported output formats: `csv`, `tsv`, `md` (markdown table), `json`. Format can be inferred from file extension or specified with `--output-format`.
 
 ---
 
