@@ -1,14 +1,13 @@
+# Ensure the project root is in sys.path
+import sys, os, pathlib
+from git_root import git_root
+sys.path.append(str(pathlib.Path(git_root())))
+
 import argparse
-import sys
-import os
 import json
 import csv
 from rdflib import Graph, RDF, OWL, RDFS
-
-# Ensure the project root is in sys.path
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
-
-from llm_clean.ontology.analyzer import OntologyAnalyzer
+from src.llm_clean.ontology.analyzer import OntologyAnalyzer
 
 def extract_classes(owl_path):
     g = Graph()
@@ -52,7 +51,8 @@ def main():
                        help="Path to background information file (.txt or .pdf)")
 
     args = parser.parse_args()
-
+    args.input_owl = os.path.abspath(args.input_owl)
+    
     try:
         classes = extract_classes(args.input_owl)
     except Exception as e:
@@ -109,6 +109,7 @@ def main():
 
     # Output
     if args.output:
+        args.output = os.path.abspath(args.output)
         out_stream = open(args.output, 'w', newline='', encoding='utf-8')
     else:
         out_stream = sys.stdout

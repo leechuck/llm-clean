@@ -1,18 +1,19 @@
+# Ensure the project root is in sys.path
+import sys, os, pathlib
+from git_root import git_root
+sys.path.append(str(pathlib.Path(git_root())))
+
 import argparse
-import sys
-import os
 import json
 import csv
 import subprocess
 from rdflib import Graph, RDF, OWL, RDFS
-
-# Ensure the project root is in sys.path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from ontology_tools.analyzer import OntologyAnalyzer
+from src.llm_clean.ontology.analyzer import OntologyAnalyzer
 
 def extract_classes_rdflib(owl_path):
     """Fallback method using rdflib to extract classes from OWL file."""
+
+    owl_path = os.path.abspath(owl_path) # Ensure we have an absolute path for better error messages
     g = Graph()
     g.parse(owl_path)
 
@@ -38,6 +39,7 @@ def extract_classes_rdflib(owl_path):
     return classes
 
 def get_entities_from_groovy(owl_path):
+    owl_path = os.path.abspath(owl_path) # Ensure we have an absolute path for better error messages
     groovy_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "extract_entities.groovy")
 
     # Run groovy script
@@ -129,6 +131,7 @@ def main():
 
     # Output
     if args.output:
+        args.output = os.path.abspath(args.output)
         out_stream = open(args.output, 'w', newline='', encoding='utf-8')
     else:
         out_stream = sys.stdout
