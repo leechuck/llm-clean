@@ -10,7 +10,7 @@ def load_evaluation(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
-        return data.get('evaluation_summary', {})
+        return data.get('evaluation_summary', {}).get('metrics', {})
     except FileNotFoundError:
         print(f"Error: File not found: {file_path}", file=sys.stderr)
         sys.exit(1)
@@ -24,23 +24,24 @@ def extract_row_data(summary):
     row_data = {}
 
     # Add total evaluated
-    row_data['total_evaluated'] = summary.get('total_evaluated', 0)
+    # row_data['total_evaluated'] = summary.get('total_evaluated', 0)
 
     # Extract metrics for each property
-    metrics = summary.get('metrics', {})
-    properties = ['rigidity', 'identity', 'own_identity', 'unity', 'dependence']
+    # metrics = summary.get('metrics', {})
+    # properties = ['rigidity', 'identity', 'own_identity', 'unity', 'dependence']
+    properties = summary.keys()  # dynamically get properties from summary
 
     for prop in properties:
-        prop_data = metrics.get(prop, {})
+        prop_data = summary.get(prop, {})
         row_data[f'{prop}_correct'] = prop_data.get('correct', 0)
         row_data[f'{prop}_total'] = prop_data.get('total', 0)
         row_data[f'{prop}_accuracy'] = prop_data.get('accuracy', 0.0)
 
     # Extract exact match
-    exact_match = summary.get('exact_match', {})
-    row_data['exact_match_correct'] = exact_match.get('correct', 0)
-    row_data['exact_match_total'] = exact_match.get('total', 0)
-    row_data['exact_match_accuracy'] = exact_match.get('accuracy', 0.0)
+    # exact_match = summary.get('exact_match', {})
+    # row_data['exact_match_correct'] = exact_match.get('correct', 0)
+    # row_data['exact_match_total'] = exact_match.get('total', 0)
+    # row_data['exact_match_accuracy'] = exact_match.get('accuracy', 0.0)
 
     return row_data
 
@@ -63,11 +64,11 @@ def save_dataframe(df, output_path, output_format):
         df.to_csv(output_path)
         print(f"Results saved to {output_path} (CSV format)")
     elif output_format == 'tsv':
-        df.to_csv(output_path, sep='\t')
+        df.to_csv(output_path, sep='\t', index=True)
         print(f"Results saved to {output_path} (TSV format)")
     elif output_format == 'md':
         try:
-            df.to_markdown(output_path)
+            df.to_markdown(output_path, index=True)
             print(f"Results saved to {output_path} (Markdown format)")
         except ImportError:
             print(
@@ -77,7 +78,7 @@ def save_dataframe(df, output_path, output_format):
             )
             sys.exit(1)
     elif output_format == 'json':
-        df.to_json(output_path, orient='index', indent=2)
+        df.to_json(output_path, orient='index', indent=2, index=True)
         print(f"Results saved to {output_path} (JSON format)")
     else:
         print(f"Error: Unsupported format '{output_format}'", file=sys.stderr)
@@ -138,13 +139,15 @@ Examples:
     for file_path, index in zip(args.files, args.indexes):
         print(f"Loading {file_path} with index '{index}'...")
         summary = load_evaluation(file_path)
-        row_data = extract_row_data(summary)
-        row_data['index'] = index
-        rows.append(row_data)
+        summary['index'] = index  # add index to summary for DataFrame
+        rows.append(summary)
 
     # Create DataFrame
     df = pd.DataFrame(rows)
     df.set_index('index', inplace=True)
+
+    # set index name for better output formatting
+    df.index.name = 'background_file'
 
     # Display DataFrame
     print("\nAggregated Results:")
