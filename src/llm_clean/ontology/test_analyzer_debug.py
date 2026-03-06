@@ -4,6 +4,7 @@ Debug script to test analyzer with background file
 """
 import sys
 import os
+from git_root import git_root
 
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -15,7 +16,7 @@ try:
     print("Initializing analyzer with anthropic model...")
     analyzer = OntologyAnalyzer(
         model="anthropic",
-        background_file="resources/converted_text_files/guarino_text_files/01-guarino00formal-converted-corrected.txt"
+        background_file= f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-converted-corrected.txt"
     )
     print("Analyzer initialized successfully")
 
