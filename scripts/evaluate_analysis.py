@@ -98,31 +98,44 @@ def main():
              print(f"{prop.capitalize().replace('_', ' '):<15}: {metrics[prop]}/{count} ({metrics[prop]/count:.2%})")
         print(f"{ 'Exact Match':<15}: {metrics['exact_match']}/{count} ({metrics['exact_match']/count:.2%})")
 
-    # Save to JSON if output file is specified
-    if args.output:
-        output_data = {
-            "evaluation_summary": {
-                "total_evaluated": count,
-                "metrics": {
-                    prop: {
-                        "correct": metrics[prop],
-                        "total": count,
-                        "accuracy": metrics[prop] / count if count > 0 else 0
-                    }
-                    for prop in properties
+        # Save to JSON if output file is specified
+        if args.output:
+            output_data = {
+                "evaluation_summary": {
+                    "total_evaluated": count,
+                    "metrics": {
+                        prop: f"{metrics[prop]}/{count} ({metrics[prop]/count:.2%})"
+                        for prop in properties
+                    },
+                    "exact_match": f"{metrics['exact_match']}/{count} ({metrics['exact_match']/count:.2%})"
                 },
-                "exact_match": {
-                    "correct": metrics["exact_match"],
-                    "total": count,
-                    "accuracy": metrics["exact_match"] / count if count > 0 else 0
-                }
-            },
-            "detailed_results": detailed_results
-        }
+                "detailed_results": detailed_results
+            }
 
-        with open(args.output, 'w', encoding='utf-8') as f:
-            json.dump(output_data, f, indent=2, ensure_ascii=False)
-        print(f"\nResults saved to {args.output}")
+            # keep the old format for reference, but we will use the new format with summary strings for easier reporting
+            # output_data = {
+            #     "evaluation_summary": {
+            #         "total_evaluated": count,
+            #         "metrics": {
+            #             prop: {
+            #                 "correct": metrics[prop],
+            #                 "total": count,
+            #                 "accuracy": round(metrics[prop] / count, 2) if count > 0 else 0
+            #             }
+            #             for prop in properties
+            #         },
+            #         "exact_match": {
+            #             "correct": metrics["exact_match"],
+            #             "total": count,
+            #             "accuracy": round(metrics["exact_match"] / count, 2) if count > 0 else 0
+            #         }
+            #     },
+            #     "detailed_results": detailed_results
+            # }
+
+            with open(args.output, 'w', encoding='utf-8') as f:
+                json.dump(output_data, f, indent=2, ensure_ascii=False)
+            print(f"\nResults saved to {args.output}")
 
 if __name__ == "__main__":
     main()
