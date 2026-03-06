@@ -8,3 +8,4 @@ tabulate
 numpy
 langchain-openai
 langchain-core
+git-root

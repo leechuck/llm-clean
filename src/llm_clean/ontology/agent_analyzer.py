@@ -3,6 +3,7 @@ import json
 import requests
 import sys
 from dotenv import load_dotenv
+from git_root import git_root
 
 
 class AgentOntologyAnalyzer:
@@ -23,27 +24,49 @@ class AgentOntologyAnalyzer:
     PROPERTIES = ["rigidity", "identity", "own_identity", "unity", "dependence"]
 
     # Default background files for each property
-    DEFAULT_BACKGROUND_FILES = {
-        "rigidity": "data/raw/converted_text_files/guarino_text_files/01-guarino00formal-rigidity.txt",
-        "identity": "data/raw/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt",
-        "own_identity": "data/raw/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt",
-        "unity": "data/raw/converted_text_files/guarino_text_files/01-guarino00formal-unity.txt",
-        "dependence": "data/raw/converted_text_files/guarino_text_files/01-guarino00formal-dependence.txt"
+    SIMPLE_BACKGROUND_FILES = {
+        "rigidity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-rigidity.txt",
+        "identity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt",
+        "own_identity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt",
+        "unity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-unity.txt",
+        "dependence": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-dependence.txt"
     }
 
-    def __init__(self, api_key=None, model="gemini", background_files=None, default_background_file=None, use_default_backgrounds=True):
+    AUGMENTED_BACKGROUND_FILES = {
+        "rigidity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-rigidity.txt",
+        "identity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-identity.txt",
+        "own_identity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-identity.txt",
+        "unity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-unity.txt",
+        "dependence": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-introduction-dependence.txt"
+    }
+
+
+    def __init__(
+            self, 
+            api_key=None, 
+            model="gemini", 
+            background_file=None, 
+            background_files=None,  
+            use_default_backgrounds=True,
+            default_background_file_type='augmented',):
         """
         Initialize the agent-based analyzer.
 
         Args:
             api_key: OpenRouter API key (optional, will use env variable if not provided)
-            model: Model to use (default: "gemini")
+            model: Model to use. Options are: "gemini", "anthropic", "google/gemini-3-flash-preview", "anthropic/claude-4.5-sonnet".
+                   Default is "gemini" which maps to "google/gemini-3-flash-preview".
+            background_file: Background file to use for all properties.
+                             Overrides use_default_backgrounds if provided.
             background_files: Dict mapping property names to background file paths.
-                             If provided, overrides default backgrounds for specified properties.
-            default_background_file: Default background file to use for all properties.
-                                    Overrides use_default_backgrounds if provided.
-            use_default_backgrounds: If True (default), uses property-specific backgrounds from
-                                    DEFAULT_BACKGROUND_FILES. Set to False to use no backgrounds.
+                              If provided, overrides default backgrounds for specified properties.
+            use_default_backgrounds: If True (default), uses property-specific backgrounds specified by default_background_file_type.
+                                     Set to False to use no backgrounds.
+            default_background_file_type: Specifies a type of background files to use for properties.  
+                                          Options are: "augmented", "simple". 
+                                          "augmented": uses AUGMENTED_BACKGROUND_FILES).  
+                                          "simple": uses SIMPLE_BACKGROUND_FILES.  
+                                          Default: "augmented". 
         """
         # Load environment variables from .env file
         load_dotenv()
@@ -69,35 +92,42 @@ class AgentOntologyAnalyzer:
             raise ValueError("api key environment variable not set or not provided.")
 
         # Initialize background content for each property
-        self.background_content = {}
-        self.default_background_content = None
+        self.background_contents = {}
+        self.background_content = None
 
-        # Load default background file if provided (overrides use_default_backgrounds)
-        if default_background_file:
-            self.default_background_content = self._load_background_file(default_background_file)
-        # Otherwise, load property-specific default backgrounds if requested
+        # Load background file if provided (overrides use_default_backgrounds)
+        if background_file:
+            self.background_content = self._load_background_file(background_file)
+        # Load user-specified property-specific background files (overrides defaults)
+        elif background_files:
+            for prop, file_path in background_files.items():
+                if prop in self.PROPERTIES:
+                    self.background_contents[prop] = self._load_background_file(file_path)
+                    print(f"  ✓ Loaded custom {prop} background: {file_path}", file=sys.stderr)
+                else:
+                    print(f"Warning: Unknown property '{prop}' in background_files. Ignoring.",
+                          file=sys.stderr)
+        # Load default backgrounds (augmented or simple based on default_background_file_type)
         elif use_default_backgrounds:
+            if default_background_file_type=='augmented':
+                default_files = self.AUGMENTED_BACKGROUND_FILES
+            else:                
+                default_files = self.SIMPLE_BACKGROUND_FILES
+
             print("Loading default property-specific background files...", file=sys.stderr)
-            for prop, file_path in self.DEFAULT_BACKGROUND_FILES.items():
+            for prop, file_path in default_files.items():
                 if os.path.exists(file_path):
                     try:
-                        self.background_content[prop] = self._load_background_file(file_path)
+                        self.background_contents[prop] = self._load_background_file(file_path)
                         print(f"  ✓ Loaded {prop}: {file_path}", file=sys.stderr)
                     except Exception as e:
                         print(f"  ✗ Failed to load {prop} background: {e}", file=sys.stderr)
                 else:
                     print(f"  ⚠ Default background for {prop} not found: {file_path}", file=sys.stderr)
+        else:
+            print("No background files will be used for analysis. Hard coded system prompts will be used.", file=sys.stderr)
 
-        # Load user-specified property-specific background files (overrides defaults)
-        if background_files:
-            for prop, file_path in background_files.items():
-                if prop in self.PROPERTIES:
-                    self.background_content[prop] = self._load_background_file(file_path)
-                    print(f"  ✓ Loaded custom {prop} background: {file_path}", file=sys.stderr)
-                else:
-                    print(f"Warning: Unknown property '{prop}' in background_files. Ignoring.",
-                          file=sys.stderr)
-
+        
     def _load_background_file(self, file_path):
         """Load background information from a file (supports .txt and .pdf)."""
         if not os.path.exists(file_path):
@@ -136,7 +166,10 @@ class AgentOntologyAnalyzer:
 
     def _get_background_for_property(self, property_name):
         """Get background content for a specific property."""
-        return self.background_content.get(property_name, self.default_background_content)
+        if self.background_contents:
+            return self.background_contents.get(property_name, self.background_contents)
+        else:
+            return None
 
     def _call_llm(self, system_prompt, user_content):
         """Make API call to LLM."""

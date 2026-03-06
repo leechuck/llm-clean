@@ -15,6 +15,7 @@ dependencies = [
     "numpy",
     "langchain-openai",
     "langchain-core",
+    "git-root",
 ]
 
 [build-system]

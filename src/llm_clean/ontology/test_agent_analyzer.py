@@ -5,6 +5,7 @@ Test script demonstrating the AgentOntologyAnalyzer with different background fi
 import sys
 import os
 import json
+from git_root import git_root
 
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -33,13 +34,13 @@ def test_without_background():
 
 
 def test_with_default_property_backgrounds():
-    """Test analysis with property-specific default background files."""
+    """Test analysis with property-specific default background files. This will use the AUGMENTED_BACKGROUND_FILES by default."""
     print("=" * 60)
-    print("Test 2: Analysis WITH property-specific DEFAULT backgrounds")
+    print("Test 2: Analysis WITH property-specific DEFAULT backgrounds. This uses the AUGMENTED_BACKGROUND_FILES by default.")
     print("=" * 60)
 
     try:
-        # This will use the DEFAULT_BACKGROUND_FILES by default
+        # This will use the AUGMENTED_BACKGROUND_FILES by default
         analyzer = AgentOntologyAnalyzer(model="gemini")
         result = analyzer.analyze("Student", description="A person enrolled in a university")
 
@@ -53,14 +54,14 @@ def test_with_default_property_backgrounds():
         traceback.print_exc()
 
 
-def test_with_single_default_background():
+def test_with_single_background():
     """Test analysis with a single background file for all properties."""
     print("=" * 60)
-    print("Test 3: Analysis WITH single default background file")
+    print("Test 3: Analysis WITH single background file")
     print("=" * 60)
 
     # This assumes you have a background file at this path
-    background_file = "resources/converted_text_files/guarino_text_files/01-guarino00formal-converted-corrected.txt"
+    background_file = f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-converted-corrected.txt"
 
     if not os.path.exists(background_file):
         print(f"Skipping: Background file not found at {background_file}")
@@ -70,7 +71,7 @@ def test_with_single_default_background():
     try:
         analyzer = AgentOntologyAnalyzer(
             model="gemini",
-            default_background_file=background_file
+            background_file=background_file 
         )
         result = analyzer.analyze("Student", description="A person enrolled in a university")
 
@@ -92,10 +93,11 @@ def test_with_custom_property_backgrounds():
 
     # Example: Different background files for different properties
     background_files = {
-        "rigidity": "resources/rigidity_guide.txt",
-        "identity": "resources/identity_guide.txt",
-        "unity": "resources/unity_guide.txt",
-        # dependence and own_identity will use default if provided
+        "rigidity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-rigidity.txt",
+        "identity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt",
+        "own_identity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-identity.txt",
+        "unity": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-unity.txt",
+        "dependence": f"{git_root()}/data/raw/converted_text_files/guarino_text_files/01-guarino00formal-dependence.txt"
     }
 
     # Check which files exist
@@ -188,16 +190,16 @@ if __name__ == "__main__":
     print()
 
     # Run tests
-    test_without_background()
+    # test_without_background()
     print("\n" * 2)
 
-    test_with_default_property_backgrounds()
+    # test_with_default_property_backgrounds()
     print("\n" * 2)
 
-    test_with_single_default_background()
+    # test_with_single_background()
     print("\n" * 2)
 
-    test_with_custom_property_backgrounds()
+    # test_with_custom_property_backgrounds()
     print("\n" * 2)
 
     test_comparison()
