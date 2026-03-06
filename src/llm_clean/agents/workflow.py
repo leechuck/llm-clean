@@ -65,12 +65,12 @@ class OntoCleanWorkflow:
         Task: Assign a parent for "{term}" from the list or "Thing".
         """
         if last_critique:
-            context += f"
+            context += f"""
 
 Previous attempt REJECTED by Critic:
 {last_critique}
 
-Propose a different parent."
+Propose a different parent."""
 
         messages = [SystemMessage(content=TAXONOMIST_PROMPT), HumanMessage(content=context)]
         response = self.taxonomist_model.invoke(messages)

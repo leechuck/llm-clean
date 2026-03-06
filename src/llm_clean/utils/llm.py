@@ -1,5 +1,8 @@
 import os
 from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def get_chat_model(model_id: str, temperature: float = 0.0):
     """
