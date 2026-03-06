@@ -2,6 +2,7 @@ import argparse
 import csv
 import sys
 import os
+import json
 
 def normalize_property(prop):
     """Normalize property strings (e.g., handles whitespace)."""
@@ -27,49 +28,66 @@ def main():
     parser = argparse.ArgumentParser(description="Evaluate ontological analysis against ground truth.")
     parser.add_argument("prediction_file", help="Path to the prediction TSV file.")
     parser.add_argument("ground_truth_file", help="Path to the ground truth TSV file.")
-    
+    parser.add_argument("--output", "-o", help="Path to save evaluation results as JSON file.")
+
     args = parser.parse_args()
     
     predictions = load_tsv(args.prediction_file)
     ground_truth = load_tsv(args.ground_truth_file)
-    
+
     properties = ["rigidity", "identity", "own_identity", "unity", "dependence"]
     metrics = {prop: 0 for prop in properties}
     metrics["exact_match"] = 0
-    
+
     count = 0
-    
+    detailed_results = []
+
     print(f"{ 'Term':<20} { 'Prop':<15} { 'Pred':<5} { 'Truth':<5} {'Result'}")
     print("-" * 65)
 
     for term, gt_row in ground_truth.items():
         if term not in predictions:
             continue
-            
+
         pred_row = predictions[term]
-        
+
         # Check for error in prediction
         if pred_row.get('error'):
             continue
-            
+
         count += 1
-        
+
         row_correct = True
+        term_result = {
+            "term": term,
+            "exact_match": False,
+            "properties": {}
+        }
+
         for prop in properties:
             p_val = normalize_property(pred_row.get(prop))
             g_val = normalize_property(gt_row.get(prop))
-            
+
             # Simple exact match
             match = (p_val == g_val)
+            term_result["properties"][prop] = {
+                "predicted": p_val,
+                "ground_truth": g_val,
+                "match": match
+            }
+
             if match:
                 metrics[prop] += 1
             else:
                 row_correct = False
                 print(f"{term:<20} {prop:<15} {p_val:<5} {g_val:<5} FAIL")
-        
+
         if row_correct:
             metrics["exact_match"] += 1
-    
+            term_result["exact_match"] = True
+
+        detailed_results.append(term_result)
+
     print("-" * 65)
     print("Evaluation Results:")
     if count == 0:
@@ -79,6 +97,32 @@ def main():
         for prop in properties:
              print(f"{prop.capitalize().replace('_', ' '):<15}: {metrics[prop]}/{count} ({metrics[prop]/count:.2%})")
         print(f"{ 'Exact Match':<15}: {metrics['exact_match']}/{count} ({metrics['exact_match']/count:.2%})")
+
+    # Save to JSON if output file is specified
+    if args.output:
+        output_data = {
+            "evaluation_summary": {
+                "total_evaluated": count,
+                "metrics": {
+                    prop: {
+                        "correct": metrics[prop],
+                        "total": count,
+                        "accuracy": metrics[prop] / count if count > 0 else 0
+                    }
+                    for prop in properties
+                },
+                "exact_match": {
+                    "correct": metrics["exact_match"],
+                    "total": count,
+                    "accuracy": metrics["exact_match"] / count if count > 0 else 0
+                }
+            },
+            "detailed_results": detailed_results
+        }
+
+        with open(args.output, 'w', encoding='utf-8') as f:
+            json.dump(output_data, f, indent=2, ensure_ascii=False)
+        print(f"\nResults saved to {args.output}")
 
 if __name__ == "__main__":
     main()
