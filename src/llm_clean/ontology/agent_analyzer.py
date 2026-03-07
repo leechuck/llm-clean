@@ -64,7 +64,7 @@ class AgentOntologyAnalyzer:
                                      Set to False to use no backgrounds.
             default_background_file_type: Specifies a type of background files to use for properties.  
                                           Options are: "augmented", "simple". 
-                                          "augmented": uses AUGMENTED_BACKGROUND_FILES).  
+                                          "augmented": uses AUGMENTED_BACKGROUND_FILES.  
                                           "simple": uses SIMPLE_BACKGROUND_FILES.  
                                           Default: "augmented". 
         """

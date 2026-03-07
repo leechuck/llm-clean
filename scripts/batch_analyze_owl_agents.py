@@ -2,17 +2,18 @@
 """
 Batch analyze entities from an OWL file using specialized agents for each meta-property.
 """
+import sys, os, pathlib
+from git_root import git_root
+sys.path.append(str(pathlib.Path(git_root())))
+
 import argparse
+import textwrap
 import sys
 import os
 import json
 import csv
 from rdflib import Graph, RDF, OWL, RDFS
-
-# Ensure the project root is in sys.path
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
-
-from llm_clean.ontology.agent_analyzer import AgentOntologyAnalyzer
+from src.llm_clean.ontology.agent_analyzer import AgentOntologyAnalyzer
 
 
 def extract_classes(owl_path):
@@ -43,7 +44,8 @@ def extract_classes(owl_path):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Batch analyze OWL entities using specialized agents for each meta-property"
+        description="Batch analyze OWL entities using specialized agents for each meta-property",
+        formatter_class=argparse.RawTextHelpFormatter
     )
     parser.add_argument("input_owl", help="Path to the input OWL file.")
     parser.add_argument("--format", choices=["tsv", "json"], default="tsv",
@@ -51,30 +53,36 @@ def main():
     parser.add_argument("--output", help="Output file path (default: stdout).")
     parser.add_argument("--model",
                        default="gemini-3-flash-preview",
-                       help="OpenRouter model ID. Supported: google/gemini-3-flash-preview (default), "
-                            "anthropic/claude-4.5-sonnet. You can also use 'gemini' or 'anthropic' as shortcuts.")
+                       help=textwrap.dedent("""\
+                            OpenRouter model ID. 
+                            Supported: google/gemini-3-flash-preview (default), anthropic/claude-4.5-sonnet. 
+                            You can also use 'gemini' or 'anthropic' as shortcuts."""))
 
     # Background file options
-    parser.add_argument("--default-background", dest="default_background",
-                       help="Default background file for all properties (.txt or .pdf). "
-                            "Overrides property-specific defaults if provided.")
+    parser.add_argument("--background-file", dest="background_file",
+                       help=textwrap.dedent("""\
+                            Default background file for all properties (.txt or .pdf). 
+                            Overrides default background type if provided.")"""))
     parser.add_argument("--no-default-backgrounds", dest="no_default_backgrounds",
                        action="store_true",
-                       help="Disable default property-specific background files")
-    parser.add_argument("--rigidity-background", dest="rigidity_background",
-                       help="Background file specifically for Rigidity analysis")
-    parser.add_argument("--identity-background", dest="identity_background",
-                       help="Background file specifically for Identity analysis")
-    parser.add_argument("--own-identity-background", dest="own_identity_background",
-                       help="Background file specifically for Own Identity analysis")
-    parser.add_argument("--unity-background", dest="unity_background",
-                       help="Background file specifically for Unity analysis")
-    parser.add_argument("--dependence-background", dest="dependence_background",
-                       help="Background file specifically for Dependence analysis")
-
+                       help=textwrap.dedent("""\
+                            Disable default property-specific background files (default: disabled). 
+                            If set, the agent will use the hardcoded prompts without any additional background information."""))
+    parser.add_argument("--default-background-file-type", dest="default_background_file_type",
+                       choices=["augmented", "simple"], default="augmented",
+                       help=textwrap.dedent("""\
+                            Specifies a type of background files to use for properties.
+                            Options are: "augmented", "simple".
+                            "augmented": 
+                                    Uses the section of Guarino's paper defining each meta-property, 
+                                    but with the introduction added to each section.
+                            "simple": 
+                                    Uses only the section of Guarino's paper defining each 
+                                    meta-property (without any augmentation).
+                            "Default: "augmented"."""))
     parser.add_argument("--limit", type=int,
-                       help="Limit number of entities to analyze (for testing)")
-
+                        help="Limit number of entities to analyze (for testing)")
+    
     args = parser.parse_args()
 
     try:
@@ -87,26 +95,12 @@ def main():
         classes = classes[:args.limit]
         print(f"Limiting analysis to first {args.limit} classes", file=sys.stderr)
 
-    # Build background_files dict
-    background_files = {}
-    if args.rigidity_background:
-        background_files['rigidity'] = args.rigidity_background
-    if args.identity_background:
-        background_files['identity'] = args.identity_background
-    if args.own_identity_background:
-        background_files['own_identity'] = args.own_identity_background
-    if args.unity_background:
-        background_files['unity'] = args.unity_background
-    if args.dependence_background:
-        background_files['dependence'] = args.dependence_background
-
     # Initialize analyzer
     analyzer = None
     try:
         analyzer = AgentOntologyAnalyzer(
             model=args.model,
-            background_files=background_files if background_files else None,
-            default_background_file=args.default_background,
+            background_file=args.background_file if args.background_file else None,
             use_default_backgrounds=not args.no_default_backgrounds
         )
     except ValueError as e:
