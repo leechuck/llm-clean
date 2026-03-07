@@ -55,20 +55,14 @@ class OntologyAnalyzer:
             with open(self.background_file, 'r', encoding='utf-8') as f:
                 self.background_content = f.read()
         elif file_ext == '.pdf':
-            # Try to import PDF library
             try:
-                import PyPDF2
-                with open(self.background_file, 'rb') as f:
-                    pdf_reader = PyPDF2.PdfReader(f)
-                    text_parts = []
-                    for page in pdf_reader.pages:
-                        text_parts.append(page.extract_text())
-                    self.background_content = '\n'.join(text_parts)
+                import fitz  # pymupdf
+                with fitz.open(self.background_content, 'rb') as doc:
+                    content = '\n'.join(page.get_text() for page in doc)
             except ImportError:
                 raise ImportError(
-                    "PyPDF2 is required to read PDF files. "
-                    "Install it with: pip install PyPDF2\n"
-                    "Alternatively, convert your PDF to .txt format first."
+                    "pymupdf is required to read PDF files. "
+                    "Install it with: pip install pymupdf"
                 )
         else:
             raise ValueError(f"Unsupported file type: {file_ext}. Supported types: .txt, .pdf")
