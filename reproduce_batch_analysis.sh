@@ -129,6 +129,22 @@ uv run python scripts/collect_evaluations.py \
   --indexes no-files pdf text corrected no-files pdf text corrected \
   --output output/collect_non_agent_results.tsv
 
+# save non-agent evaluation results as a markdown file
+uv run python scripts/collect_evaluations.py \
+  --files output/evaluation_results/evaluate_claude_no_files.json \
+  		  output/evaluation_results/evaluate_claude_pdf.json \
+          output/evaluation_results/evaluate_claude_text.json \
+          output/evaluation_results/evaluate_claude_corrected_text.json \
+          output/evaluation_results/evaluate_gemini_no_files.json \
+          output/evaluation_results/evaluate_gemini_pdf.json \
+          output/evaluation_results/evaluate_gemini_text.json \
+          output/evaluation_results/evaluate_gemini_corrected_text.json \
+  --indexes no-files pdf text corrected no-files pdf text corrected \
+  --output output/collect_non_agent_results.md
+
+# save markdow file as report in the reports folder
+cp output/collect_non_agent_results.md docs/reports/NON_AGENT_BATCH_ANALYSIS_REPORT.md
+
 ####################################################################
 # reproduce batch analysis on using agents
 ####################################################################
