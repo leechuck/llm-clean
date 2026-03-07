@@ -44,6 +44,41 @@ chmod +x reproduce.sh
 ./reproduce.sh
 ```
 
+### Reproduce Batch Analysis Experiments
+Run comprehensive batch analysis experiments comparing different models and background file configurations:
+```bash
+chmod +x reproduce_batch_analysis.sh
+./reproduce_batch_analysis.sh
+```
+
+**What this script does:**
+
+1. **Standard Mode Analysis** (both Claude and Gemini):
+   - No background files (hardcoded prompts only)
+   - PDF background file (Guarino & Welty paper)
+   - Converted text background file
+   - Corrected text background file
+   - 8 total analysis runs
+
+2. **Agentic Mode Analysis** (both Claude and Gemini):
+   - No background files
+   - Simple property-specific sections (no introduction)
+   - Augmented sections (with introduction context)
+   - 6 total analysis runs
+
+3. **Evaluation**: Compares all analysis results against ground truth data
+
+4. **Aggregation**: Collects all evaluations into summary reports:
+   - `output/collect_non_agent_results.tsv` / `.md`
+   - `output/collect_agent_results.tsv` / `.md`
+   - `docs/reports/NON_AGENT_BATCH_ANALYSIS_REPORT.md`
+   - `docs/reports/AGENT_BATCH_ANALYSIS_REPORT.md`
+
+**Requirements:**
+- `.env` file with API keys (ANTHROPIC_API_KEY, GEMINI_API_KEY or GOOGLE_API_KEY)
+- Ground truth data at `data/raw/ground_truth.tsv`
+- Guarino paper resources in `data/raw/`
+
 ## 🧪 OntoClean Property Analysis
 
 LLM-Clean provides two primary modes for analyzing entity meta-properties (Rigidity, Identity, Unity, Dependence).
