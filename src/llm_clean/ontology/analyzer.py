@@ -57,8 +57,8 @@ class OntologyAnalyzer:
         elif file_ext == '.pdf':
             try:
                 import fitz  # pymupdf
-                with fitz.open(self.background_content, 'rb') as doc:
-                    content = '\n'.join(page.get_text() for page in doc)
+                with fitz.open(self.background_content) as doc:
+                    self.background_content = '\n'.join(page.get_text() for page in doc)
             except ImportError:
                 raise ImportError(
                     "pymupdf is required to read PDF files. "

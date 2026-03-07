@@ -141,7 +141,7 @@ class AgentOntologyAnalyzer:
         elif file_ext == '.pdf':
             try:
                 import fitz  # pymupdf
-                with fitz.open(file_path, 'rb') as doc:
+                with fitz.open(file_path) as doc:
                     content = '\n'.join(page.get_text() for page in doc)
             except ImportError:
                 raise ImportError(
