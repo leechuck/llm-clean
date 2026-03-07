@@ -140,17 +140,13 @@ class AgentOntologyAnalyzer:
                 content = f.read()
         elif file_ext == '.pdf':
             try:
-                import PyPDF2
-                with open(file_path, 'rb') as f:
-                    pdf_reader = PyPDF2.PdfReader(f)
-                    text_parts = []
-                    for page in pdf_reader.pages:
-                        text_parts.append(page.extract_text())
-                    content = '\n'.join(text_parts)
+                import fitz  # pymupdf
+                with fitz.open(file_path, 'rb') as doc:
+                    content = '\n'.join(page.get_text() for page in doc)
             except ImportError:
                 raise ImportError(
-                    "PyPDF2 is required to read PDF files. "
-                    "Install it with: pip install PyPDF2"
+                    "pymupdf is required to read PDF files. "
+                    "Install it with: pip install pymupdf"
                 )
         else:
             raise ValueError(f"Unsupported file type: {file_ext}. Supported types: .txt, .pdf")
