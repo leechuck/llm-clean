@@ -245,3 +245,17 @@ uv run python scripts/collect_evaluations.py \
           output/evaluation_results/evaluate_gemini_agents_using_files_with_intro.json \
   --indexes no-files no-intro with-intro no-files no-intro with-intro \
   --output output/collect_agent_results.tsv
+
+# save both agent evvaluation results as a markdown file
+uv run python scripts/collect_evaluations.py \
+  --files output/evaluation_results/evaluate_claude_agents_no_files.json \
+          output/evaluation_results/evaluate_claude_agents_using_files_no_intro.json \
+          output/evaluation_results/evaluate_claude_agents_using_files_with_intro.json \
+          output/evaluation_results/evaluate_gemini_agents_no_files.json \
+          output/evaluation_results/evaluate_gemini_agents_using_files_no_intro.json \
+          output/evaluation_results/evaluate_gemini_agents_using_files_with_intro.json \
+  --indexes no-files no-intro with-intro no-files no-intro with-intro \
+  --output output/collect_agent_results.md
+
+  # save markdow file as report in the reports folder
+  cp output/collect_agent_results.md docs/reports/AGENT_BATCH_ANALYSIS_REPORT.md
