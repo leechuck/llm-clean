@@ -29,6 +29,8 @@ def main():
     parser.add_argument("prediction_file", help="Path to the prediction TSV file.")
     parser.add_argument("ground_truth_file", help="Path to the ground truth TSV file.")
     parser.add_argument("--output", "-o", help="Path to save evaluation results as JSON file.")
+    parser.add_argument('--agent-name',help="Adds an 'agent_name' column to the output with the specified value (optional)")
+
 
     args = parser.parse_args()
     
@@ -94,6 +96,8 @@ def main():
         print("No overlapping terms found.")
     else:
         print(f"Total Evaluated: {count}")
+        if args.agent_name:
+            print(f"Agent Name: {args.agent_name}")
         for prop in properties:
              print(f"{prop.capitalize().replace('_', ' '):<15}: {metrics[prop]}/{count} ({metrics[prop]/count:.2%})")
         print(f"{ 'Exact Match':<15}: {metrics['exact_match']}/{count} ({metrics['exact_match']/count:.2%})")
@@ -111,6 +115,9 @@ def main():
                 },
                 "detailed_results": detailed_results
             }
+
+            if args.agent_name:
+                output_data["evaluation_summary"]["agent_name"] = args.agent_name
 
             # keep the old format for reference, but we will use the new format with summary strings for easier reporting
             # output_data = {
