@@ -190,7 +190,7 @@ class AgentOntologyAnalyzer:
         }
 
         try:
-            response = requests.post(self.api_url, headers=headers, data=json.dumps(payload))
+            response = requests.post(self.api_url, headers=headers, data=json.dumps(payload), timeout=30)
             response.raise_for_status()
             result = response.json()
 
