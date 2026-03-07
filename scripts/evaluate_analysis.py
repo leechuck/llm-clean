@@ -111,13 +111,13 @@ def main():
                         prop: f"{metrics[prop]}/{count} ({metrics[prop]/count:.2%})"
                         for prop in properties
                     },
-                    "exact_match": f"{metrics['exact_match']}/{count} ({metrics['exact_match']/count:.2%})"
+                    # "exact_match": f"{metrics['exact_match']}/{count} ({metrics['exact_match']/count:.2%})"
                 },
                 "detailed_results": detailed_results
             }
-
+            output_data["evaluation_summary"]["metrics"]["exact_match"] = f"{metrics['exact_match']}/{count} ({metrics['exact_match']/count:.2%})"
             if args.agent_name:
-                output_data["evaluation_summary"]["agent_name"] = args.agent_name
+                output_data["evaluation_summary"]["metrics"]["agent_name"] = args.agent_name
 
             # keep the old format for reference, but we will use the new format with summary strings for easier reporting
             # output_data = {
