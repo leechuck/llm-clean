@@ -144,6 +144,45 @@ uv run scripts/batch_analyze_owl_hybrid.py output/ontologies/guarino_messy.owl -
 - OntoClean classification
 - Reasoning/justification
 
+#### **Agent-Based Batch Analysis with Critic Validation**
+
+**`batch_analyze_owl_agents_critic.py`** - Uses specialized agents with critic feedback loop:
+
+This tool combines the agent-based approach (separate specialized agents for each property) with critic validation. Each agent's analysis is validated by a critic, and rejected analyses trigger re-analysis with feedback.
+
+```bash
+# Basic usage with critic validation
+uv run scripts/batch_analyze_owl_agents_critic.py \
+  output/ontologies/guarino_messy.owl \
+  --output results_with_critic.tsv
+
+# With specific model and max critique attempts
+uv run scripts/batch_analyze_owl_agents_critic.py \
+  output/ontologies/guarino_messy.owl \
+  --model anthropic \
+  --max-critique-attempts 5 \
+  --output results_claude_critic.tsv
+
+# With background files
+uv run scripts/batch_analyze_owl_agents_critic.py \
+  output/ontologies/guarino_messy.owl \
+  --default-background-file-type augmented \
+  --max-critique-attempts 3 \
+  --output results_critic.tsv
+```
+
+**Critic-Specific Options:**
+- `--max-critique-attempts N`: Maximum re-analysis attempts per property (default: 3)
+
+**Extended Output:**
+In addition to standard output, includes critique attempt counts:
+- Individual property attempt counts (e.g., `rigidity_attempts`, `identity_attempts`)
+- `total_critique_attempts`: Sum of all critique attempts across properties
+
+**Trade-offs:**
+- **Pros**: Higher quality through validation, self-correcting with feedback
+- **Cons**: Slower execution, more API calls (2-6x per property), higher cost
+
 ### 2. Contextual Background Options
 
 The analysis can be grounded in the original Guarino & Welty (2000) paper using two strategies:
