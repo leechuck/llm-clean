@@ -275,3 +275,134 @@ uv run python scripts/collect_evaluations.py \
 
   # save markdow file as report in the reports folder
   cp output/collect_agent_results.md docs/reports/AGENT_BATCH_ANALYSIS_REPORT.md
+
+####################################################################
+# reproduce batch analysis using agents with critic validation
+####################################################################
+
+### agent critic batch analysis with anthropic's claude model
+
+# claude w/o any input files; this will use hardcode prompts
+uv run python scripts/batch_analyze_owl_agents_critic.py output/ontologies/guarino_messy.owl \
+--model anthropic \
+--no-default-backgrounds \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/analyzed_entities_claude_agents_critic_no_files.tsv
+
+# use specific sections of Guarino's file (no introduction section)
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents_critic.py output/ontologies/guarino_messy.owl \
+--model anthropic \
+--default-background-file-type simple \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/analyzed_entities_claude_agents_critic_using_files_no_intro.tsv
+
+# use specific sections of Guarino's file, but include the introduction section as well
+# since it contains important context about the paper and ontology
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents_critic.py output/ontologies/guarino_messy.owl \
+--model anthropic \
+--default-background-file-type augmented \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/analyzed_entities_claude_agents_critic_using_files_with_intro.tsv
+
+### agent critic batch analysis using gemini
+
+# gemini w/o any input files; this will use hardcode prompts
+uv run python scripts/batch_analyze_owl_agents_critic.py output/ontologies/guarino_messy.owl \
+--model gemini \
+--no-default-backgrounds \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/analyzed_entities_gemini_agents_critic_no_files.tsv
+
+# use specific sections of Guarino's file (no introduction section)
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents_critic.py output/ontologies/guarino_messy.owl \
+--model gemini \
+--default-background-file-type simple \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_no_intro.tsv
+
+# use specific sections of Guarino's file, but include the introduction section as well
+# since it contains important context about the paper and ontology
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents_critic.py output/ontologies/guarino_messy.owl \
+--model gemini \
+--default-background-file-type augmented \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_with_intro.tsv
+
+####################################################################
+# evaluate batch analysis using agents with critic validation
+####################################################################
+
+### evaluate agent critic batch analysis with anthropic's claude model
+
+# evaluate output using no files (i.e., hardcoded prompts)
+uv run python scripts/evaluate_analysis.py \
+output/analyzed_entities/analyzed_entities_claude_agents_critic_no_files.tsv \
+data/raw/ground_truth.tsv \
+--output output/evaluation_results/evaluate_claude_agents_critic_no_files.json
+
+# evaluate output using specific sections of Guarino's file (no introduction section)
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/evaluate_analysis.py \
+output/analyzed_entities/analyzed_entities_claude_agents_critic_using_files_no_intro.tsv \
+data/raw/ground_truth.tsv \
+--output output/evaluation_results/evaluate_claude_agents_critic_using_files_no_intro.json
+
+# evaluate output using specific sections of Guarino's file, but include the introduction section as well
+# since it contains important context about the paper and ontology
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/evaluate_analysis.py \
+output/analyzed_entities/analyzed_entities_claude_agents_critic_using_files_with_intro.tsv \
+data/raw/ground_truth.tsv \
+--output output/evaluation_results/evaluate_claude_agents_critic_using_files_with_intro.json
+
+### evaluate agent critic batch analysis with gemini
+
+# evaluate output using no files (i.e., hardcoded prompts)
+uv run python scripts/evaluate_analysis.py \
+output/analyzed_entities/analyzed_entities_gemini_agents_critic_no_files.tsv \
+data/raw/ground_truth.tsv \
+--output output/evaluation_results/evaluate_gemini_agents_critic_no_files.json
+
+# evaluate output using specific sections of Guarino's file (no introduction section)
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/evaluate_analysis.py \
+output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_no_intro.tsv \
+data/raw/ground_truth.tsv \
+--output output/evaluation_results/evaluate_gemini_agents_critic_using_files_no_intro.json
+
+# evaluate output using specific sections of Guarino's file, but include the introduction section as well
+# since it contains important context about the paper and ontology
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/evaluate_analysis.py \
+output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_with_intro.tsv \
+data/raw/ground_truth.tsv \
+--output output/evaluation_results/evaluate_gemini_agents_critic_using_files_with_intro.json
+
+### save agent critic evaluation results in a single tsv file for easier reporting and visualization
+uv run python scripts/collect_evaluations.py \
+  --files output/evaluation_results/evaluate_claude_agents_critic_no_files.json \
+          output/evaluation_results/evaluate_claude_agents_critic_using_files_no_intro.json \
+          output/evaluation_results/evaluate_claude_agents_critic_using_files_with_intro.json \
+          output/evaluation_results/evaluate_gemini_agents_critic_no_files.json \
+          output/evaluation_results/evaluate_gemini_agents_critic_using_files_no_intro.json \
+          output/evaluation_results/evaluate_gemini_agents_critic_using_files_with_intro.json \
+  --indexes no-files no-intro with-intro no-files no-intro with-intro \
+  --output output/collect_agent_critic_results.tsv
+
+# save agent critic evaluation results as a markdown file
+uv run python scripts/collect_evaluations.py \
+  --files output/evaluation_results/evaluate_claude_agents_critic_no_files.json \
+          output/evaluation_results/evaluate_claude_agents_critic_using_files_no_intro.json \
+          output/evaluation_results/evaluate_claude_agents_critic_using_files_with_intro.json \
+          output/evaluation_results/evaluate_gemini_agents_critic_no_files.json \
+          output/evaluation_results/evaluate_gemini_agents_critic_using_files_no_intro.json \
+          output/evaluation_results/evaluate_gemini_agents_critic_using_files_with_intro.json \
+  --indexes no-files no-intro with-intro no-files no-intro with-intro \
+  --output output/collect_agent_critic_results.md
+
+# save markdown file as report in the reports folder
+cp output/collect_agent_critic_results.md docs/reports/AGENT_CRITIC_BATCH_ANALYSIS_REPORT.md

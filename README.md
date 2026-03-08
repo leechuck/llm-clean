@@ -66,13 +66,22 @@ chmod +x reproduce_batch_analysis.sh
    - Augmented sections (with introduction context)
    - 6 total analysis runs
 
-3. **Evaluation**: Compares all analysis results against ground truth data
+3. **Agentic Mode with Critic Validation** (both Claude and Gemini):
+   - No background files
+   - Simple property-specific sections (no introduction)
+   - Augmented sections (with introduction context)
+   - 6 total analysis runs with `--max-critique-attempts 3`
+   - Each property analysis validated by critic with feedback loop
 
-4. **Aggregation**: Collects all evaluations into summary reports:
+4. **Evaluation**: Compares all analysis results (20 total runs) against ground truth data
+
+5. **Aggregation**: Collects all evaluations into summary reports:
    - `output/collect_non_agent_results.tsv` / `.md`
    - `output/collect_agent_results.tsv` / `.md`
+   - `output/collect_agent_critic_results.tsv` / `.md`
    - `docs/reports/NON_AGENT_BATCH_ANALYSIS_REPORT.md`
    - `docs/reports/AGENT_BATCH_ANALYSIS_REPORT.md`
+   - `docs/reports/AGENT_CRITIC_BATCH_ANALYSIS_REPORT.md`
 
 **Requirements:**
 - `.env` file with API keys (ANTHROPIC_API_KEY, GEMINI_API_KEY or GOOGLE_API_KEY)
