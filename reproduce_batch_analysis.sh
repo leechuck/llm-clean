@@ -342,6 +342,7 @@ uv run python scripts/batch_analyze_owl_agents_critic.py output/ontologies/guari
 uv run python scripts/evaluate_analysis.py \
 output/analyzed_entities/analyzed_entities_claude_agents_critic_no_files.tsv \
 data/raw/ground_truth.tsv \
+--agent anthropic \
 --output output/evaluation_results/evaluate_claude_agents_critic_no_files.json
 
 # evaluate output using specific sections of Guarino's file (no introduction section)
@@ -349,6 +350,7 @@ data/raw/ground_truth.tsv \
 uv run python scripts/evaluate_analysis.py \
 output/analyzed_entities/analyzed_entities_claude_agents_critic_using_files_no_intro.tsv \
 data/raw/ground_truth.tsv \
+--agent anthropic \
 --output output/evaluation_results/evaluate_claude_agents_critic_using_files_no_intro.json
 
 # evaluate output using specific sections of Guarino's file, but include the introduction section as well
@@ -357,6 +359,7 @@ data/raw/ground_truth.tsv \
 uv run python scripts/evaluate_analysis.py \
 output/analyzed_entities/analyzed_entities_claude_agents_critic_using_files_with_intro.tsv \
 data/raw/ground_truth.tsv \
+--agent anthropic \
 --output output/evaluation_results/evaluate_claude_agents_critic_using_files_with_intro.json
 
 ### evaluate agent critic batch analysis with gemini
@@ -365,6 +368,7 @@ data/raw/ground_truth.tsv \
 uv run python scripts/evaluate_analysis.py \
 output/analyzed_entities/analyzed_entities_gemini_agents_critic_no_files.tsv \
 data/raw/ground_truth.tsv \
+--agent gemini \
 --output output/evaluation_results/evaluate_gemini_agents_critic_no_files.json
 
 # evaluate output using specific sections of Guarino's file (no introduction section)
@@ -372,6 +376,7 @@ data/raw/ground_truth.tsv \
 uv run python scripts/evaluate_analysis.py \
 output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_no_intro.tsv \
 data/raw/ground_truth.tsv \
+--agent gemini \
 --output output/evaluation_results/evaluate_gemini_agents_critic_using_files_no_intro.json
 
 # evaluate output using specific sections of Guarino's file, but include the introduction section as well
@@ -380,6 +385,7 @@ data/raw/ground_truth.tsv \
 uv run python scripts/evaluate_analysis.py \
 output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_with_intro.tsv \
 data/raw/ground_truth.tsv \
+--agent gemini \
 --output output/evaluation_results/evaluate_gemini_agents_critic_using_files_with_intro.json
 
 ### save agent critic evaluation results in a single tsv file for easier reporting and visualization
