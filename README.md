@@ -88,6 +88,45 @@ chmod +x reproduce_batch_analysis.sh
 - Ground truth data at `data/raw/ground_truth.tsv`
 - Guarino paper resources in `data/raw/`
 
+### Using Make for Granular Control
+
+For more control over the reproduction process, use the provided Makefile:
+
+```bash
+# See all available targets
+make help
+
+# Run complete reproduction pipeline
+make all
+
+# Run only specific steps
+make reproduce-static          # Static reproduction only
+make batch-non-agent-claude    # Only Claude non-agent analysis
+make batch-agent               # All agent analyses (both models)
+make batch-critic              # All critic analyses (both models)
+
+# Run evaluation and reports for specific mode
+make eval-agent collect-agent  # Evaluate and collect agent results
+
+# Run complete batch analysis (20 experiments)
+make reproduce-batch
+
+# Clean outputs
+make clean
+```
+
+**Makefile Target Categories:**
+
+- **Setup**: `setup`, `directories`, `clean`
+- **Static Reproduction**: `reproduce-static`, `download-paper`, `generate-owl`
+- **Benchmarks**: `benchmark-zeroshot`, `benchmark-agentic`
+- **Batch Analysis**: `batch-non-agent`, `batch-agent`, `batch-critic` (+ model-specific variants)
+- **Evaluation**: `eval-non-agent`, `eval-agent`, `eval-critic` (+ model-specific variants)
+- **Reports**: `collect-non-agent`, `collect-agent`, `collect-critic`, `reports`
+- **Complete Workflows**: `all`, `reproduce-batch`
+
+Run `make help` to see the full list with descriptions.
+
 ## 🧪 OntoClean Property Analysis
 
 LLM-Clean provides two primary modes for analyzing entity meta-properties (Rigidity, Identity, Unity, Dependence).
