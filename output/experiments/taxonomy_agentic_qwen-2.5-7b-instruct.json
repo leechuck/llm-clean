@@ -392,40 +392,94 @@
       ],
       "taxonomy": {
         "Medical Procedure": [],
-        "Bronchitis Treatment": [],
-        "Pharmacological Treatment": [],
-        "Antibiotic Therapy": [],
+        "Bronchitis Treatment": [
+          "Medical Procedure"
+        ],
+        "Pharmacological Treatment": [
+          "Bronchitis Treatment"
+        ],
+        "Antibiotic Therapy": [
+          "Pharmacological Treatment"
+        ],
         "Bronchodilator Administration": [],
-        "Home Remedy": [],
-        "Rest": [],
-        "Cough Suppressant": [],
-        "Bronchodilator": [],
-        "Steroid": [],
+        "Home Remedy": [
+          "Medical Procedure"
+        ],
+        "Rest": [
+          "Medical Procedure"
+        ],
+        "Cough Suppressant": [
+          "Pharmacological Treatment"
+        ],
+        "Bronchodilator": [
+          "Pharmacological Treatment"
+        ],
+        "Steroid": [
+          "Pharmacological Treatment"
+        ],
         "Mucolytic": [],
-        "Patient": [],
-        "Bronchitis Sufferer": [],
-        "Recovering Patient": [],
-        "Lung Tissue": [],
-        "Lung Area": [],
+        "Patient": [
+          "Bronchitis Sufferer"
+        ],
+        "Bronchitis Sufferer": [
+          "Patient"
+        ],
+        "Recovering Patient": [
+          "Patient"
+        ],
+        "Lung Tissue": [
+          "Lung Area"
+        ],
+        "Lung Area": [
+          "Lung Tissue"
+        ],
         "Bronchial Tube": [],
-        "Inflammation": [],
-        "Airway Inflammation": [],
+        "Inflammation": [
+          "Airway Inflammation"
+        ],
+        "Airway Inflammation": [
+          "Inflammation"
+        ],
         "Mucus": [],
-        "Disease": [],
-        "Respiratory Disease": [],
-        "Infectious Disease": [],
-        "Viral Infection": [],
-        "Bronchitis": [],
-        "Acute Bronchitis": [],
-        "Chronic Bronchitis": [],
-        "Cough": [],
+        "Disease": [
+          "Respiratory Disease"
+        ],
+        "Respiratory Disease": [
+          "Disease"
+        ],
+        "Infectious Disease": [
+          "Disease"
+        ],
+        "Viral Infection": [
+          "Infectious Disease"
+        ],
+        "Bronchitis": [
+          "Respiratory Disease"
+        ],
+        "Acute Bronchitis": [
+          "Bronchitis"
+        ],
+        "Chronic Bronchitis": [
+          "Bronchitis"
+        ],
+        "Cough": [
+          "Symptom"
+        ],
         "Sputum": [],
-        "Breathing Difficulty": [],
-        "Wheezing": [],
+        "Breathing Difficulty": [
+          "Symptom"
+        ],
+        "Wheezing": [
+          "Symptom"
+        ],
         "Air": [],
-        "Influenza": [],
+        "Influenza": [
+          "Viral Infection"
+        ],
         "Influenza A": [],
-        "Influenza B": []
+        "Influenza B": [
+          "Influenza"
+        ]
       }
     },
     {
@@ -818,41 +872,99 @@
         }
       ],
       "taxonomy": {
-        "Entity": [],
-        "Physical Object": [],
-        "Equipment": [],
-        "Bicycle": [],
+        "Entity": [
+          "Physical Object"
+        ],
+        "Physical Object": [
+          "Entity"
+        ],
+        "Equipment": [
+          "Physical Object"
+        ],
+        "Bicycle": [
+          "Equipment"
+        ],
         "Mountain Bike": [],
-        "Road Bike": [],
-        "Gravel Bike": [],
-        "Bicycle Part": [],
-        "Wheel": [],
-        "Tire": [],
-        "Frame": [],
-        "Handlebar": [],
-        "Saddle": [],
-        "Gear": [],
-        "Chain": [],
-        "Pedal": [],
-        "Bicycle Material": [],
-        "Aluminum": [],
-        "Steel": [],
+        "Road Bike": [
+          "Bicycle"
+        ],
+        "Gravel Bike": [
+          "Bicycle"
+        ],
+        "Bicycle Part": [
+          "Bicycle"
+        ],
+        "Wheel": [
+          "Bicycle Part"
+        ],
+        "Tire": [
+          "Bicycle Part"
+        ],
+        "Frame": [
+          "Bicycle Part"
+        ],
+        "Handlebar": [
+          "Bicycle Part"
+        ],
+        "Saddle": [
+          "Bicycle Part"
+        ],
+        "Gear": [
+          "Bicycle Part"
+        ],
+        "Chain": [
+          "Bicycle Part"
+        ],
+        "Pedal": [
+          "Bicycle Part"
+        ],
+        "Bicycle Material": [
+          "Bicycle Part"
+        ],
+        "Aluminum": [
+          "Bicycle Material"
+        ],
+        "Steel": [
+          "Bicycle Material"
+        ],
         "Carbon Fiber": [],
-        "Rubber": [],
-        "Cyclist": [],
-        "Racer": [],
-        "Commuter": [],
-        "Tourist": [],
-        "Sponsor": [],
-        "Bicycle Shop": [],
+        "Rubber": [
+          "Bicycle Part"
+        ],
+        "Cyclist": [
+          "Entity"
+        ],
+        "Racer": [
+          "Cyclist"
+        ],
+        "Commuter": [
+          "Cyclist"
+        ],
+        "Tourist": [
+          "Cyclist"
+        ],
+        "Sponsor": [
+          "Entity"
+        ],
+        "Bicycle Shop": [
+          "Physical Object"
+        ],
         "Bike Track": [],
-        "Cycling Event": [],
-        "Race": [],
+        "Cycling Event": [
+          "Entity"
+        ],
+        "Race": [
+          "Cycling Event"
+        ],
         "Tour de France": [],
         "Cycling Club": [],
         "Cycling Group": [],
-        "Cycling Season": [],
-        "Dry Season": []
+        "Cycling Season": [
+          "Entity"
+        ],
+        "Dry Season": [
+          "Entity"
+        ]
       }
     },
     {
@@ -1246,39 +1358,87 @@
       ],
       "taxonomy": {
         "Naval Entity": [],
-        "Naval Vessel": [],
-        "Warship": [],
-        "Aircraft Carrier": [],
-        "Submarine": [],
-        "Frigate": [],
-        "Naval Weapon": [],
-        "Torpedo": [],
-        "Naval Mine": [],
+        "Naval Vessel": [
+          "Naval Entity"
+        ],
+        "Warship": [
+          "Naval Vessel"
+        ],
+        "Aircraft Carrier": [
+          "Naval Vessel"
+        ],
+        "Submarine": [
+          "Naval Vessel"
+        ],
+        "Frigate": [
+          "Naval Vessel"
+        ],
+        "Naval Weapon": [
+          "Naval Vessel"
+        ],
+        "Torpedo": [
+          "Naval Weapon"
+        ],
+        "Naval Mine": [
+          "Naval Weapon"
+        ],
         "Naval Personnel": [],
-        "Admiral": [],
+        "Admiral": [
+          "Naval Personnel"
+        ],
         "Sailor": [],
         "Naval Aircrew": [],
-        "Hull": [],
+        "Hull": [
+          "Naval Vessel"
+        ],
         "Propeller": [],
         "Radar System": [],
         "Steel": [],
         "Aluminum": [],
-        "Explosive": [],
-        "Combatant": [],
-        "Patrolling Vessel": [],
-        "Amphibious Warfare Vessel": [],
-        "Missile": [],
-        "Nuclear Submarine": [],
-        "Ballistic Missile Submarine": [],
-        "Diesel Submarine": [],
-        "Shipyard": [],
-        "Naval Base": [],
+        "Explosive": [
+          "Naval Weapon"
+        ],
+        "Combatant": [
+          "Naval Entity"
+        ],
+        "Patrolling Vessel": [
+          "Naval Vessel"
+        ],
+        "Amphibious Warfare Vessel": [
+          "Naval Vessel"
+        ],
+        "Missile": [
+          "Naval Weapon"
+        ],
+        "Nuclear Submarine": [
+          "Submarine"
+        ],
+        "Ballistic Missile Submarine": [
+          "Submarine"
+        ],
+        "Diesel Submarine": [
+          "Submarine"
+        ],
+        "Shipyard": [
+          "Naval Entity"
+        ],
+        "Naval Base": [
+          "Naval Entity"
+        ],
         "Commanding Officer": [],
         "Sonar Operator": [],
-        "In Transit": [],
-        "Under Repair": [],
-        "Naval Exercise": [],
-        "Coastal Water": [],
+        "In Transit": [
+          "Naval Entity"
+        ],
+        "Under Repair": [
+          "Naval Entity"
+        ],
+        "Naval Exercise": [
+          "Naval Entity"
+        ],
+        "Coastal Water": [
+          "Naval Entity"
+        ],
         "Ship Captain": []
       }
     },
@@ -1673,40 +1833,86 @@
       ],
       "taxonomy": {
         "Product": [],
-        "Electronics": [],
+        "Electronics": [
+          "Product"
+        ],
         "Mobile Device": [],
-        "Smartphone": [],
-        "Screen": [],
-        "Glass": [],
-        "Charger": [],
+        "Smartphone": [
+          "Mobile Device"
+        ],
+        "Screen": [
+          "Product"
+        ],
+        "Glass": [
+          "Product"
+        ],
+        "Charger": [
+          "Electronics"
+        ],
         "Appliance": [],
-        "Kitchen Appliance": [],
-        "Blender": [],
+        "Kitchen Appliance": [
+          "Appliance"
+        ],
+        "Blender": [
+          "Kitchen Appliance"
+        ],
         "Blade": [],
-        "Steel": [],
-        "Food Processor": [],
-        "Clothing": [],
-        "Outerwear": [],
-        "Coat": [],
+        "Steel": [
+          "Appliance"
+        ],
+        "Food Processor": [
+          "Appliance"
+        ],
+        "Clothing": [
+          "Product"
+        ],
+        "Outerwear": [
+          "Clothing"
+        ],
+        "Coat": [
+          "Clothing"
+        ],
         "Sleeve": [],
-        "Wool": [],
-        "Raincoat": [],
-        "Furniture": [],
-        "Seating": [],
+        "Wool": [
+          "Clothing"
+        ],
+        "Raincoat": [
+          "Outerwear"
+        ],
+        "Furniture": [
+          "Product"
+        ],
+        "Seating": [
+          "Furniture"
+        ],
         "Chair": [],
         "Leg": [],
-        "Wood": [],
+        "Wood": [
+          "Material"
+        ],
         "Rocker": [],
         "Book": [],
         "Fiction": [],
-        "Novel": [],
-        "Page": [],
-        "Paper": [],
-        "Best Seller": [],
+        "Novel": [
+          "Fiction"
+        ],
+        "Page": [
+          "Book"
+        ],
+        "Paper": [
+          "Book"
+        ],
+        "Best Seller": [
+          "Product"
+        ],
         "Jewelry": [],
-        "Necklace": [],
+        "Necklace": [
+          "Jewelry"
+        ],
         "Pendant": [],
-        "Gold": []
+        "Gold": [
+          "Jewelry"
+        ]
       }
     },
     {
@@ -2099,39 +2305,89 @@
         }
       ],
       "taxonomy": {
-        "Entity": [],
-        "Living Thing": [],
+        "Entity": [
+          "Living Thing"
+        ],
+        "Living Thing": [
+          "Entity"
+        ],
         "Animal": [],
-        "Insect": [],
+        "Insect": [
+          "Animal"
+        ],
         "Hymenopteran": [],
-        "Ant": [],
-        "Formicinae": [],
-        "Camponotus": [],
-        "Camponotus Pennsylvanicus": [],
-        "Myrmicinae": [],
-        "Solenopsis": [],
-        "Solenopsis Invicta": [],
+        "Ant": [
+          "Insect"
+        ],
+        "Formicinae": [
+          "Ant"
+        ],
+        "Camponotus": [
+          "Ant"
+        ],
+        "Camponotus Pennsylvanicus": [
+          "Camponotus"
+        ],
+        "Myrmicinae": [
+          "Ant"
+        ],
+        "Solenopsis": [
+          "Ant"
+        ],
+        "Solenopsis Invicta": [
+          "Solenopsis"
+        ],
         "Ant Colony": [],
         "Queen Ant": [],
-        "Forager": [],
+        "Forager": [
+          "Caste Member"
+        ],
         "Soldier Ant": [],
-        "Ant Larva": [],
-        "Worker Ant": [],
-        "Ant Pupa": [],
+        "Ant Larva": [
+          "Ant Brood"
+        ],
+        "Worker Ant": [
+          "Ant"
+        ],
+        "Ant Pupa": [
+          "Ant"
+        ],
         "Mandible": [],
         "Ant Wing": [],
-        "Chitin": [],
-        "Ant Cuticle": [],
-        "Hydrocarbon": [],
-        "Caste Member": [],
+        "Chitin": [
+          "Ant Cuticle"
+        ],
+        "Ant Cuticle": [
+          "Exoskeleton"
+        ],
+        "Hydrocarbon": [
+          "Ant Cuticle"
+        ],
+        "Caste Member": [
+          "Ant"
+        ],
         "Ant Brood": [],
-        "Trophallaxis Participant": [],
-        "Nestmate": [],
-        "Petiole": [],
-        "Propodeum": [],
-        "Exoskeleton": [],
-        "Formic Acid": [],
-        "Ant Leg": [],
+        "Trophallaxis Participant": [
+          "Caste Member"
+        ],
+        "Nestmate": [
+          "Ant"
+        ],
+        "Petiole": [
+          "Exoskeleton"
+        ],
+        "Propodeum": [
+          "Exoskeleton"
+        ],
+        "Exoskeleton": [
+          "Ant Cuticle"
+        ],
+        "Formic Acid": [
+          "Hydrocarbon"
+        ],
+        "Ant Leg": [
+          "Exoskeleton"
+        ],
         "Larval Instar": [],
         "Ovary": []
       }
@@ -2527,39 +2783,89 @@
       ],
       "taxonomy": {
         "Financial Instrument": [],
-        "Equity": [],
-        "Common Stock": [],
+        "Equity": [
+          "Financial Instrument"
+        ],
+        "Common Stock": [
+          "Equity"
+        ],
         "Preferred Stock": [],
-        "Fixed Income Instrument": [],
-        "Bond": [],
-        "Corporate Bond": [],
-        "Government Bond": [],
-        "Option": [],
-        "Call Option": [],
-        "Put Option": [],
-        "Trading Floor": [],
+        "Fixed Income Instrument": [
+          "Financial Instrument"
+        ],
+        "Bond": [
+          "Fixed Income Instrument"
+        ],
+        "Corporate Bond": [
+          "Bond"
+        ],
+        "Government Bond": [
+          "Bond"
+        ],
+        "Option": [
+          "Financial Instrument"
+        ],
+        "Call Option": [
+          "Option"
+        ],
+        "Put Option": [
+          "Option"
+        ],
+        "Trading Floor": [
+          "TradingFloor"
+        ],
         "Trading Algorithm": [],
-        "Order Book": [],
+        "Order Book": [
+          "Financial Instrument"
+        ],
         "Market Data Feed": [],
-        "Trader": [],
-        "High-Frequency Trader": [],
-        "Liquidity Provider": [],
-        "Market Maker": [],
-        "Volatility": [],
+        "Trader": [
+          "High-Frequency Trader"
+        ],
+        "High-Frequency Trader": [
+          "Trader"
+        ],
+        "Liquidity Provider": [
+          "Broker"
+        ],
+        "Market Maker": [
+          "Liquidity Provider"
+        ],
+        "Volatility": [
+          "MarketData"
+        ],
         "Market Sentiment": [],
-        "Share Volume": [],
-        "Trade Execution": [],
+        "Share Volume": [
+          "Financial Instrument"
+        ],
+        "Trade Execution": [
+          "Order Placement"
+        ],
         "Order Placement": [],
         "Market Open": [],
-        "Automated Trading System": [],
+        "Automated Trading System": [
+          "Trading Algorithm"
+        ],
         "Latency": [],
-        "Colocation Server": [],
-        "Broker": [],
-        "Dark Pool": [],
-        "Exchange": [],
-        "Clearing House": [],
+        "Colocation Server": [
+          "Infrastructure"
+        ],
+        "Broker": [
+          "Liquidity Provider"
+        ],
+        "Dark Pool": [
+          "Financial Instrument"
+        ],
+        "Exchange": [
+          "TradingFloor"
+        ],
+        "Clearing House": [
+          "Financial Instrument"
+        ],
         "Regulatory Body": [],
-        "Market Manipulation": [],
+        "Market Manipulation": [
+          "Market"
+        ],
         "Algorithmic Error": []
       }
     },
@@ -2953,40 +3259,96 @@
         }
       ],
       "taxonomy": {
-        "Parkour Action": [],
-        "Movement": [],
+        "Parkour Action": [
+          "Movement"
+        ],
+        "Movement": [
+          "Parkour Action"
+        ],
         "Vault": [],
-        "Precision Jump": [],
-        "Wall Run": [],
-        "Kong Vault": [],
-        "Dash Vault": [],
-        "Parkour Training Session": [],
-        "Training Regimen": [],
-        "Warm-Up": [],
-        "Conditioning": [],
-        "Parkour Obstacle": [],
-        "Wall": [],
-        "Railing": [],
-        "Park Bench": [],
-        "Grip Strength": [],
+        "Precision Jump": [
+          "Movement"
+        ],
+        "Wall Run": [
+          "Parkour Action"
+        ],
+        "Kong Vault": [
+          "Vault"
+        ],
+        "Dash Vault": [
+          "Vault"
+        ],
+        "Parkour Training Session": [
+          "Training Regimen"
+        ],
+        "Training Regimen": [
+          "Parkour Training Session"
+        ],
+        "Warm-Up": [
+          "Conditioning"
+        ],
+        "Conditioning": [
+          "Training Regimen"
+        ],
+        "Parkour Obstacle": [
+          "Parkour Action"
+        ],
+        "Wall": [
+          "Parkour Obstacle"
+        ],
+        "Railing": [
+          "Parkour Obstacle"
+        ],
+        "Park Bench": [
+          "Parkour Obstacle"
+        ],
+        "Grip Strength": [
+          "Conditioning"
+        ],
         "Impact Force": [],
-        "Parkour Practitioner": [],
+        "Parkour Practitioner": [
+          "Coach"
+        ],
         "Beginner": [],
-        "Professional": [],
-        "Coach": [],
+        "Professional": [
+          "Parkour Practitioner"
+        ],
+        "Coach": [
+          "Parkour Practitioner"
+        ],
         "Sweat": [],
-        "Concrete": [],
-        "Physical Exhaustion": [],
-        "Muscle Soreness": [],
-        "Hand": [],
-        "Elbow": [],
-        "Running Start": [],
-        "Landing": [],
+        "Concrete": [
+          "Parkour Obstacle"
+        ],
+        "Physical Exhaustion": [
+          "Conditioning"
+        ],
+        "Muscle Soreness": [
+          "Conditioning"
+        ],
+        "Hand": [
+          "Elbow"
+        ],
+        "Elbow": [
+          "Hand"
+        ],
+        "Running Start": [
+          "Movement"
+        ],
+        "Landing": [
+          "Movement"
+        ],
         "Parkour Shoe": [],
-        "Rubber": [],
+        "Rubber": [
+          "Parkour Shoe"
+        ],
         "Lace": [],
-        "Textile": [],
-        "Parkour Route": [],
+        "Textile": [
+          "Parkour Shoe"
+        ],
+        "Parkour Route": [
+          "Parkour Obstacle"
+        ],
         "Strategy": []
       }
     },
@@ -3380,41 +3742,91 @@
         }
       ],
       "taxonomy": {
-        "Quantum System": [],
-        "Qubit": [],
-        "Encoded Qubit": [],
-        "Surface Code Qubit": [],
-        "Quantum Circuit": [],
-        "Quantum Algorithm": [],
-        "Shor's Algorithm": [],
-        "Grover's Algorithm": [],
-        "Quantum Memory": [],
-        "Superconducting Qubit": [],
-        "Transmon": [],
+        "Quantum System": [
+          "Quantum Computer"
+        ],
+        "Qubit": [
+          "Quantum State"
+        ],
+        "Encoded Qubit": [
+          "Qubit"
+        ],
+        "Surface Code Qubit": [
+          "Superconducting Qubit"
+        ],
+        "Quantum Circuit": [
+          "Quantum System"
+        ],
+        "Quantum Algorithm": [
+          "Quantum Program"
+        ],
+        "Shor's Algorithm": [
+          "Quantum Algorithm"
+        ],
+        "Grover's Algorithm": [
+          "Quantum Algorithm"
+        ],
+        "Quantum Memory": [
+          "Quantum System"
+        ],
+        "Superconducting Qubit": [
+          "Qubit"
+        ],
+        "Transmon": [
+          "Superconducting Qubit"
+        ],
         "Fluxonium": [],
-        "Quantum State": [],
+        "Quantum State": [
+          "Quantum System"
+        ],
         "Entangled State": [],
-        "Ground State": [],
+        "Ground State": [
+          "Quantum State"
+        ],
         "Logical Qubit": [],
-        "Error Correction Code": [],
-        "Quantum Computer Programmer": [],
-        "Quantum Program": [],
+        "Error Correction Code": [
+          "Quantum State"
+        ],
+        "Quantum Computer Programmer": [
+          "Researcher"
+        ],
+        "Quantum Program": [
+          "Quantum Algorithm"
+        ],
         "Code Fragment": [],
         "Processor Core": [],
-        "Quantum Gate": [],
-        "Hadamard Gate": [],
-        "CNOT Gate": [],
+        "Quantum Gate": [
+          "Quantum Circuit"
+        ],
+        "Hadamard Gate": [
+          "Quantum Gate"
+        ],
+        "CNOT Gate": [
+          "Quantum Gate"
+        ],
         "Quantum Error": [],
-        "Bit-Flip Error": [],
-        "Phase-Flip Error": [],
+        "Bit-Flip Error": [
+          "Quantum Error"
+        ],
+        "Phase-Flip Error": [
+          "Quantum Error"
+        ],
         "Topology": [],
         "Researcher": [],
-        "Design Engineer": [],
+        "Design Engineer": [
+          "Researcher"
+        ],
         "Aluminum": [],
-        "Niobium": [],
+        "Niobium": [
+          "Aluminum"
+        ],
         "Superconducting Wire": [],
-        "Josephson Junction": [],
-        "Software Stack": []
+        "Josephson Junction": [
+          "Superconducting Wire"
+        ],
+        "Software Stack": [
+          "Quantum Computer Programmer"
+        ]
       }
     },
     {
@@ -3799,37 +4211,87 @@
         "Entity": [],
         "Baking Product": [],
         "Bread": [],
-        "Sourdough Bread": [],
-        "Rye Sourdough": [],
-        "Wheat Sourdough": [],
-        "Dough": [],
-        "Leavened Dough": [],
-        "Sourdough Starter": [],
-        "Flour": [],
-        "Water": [],
-        "Salt": [],
-        "Gluten": [],
+        "Sourdough Bread": [
+          "Bread"
+        ],
+        "Rye Sourdough": [
+          "Sourdough Bread"
+        ],
+        "Wheat Sourdough": [
+          "Sourdough Bread"
+        ],
+        "Dough": [
+          "Leavened Dough"
+        ],
+        "Leavened Dough": [
+          "Dough"
+        ],
+        "Sourdough Starter": [
+          "Dough"
+        ],
+        "Flour": [
+          "Ingredient"
+        ],
+        "Water": [
+          "Ingredient"
+        ],
+        "Salt": [
+          "Ingredient"
+        ],
+        "Gluten": [
+          "Dough"
+        ],
         "Crumb": [],
         "Crust": [],
-        "Bubble": [],
+        "Bubble": [
+          "Dough"
+        ],
         "Baker": [],
-        "Consumer": [],
+        "Consumer": [
+          "Entity"
+        ],
         "Ingredient": [],
-        "Rising Dough": [],
-        "Fermented Dough": [],
-        "Baked Bread": [],
-        "Unbaked Bread": [],
-        "Acidity Regulator": [],
-        "Food": [],
-        "Artisan Baker": [],
+        "Rising Dough": [
+          "Leavened Dough"
+        ],
+        "Fermented Dough": [
+          "Leavened Dough"
+        ],
+        "Baked Bread": [
+          "Bread"
+        ],
+        "Unbaked Bread": [
+          "Dough"
+        ],
+        "Acidity Regulator": [
+          "Ingredient"
+        ],
+        "Food": [
+          "Entity"
+        ],
+        "Artisan Baker": [
+          "Baker"
+        ],
         "Commercial Baker": [],
         "Loaf Shape": [],
-        "Boule": [],
-        "Batard": [],
-        "Baguette": [],
-        "Alveoli": [],
-        "Overproofed Dough": [],
-        "Underproofed Dough": []
+        "Boule": [
+          "Loaf Shape"
+        ],
+        "Batard": [
+          "Bread"
+        ],
+        "Baguette": [
+          "Bread"
+        ],
+        "Alveoli": [
+          "Crumb"
+        ],
+        "Overproofed Dough": [
+          "Dough"
+        ],
+        "Underproofed Dough": [
+          "Dough"
+        ]
       }
     },
     {
@@ -4222,41 +4684,89 @@
         }
       ],
       "taxonomy": {
-        "Entity": [],
+        "Entity": [
+          "Substance"
+        ],
         "Substance": [],
-        "Wastewater": [],
-        "Contaminant": [],
-        "Organic Matter": [],
-        "Inorganic Matter": [],
-        "Pathogen": [],
+        "Wastewater": [
+          "Substance"
+        ],
+        "Contaminant": [
+          "Substance"
+        ],
+        "Organic Matter": [
+          "Contaminant"
+        ],
+        "Inorganic Matter": [
+          "Substance"
+        ],
+        "Pathogen": [
+          "Contaminant"
+        ],
         "Bacteria": [],
-        "Virus": [],
-        "Treatment Process": [],
-        "Physical Process": [],
-        "Chemical Process": [],
-        "Biological Process": [],
-        "Sedimentation": [],
+        "Virus": [
+          "Contaminant"
+        ],
+        "Treatment Process": [
+          "Process"
+        ],
+        "Physical Process": [
+          "Treatment Process"
+        ],
+        "Chemical Process": [
+          "Treatment Process"
+        ],
+        "Biological Process": [
+          "Treatment Process"
+        ],
+        "Sedimentation": [
+          "Physical Process"
+        ],
         "Coagulation": [],
-        "Activated Sludge": [],
+        "Activated Sludge": [
+          "Treatment Process"
+        ],
         "Clarifier": [],
-        "Flocculant": [],
-        "Sludge": [],
-        "Effluent": [],
+        "Flocculant": [
+          "Substance"
+        ],
+        "Sludge": [
+          "Substance"
+        ],
+        "Effluent": [
+          "Substance"
+        ],
         "Untreated Wastewater": [],
         "Operator": [],
-        "Engineer": [],
-        "Aeration Basin": [],
-        "Membrane Bioreactor": [],
-        "Nutrient": [],
+        "Engineer": [
+          "Operator"
+        ],
+        "Aeration Basin": [
+          "Treatment Process"
+        ],
+        "Membrane Bioreactor": [
+          "Treatment Process"
+        ],
+        "Nutrient": [
+          "Substance"
+        ],
         "Nitrogen": [],
         "Ammonia": [],
-        "Nitrate": [],
+        "Nitrate": [
+          "Nutrient"
+        ],
         "Dechlorination": [],
-        "Influent": [],
+        "Influent": [
+          "Wastewater"
+        ],
         "Screen": [],
-        "Grit Chamber": [],
+        "Grit Chamber": [
+          "Physical Process"
+        ],
         "Anaerobic Digestion": [],
-        "Digestate": []
+        "Digestate": [
+          "Anaerobic Digestion"
+        ]
       }
     }
   ]

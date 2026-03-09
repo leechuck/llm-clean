@@ -77,7 +77,15 @@ Propose a different parent."""
         
         match = re.search(r'\{.*?\}', response.content, re.DOTALL)
         if match:
-            return json.loads(match.group(0))
+            try:
+                return json.loads(match.group(0))
+            except json.JSONDecodeError:
+                # Try cleaning trailing commas before closing brace
+                cleaned = re.sub(r',\s*}', '}', match.group(0))
+                try:
+                    return json.loads(cleaned)
+                except json.JSONDecodeError:
+                    return None
         return None
 
     def _critique_link(self, term: str, parent: str, domain: str) -> str:
