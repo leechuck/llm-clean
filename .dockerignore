@@ -1,0 +1,33 @@
+# Never include secrets in the image
+.env
+*.env
+
+# Git history not needed at runtime
+.git
+.gitignore
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editor and OS noise
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Large generated outputs (mounted as volumes at runtime)
+output/
+
+# Test/dev artifacts
+*.log
+.pytest_cache/

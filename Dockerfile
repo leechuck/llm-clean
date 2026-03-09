@@ -1,33 +1,62 @@
-# Use a slim Python image
+# llm-clean — reproducible research image
+#
+# Build:
+#   docker build -t llm-clean .
+#
+# Run full reproduction (API key passed at runtime, never baked in):
+#   docker run --rm \
+#     -e OPENROUTER_API_KEY=sk-xxx \
+#     -v $(pwd)/output:/app/output \
+#     llm-clean
+#
+# Run a specific step only:
+#   docker run --rm \
+#     -e OPENROUTER_API_KEY=sk-xxx \
+#     -v $(pwd)/output:/app/output \
+#     llm-clean --multi-critic
+#
+# Interactive shell:
+#   docker run --rm -it \
+#     -e OPENROUTER_API_KEY=sk-xxx \
+#     -v $(pwd)/output:/app/output \
+#     llm-clean bash
+
 FROM python:3.12-slim
 
-# Set environment variables
+# Reproducibility: pin uv version
+ARG UV_VERSION=0.6.6
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PYTHONPATH=/app
+    PYTHONPATH=/app/src:/app \
+    PATH="/root/.local/bin:${PATH}"
 
-# Set work directory
 WORKDIR /app
 
-# Install system dependencies
+# System dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install uv for fast dependency management
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-ENV PATH="/root/.cargo/bin:${PATH}"
+# Install pinned uv
+RUN curl -LsSf "https://astral.sh/uv/${UV_VERSION}/install.sh" | sh
 
-# Copy the project files
+# Copy dependency manifests first (layer cache: only reinstalls when deps change)
+COPY pyproject.toml uv.lock ./
+
+# Install all dependencies from the lockfile (no network calls for packages)
+RUN uv sync --frozen --no-dev
+
+# Copy the rest of the project (source, scripts, data, resources)
+# .dockerignore excludes .env, __pycache__, .git, etc.
 COPY . .
 
-# Install dependencies using uv
-RUN uv pip install --system -r requirements.txt
+# Ensure output directories exist
+RUN mkdir -p data/raw output/ontologies output/experiments \
+             output/analyzed_entities output/evaluation_results docs/reports
 
-# Create necessary directories
-RUN mkdir -p resources ontology experiment
-
-# Default command: show help or list scripts
-CMD ["python3", "-c", "print('llm-clean environment ready. Use docker run -it --env-file .env <image> bash to explore.')"]
+# Default: reproduce all steps (API key must be provided at runtime via -e)
+ENTRYPOINT ["bash", "reproduce.sh"]
+CMD ["--all"]

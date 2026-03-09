@@ -1,0 +1,1101 @@
+\documentclass{IOS-Book-Article}
+
+\usepackage{mathptmx}
+\usepackage{soul}\setuldepth{article}
+\usepackage{booktabs}
+\usepackage{todonotes}
+\usepackage{hyperref}
+\usepackage{url}
+% 
+\def\hb{\hbox to 11.5 cm{}}
+
+\begin{document}
+
+\pagestyle{headings}
+\def\thepage{}
+\begin{frontmatter}              % The preamble begins here.
+
+
+  % \pretitle{Pretitle}
+  \title{LLMClean: applying OntoClean constraints through\\
+    large language models to evaluate and generate taxonomies}
+
+  \markboth{}{February 2026\hb}
+  % \subtitle{Subtitle}
+
+  \author[A]{\fnms{William} \inits{D.} \snm{Duncan}\orcid{....-....-....-....}}%
+  % \thanks{Corresponding Author: Robert Hoehndorf\todo{add contact details}.}}
+  \author[B]{\fnms{Robert} \snm{Hoehndorf}\orcid{....-....-....-....}}%
+  % \thanks{Corresponding Author: Robert Hoehndorf\todo{add contact details}.}}
+  \todo[inline]{Complete ORCID, etc.}
+  
+  \runningauthor{W.D. Duncan and R. Hoehndorf}
+  \address[A]{\todo{Affiliation}}
+
+  \begin{abstract}
+    Taxonomies provide structure to information, yet their
+    taxonomic backbones frequently suffer from misuse of the
+    subsumption relation.  OntoClean, the methodology introduced
+    by Guarino and Welty, addresses this problem through
+    meta-properties -- rigidity, identity, unity, and dependence
+    -- that constrain which ``is-a'' links are ontologically
+    valid. The manual application of OntoClean is
+    labor-intensive and requires ontological expertise, which
+    limits its adoption.  We experimented with teaching Large
+    Language Models (LLMs) the principles of OntoClean. The
+    resulting method, LLMClean, automatically applies OntoClean
+    constraints to evaluate and generate taxonomies.  We first
+    show that LLMClean can reproduce the meta-property analysis
+    from Guarino and Welty's original
+    paper.
+    % : Claude~4.5 Sonnet achieves 0.90~rigidity accuracy and
+    % 0.62~exact match when provided with the paper text as
+    % context, compared to 0.52~rigidity accuracy without it.
+    We then evaluate 13 LLM on a benchmark of 10 domains (349
+    terms with LLM-generated gold-standard meta-properties) in a
+    zero-shot taxonomy generation task.  % Large models (GPT-4o,
+    % Llama~3.3 70B, Mistral Large, Qwen~2.5 72B, DeepSeek~V3)
+    % produce taxonomies with zero critical violations, while
+    % small models (Llama~3.2 3B, Llama~3.1 8B) generate many.  
+    We show that an agentic workflow -- pairing a Taxonomist
+    agent with an OntoClean Critic agent, both backed by the
+    same small model -- reduces rigidity violations from 193
+    to~0 for Llama~3.2 3B and from 25 to~1 for Llama~3.1 8B.
+    We further show that decomposing the critic into four
+    property-specialized critics with majority voting eliminates
+    all violations for Qwen~2.5 7B while retaining 86\% of the
+    taxonomy links.  Our results show that LLMs can learn to
+    apply OntoClean constraints and that agentic self-critique
+    can recover the quality gap between small and large models.
+    % \todo{revise
+    % abstract after paper is complete}
+  \end{abstract}
+
+  \begin{keyword}
+    OntoClean\sep ontology\sep taxonomy\sep large language models\sep
+    meta-properties\sep agentic workflow
+  \end{keyword}
+\end{frontmatter}
+\markboth{February 2026\hb}{February 2026\hb}
+
+\section{Introduction}
+
+\hl{The taxonomic backbone of an ontology, i.e., 
+  its hierarchy of ``is-a'' (subsumption) links, is a fundamental
+  structural element in ontology engineering, However, taxonomic
+  relations are  also frequently
+  misused~\cite{guarino2000formal}.}
+\hl{Ontology engineers may confuse subsumption with part-whole, constitution,
+  or role relationships, producing hierarchies in which, for example, a
+  physical object is classified as an amount of matter, or where the
+  ``is-a'' relation actually represents
+  parthood~\cite{guarino2000formal,guarino2009ontoclean}.}
+\todo{Cite: What is-a is and isn't}. 
+
+\textcolor{blue}{Taxonomic relations (i.e., ``is-a'' (subsumption) links) form the backbone of an ontology.
+  However, taxonomic relations are  also frequently misused~\cite{guarino2000formal}. Instead of subsumption, ontology engineers may misuse part-whole, constitution, or role relations. For example, a statue classified as a kind of clay confu ses the ``is-a''' relation with constitution.}
+
+\textcolor{blue}{Such taxonomic errors} \st{These errors propagate through reasoning, integration, and reuse, and}
+have motivated decades of work on principled methods for ontology
+construction~\cite{guarino2009ontoclean}\todo{add more citations on ontology quality problems}.
+
+OntoClean, hl{introduced by Guarino and}
+Welty~\cite{guarino2000formal,guarino2002ontoclean,guarino2009ontoclean},
+provides such a methodology.  \hl{It assigns each property (concept) in a
+  taxonomy a set of \emph{meta-properties} drawn from formal ontology:
+  rigidity, identity, unity, and dependence.  These meta-properties
+  impose constraints on subsumption.}  \textcolor{blue}{Each taxonomic property (concept) is assigned \emph{mea-property}: rigidity, identity, unity, and dependence. The meta-properties, drawn from formal ontology, impose constraints on subsumption.} \hl{For instance, a concept assigned a rigid property
+  (one that is essential to all its instances in every possible world,
+  such as \emph{Person}) cannot be subsumed by a concept assigned an anti-rigid property
+  (one that is contingent, such as \emph{Student}), because an entity that is necessarily a person cannot be necessarily a student.} \textcolor{blue}{For example, if \emph{Person} is assigned a rigid property, \emph{Student} is assigned an anti-rigid property, \emph{Person} cannot be subsumed by \emph{Student} because every instance of \emph{Person} is not necessarily an instance of \emph{Student}.} Violations of these constraints signal modeling errors that must be corrected before the taxonomy can be considered well-formed~\cite{guarino2000formal}.
+
+Despite its theoretical appeal, OntoClean adoption remains limited in
+practice~\cite{guarino2009ontoclean}\todo{cite evidence for limited
+  adoption}.  The method requires philosophical expertise that most
+domain modelers lack, and applying it manually to large ontologies is
+labor-intensive: each concept must be analyzed for multiple
+meta-properties, and every subsumption link must be checked against the
+resulting constraints.
+
+Large language models (LLMs) have recently shown strong performance on
+a range of knowledge-intensive tasks, including biomedical ontology
+matching~\cite{he2023llm4om}\todo{add more LLM-for-ontology
+  citations}, taxonomy construction~\cite{babaei2023llms4ol}\todo{verify
+  citation}, and conceptual classification~\todo{cite}.  Their
+parametric knowledge of both philosophical concepts and domain
+terminology makes them candidates for automating OntoClean analysis.
+Furthermore, \emph{agentic} LLM workflows -- in which multiple
+LLM-backed agents collaborate with distinct roles -- have improved
+performance on complex reasoning tasks by separating generation from
+critique~\cite{shinn2023reflexion}\todo{verify and add agentic LLM
+  citations}.
+
+Here, we present LLMClean, a method that uses LLMs to automatically
+apply OntoClean constraints to evaluate and generate taxonomies.  We
+address five research questions:
+
+\begin{enumerate}
+\item Can LLMs reproduce the meta-property analysis from the original
+  OntoClean paper, and does providing the paper text as context improve
+  accuracy?
+\item Can LLMs generate taxonomies that respect OntoClean constraints
+  in a zero-shot setting?
+\item Does model scale affect the number of ontological violations?
+\item Can an agentic workflow -- pairing a Taxonomist agent with an
+  OntoClean Critic agent backed by the \emph{same} model -- reduce
+  violations, particularly for small models?
+\item Does decomposing the critic into multiple property-specialized
+  critics improve taxonomy quality compared to a single monolithic
+  critic?
+\end{enumerate}
+
+We evaluate 13~LLMs spanning four model families and three size
+classes on a benchmark of 10~domains (349~terms).  We find that large
+models (\textgreater 70B parameters or comparable proprietary models)
+produce taxonomies with zero critical violations in most cases, whereas
+small models (3B--9B) introduce many rigidity violations and cycles.
+We then show that an agentic Taxonomist--Critic workflow eliminates
+nearly all violations for small models, reducing rigidity violations
+from 193 to~0 for Llama~3.2 3B.  We additionally show that
+decomposing the critic into four property-specialized critics with
+majority voting provides the best quality--coverage trade-off for
+models at 7B parameters and above.  These results show that OntoClean
+knowledge is accessible to LLMs and that structured self-critique can
+recover the quality gap between small and large models.
+
+\section{Methods}
+
+
+Our method, LLMClean, builds on the OntoClean methodology in three
+stages.  \textcolor{blue}{Using the OntoClean methodology, we built the LLMClean method in three stages.} First, we test whether LLMs can reproduce the meta-property analysis from Guarino and Welty's original paper -- a controlled setting with established ground truth (Section~\ref{sec:guarino-repro}).  Second, we evaluate whether LLMscan generate taxonomies that respect OntoClean constraints in a zero-shot setting across diverse domains (Section~\ref{sec:zeroshot}).  Third, we deploy an agentic workflow with a Taxonomist and an OntoClean Critic agent to improve taxonomy quality for small models (Section~\ref{sec:agentic}).  All three stages rely on shared resources and benchmark data, which we describe first.
+
+% \hl{Our method, LLMClean, builds on the OntoClean methodology in three
+%   stages.}  \textcolor{blue}{Using the OntoClean methodology, we built the LLMClean method in three stages.} First, we test whether LLMs can reproduce the meta-property analysis from Guarino and Welty's original paper -- a controlled setting with established ground truth (Section~\ref{sec:guarino-repro}).  Second, we evaluate whether LLMscan generate taxonomies that respect OntoClean constraints in a zero-shot setting across diverse domains (Section~\ref{sec:zeroshot}).  Third, we deploy an agentic workflow with a Taxonomist and an OntoClean Critic agent to improve taxonomy quality for small models (Section~\ref{sec:agentic}).  All three stages rely on shared resources and benchmark data, which we describe first.
+
+\subsection{Background resources}
+
+% ---------------------------------------------------------------
+% Commands that produced the background resources:
+% 
+% 1. Download the Guarino & Welty paper:
+% uv run scripts/download_paper.py \
+% --url "http://cui.unige.ch/isi/cours/aftsi/articles/01-guarino00formal.pdf" \
+% --output "resources/01-guarino00formal.pdf"
+% 
+% 2. Generate the "messy" OWL ontology:
+% uv run --with rdflib scripts/generate_messy_owl.py --output ontology/guarino_messy.owl
+% 
+% 3. Text files for each meta-property were manually extracted from the
+% converted paper text in:
+% resources/converted_text_files/guarino_text_files/
+% 01-guarino00formal-rigidity.txt
+% 01-guarino00formal-identity.txt
+% 01-guarino00formal-unity.txt
+% 01-guarino00formal-dependence.txt
+% 01-guarino00formal-introduction.txt
+% 01-guarino00formal-converted-corrected.txt  (full paper text)
+% ---------------------------------------------------------------
+
+The OntoClean methodology requires understanding of four philosophical
+notions -- identity, unity, rigidity, and dependence -- and their
+formal definitions as meta-properties of
+concepts~\cite{guarino2000formal}.  To make this knowledge accessible
+to LLMs, we prepared text-based descriptions of each meta-property by
+converting the relevant sections of Guarino and
+Welty~\cite{guarino2000formal} into plain-text files.  We produced five
+files, one for each meta-property (rigidity, identity, own identity,
+unity, dependence), extracted from the original paper.  These files
+serve as background context that can be included in LLM prompts, and
+we use them in the agent-based analyzer mode (Section~\ref{sec:agentic}).
+
+Additionally, we encoded the ground-truth classifications from the
+worked examples in Guarino and Welty~\cite{guarino2000formal} as
+reference data.  This ground truth includes entities such as
+\emph{Person} (+R, +I, +O, +U, $-$D), \emph{Student} ($\sim$R, +I,
+$-$O, +U, +D), and \emph{Red Thing} ($-$R, $-$I, $-$O, $-$U, $-$D),
+and their expected OntoClean classifications (Sortal, Role, Mixin,
+etc.)\todo{verify these specific ground truth values against the
+  resources/ground\_truth.tsv file}.
+
+\subsection{Benchmark dataset}
+\label{sec:dataset}
+
+We generated a benchmark dataset covering 10~diverse domains:
+Treatment of bronchitis, Cycling, Naval Warfare, eCommerce,
+Myrmecology, High-Frequency Trading, Urban Parkour, Quantum Computing,
+Sourdough Baking, and Wastewater Treatment.  For each domain, we used
+an LLM\todo{specify which model was used to generate the dataset} to
+produce 35~terms (349~total across all domains, as one domain produced
+34~terms) together with gold-standard meta-property assignments for
+each term.
+
+The generation prompt instructed the LLM to produce two types of terms
+in each domain:
+
+\begin{enumerate}
+\item \textbf{Taxonomic core} ($\sim$40\% of terms): vertical chains of
+  genuine ``is-a'' relationships with depth 3--4, forming the expected
+  backbone of the taxonomy.
+\item \textbf{Ontological traps} ($\sim$60\% of terms): terms related
+  to the taxonomic core that are \emph{not} subtypes but are easily
+  confused with them -- parts (e.g., Wing for Bird), materials (e.g.,
+  Keratin), roles (e.g., Predator), and phases (e.g., Fledgling).
+\end{enumerate}
+
+Each term was annotated with four meta-properties: Rigidity ($R$:
++R, $-$R, or $\sim$R), Identity ($I$: +I or $-$I), Unity ($U$: +U,
+$-$U, or $\sim$U), and Dependence ($D$: +D or $-$D), as well as a
+derived ontological class (Type, Role, Phase, or Material) and a brief
+explanatory note.  These meta-property assignments serve as the ground
+truth for evaluating whether LLM-generated ``is-a'' links respect
+OntoClean constraints.
+
+\subsection{Models}
+\label{sec:models}
+
+We evaluated 13~LLMs from four families, spanning a range of model
+sizes.  All models were accessed through the OpenRouter
+API\footnote{\url{https://openrouter.ai/}}.
+
+\paragraph{Large models.}
+Gemini~2.5 Flash (Google), Claude~3.5 Sonnet (Anthropic), GPT-4o
+(OpenAI), Llama~3.3 70B (Meta), Mistral Large (Mistral AI), Qwen~2.5
+72B (Alibaba), and DeepSeek~V3 (DeepSeek).
+
+\paragraph{Small models.}
+Llama~3.1 8B and Llama~3.2 3B (Meta), Gemini~2.0 Flash Lite and
+Gemini~2.5 Flash Lite (Google), Qwen~2.5 7B (Alibaba), and Gemma~2 9B
+(Google).
+
+For the agentic experiments, we used the small models Llama~3.2 3B,
+Llama~3.1 8B, and Qwen~2.5 7B.
+
+\section{Reproducing the Guarino and Welty taxonomy analysis}
+\label{sec:guarino-repro}
+
+% ---------------------------------------------------------------
+% Commands that produced the data for this section:
+% 
+% 1. Generate the "messy" OWL ontology from Guarino & Welty Figure 2:
+% uv run --with rdflib scripts/generate_messy_owl.py --output ontology/guarino_messy.owl
+% 
+% 2. Single-prompt analysis (Claude 4.5, no background):
+% python3 scripts/batch_analyze_owl.py ontology/guarino_messy.owl \
+% --model anthropic --output analyzed_entities_claude4-5.tsv
+% 
+% 3. Single-prompt analysis (Claude 4.5, with Guarino paper text):
+% python3 scripts/batch_analyze_owl.py ontology/guarino_messy.owl \
+% --model anthropic \
+% --background-file resources/converted_text_files/guarino_text_files/01-guarino00formal-converted-corrected.txt \
+% --output analyzed_entities_claude4-5_corrected_text.tsv
+% 
+% 4. Single-prompt analysis (Gemini 3 Flash):
+% python3 scripts/batch_analyze_owl.py ontology/guarino_messy.owl \
+% --model gemini --output analyzed_entities_gemini3.tsv
+% 
+% 5. Agent-based analysis (Claude 4.5, no background files):
+% python3 scripts/batch_analyze_owl_agents.py ontology/guarino_messy.owl \
+% --model anthropic --no-default-backgrounds \
+% --output analyzed_entities_claude4-5_agents_no_files.tsv
+% 
+% 6. Agent-based analysis (Claude 4.5, with per-property background files):
+% python3 scripts/batch_analyze_owl_agents.py ontology/guarino_messy.owl \
+% --model anthropic \
+% --output analyzed_entities_claude4-5_agents_using_files.tsv
+% 
+% 7. Agent-based analysis (Claude 4.5, with per-property background files + intro):
+% python3 scripts/batch_analyze_owl_agents.py ontology/guarino_messy.owl \
+% --model anthropic \
+% --output analyzed_entities_claude4-5_agents_using_files_with_intro.tsv
+% (TODO: verify exact flags for "with_intro" variant)
+% 
+% 8. Evaluation against ground truth:
+% python3 scripts/evaluate_analysis.py analyzed_entities_claude4-5.tsv resources/ground_truth.tsv
+% python3 scripts/evaluate_analysis.py analyzed_entities_claude4-5_corrected_text.tsv resources/ground_truth.tsv
+% (etc. for all variants)
+% ---------------------------------------------------------------
+
+Before evaluating LLMs on generated benchmarks, we first tested
+whether they can reproduce the meta-property analysis from the
+original Guarino and Welty paper~\cite{guarino2000formal}.  This
+experiment provides a clean evaluation setting with an established
+ground truth derived directly from the paper's worked examples.
+
+\subsection{The ``messy taxonomy'' and ground truth}
+
+Guarino and Welty~\cite{guarino2000formal} present a ``messy
+taxonomy'' (their Figure~2) as a running example of common ontological
+errors.  We encoded this taxonomy as an OWL ontology
+(\texttt{guarino\_messy.owl}) containing 22~classes connected by
+\texttt{rdfs:subClassOf} links.  The taxonomy includes deliberate
+errors: \emph{PhysicalObject} is placed as a subclass of
+\emph{AmountOfMatter}, \emph{LivingBeing} is placed under
+\emph{AmountOfMatter}, \emph{Person} appears under both
+\emph{Vertebrate} and \emph{LegalAgent}, and \emph{Red} (an
+attribute) is modeled as a class with \emph{RedApple} as its subclass.
+
+We derived a ground truth of meta-property assignments for 21~of
+these entities (excluding \emph{Entity}, the trivial root\todo{Entity
+  IS in ground\_truth.tsv -- decide whether to include or exclude it
+  and adjust count}) from the
+paper's analysis.  Table~\ref{tab:guarino-gt} shows a representative
+subset.  The full ground truth covers five meta-properties per entity:
+rigidity ($R$), identity ($I$), own identity ($O$), unity ($U$), and
+dependence ($D$).
+
+\begin{table}[t]
+  \caption{Representative ground-truth meta-property assignments
+    derived from Guarino and Welty~\cite{guarino2000formal}.  $R$:
+    rigidity, $I$: identity, $O$: own identity, $U$: unity, $D$:
+    dependence.}
+  \label{tab:guarino-gt}
+  \centering
+  \begin{tabular}{lccccc}
+    \toprule
+    Entity         & $R$     & $I$  & $O$  & $U$     & $D$  \\
+    \midrule
+    Person         & +R      & +I   & +O   & +U      & $-$D \\
+    Agent          & $\sim$R & $-$I & $-$O & $-$U    & +D   \\
+    Food           & $\sim$R & +I   & $-$O & $\sim$U & +D   \\
+    AmountOfMatter & +R      & +I   & +O   & $\sim$U & $-$D \\
+    Red            & $-$R    & $-$I & $-$O & $-$U    & $-$D \\
+    RedApple       & $\sim$R & +I   & $-$O & +U      & $-$D \\
+    Butterfly      & $\sim$R & +I   & $-$O & +U      & $-$D \\
+    Caterpillar    & $\sim$R & +I   & $-$O & +U      & $-$D \\
+    Country        & $\sim$R & +I   & +O   & +U      & +D   \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Experimental setup}
+
+We extracted the 22~classes from the OWL file using rdflib and
+submitted each entity name (and its \texttt{rdfs:comment}, if present)
+to an LLM for meta-property classification.  We tested several
+configurations that vary along two dimensions: (a) the analysis
+architecture (single-prompt vs.\ agent-based) and (b) the background
+context provided to the LLM:
+
+\begin{enumerate}
+\item \textbf{Single-prompt, no background} (``Claude~4.5''): the LLM
+  receives the entity name and a system prompt that defines the five
+  meta-properties with brief definitions and examples.  The model must
+  rely on its parametric knowledge to assign values.
+\item \textbf{Single-prompt, with paper text} (``Claude~4.5 +
+  text''): the same single-prompt setup, but the system prompt
+  includes the full converted text of Guarino and
+  Welty~\cite{guarino2000formal} as background context.
+\item \textbf{Single-prompt, Gemini} (``Gemini~3 Flash''): the
+  single-prompt setup with Gemini~3 Flash Preview, to compare across
+  model families.
+\item \textbf{Agent-based, no background files} (``Agents, no BG''):
+  five specialized LLM agents, one per meta-property, each with a
+  focused prompt but no paper excerpts.
+\item \textbf{Agent-based, with per-property files} (``Agents +
+  files''): five agents, each receiving the relevant section of
+  Guarino and Welty (e.g., the rigidity agent receives the rigidity
+  section).
+\item \textbf{Agent-based, with per-property files and introduction}
+  (``Agents + files + intro''): as above, but each agent also receives
+  the paper's introduction for additional context\todo{verify how the
+    ``with\_intro'' variant was constructed -- was the intro prepended
+    to each property-specific file, or was it a separate argument?}.
+\end{enumerate}
+
+In the agent-based architecture, five separate LLM calls are made per
+entity, one for each meta-property.  Each agent receives a specialized
+system prompt and an optional background file containing the relevant
+section of the source paper.  The own-identity agent additionally
+receives the identity agent's output to enforce the constraint that
++O implies +I.  The five property values are then combined and
+classified into an ontological category (Sortal, Role, Mixin, etc.)
+by a deterministic rule-based classifier.
+
+\subsection{Results: meta-property prediction accuracy}
+
+We evaluated each configuration against the ground truth using
+per-property accuracy (exact match of the predicted value against the
+ground-truth value) and exact match (all five properties correct for
+an entity).  Table~\ref{tab:guarino-results} summarizes the results.
+
+\begin{table}[t]
+  \caption{Per-property accuracy and exact match rate for meta-property
+    prediction on the Guarino and Welty ground truth (21~entities).
+    All configurations use Claude~4.5 Sonnet unless noted.  $R$:
+    rigidity, $I$: identity, $O$: own identity, $U$: unity, $D$:
+    dependence, EM: exact match.}
+  \label{tab:guarino-results}
+  \centering
+  \begin{tabular}{lcccccc}
+    \toprule
+    Configuration & $R$  & $I$  & $O$  & $U$  & $D$  & EM   \\
+    \midrule
+    Claude 4.5, no background
+                  & 0.52 & 0.95 & 0.71 & 0.67 & 0.67 & 0.33 \\
+    Claude 4.5 + paper text
+                  & 0.90 & 0.90 & 0.86 & 0.90 & 0.81 & 0.62 \\
+    Gemini 3 Flash\textsuperscript{$\dagger$}
+                  & 0.79 & 0.68 & 0.68 & 0.79 & 0.79 & 0.37 \\
+    Agents, no BG
+                  & 0.67 & 0.86 & 0.76 & 0.76 & 0.62 & 0.33 \\
+    Agents + files
+                  & 0.76 & 0.81 & 0.71 & 0.62 & 0.67 & 0.24 \\
+    Agents + files + intro
+                  & 0.71 & 0.81 & 0.76 & 0.76 & 0.57 & 0.29 \\
+    \bottomrule
+    \multicolumn{7}{l}{\footnotesize $\dagger$ Gemini 3 Flash evaluated on
+    19/21 entities (2 JSON parse errors).}
+  \end{tabular}
+\end{table}
+
+The best overall performance came from the single-prompt configuration
+with the full paper text as background context (``Claude~4.5 + paper
+text''), which achieved 0.90~rigidity accuracy and 0.62~exact match.
+Without the paper text, the same model dropped to 0.52~rigidity
+accuracy and 0.33~exact match.  This gap shows that rigidity is the
+most difficult meta-property for LLMs to predict from parametric
+knowledge alone -- consistent with rigidity being the most
+philosophically nuanced of the five properties.
+
+The agent-based configurations did not outperform the single-prompt
+approach with paper text.  The agents-with-files configuration
+(0.24~exact match) performed worse than the single-prompt baseline
+(0.33~exact match).  This suggests that decomposing the analysis into
+five independent calls may lose inter-property coherence: each agent
+reasons about one meta-property without seeing the others, whereas a
+single prompt can reason about all five jointly\todo{investigate
+  whether specific entity disagreements between agents and
+  single-prompt are systematic or random}.
+
+Identity was the easiest meta-property to predict ($\geq$0.81 in five
+of six configurations), while rigidity showed the largest variance
+across configurations (0.52--0.90).  Dependence was consistently the
+second hardest property to predict (0.57--0.81).
+
+\subsection{Discussion of the reproduction experiment}
+
+These results show that providing the original paper text as context
+has a large positive effect, particularly for rigidity (from 0.52 to
+0.90).  The LLM with paper context can distinguish anti-rigid roles
+(Agent, Food, LegalAgent) from rigid types (Person, Animal,
+PhysicalObject) with high accuracy, a distinction that requires
+understanding the philosophical notion of essential vs.\ contingent
+properties.
+
+The finding that the agent-based approach underperformed the
+single-prompt approach (with text) is notable.  We hypothesize two
+reasons: (1) the single-prompt approach benefits from cross-property
+reasoning (e.g., knowing that an entity is +R informs the identity
+and unity decisions), and (2) each agent in the decomposed
+architecture operates with less total context than the single prompt.
+However, the agent-based approach may scale better: for very large
+ontologies, individual property assessments can be parallelized and
+are cheaper than a single complex prompt\todo{discuss whether agents
+  may perform better with more sophisticated inter-agent communication,
+  e.g., passing all prior property results to each subsequent agent}.
+
+\section{Zero-shot taxonomy generation and evaluation}
+\label{sec:zeroshot}
+
+% ---------------------------------------------------------------
+% How to reproduce the data for this section:
+%
+% Via Docker (recommended):
+%   docker run --rm -e OPENROUTER_API_KEY=sk-xxx \
+%     -v $(pwd)/output:/app/output llm-clean --zeroshot
+%
+% Via uv locally:
+%
+% 1. The benchmark dataset (data/benchmark_10_domains.json) is already
+%    committed to the repository. To regenerate it:
+%   uv run python scripts/generate_test_dataset.py data/benchmark_10_domains.json \
+%     --model google/gemini-2.0-flash-001 --num-domains 10 --num-terms 35
+%
+% 2. Generate taxonomies for all 13 models:
+%   uv run python scripts/run_benchmark.py
+%   (skips models whose output file already exists)
+%
+%   Or run a single model:
+%   uv run python scripts/generate_taxonomy.py data/benchmark_10_domains.json \
+%     output/experiments/taxonomy_benchmark_gpt-4o.json --model openai/gpt-4o
+%
+% 3. Evaluate a single model's taxonomy:
+%   uv run python scripts/evaluate_taxonomy.py data/benchmark_10_domains.json \
+%     output/experiments/taxonomy_benchmark_gpt-4o.json
+%
+% 4. Run full benchmark and generate report:
+% python3 scripts/run_benchmark.py
+% (produces experiment/BENCHMARK_REPORT.md)
+% ---------------------------------------------------------------
+
+\subsection{Taxonomy generation}
+
+We prompted each of the 13~models (Section~\ref{sec:models}) to
+generate a taxonomy for each of the 10~domains in our benchmark
+dataset (Section~\ref{sec:dataset}).  The prompt presented the model
+with the list of terms for a given domain and instructed it to identify
+strict ``is-a'' (subclass) relationships between them.  The prompt
+explicitly defined the distinction between valid subsumption and common
+confusions:
+
+\begin{itemize}
+\item \textbf{Valid:} ``Sparrow'' $\rightarrow$ parent ``Bird'' (a
+  Sparrow \emph{is a} Bird).
+\item \textbf{Invalid (part-of):} ``Wheel'' $\rightarrow$ parent
+  ``Car'' (a Wheel is \emph{part of} a Car).
+\item \textbf{Invalid (made-of):} ``Gold'' $\rightarrow$ parent
+  ``Ring'' (a Ring is \emph{made of} Gold).
+\end{itemize}
+
+The prompt enforced a closed-world assumption: only terms from the
+input list could serve as parents.  It emphasized that disconnectivity
+is expected (many terms may have no parent in the list) and that
+models should not force connections.  Multiple parents were permitted
+when ontologically justified.  The model returned a JSON object mapping
+each term to a (possibly empty) list of parent terms.
+
+This procedure constitutes a single-pass, zero-shot generation: the
+model received no examples of correct taxonomies, no OntoClean
+definitions, and no feedback.  It relied entirely on its parametric
+knowledge of ``is-a'' semantics.
+
+\subsection{Evaluation metrics}
+
+We evaluated each generated taxonomy against three OntoClean-derived
+criteria using the gold-standard meta-property assignments from the
+benchmark dataset:
+
+\paragraph{Rigidity violations (critical).}
+A rigid property (+R) cannot be a subclass of an anti-rigid property
+($\sim$R)~\cite{guarino2000formal}.  For every parent--child link in
+the generated taxonomy, we checked whether the child carries +R and
+the parent carries $\sim$R.  Any such link constitutes a critical
+violation.  For example, if the model places \emph{Person}~(+R) as a
+subclass of \emph{Student}~($\sim$R), this is a rigidity violation.
+
+\paragraph{Cycles (critical).}
+Taxonomies must be directed acyclic graphs.  We used depth-first
+search on the generated adjacency list to detect circular
+dependencies (e.g., A~$\rightarrow$~B~$\rightarrow$~A).  Any cycle
+constitutes a critical structural error.
+
+\paragraph{Constitution warnings.}
+An object (+I or +U) should not be classified as a subclass of a
+material ($-$I and $-$U), as this typically signals a ``made-of''
+relationship misrepresented as
+``is-a''~\cite{guarino2000formal}.  We flagged such links as
+warnings (non-critical but indicative of modeling confusion).
+
+\subsection{Results: zero-shot benchmark}
+
+Table~\ref{tab:benchmark} summarizes the results across all 13~models.
+
+\begin{table}[t]
+  \caption{Zero-shot taxonomy generation benchmark.  We report the total
+    number of ``is-a'' links generated across all 10~domains, the number
+    of critical rigidity violations, the number of cycles, and the
+    number of constitution-trap warnings.  Critical violations and
+    cycles must be zero for a well-formed taxonomy.}
+  \label{tab:benchmark}
+  \centering
+  \begin{tabular}{lrrrr}
+    \toprule
+    Model                 & Links & Violations & Cycles & Warnings \\
+    \midrule
+    \multicolumn{5}{l}{\textit{Large models}}                      \\
+    GPT-4o                & 193   & 0          & 0      & 1        \\
+    Llama 3.3 70B         & 218   & 0          & 0      & 3        \\
+    Mistral Large         & 223   & 0          & 0      & 3        \\
+    Qwen 2.5 72B          & 217   & 0          & 0      & 0        \\
+    DeepSeek V3           & 201   & 0          & 0      & 2        \\
+    Claude 3.5 Sonnet     & 211   & 5          & 0      & 3        \\
+    Gemini 2.5 Flash      & 291   & 1          & 0      & 3        \\
+    \midrule
+    \multicolumn{5}{l}{\textit{Small models}}                      \\
+    Gemini 2.0 Flash Lite & 225   & 1          & 0      & 5        \\
+    Gemini 2.5 Flash Lite & 279   & 5          & 0      & 8        \\
+    Gemma 2 9B            & 261   & 7          & 2      & 7        \\
+    Qwen 2.5 7B           & 375   & 14         & 31     & 4        \\
+    Llama 3.1 8B          & 452   & 25         & 72     & 21       \\
+    Llama 3.2 3B          & 890   & 193        & 68     & 72       \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Five large models (GPT-4o, Llama~3.3 70B, Mistral Large, Qwen~2.5
+72B, and DeepSeek~V3) produced taxonomies with zero critical rigidity
+violations and zero cycles across all 10~domains.  Claude~3.5 Sonnet
+and Gemini~2.5 Flash, while generally strong, produced 5 and 1
+violations respectively.  All large models generated between 193 and
+291 links, with constitution-trap warnings remaining in the low single
+digits.
+
+Small models showed a clear quality gradient correlated with parameter
+count.  Gemini~2.0 Flash Lite and Gemini~2.5 Flash Lite produced only
+1 and 5 violations respectively with no cycles.  Gemma~2 9B introduced
+7 violations and 2 cycles.  Qwen~2.5 7B produced 14 violations and 31
+cycles.  The smallest models performed worst: Llama~3.1 8B generated
+25 violations and 72 cycles, while Llama~3.2 3B produced 193 rigidity
+violations, 68 cycles, and 72 constitution-trap warnings across 890
+links -- an over-generation pattern in which the model connects nearly
+every term to every other term without respecting ontological
+constraints.
+
+These results show that large LLMs have sufficient parametric
+knowledge to respect OntoClean constraints implicitly, even without
+explicit instruction.  Small models, by contrast, struggle with both
+the semantics of subsumption and the structural requirement of
+acyclicity.  The question that arises is whether this quality gap can be
+closed without replacing the model.
+
+\section{Agentic taxonomy generation with LLMClean}
+\label{sec:agentic}
+
+% ---------------------------------------------------------------
+% How to reproduce the data for this section:
+%
+% === Recommended: Docker (fully self-contained, no local Python setup) ===
+%
+% Build the image once:
+%   docker build -t llm-clean .
+%
+% Reproduce all agentic and multi-critic experiments
+% (API key passed at runtime -- never baked into the image):
+%   docker run --rm \
+%     -e OPENROUTER_API_KEY=sk-xxx \
+%     -v $(pwd)/output:/app/output \
+%     llm-clean --agentic --multi-critic
+%
+% Or reproduce everything in the paper:
+%   docker run --rm \
+%     -e OPENROUTER_API_KEY=sk-xxx \
+%     -v $(pwd)/output:/app/output \
+%     llm-clean --all
+%
+% Using docker compose (key from host environment):
+%   export OPENROUTER_API_KEY=sk-xxx
+%   docker compose run --rm reproduce --agentic --multi-critic
+%
+% === Alternative: run locally with uv ===
+%
+% Step 4 -- single-critic agentic benchmark (all 3 models):
+%   OPENROUTER_API_KEY=sk-xxx uv run python scripts/run_agentic_benchmark.py
+%
+% Or individually:
+%   uv run python scripts/agentic_taxonomy.py data/benchmark_10_domains.json \
+%     output/experiments/taxonomy_agentic_llama-3.2-3b-instruct.json \
+%     --model meta-llama/llama-3.2-3b-instruct
+%   uv run python scripts/agentic_taxonomy.py data/benchmark_10_domains.json \
+%     output/experiments/taxonomy_agentic_llama-3.1-8b-instruct.json \
+%     --model meta-llama/llama-3.1-8b-instruct
+%   uv run python scripts/agentic_taxonomy.py data/benchmark_10_domains.json \
+%     output/experiments/taxonomy_agentic_qwen-2.5-7b-instruct.json \
+%     --model qwen/qwen-2.5-7b-instruct
+%
+% Step 5 -- multi-critic benchmark (all 3 models x 2 thresholds):
+%   # majority threshold (t=2, >=2 critics must reject to veto):
+%   uv run python scripts/agentic_taxonomy_multi_critic.py data/benchmark_10_domains.json \
+%     output/experiments/taxonomy_agentic_multi_critic_<slug>.json \
+%     --model <openrouter-model-id> --threshold 2
+%
+%   # strict threshold (t=1, any single critic can veto):
+%   uv run python scripts/agentic_taxonomy_multi_critic.py data/benchmark_10_domains.json \
+%     output/experiments/taxonomy_agentic_multi_critic_t1_<slug>.json \
+%     --model <openrouter-model-id> --threshold 1
+%
+%   # generate comparison report across all 9 conditions:
+%   uv run python scripts/run_multi_critic_benchmark.py
+%   # (skips conditions whose output files already exist -- safe to resume)
+%
+% Evaluate any individual taxonomy file:
+%   uv run python scripts/evaluate_taxonomy.py data/benchmark_10_domains.json \
+%     output/experiments/taxonomy_agentic_qwen-2.5-7b-instruct.json
+%
+% Output files:
+%   output/experiments/taxonomy_agentic_<slug>.json                  (single)
+%   output/experiments/taxonomy_agentic_multi_critic_<slug>.json     (multi t=2)
+%   output/experiments/taxonomy_agentic_multi_critic_t1_<slug>.json  (multi t=1)
+%   output/experiments/MULTI_CRITIC_BENCHMARK_REPORT.md              (report)
+% ---------------------------------------------------------------
+
+The zero-shot results (Section~\ref{sec:zeroshot}) show that small
+models produce many ontological violations when asked to generate a
+complete taxonomy in a single pass.  We hypothesized that decomposing
+the task into generation and critique -- with explicit OntoClean
+constraints provided to the critic -- would reduce violations without
+requiring a larger model.  We therefore designed an agentic workflow
+with two collaborating agents, both backed by the \emph{same}
+underlying LLM, and explored two critic architectures: a single
+monolithic critic and a multi-critic ensemble of four specialized
+property critics.
+
+\subsection{Agent architecture}
+
+\paragraph{Taxonomist agent.}
+The Taxonomist is an LLM prompted as an ``expert Taxonomist'' whose
+goal is to organize a list of terms into a strict ``is-a'' hierarchy.
+It operates incrementally: in each step, it selects one unplaced term
+from the input list and proposes a single parent for it (either another
+term from the list or ``Thing'' if the term is a root concept).  The
+Taxonomist receives the full list of terms, the current state of the
+hierarchy (all previously approved links), and the set of terms
+already placed.  Its prompt enforces the same constraints as the
+zero-shot prompt: strict ``is-a'' only, no part-of or made-of links,
+and the closed-world assumption on parent terms.
+
+\paragraph{Single-critic architecture.}
+The single critic is an LLM prompted as an ``expert in Formal
+Ontology and the OntoClean methodology.''  Its system prompt includes
+definitions of rigidity, identity, and unity, together with the key
+OntoClean constraints:
+
+\begin{itemize}
+\item An anti-rigid property ($\sim$R) cannot subsume a rigid property
+  (+R).
+\item A non-sortal ($-$I) cannot subsume a sortal (+I).
+\item An anti-unity property ($\sim$U) cannot subsume a unity property
+  (+U).
+\end{itemize}
+
+For each link proposed by the Taxonomist, the critic infers the
+meta-properties of both child and parent terms, checks the link
+against these constraints, and responds with either ``APPROVE'' or
+``REJECT: $\langle$explanation$\rangle$''.
+
+\paragraph{Multi-critic architecture.}
+We additionally tested a decomposed variant in which four independent
+critics each evaluate a single OntoClean property:
+(1)~a \emph{rigidity critic} that checks whether an anti-rigid parent
+subsumes a rigid child,
+(2)~an \emph{identity critic} that checks whether a non-sortal parent
+subsumes a sortal child,
+(3)~a \emph{unity critic} that checks whether an anti-unity parent
+subsumes a unity child, and
+(4)~a \emph{dependence critic} that flags cases where an independent
+parent subsumes a dependent child, which can signal a role or
+relational confusion.
+Each critic receives a focused prompt that defines only the
+meta-property it is responsible for.  We tested two rejection
+thresholds: \emph{strict} ($t{=}1$), where any single critic rejection
+vetoes the link, and \emph{majority} ($t{=}2$), where at least two
+critics must reject before the link is vetoed.  When a link is
+rejected, the aggregated feedback from all rejecting critics is passed
+back to the Taxonomist for retry.
+
+\paragraph{Interaction protocol.}
+For each term in the input list (processed in alphabetical order), the
+workflow proceeds as follows:
+
+\begin{enumerate}
+\item The Taxonomist proposes a link: ``\textit{child} IS-A
+  \textit{parent}''.
+\item The critic (single) or critics (multi) evaluate the proposed
+  link against OntoClean constraints.
+\item If the critic approves (or fewer than $t$ critics reject in the
+  multi-critic case), the link is added to the taxonomy and the next
+  term is processed.
+\item If the critic rejects, the rejection reason is passed back to
+  the Taxonomist, which must propose a different parent or justify its
+  original choice.
+\item After three failed attempts, the term is left as a root node
+  (no parent assigned).
+\end{enumerate}
+
+All agents use the same LLM (same model identifier and weights) with
+temperature set to 0.0 for deterministic output.  The agents share no
+memory between terms: each term placement is an independent
+multi-turn dialogue.  The taxonomy state (approved links) is passed as
+context to the Taxonomist at each step but not to the critics, which
+evaluate each link in isolation.
+
+\subsection{Results: agentic benchmark}
+
+We ran the agentic workflow on the same 10-domain benchmark using three
+small models from the zero-shot experiment: Llama~3.2 3B, Llama~3.1
+8B, and Qwen~2.5 7B.  For each model, we compared the zero-shot
+baseline with the single-critic agentic workflow and the two
+multi-critic thresholds ($t{=}1$ strict, $t{=}2$ majority).
+Table~\ref{tab:agentic} presents the results.
+
+\begin{table}[t]
+  \caption{Zero-shot vs.\ agentic taxonomy generation for small models.
+    All agentic workflows use a Taxonomist and OntoClean Critic(s)
+    backed by the same model.  ``Single'' uses one monolithic critic;
+    ``Multi ($t{=}2$)'' and ``Multi ($t{=}1$)'' use four
+    property-specialized critics with majority and strict rejection
+    thresholds, respectively.  Warn: constitution-trap warnings.}
+  \label{tab:agentic}
+  \centering
+  \begin{tabular}{llrrrr}
+    \toprule
+    Model        & Mode              & Links & Viol. & Cycles & Warn. \\
+    \midrule
+    Llama 3.2 3B & Zero-shot         & 890   & 193   & 68     & 72    \\
+                 & Single            & 160   & 0     & 6      & 1     \\
+                 & Multi ($t{=}2$)   & 180   & 1     & 12     & 3     \\
+                 & Multi ($t{=}1$)   & 112   & 0     & 10     & 0     \\
+    \midrule
+    Llama 3.1 8B & Zero-shot         & 452   & 25    & 72     & 21    \\
+                 & Single            & 225   & 1     & 6      & 2     \\
+                 & Multi ($t{=}2$)   & 74    & 0     & 0      & 0     \\
+                 & Multi ($t{=}1$)   & 8     & 0     & 0      & 0     \\
+    \midrule
+    Qwen 2.5 7B  & Zero-shot         & 375   & 14    & 31     & 4     \\
+                 & Single            & 255   & 3     & 15     & 3     \\
+                 & Multi ($t{=}2$)   & 219   & 0     & 10     & 1     \\
+                 & Multi ($t{=}1$)   & 93    & 1     & 1      & 0     \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{Single-critic results.}
+The single-critic agentic workflow produced substantial improvements
+over zero-shot generation for all three models.  For Llama~3.2 3B,
+rigidity violations dropped from 193 to~0 and cycles from 68 to~6.
+The total number of links dropped from 890 to~160, which reflects the
+critic rejecting the spurious connections that the base model produced
+in zero-shot mode.  For Llama~3.1 8B, violations dropped from 25 to~1
+and cycles from 72 to~6.  Qwen~2.5 7B saw violations fall from 14
+to~3 and cycles from 31 to~15.
+
+\paragraph{Multi-critic results.}
+The multi-critic architecture showed different effects depending on
+model capacity.  For the smallest model (Llama~3.2 3B), the
+multi-critic variants did not improve over the single critic: the
+majority threshold ($t{=}2$) introduced one violation and doubled the
+cycle count relative to the single-critic result, while the strict
+threshold ($t{=}1$) maintained zero violations but still produced more
+cycles (10 vs.\ 6).  The 3B model's individual property critics appear
+too unreliable for decomposed reasoning -- they approve invalid
+proposals when only two of four need to agree, and they fail to catch
+structural problems even when any single rejection suffices.
+
+For the two larger models, the multi-critic majority threshold ($t{=}2$)
+produced the best quality--coverage trade-off.  Llama~3.1 8B with
+$t{=}2$ eliminated all violations, all cycles, and all warnings, though
+at a steep coverage cost (74 links vs.\ 225 for the single critic, a
+67\% reduction).  Qwen~2.5 7B with $t{=}2$ achieved the strongest
+overall result: zero violations, 10 cycles (down from 15), and 1
+warning, while retaining 86\% of the single-critic link count (219
+vs.\ 255 links).
+
+The strict threshold ($t{=}1$) produced near-perfect quality metrics
+for both larger models but over-rejected proposals.  Llama~3.1 8B with
+$t{=}1$ retained only 8 links across all 10 domains -- an essentially
+empty taxonomy.  Qwen~2.5 7B with $t{=}1$ produced 93 links with just
+1 violation and 1 cycle, but lost 63\% of single-critic coverage.
+
+\paragraph{Interpretation.}
+These results reveal a model-size threshold for effective critic
+decomposition.  The 3B model lacks the reasoning capacity to apply
+OntoClean property analysis in isolation; a single monolithic critic
+that considers all constraints jointly produces better results.
+Models at 7B parameters and above can serve as reliable specialized
+critics, and the majority threshold ($t{=}2$) prevents individual
+over-eager critics from vetoing every proposal.
+
+The key finding remains that all agents used the \emph{same} model.
+Llama~3.2 3B, a 3-billion-parameter model, possesses sufficient
+knowledge of OntoClean constraints to \emph{recognize} invalid
+subsumption links when explicitly prompted with constraint definitions,
+even though it fails to \emph{apply} those constraints implicitly
+during zero-shot generation.  The agentic architecture externalizes
+the constraint-checking step that the model cannot perform internally
+in a single pass.  For models at 7B and above, further decomposing
+the critic into specialized property critics with majority voting
+can eliminate remaining violations while preserving most of the
+taxonomy coverage.
+
+\section{Discussion}
+
+\subsection{LLMs encode OntoClean knowledge}
+
+Our results show that large LLMs can generate taxonomies that
+respect OntoClean constraints without receiving explicit constraint
+definitions in the prompt.  Five models (GPT-4o, Llama~3.3 70B,
+Mistral Large, Qwen~2.5 72B, DeepSeek~V3) produced zero rigidity
+violations and zero cycles across 10~domains and 349~terms.  This
+suggests that the training corpora of these models contain sufficient
+information about the semantics of subsumption -- and potentially
+about OntoClean itself -- to avoid common ontological errors.
+
+The constitution-trap warnings (Object ``is-a'' Material) were not
+fully eliminated by any model, which indicates that the distinction
+between subsumption and constitution remains difficult even for large
+LLMs.  This is consistent with the observation by Guarino and
+Welty~\cite{guarino2000formal} that the
+constitution trap is one of the most persistent sources of
+confusion in ontology modeling.
+
+\subsection{Small models fail but can self-correct}
+
+Small models (3B--9B parameters) produced substantially more
+violations than large models, with Llama~3.2 3B generating 193
+rigidity violations and 890~links -- a pattern we characterize as
+``ontological hallucination,'' where the model over-generates
+subsumption links without distinguishing ``is-a'' from other semantic
+relations.  However, the agentic workflow showed that the same model
+can recognize and reject these invalid links when given explicit
+OntoClean constraints in a critic role.
+
+The multi-critic experiment further clarified this picture.
+Decomposing the critic into four property-specialized critics helped
+models at 7B parameters and above: Qwen~2.5 7B with majority voting
+($t{=}2$) eliminated all rigidity violations while retaining 86\% of
+the taxonomy links.  For the 3B model, by contrast, the decomposed
+critics were too unreliable and the single monolithic critic produced
+better results.  This suggests a model-size threshold below which
+decomposed ontological reasoning introduces more noise than it removes.
+
+These findings have practical implications.  Small models are cheaper
+to run, faster to deploy, and can operate in resource-constrained
+environments.  The agentic workflow adds API cost (each term requires
+multiple LLM calls instead of one, and the multi-critic variant
+multiplies this further by a factor of four), but the total cost
+remains proportional to the number of terms rather than requiring a
+model upgrade.  Our results suggest that practitioners should choose
+the single-critic workflow for models below 7B parameters and the
+multi-critic majority variant for models at 7B and
+above\todo{add cost comparison if available}.
+
+\subsection{Limitations}
+
+Several limitations apply to our study.
+
+\paragraph{Gold-standard meta-properties.}
+The ground-truth meta-property assignments for our benchmark dataset
+were generated by an LLM rather than assigned by human ontology
+experts.  While the generation prompt was designed to produce
+ontologically plausible assignments, some may be
+debatable\todo{validate a sample of meta-property assignments with a
+  domain expert or against established ontologies}.
+
+\paragraph{Evaluation scope.}
+We evaluated only rigidity violations, cycles, and constitution
+warnings.  OntoClean defines additional constraints (e.g., identity
+and unity constraints on subsumption) that we did not check in our
+automated evaluation.  A more thorough evaluation would verify all
+OntoClean constraints\todo{consider expanding the evaluation to
+  include identity and unity constraint checks}.
+
+\paragraph{Domain coverage.}
+Our benchmark covers 10~domains selected for diversity, but the
+domains and terms were LLM-generated.  Performance on real-world
+ontologies with hundreds or thousands of classes, ambiguous labels, and
+complex axiomatization remains untested\todo{discuss plans for
+  evaluation on real-world ontologies such as OBI, GO, or SNOMED CT
+  fragments}.
+
+\paragraph{Agentic cost and scalability.}
+The agentic workflow processes terms sequentially and requires multiple
+LLM calls per term (up to 6 in the worst case for the single critic: 3
+Taxonomist proposals and 3 critic evaluations).  The multi-critic
+variant increases this further: each proposal requires four critic
+calls, so the worst case rises to 15 calls per term (3~proposals
+$\times$ 4~critics $+$ 3~Taxonomist calls).  For large ontologies this
+may become a bottleneck.  Parallelization of the four critics and
+early-termination heuristics could reduce
+latency\todo{quantify wall-clock time and API cost for the agentic
+  experiments}.
+
+\paragraph{Reproducibility.}
+LLM outputs are non-deterministic even at temperature~0.0 for some
+API providers.  We did not run repeated trials; all results represent
+single runs\todo{consider reporting variance across multiple runs}.
+
+\section{Related work}
+
+\todo{Write related work section.  Topics to cover:
+  \begin{itemize}
+  \item OntoClean methodology and applications~\cite{guarino2000formal,guarino2002ontoclean,guarino2009ontoclean}
+  \item Automated ontology evaluation and quality metrics
+  \item LLMs for ontology engineering (ontology matching, taxonomy
+    construction, concept classification): He et al.\ LLM4OM, Babaei
+    Giglou et al.\ LLMs4OL, etc.
+  \item Agentic LLM architectures: Reflexion, debate-based approaches
+  \item Automated taxonomy construction from text (pre-LLM approaches)
+  \end{itemize}
+}
+
+\section{Conclusion}
+
+We presented LLMClean, a method that applies OntoClean constraints
+through large language models to evaluate and generate taxonomies.  We
+showed in three experiments that LLMs can engage with the OntoClean
+methodology at different levels.  First, Claude~4.5 Sonnet reproduced
+Guarino and Welty's meta-property analysis with 0.90 rigidity accuracy
+when provided with the paper text -- a result that shows LLMs can
+learn to apply philosophical distinctions from textual descriptions.
+Second, our evaluation of 13~LLMs across 10~domains showed that large
+models ($\geq$70B parameters) generate taxonomies with zero critical
+ontological violations in a zero-shot setting, while small models
+(3B--9B) produce many violations and cycles.  Third, an agentic
+workflow in which a Taxonomist agent and an OntoClean Critic agent --
+both backed by the same small model -- collaborate iteratively can
+eliminate nearly all violations: rigidity violations dropped from 193
+to~0 for Llama~3.2 3B.  We further showed that decomposing the critic
+into four property-specialized critics with majority voting improves
+the quality--coverage trade-off for models at 7B parameters and above:
+Qwen~2.5 7B with the multi-critic majority variant achieved zero
+violations while retaining 86\% of the single-critic link count.
+
+These results have four implications.  First, OntoClean meta-property
+analysis is accessible to LLMs, particularly when relevant background
+material is provided.  Second, OntoClean constraints on subsumption
+are learnable from training data by large models and can be applied
+explicitly by small models in a critic role.  Third, agentic
+architectures that separate generation from constraint checking offer
+a practical path to high-quality ontology construction with smaller,
+more accessible models.  Fourth, a model-size threshold exists for
+effective critic decomposition: models below 7B parameters benefit
+from a single monolithic critic, while larger models benefit from
+specialized property critics with a majority rejection threshold.
+
+Future work will extend LLMClean to evaluate existing real-world
+ontologies, incorporate all OntoClean constraints (not only rigidity),
+and explore whether the agentic workflow can iteratively \emph{repair}
+a taxonomy rather than build one from scratch\todo{expand with
+  additional future directions based on final results}.
+
+\section*{Acknowledgements}
+\todo{Add acknowledgements, funding sources.}
+
+\section*{Data and code availability}
+The source code, datasets, and experiment results are available at
+\url{https://github.com/leechuck/llm-clean}\todo{verify URL is
+  correct and public before submission}.
+
+\begin{thebibliography}{99}
+
+\bibitem{guarino2000formal}
+  Guarino, N. and Welty, C. (2000).
+  A Formal Ontology of Properties.
+  In: \textit{Knowledge Engineering and Knowledge Management: Methods,
+    Models, and Tools} (EKAW 2000), Lecture Notes in Computer Science,
+  vol.~1937, pp.~97--112. Springer.
+
+\bibitem{guarino2002ontoclean}
+  Guarino, N. and Welty, C. (2002).
+  Evaluating Ontological Decisions with OntoClean.
+  \textit{Communications of the ACM}, 45(2):61--65.
+
+\bibitem{guarino2009ontoclean}
+  Guarino, N. and Welty, C. (2009).
+  An Overview of OntoClean.
+  In: Staab, S. and Studer, R. (Eds.), \textit{Handbook on Ontologies},
+  2nd~ed., pp.~201--220. Springer.
+
+\bibitem{he2023llm4om}
+  \todo{Add full citation: He et al., LLM4OM or equivalent LLM
+    ontology matching reference.}
+
+\bibitem{babaei2023llms4ol}
+  \todo{Add full citation: Babaei Giglou et al., LLMs4OL: Large
+    Language Models for Ontology Learning.}
+
+\bibitem{shinn2023reflexion}
+  \todo{Add full citation: Shinn et al., Reflexion: Language Agents
+    with Verbal Reinforcement Learning, NeurIPS 2023.}
+
+\end{thebibliography}
+\end{document}
