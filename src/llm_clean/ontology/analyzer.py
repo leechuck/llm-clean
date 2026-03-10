@@ -17,22 +17,15 @@ class OntologyAnalyzer:
         # Load environment variables from .env file
         load_dotenv()
 
-        # Validate model
-        if model not in self.SUPPORTED_MODELS:
-            raise ValueError(
-                f"Unsupported model: {model}. "
-                f"Supported models are: {', '.join(self.SUPPORTED_MODELS)}"
-            )
-        # Set up defaul models for Anthropic and Gemini
+        # Set up default models for shortcuts
         if model == "anthropic":
             model = "anthropic/claude-4.5-sonnet"
         elif model == "gemini":
             model = "google/gemini-3-flash-preview"
-        else:
-            model = model
-
-        self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
+        
+        # Note: We now allow any model ID to be passed directly to support OpenRouter's full range.
         self.model = model
+        self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
         self.api_url = "https://openrouter.ai/api/v1/chat/completions"
         self.background_file = background_file
         self.background_content = None
