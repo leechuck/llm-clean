@@ -239,10 +239,15 @@ collect-critic: ## Collect agent critic evaluation results into reports
 		--output output/collect_agent_critic_results.md
 	cp output/collect_agent_critic_results.md docs/reports/AGENT_CRITIC_BATCH_ANALYSIS_REPORT.md
 
-reports: collect-non-agent collect-agent collect-critic ## Generate all analysis reports
+batch-non-agent-expanded: ## Run expanded non-agent batch analysis (13 models x 2 configs)
+	@echo "$(BLUE)Running expanded non-agent batch analysis...$(NC)"
+	chmod +x scripts/reproduce_expanded_non_agent.sh
+	./scripts/reproduce_expanded_non_agent.sh
+
+reports: collect-non-agent collect-agent collect-critic batch-non-agent-expanded ## Generate all analysis reports
 
 ##@ Complete Workflows
 
-reproduce-batch: batch-non-agent eval-non-agent collect-non-agent batch-agent eval-agent collect-agent batch-critic eval-critic collect-critic ## Run complete batch analysis reproduction (20 experiments)
+reproduce-batch: batch-non-agent eval-non-agent collect-non-agent batch-agent eval-agent collect-agent batch-critic eval-critic collect-critic batch-non-agent-expanded ## Run complete batch analysis reproduction (46 experiments)
 	@echo "$(GREEN)Complete batch analysis reproduction finished!$(NC)"
 	@echo "Reports available in docs/reports/"

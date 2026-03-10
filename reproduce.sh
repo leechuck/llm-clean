@@ -11,9 +11,10 @@
 #   --zeroshot      Step 3: zero-shot taxonomy benchmark (13 models x 10 domains)
 #   --agentic       Step 4: agentic single-critic benchmark (3 small models)
 #   --multi-critic  Step 5: multi-critic benchmark (3 models x 3 critic conditions)
+#   --non-agent-expanded Step 6: expanded non-agent benchmark with 13 additional models
 #   --all           Run all steps (default)
 #
-# The OPENROUTER_API_KEY environment variable must be set for steps 2-5.
+# The OPENROUTER_API_KEY environment variable must be set for steps 2-6.
 # Do NOT put the key inside this script or the Docker image; pass it at runtime:
 #
 #   OPENROUTER_API_KEY=sk-xxx bash reproduce.sh --all
@@ -29,6 +30,7 @@ RUN_GUARINO_REPRO=false
 RUN_ZEROSHOT=false
 RUN_AGENTIC=false
 RUN_MULTI_CRITIC=false
+RUN_NON_AGENT_EXPANDED=false
 
 if [ $# -eq 0 ]; then
     RUN_STATIC=true
@@ -36,6 +38,7 @@ if [ $# -eq 0 ]; then
     RUN_ZEROSHOT=true
     RUN_AGENTIC=true
     RUN_MULTI_CRITIC=true
+    RUN_NON_AGENT_EXPANDED=true
 fi
 
 for arg in "$@"; do
@@ -46,15 +49,17 @@ for arg in "$@"; do
             RUN_ZEROSHOT=true
             RUN_AGENTIC=true
             RUN_MULTI_CRITIC=true
+            RUN_NON_AGENT_EXPANDED=true
             ;;
         --static)        RUN_STATIC=true ;;
         --guarino-repro) RUN_GUARINO_REPRO=true ;;
         --zeroshot)      RUN_ZEROSHOT=true ;;
         --agentic)       RUN_AGENTIC=true ;;
         --multi-critic)  RUN_MULTI_CRITIC=true ;;
+        --non-agent-expanded) RUN_NON_AGENT_EXPANDED=true ;;
         *)
             echo "Unknown flag: $arg"
-            echo "Usage: $0 [--all] [--static] [--guarino-repro] [--zeroshot] [--agentic] [--multi-critic]"
+            echo "Usage: $0 [--all] [--static] [--guarino-repro] [--zeroshot] [--agentic] [--multi-critic] [--non-agent-expanded]"
             exit 1
             ;;
     esac
@@ -68,14 +73,14 @@ export PYTHONPATH="${PYTHONPATH:-}:$(pwd)/src"
 DATASET="data/benchmark_10_domains.json"
 OWL="output/ontologies/guarino_messy.owl"
 PAPER_PDF="data/raw/01-guarino00formal.pdf"
-PAPER_TXT="resources/converted_text_files/guarino_text_files/01-guarino00formal-converted-corrected.txt"
+PAPER_TXT="data/raw/converted_text_files/guarino_text_files/01-guarino00formal-converted.txt"
 
 mkdir -p data/raw output/ontologies output/experiments output/analyzed_entities \
          output/evaluation_results docs/reports
 
 need_api_key() {
     if [ -z "${OPENROUTER_API_KEY:-}" ]; then
-        echo "ERROR: OPENROUTER_API_KEY is not set. Steps 2-5 require an API key."
+        echo "ERROR: OPENROUTER_API_KEY is not set. Steps 2-6 require an API key."
         echo "Pass it as: OPENROUTER_API_KEY=sk-xxx bash reproduce.sh $*"
         exit 1
     fi
@@ -242,6 +247,23 @@ if $RUN_MULTI_CRITIC; then
     echo "Report: output/experiments/MULTI_CRITIC_BENCHMARK_REPORT.md"
 
     echo "Step 5 complete."
+fi
+
+# ---------------------------------------------------------------------------
+# Step 6: Expanded non-agent benchmark (13 models x 2 configurations)
+# ---------------------------------------------------------------------------
+if $RUN_NON_AGENT_EXPANDED; then
+    need_api_key
+    echo ""
+    echo "====================================================================="
+    echo "Step 6: Expanded non-agent benchmark (13 models x 2 configs)"
+    echo "====================================================================="
+    echo "WARNING: This runs 26 batch analyses and may take significant time."
+
+    chmod +x scripts/reproduce_expanded_non_agent.sh
+    bash scripts/reproduce_expanded_non_agent.sh
+
+    echo "Step 6 complete. Report: docs/reports/NON_AGENT_BATCH_ANALYSIS_REPORT.md"
 fi
 
 echo ""
