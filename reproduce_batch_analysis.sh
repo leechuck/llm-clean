@@ -65,12 +65,26 @@ data/raw/ground_truth.tsv \
 --agent anthropic \
 --output output/evaluation_results/evaluate_claude_no_files.json
 
+# classification metrics for no files
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_claude_no_files.tsv \
+data/raw/ground_truth.tsv \
+--agent-name anthropic-no-files \
+--output output/evaluation_results/classify_claude_no_files.csv
+
 # evaluate output using PDF of Guarino's "Formal Ontology in Information Systems" paper as input file
 uv run python scripts/evaluate_analysis.py \
 output/analyzed_entities/analyzed_entities_claude_pdf.tsv \
 data/raw/ground_truth.tsv \
 --agent anthropic \
 --output output/evaluation_results/evaluate_claude_pdf.json
+
+# classification metrics for PDF
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_claude_pdf.tsv \
+data/raw/ground_truth.tsv \
+--agent-name anthropic-pdf \
+--output output/evaluation_results/classify_claude_pdf.csv
 
 # evaluate output using Guarino's PDF converted to text
 uv run python scripts/evaluate_analysis.py \
@@ -79,12 +93,26 @@ data/raw/ground_truth.tsv \
 --agent anthropic \
 --output output/evaluation_results/evaluate_claude_text.json
 
+# classification metrics for converted text
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_claude_text.tsv \
+data/raw/ground_truth.tsv \
+--agent-name anthropic-text \
+--output output/evaluation_results/classify_claude_text.csv
+
 # evaluate output using Guarino's PDF converted to text but with correction made
 uv run python scripts/evaluate_analysis.py \
 output/analyzed_entities/analyzed_entities_claude_corrected_text.tsv \
 data/raw/ground_truth.tsv \
 --agent anthropic \
 --output output/evaluation_results/evaluate_claude_corrected_text.json
+
+# classification metrics for corrected text
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_claude_corrected_text.tsv \
+data/raw/ground_truth.tsv \
+--agent-name anthropic-corrected \
+--output output/evaluation_results/classify_claude_corrected_text.csv
 
 ### evaluate gemini model
 
@@ -95,12 +123,26 @@ data/raw/ground_truth.tsv \
 --agent gemini \
 --output output/evaluation_results/evaluate_gemini_no_files.json
 
+# classification metrics for no files
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_gemini_no_files.tsv \
+data/raw/ground_truth.tsv \
+--agent-name gemini-no-files \
+--output output/evaluation_results/classify_gemini_no_files.csv
+
 # evaluate output using PDF of Guarino's "Formal Ontology in Information Systems" paper as input file
 uv run python scripts/evaluate_analysis.py \
 output/analyzed_entities/analyzed_entities_gemini_pdf.tsv \
 data/raw/ground_truth.tsv \
 --agent gemini \
 --output output/evaluation_results/evaluate_gemini_pdf.json
+
+# classification metrics for PDF
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_gemini_pdf.tsv \
+data/raw/ground_truth.tsv \
+--agent-name gemini-pdf \
+--output output/evaluation_results/classify_gemini_pdf.csv
 
 # evaluate output using Guarino's PDF converted to text
 uv run python scripts/evaluate_analysis.py \
@@ -109,12 +151,26 @@ data/raw/ground_truth.tsv \
 --agent gemini \
 --output output/evaluation_results/evaluate_gemini_text.json
 
+# classification metrics for converted text
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_gemini_text.tsv \
+data/raw/ground_truth.tsv \
+--agent-name gemini-text \
+--output output/evaluation_results/classify_gemini_text.csv
+
 # evaluate output using Guarino's PDF converted to text but with correction made
 uv run python scripts/evaluate_analysis.py \
 output/analyzed_entities/analyzed_entities_gemini_corrected_text.tsv \
 data/raw/ground_truth.tsv \
 --agent gemini \
 --output output/evaluation_results/evaluate_gemini_corrected_text.json
+
+# classification metrics for corrected text
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_gemini_corrected_text.tsv \
+data/raw/ground_truth.tsv \
+--agent-name gemini-corrected \
+--output output/evaluation_results/classify_gemini_corrected_text.csv
 
 ### save non-agent evaluation results in a single tsv file for easier reporting and visualization
 uv run python scripts/collect_evaluations.py \
@@ -208,6 +264,13 @@ data/raw/ground_truth.tsv \
 --agent anthropic \
 --output output/evaluation_results/evaluate_claude_agents_no_files.json
 
+# classification metrics for agents no files
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_claude_agents_no_files.tsv \
+data/raw/ground_truth.tsv \
+--agent-name anthropic-agents-no-files \
+--output output/evaluation_results/classify_claude_agents_no_files.csv
+
 # evaluate output using specific sections of Guarino's file (no introduction section)
 # the sections are extracted from the converted text file with corrections made
 uv run python scripts/evaluate_analysis.py \
@@ -215,6 +278,13 @@ output/analyzed_entities/analyzed_entities_claude_agents_using_files_no_intro.ts
 data/raw/ground_truth.tsv \
 --agent anthropic \
 --output output/evaluation_results/evaluate_claude_agents_using_files_no_intro.json 
+
+# classification metrics for agents no intro
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_claude_agents_using_files_no_intro.tsv \
+data/raw/ground_truth.tsv \
+--agent-name anthropic-agents-no-intro \
+--output output/evaluation_results/classify_claude_agents_no_intro.csv
 
 # evaluate output using specific sections of Guarino's file, but include the introduction section as well 
 # since it contains important context about the paper and ontology
@@ -225,6 +295,13 @@ data/raw/ground_truth.tsv \
 --agent anthropic \
 --output output/evaluation_results/evaluate_claude_agents_using_files_with_intro.json
 
+# classification metrics for agents with intro
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_claude_agents_using_files_with_intro.tsv \
+data/raw/ground_truth.tsv \
+--agent-name anthropic-agents-with-intro \
+--output output/evaluation_results/classify_claude_agents_with_intro.csv
+
 ### evaluate agent batch analysis with gemini
 
 # evaluate output using no files (i.e., hardcoded prompts)
@@ -234,6 +311,13 @@ data/raw/ground_truth.tsv \
 --agent gemini \
 --output output/evaluation_results/evaluate_gemini_agents_no_files.json
 
+# classification metrics for agents no files
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_gemini_agents_no_files.tsv \
+data/raw/ground_truth.tsv \
+--agent-name gemini-agents-no-files \
+--output output/evaluation_results/classify_gemini_agents_no_files.csv
+
 # evaluate output using specific sections of Guarino's file (no introduction section)
 # the sections are extracted from the converted text file with corrections made
 uv run python scripts/evaluate_analysis.py \
@@ -241,6 +325,13 @@ output/analyzed_entities/analyzed_entities_gemini_agents_using_files_no_intro.ts
 data/raw/ground_truth.tsv \
 --agent gemini \
 --output output/evaluation_results/evaluate_gemini_agents_using_files_no_intro.json
+
+# classification metrics for agents no intro
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_gemini_agents_using_files_no_intro.tsv \
+data/raw/ground_truth.tsv \
+--agent-name gemini-agents-no-intro \
+--output output/evaluation_results/classify_gemini_agents_no_intro.csv
 
 # evaluate output using specific sections of Guarino's file, but include the introduction section as well 
 # since it contains important context about the paper and ontology
@@ -250,6 +341,13 @@ output/analyzed_entities/analyzed_entities_gemini_agents_using_files_with_intro.
 data/raw/ground_truth.tsv \
 --agent gemini \
 --output output/evaluation_results/evaluate_gemini_agents_using_files_with_intro.json
+
+# classification metrics for agents with intro
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_gemini_agents_using_files_with_intro.tsv \
+data/raw/ground_truth.tsv \
+--agent-name gemini-agents-with-intro \
+--output output/evaluation_results/classify_gemini_agents_with_intro.csv
 
 ### save agent evaluation results in a single tsv file for easier reporting and visualization
 uv run python scripts/collect_evaluations.py \
@@ -345,6 +443,13 @@ data/raw/ground_truth.tsv \
 --agent anthropic \
 --output output/evaluation_results/evaluate_claude_agents_critic_no_files.json
 
+# classification metrics for critic no files
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_claude_agents_critic_no_files.tsv \
+data/raw/ground_truth.tsv \
+--agent-name anthropic-critic-no-files \
+--output output/evaluation_results/classify_claude_critic_no_files.csv
+
 # evaluate output using specific sections of Guarino's file (no introduction section)
 # the sections are extracted from the converted text file with corrections made
 uv run python scripts/evaluate_analysis.py \
@@ -352,6 +457,13 @@ output/analyzed_entities/analyzed_entities_claude_agents_critic_using_files_no_i
 data/raw/ground_truth.tsv \
 --agent anthropic \
 --output output/evaluation_results/evaluate_claude_agents_critic_using_files_no_intro.json
+
+# classification metrics for critic no intro
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_claude_agents_critic_using_files_no_intro.tsv \
+data/raw/ground_truth.tsv \
+--agent-name anthropic-critic-no-intro \
+--output output/evaluation_results/classify_claude_critic_no_intro.csv
 
 # evaluate output using specific sections of Guarino's file, but include the introduction section as well
 # since it contains important context about the paper and ontology
@@ -362,6 +474,13 @@ data/raw/ground_truth.tsv \
 --agent anthropic \
 --output output/evaluation_results/evaluate_claude_agents_critic_using_files_with_intro.json
 
+# classification metrics for critic with intro
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_claude_agents_critic_using_files_with_intro.tsv \
+data/raw/ground_truth.tsv \
+--agent-name anthropic-critic-with-intro \
+--output output/evaluation_results/classify_claude_critic_with_intro.csv
+
 ### evaluate agent critic batch analysis with gemini
 
 # evaluate output using no files (i.e., hardcoded prompts)
@@ -371,6 +490,13 @@ data/raw/ground_truth.tsv \
 --agent gemini \
 --output output/evaluation_results/evaluate_gemini_agents_critic_no_files.json
 
+# classification metrics for critic no files
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_gemini_agents_critic_no_files.tsv \
+data/raw/ground_truth.tsv \
+--agent-name gemini-critic-no-files \
+--output output/evaluation_results/classify_gemini_critic_no_files.csv
+
 # evaluate output using specific sections of Guarino's file (no introduction section)
 # the sections are extracted from the converted text file with corrections made
 uv run python scripts/evaluate_analysis.py \
@@ -378,6 +504,13 @@ output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_no_i
 data/raw/ground_truth.tsv \
 --agent gemini \
 --output output/evaluation_results/evaluate_gemini_agents_critic_using_files_no_intro.json
+
+# classification metrics for critic no intro
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_no_intro.tsv \
+data/raw/ground_truth.tsv \
+--agent-name gemini-critic-no-intro \
+--output output/evaluation_results/classify_gemini_critic_no_intro.csv
 
 # evaluate output using specific sections of Guarino's file, but include the introduction section as well
 # since it contains important context about the paper and ontology
@@ -387,6 +520,13 @@ output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_with
 data/raw/ground_truth.tsv \
 --agent gemini \
 --output output/evaluation_results/evaluate_gemini_agents_critic_using_files_with_intro.json
+
+# classification metrics for critic with intro
+uv run python scripts/evaluate_classification_metrics.py \
+output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_with_intro.tsv \
+data/raw/ground_truth.tsv \
+--agent-name gemini-critic-with-intro \
+--output output/evaluation_results/classify_gemini_critic_with_intro.csv
 
 ### save agent critic evaluation results in a single tsv file for easier reporting and visualization
 uv run python scripts/collect_evaluations.py \
