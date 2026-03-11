@@ -7,6 +7,9 @@
         eval-non-agent eval-non-agent-claude eval-non-agent-gemini \
         eval-agent eval-agent-claude eval-agent-gemini \
         eval-critic eval-critic-claude eval-critic-gemini \
+        classify-non-agent classify-non-agent-claude classify-non-agent-gemini \
+        classify-agent classify-agent-claude classify-agent-gemini \
+        classify-critic classify-critic-claude classify-critic-gemini \
         collect-non-agent collect-agent collect-critic \
         reports reproduce-static reproduce-batch
 
@@ -167,6 +170,52 @@ eval-critic-gemini: ## Evaluate agent critic Gemini analyses (3 evaluations)
 	uv run python scripts/evaluate_analysis.py output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_no_intro.tsv data/raw/ground_truth.tsv --agent gemini --output output/evaluation_results/evaluate_gemini_agents_critic_using_files_no_intro.json
 	uv run python scripts/evaluate_analysis.py output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_with_intro.tsv data/raw/ground_truth.tsv --agent gemini --output output/evaluation_results/evaluate_gemini_agents_critic_using_files_with_intro.json
 
+##@ Classification Metrics Evaluation
+
+classify-non-agent: classify-non-agent-claude classify-non-agent-gemini ## Generate classification metrics for all non-agent analyses
+
+classify-non-agent-claude: ## Generate classification metrics for non-agent Claude analyses (4 evaluations)
+	@echo "$(BLUE)Generating classification metrics for non-agent Claude analyses...$(NC)"
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_claude_no_files.tsv data/raw/ground_truth.tsv --agent-name anthropic-no-files --output output/evaluation_results/classify_claude_no_files.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_claude_pdf.tsv data/raw/ground_truth.tsv --agent-name anthropic-pdf --output output/evaluation_results/classify_claude_pdf.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_claude_text.tsv data/raw/ground_truth.tsv --agent-name anthropic-text --output output/evaluation_results/classify_claude_text.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_claude_corrected_text.tsv data/raw/ground_truth.tsv --agent-name anthropic-corrected --output output/evaluation_results/classify_claude_corrected_text.csv
+
+classify-non-agent-gemini: ## Generate classification metrics for non-agent Gemini analyses (4 evaluations)
+	@echo "$(BLUE)Generating classification metrics for non-agent Gemini analyses...$(NC)"
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_no_files.tsv data/raw/ground_truth.tsv --agent-name gemini-no-files --output output/evaluation_results/classify_gemini_no_files.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_pdf.tsv data/raw/ground_truth.tsv --agent-name gemini-pdf --output output/evaluation_results/classify_gemini_pdf.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_text.tsv data/raw/ground_truth.tsv --agent-name gemini-text --output output/evaluation_results/classify_gemini_text.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_corrected_text.tsv data/raw/ground_truth.tsv --agent-name gemini-corrected --output output/evaluation_results/classify_gemini_corrected_text.csv
+
+classify-agent: classify-agent-claude classify-agent-gemini ## Generate classification metrics for all agent analyses
+
+classify-agent-claude: ## Generate classification metrics for agent Claude analyses (3 evaluations)
+	@echo "$(BLUE)Generating classification metrics for agent Claude analyses...$(NC)"
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_claude_agents_no_files.tsv data/raw/ground_truth.tsv --agent-name anthropic-agents-no-files --output output/evaluation_results/classify_claude_agents_no_files.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_claude_agents_using_files_no_intro.tsv data/raw/ground_truth.tsv --agent-name anthropic-agents-no-intro --output output/evaluation_results/classify_claude_agents_no_intro.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_claude_agents_using_files_with_intro.tsv data/raw/ground_truth.tsv --agent-name anthropic-agents-with-intro --output output/evaluation_results/classify_claude_agents_with_intro.csv
+
+classify-agent-gemini: ## Generate classification metrics for agent Gemini analyses (3 evaluations)
+	@echo "$(BLUE)Generating classification metrics for agent Gemini analyses...$(NC)"
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_agents_no_files.tsv data/raw/ground_truth.tsv --agent-name gemini-agents-no-files --output output/evaluation_results/classify_gemini_agents_no_files.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_agents_using_files_no_intro.tsv data/raw/ground_truth.tsv --agent-name gemini-agents-no-intro --output output/evaluation_results/classify_gemini_agents_no_intro.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_agents_using_files_with_intro.tsv data/raw/ground_truth.tsv --agent-name gemini-agents-with-intro --output output/evaluation_results/classify_gemini_agents_with_intro.csv
+
+classify-critic: classify-critic-claude classify-critic-gemini ## Generate classification metrics for all agent critic analyses
+
+classify-critic-claude: ## Generate classification metrics for agent critic Claude analyses (3 evaluations)
+	@echo "$(BLUE)Generating classification metrics for agent critic Claude analyses...$(NC)"
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_claude_agents_critic_no_files.tsv data/raw/ground_truth.tsv --agent-name anthropic-critic-no-files --output output/evaluation_results/classify_claude_critic_no_files.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_claude_agents_critic_using_files_no_intro.tsv data/raw/ground_truth.tsv --agent-name anthropic-critic-no-intro --output output/evaluation_results/classify_claude_critic_no_intro.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_claude_agents_critic_using_files_with_intro.tsv data/raw/ground_truth.tsv --agent-name anthropic-critic-with-intro --output output/evaluation_results/classify_claude_critic_with_intro.csv
+
+classify-critic-gemini: ## Generate classification metrics for agent critic Gemini analyses (3 evaluations)
+	@echo "$(BLUE)Generating classification metrics for agent critic Gemini analyses...$(NC)"
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_agents_critic_no_files.tsv data/raw/ground_truth.tsv --agent-name gemini-critic-no-files --output output/evaluation_results/classify_gemini_critic_no_files.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_no_intro.tsv data/raw/ground_truth.tsv --agent-name gemini-critic-no-intro --output output/evaluation_results/classify_gemini_critic_no_intro.csv
+	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_with_intro.tsv data/raw/ground_truth.tsv --agent-name gemini-critic-with-intro --output output/evaluation_results/classify_gemini_critic_with_intro.csv
+
 ##@ Results Collection and Reports
 
 collect-non-agent: ## Collect non-agent evaluation results into reports
@@ -248,6 +297,7 @@ reports: collect-non-agent collect-agent collect-critic batch-non-agent-expanded
 
 ##@ Complete Workflows
 
-reproduce-batch: batch-non-agent eval-non-agent collect-non-agent batch-agent eval-agent collect-agent batch-critic eval-critic collect-critic batch-non-agent-expanded ## Run complete batch analysis reproduction (46 experiments)
+reproduce-batch: batch-non-agent eval-non-agent classify-non-agent collect-non-agent batch-agent eval-agent classify-agent collect-agent batch-critic eval-critic classify-critic collect-critic batch-non-agent-expanded ## Run complete batch analysis reproduction with classification metrics (46 experiments + 20 classification evaluations)
 	@echo "$(GREEN)Complete batch analysis reproduction finished!$(NC)"
 	@echo "Reports available in docs/reports/"
+	@echo "Classification metrics available in output/evaluation_results/classify_*.csv"

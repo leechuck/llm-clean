@@ -74,8 +74,15 @@ chmod +x reproduce_batch_analysis.sh
    - Each property analysis validated by critic with feedback loop
 
 4. **Evaluation**: Compares all analysis results (20 total runs) against ground truth data
+   - Standard accuracy evaluation using `evaluate_analysis.py`
+   - Classification metrics evaluation using `evaluate_classification_metrics.py`
 
-5. **Aggregation**: Collects all evaluations into summary reports:
+5. **Classification Metrics Generation** (20 evaluations):
+   - Generates detailed precision, recall, F1-score, and confusion matrix metrics
+   - Creates CSV files for each analysis run in `output/evaluation_results/classify_*.csv`
+   - Includes per-class, macro-averaged, and overall metrics
+
+6. **Aggregation**: Collects all evaluations into summary reports:
    - `output/collect_non_agent_results.tsv` / `.md`
    - `output/collect_agent_results.tsv` / `.md`
    - `output/collect_agent_critic_results.tsv` / `.md`
@@ -108,7 +115,12 @@ make batch-critic              # All critic analyses (both models)
 # Run evaluation and reports for specific mode
 make eval-agent collect-agent  # Evaluate and collect agent results
 
-# Run complete batch analysis (20 experiments)
+# Generate classification metrics for specific mode
+make classify-non-agent        # Classification metrics for non-agent analyses
+make classify-agent            # Classification metrics for agent analyses
+make classify-critic           # Classification metrics for critic analyses
+
+# Run complete batch analysis (20 experiments + 20 classification evaluations)
 make reproduce-batch
 
 # Clean outputs
@@ -122,6 +134,7 @@ make clean
 - **Benchmarks**: `benchmark-zeroshot`, `benchmark-agentic`
 - **Batch Analysis**: `batch-non-agent`, `batch-agent`, `batch-critic` (+ model-specific variants)
 - **Evaluation**: `eval-non-agent`, `eval-agent`, `eval-critic` (+ model-specific variants)
+- **Classification Metrics**: `classify-non-agent`, `classify-agent`, `classify-critic` (+ model-specific variants)
 - **Reports**: `collect-non-agent`, `collect-agent`, `collect-critic`, `reports`
 - **Complete Workflows**: `all`, `reproduce-batch`
 
