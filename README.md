@@ -267,6 +267,49 @@ The JSON output includes:
 - Per-term detailed comparisons (predicted vs. ground truth)
 - Exact match statistics
 
+#### **Classification Metrics Evaluation**
+For more detailed classification metrics (precision, recall, F1-score) with confusion matrix analysis:
+```bash
+# Display comprehensive classification metrics
+python scripts/evaluate_classification_metrics.py predictions.tsv ground_truth.tsv
+
+# Save to JSON
+python scripts/evaluate_classification_metrics.py predictions.tsv ground_truth.tsv \
+  --output metrics.json
+
+# Save to CSV with agent name
+python scripts/evaluate_classification_metrics.py predictions.tsv ground_truth.tsv \
+  --output metrics.csv \
+  --agent-name "gemini-critic"
+
+# Save to TSV
+python scripts/evaluate_classification_metrics.py predictions.tsv ground_truth.tsv \
+  --output metrics.tsv
+
+# Save to Markdown
+python scripts/evaluate_classification_metrics.py predictions.tsv ground_truth.tsv \
+  --output metrics.md
+```
+
+**Supported output formats:** `json`, `csv`, `tsv`, `md` (determined by file extension)
+
+**Metrics calculated:**
+- **Per-class metrics**: Accuracy, Precision, Recall, F1-Score, Support, TP, FP, TN, FN for each property value (e.g., +R, -R, ~R)
+- **Macro-averaged metrics**: Aggregated metrics across all classes for each property
+- **Overall metrics**: Aggregated metrics across all properties
+
+**Accuracy calculation:** All accuracy values use the confusion matrix formula: `(TP + TN) / (TP + FP + TN + FN)`
+
+**Console output includes:**
+- Property-level breakdown with per-class metrics
+- Overall summary statistics
+- Easy-to-read formatted tables
+
+**File output includes:**
+- Structured data for further analysis
+- Complete confusion matrix values for each class
+- Aggregate statistics for macro and overall levels
+
 #### **Aggregate Multiple Evaluations**
 Collect and compare results from multiple evaluation runs (e.g., different models):
 ```bash
