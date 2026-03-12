@@ -1,0 +1,58 @@
+[
+  {
+    "term": "Location",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "-U",
+    "dependence": "-D"
+  },
+  {
+    "term": "Caterpillar",
+    "rigidity": "~R",
+    "identity": "+I",
+    "own_identity": "-O",
+    "unity": "+U",
+    "dependence": "-D"
+  },
+  {
+    "term": "Organization",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "+U",
+    "dependence": "+D"
+  },
+  {
+    "term": "AmountOfMatter",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "~U",
+    "dependence": "-D"
+  },
+  {
+    "term": "Fruit",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "+U",
+    "dependence": "-D"
+  },
+  {
+    "term": "PhysicalObject",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "+U",
+    "dependence": "-D"
+  },
+  {
+    "term": "SocialEntity",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "+U",
+    "dependence": "-D"
+  }
+]

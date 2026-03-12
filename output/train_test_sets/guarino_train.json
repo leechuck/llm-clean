@@ -1,0 +1,114 @@
+[
+  {
+    "term": "Agent",
+    "rigidity": "~R",
+    "identity": "-I",
+    "own_identity": "-O",
+    "unity": "-U",
+    "dependence": "+D"
+  },
+  {
+    "term": "Butterfly",
+    "rigidity": "~R",
+    "identity": "+I",
+    "own_identity": "-O",
+    "unity": "+U",
+    "dependence": "-D"
+  },
+  {
+    "term": "RedApple",
+    "rigidity": "~R",
+    "identity": "+I",
+    "own_identity": "-O",
+    "unity": "+U",
+    "dependence": "-D"
+  },
+  {
+    "term": "Vertebrate",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "-O",
+    "unity": "+U",
+    "dependence": "-D"
+  },
+  {
+    "term": "Red",
+    "rigidity": "-R",
+    "identity": "-I",
+    "own_identity": "-O",
+    "unity": "-U",
+    "dependence": "-D"
+  },
+  {
+    "term": "Food",
+    "rigidity": "~R",
+    "identity": "+I",
+    "own_identity": "-O",
+    "unity": "~U",
+    "dependence": "+D"
+  },
+  {
+    "term": "Country",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "+U",
+    "dependence": "+D"
+  },
+  {
+    "term": "Group",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "-U",
+    "dependence": "-D"
+  },
+  {
+    "term": "Apple",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "+U",
+    "dependence": "-D"
+  },
+  {
+    "term": "GroupOfPeople",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "-O",
+    "unity": "-U",
+    "dependence": "-D"
+  },
+  {
+    "term": "Animal",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "+U",
+    "dependence": "-D"
+  },
+  {
+    "term": "LegalAgent",
+    "rigidity": "~R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "-U",
+    "dependence": "+D"
+  },
+  {
+    "term": "Person",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "+U",
+    "dependence": "-D"
+  },
+  {
+    "term": "LivingBeing",
+    "rigidity": "+R",
+    "identity": "+I",
+    "own_identity": "+O",
+    "unity": "+U",
+    "dependence": "-D"
+  }
+]

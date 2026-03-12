@@ -1,0 +1,8 @@
+term	rigidity	identity	own_identity	unity	dependence
+Location	+R	+I	+O	-U	-D
+Caterpillar	~R	+I	-O	+U	-D
+Organization	+R	+I	+O	+U	+D
+AmountOfMatter	+R	+I	+O	~U	-D
+Fruit	+R	+I	+O	+U	-D
+PhysicalObject	+R	+I	+O	+U	-D
+SocialEntity	+R	+I	+O	+U	-D

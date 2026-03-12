@@ -17,6 +17,8 @@ dependencies = [
     "langchain-core",
     "git-root",
     "pymupdf>=1.27.1",
+    "dspy-ai>=2.5.0",
+    "scikit-learn>=1.3.0",
 ]
 
 [build-system]
