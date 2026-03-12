@@ -160,13 +160,9 @@ Examples:
     parser.add_argument(
         "--optimizer",
         default="BootstrapFewShot",
-        choices=[
-            "BootstrapFewShot",
-            "BootstrapFewShotWithRandomSearch",
-            "COPRO",
-            "MIPROv2",
-        ],
-        help="Optimizer to use (default: BootstrapFewShot). BootstrapFewShot is recommended for small datasets",
+        help="Optimizer to use (default: BootstrapFewShot, case-insensitive). "
+        "Options: BootstrapFewShot, BootstrapFewShotWithRandomSearch, COPRO, MIPROv2. "
+        "BootstrapFewShot is recommended for small datasets",
     )
 
     parser.add_argument(

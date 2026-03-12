@@ -333,8 +333,9 @@ class DSPyOntologyAnalyzer:
             training_examples: List of training examples (dspy.Example objects)
             validation_examples: Optional validation examples for evaluation
             metric: Metric function to optimize (if None, uses default accuracy metric)
-            optimizer: Optimizer to use (default: 'BootstrapFewShot')
+            optimizer: Optimizer to use (default: 'BootstrapFewShot'). Case-insensitive.
                       Options: 'BootstrapFewShot', 'BootstrapFewShotWithRandomSearch', 'COPRO', 'MIPROv2'
+                      Also accepts: 'bootstrap_few_shot', 'bootstrap-few-shot', 'mipro_v2', etc.
             save_path: Path to save the optimized module (optional)
 
             # BootstrapFewShot parameters (default: good for 20 samples)
@@ -362,6 +363,18 @@ class DSPyOntologyAnalyzer:
             - COPRO: Good for instruction optimization, moderate speed
             - MIPROv2: Most advanced, but may be overkill for 20 samples
         """
+        # Normalize optimizer to proper case (case-insensitive matching)
+        optimizer_map = {
+            "bootstrapfewshot": "BootstrapFewShot",
+            "bootstrapfewshotwithrandomsearch": "BootstrapFewShotWithRandomSearch",
+            "copro": "COPRO",
+            "miprov2": "MIPROv2",
+        }
+
+        optimizer_lower = optimizer.lower().replace("_", "").replace("-", "")
+        if optimizer_lower in optimizer_map:
+            optimizer = optimizer_map[optimizer_lower]
+
         # Validate optimizer choice
         valid_optimizers = [
             "BootstrapFewShot",
@@ -371,7 +384,7 @@ class DSPyOntologyAnalyzer:
         ]
         if optimizer not in valid_optimizers:
             raise ValueError(
-                f"Invalid optimizer: {optimizer}. Must be one of {valid_optimizers}"
+                f"Invalid optimizer: {optimizer}. Must be one of {valid_optimizers} (case-insensitive)"
             )
 
         if metric is None:
