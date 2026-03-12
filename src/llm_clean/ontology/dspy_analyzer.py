@@ -488,14 +488,18 @@ class DSPyOntologyAnalyzer:
         print("This may take several minutes...\n")
 
         # Different optimizers use different compile signatures
-        if optimizer == "COPRO":
-            # COPRO doesn't use valset
+        if optimizer in [
+            "COPRO",
+            "BootstrapFewShot",
+            "BootstrapFewShotWithRandomSearch",
+        ]:
+            # These optimizers don't use valset parameter
             optimized_module = teleprompter.compile(
                 self.module,
                 trainset=training_examples,
             )
         else:
-            # Other optimizers support valset
+            # MIPROv2 supports valset
             optimized_module = teleprompter.compile(
                 self.module,
                 trainset=training_examples,
