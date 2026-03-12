@@ -158,24 +158,74 @@ Examples:
     )
 
     parser.add_argument(
-        "--auto",
-        default="medium",
-        choices=["light", "medium", "heavy"],
-        help="Optimization mode: light (fast), medium (balanced), heavy (thorough) (default: medium)",
+        "--optimizer",
+        default="BootstrapFewShot",
+        choices=[
+            "BootstrapFewShot",
+            "BootstrapFewShotWithRandomSearch",
+            "COPRO",
+            "MIPROv2",
+        ],
+        help="Optimizer to use (default: BootstrapFewShot). BootstrapFewShot is recommended for small datasets",
     )
 
     parser.add_argument(
         "--max-bootstrapped-demos",
         type=int,
-        default=4,
-        help="Maximum number of bootstrapped demonstrations (default: 4)",
+        default=3,
+        help="Maximum number of bootstrapped demonstrations (default: 3 for ~20 samples)",
     )
 
     parser.add_argument(
         "--max-labeled-demos",
         type=int,
+        default=3,
+        help="Maximum number of labeled demonstrations (default: 3 for ~20 samples)",
+    )
+
+    # BootstrapFewShotWithRandomSearch specific
+    parser.add_argument(
+        "--num-candidate-programs",
+        type=int,
+        default=10,
+        help="Number of candidate programs (BootstrapFewShotWithRandomSearch only, default: 10)",
+    )
+
+    parser.add_argument(
+        "--num-threads",
+        type=int,
         default=4,
-        help="Maximum number of labeled demonstrations (default: 4)",
+        help="Number of threads (BootstrapFewShotWithRandomSearch only, default: 4)",
+    )
+
+    # COPRO specific
+    parser.add_argument(
+        "--breadth",
+        type=int,
+        default=10,
+        help="COPRO breadth parameter (default: 10)",
+    )
+
+    parser.add_argument(
+        "--depth",
+        type=int,
+        default=3,
+        help="COPRO depth parameter (default: 3)",
+    )
+
+    parser.add_argument(
+        "--init-temperature",
+        type=float,
+        default=1.0,
+        help="COPRO initial temperature (default: 1.0)",
+    )
+
+    # MIPROv2 specific
+    parser.add_argument(
+        "--auto",
+        default="medium",
+        choices=["light", "medium", "heavy"],
+        help="MIPROv2 optimization mode: light (fast), medium (balanced), heavy (thorough) (default: medium)",
     )
 
     parser.add_argument(
@@ -210,7 +260,9 @@ Examples:
     print(f"  Test file: {args.test_file}")
     print(f"  Output path: {args.output}")
     print(f"  Model: {args.model}")
-    print(f"  Optimization mode: {args.auto}")
+    print(f"  Optimizer: {args.optimizer}")
+    if args.optimizer == "MIPROv2":
+        print(f"  Optimization mode: {args.auto}")
     print(f"  Max bootstrapped demos: {args.max_bootstrapped_demos}")
     print(f"  Max labeled demos: {args.max_labeled_demos}")
 
@@ -245,23 +297,36 @@ Examples:
 
     # Run optimization
     print("\n" + "=" * 70)
-    print("Running MIPROv2 Optimization")
+    print(f"Running {args.optimizer} Optimization")
     print("=" * 70)
 
     print(f"\nThis will take several minutes...")
-    print(f"Optimization mode: {args.auto}")
     print("Progress will be shown by the optimizer...\n")
 
     try:
-        optimized_module = analyzer.optimize(
-            training_examples=analyzer.train_examples,
-            validation_examples=analyzer.test_examples,
-            metric=metric,
-            auto=args.auto,
-            max_bootstrapped_demos=args.max_bootstrapped_demos,
-            max_labeled_demos=args.max_labeled_demos,
-            save_path=args.output,
-        )
+        # Build kwargs based on optimizer
+        opt_kwargs = {
+            "training_examples": analyzer.train_examples,
+            "validation_examples": analyzer.test_examples,
+            "metric": metric,
+            "optimizer": args.optimizer,
+            "max_bootstrapped_demos": args.max_bootstrapped_demos,
+            "max_labeled_demos": args.max_labeled_demos,
+            "save_path": args.output,
+        }
+
+        # Add optimizer-specific parameters
+        if args.optimizer == "BootstrapFewShotWithRandomSearch":
+            opt_kwargs["num_candidate_programs"] = args.num_candidate_programs
+            opt_kwargs["num_threads"] = args.num_threads
+        elif args.optimizer == "COPRO":
+            opt_kwargs["breadth"] = args.breadth
+            opt_kwargs["depth"] = args.depth
+            opt_kwargs["init_temperature"] = args.init_temperature
+        elif args.optimizer == "MIPROv2":
+            opt_kwargs["auto"] = args.auto
+
+        optimized_module = analyzer.optimize(**opt_kwargs)
 
         print("\n" + "=" * 70)
         print("✓ Optimization Complete!")

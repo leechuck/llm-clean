@@ -9,7 +9,7 @@ import os
 import json
 import csv
 import dspy
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Literal
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -311,26 +311,69 @@ class DSPyOntologyAnalyzer:
         training_examples: List[dspy.Example],
         validation_examples: Optional[List[dspy.Example]] = None,
         metric: Optional[callable] = None,
-        auto: str = "medium",
-        max_bootstrapped_demos: int = 4,
-        max_labeled_demos: int = 4,
+        optimizer: str = "BootstrapFewShot",
         save_path: Optional[str] = None,
+        # BootstrapFewShot parameters (default optimizer)
+        max_bootstrapped_demos: int = 3,
+        max_labeled_demos: int = 3,
+        # BootstrapFewShotWithRandomSearch parameters
+        num_candidate_programs: int = 10,
+        num_threads: int = 4,
+        # COPRO parameters
+        breadth: int = 10,
+        depth: int = 3,
+        init_temperature: float = 1.0,
+        # MIPROv2 parameters
+        auto: str = "medium",
     ):
         """
-        Optimize the analyzer using MIPROv2.
+        Optimize the analyzer using one of several DSPy optimizers.
 
         Args:
             training_examples: List of training examples (dspy.Example objects)
             validation_examples: Optional validation examples for evaluation
             metric: Metric function to optimize (if None, uses default accuracy metric)
-            auto: Optimization mode: 'light' (fast), 'medium' (balanced), 'heavy' (thorough) (default: 'medium')
-            max_bootstrapped_demos: Max number of bootstrapped demonstrations (default: 4)
-            max_labeled_demos: Max number of labeled demonstrations (default: 4)
+            optimizer: Optimizer to use (default: 'BootstrapFewShot')
+                      Options: 'BootstrapFewShot', 'BootstrapFewShotWithRandomSearch', 'COPRO', 'MIPROv2'
             save_path: Path to save the optimized module (optional)
+
+            # BootstrapFewShot parameters (default: good for 20 samples)
+            max_bootstrapped_demos: Max bootstrapped demonstrations (default: 3)
+            max_labeled_demos: Max labeled demonstrations (default: 3)
+
+            # BootstrapFewShotWithRandomSearch parameters (default: good for 20 samples)
+            num_candidate_programs: Number of candidate programs to generate (default: 10)
+            num_threads: Number of parallel threads (default: 4)
+
+            # COPRO parameters (default: good for 20 samples)
+            breadth: Number of instructions to generate per step (default: 10)
+            depth: Number of optimization rounds (default: 3)
+            init_temperature: Initial temperature for generation (default: 1.0)
+
+            # MIPROv2 parameters (default: good for 20 samples)
+            auto: Optimization mode - 'light', 'medium', 'heavy' (default: 'medium')
 
         Returns:
             Optimized module
+
+        Recommended optimizers for small datasets (20 samples):
+            - BootstrapFewShot (default): Fast, simple, effective for small datasets
+            - BootstrapFewShotWithRandomSearch: More thorough, tests multiple prompt variations
+            - COPRO: Good for instruction optimization, moderate speed
+            - MIPROv2: Most advanced, but may be overkill for 20 samples
         """
+        # Validate optimizer choice
+        valid_optimizers = [
+            "BootstrapFewShot",
+            "BootstrapFewShotWithRandomSearch",
+            "COPRO",
+            "MIPROv2",
+        ]
+        if optimizer not in valid_optimizers:
+            raise ValueError(
+                f"Invalid optimizer: {optimizer}. Must be one of {valid_optimizers}"
+            )
+
         if metric is None:
             # Default metric: check if all properties match
             def default_metric(example, prediction, trace=None):
@@ -366,34 +409,95 @@ class DSPyOntologyAnalyzer:
             validation_examples if validation_examples else training_examples
         )
 
-        # Initialize MIPROv2 optimizer
-        from dspy.teleprompt import MIPROv2
+        # Initialize the appropriate optimizer
+        print(f"\nInitializing {optimizer} optimizer...")
+        print(f"Training examples: {len(training_examples)}")
+        print(f"Validation examples: {len(eval_examples)}")
 
-        teleprompter = MIPROv2(
-            metric=metric,
-            auto=auto,
-            max_bootstrapped_demos=max_bootstrapped_demos,
-            max_labeled_demos=max_labeled_demos,
-        )
+        if optimizer == "BootstrapFewShot":
+            from dspy.teleprompt import BootstrapFewShot
+
+            print(
+                f"Parameters: max_bootstrapped_demos={max_bootstrapped_demos}, max_labeled_demos={max_labeled_demos}"
+            )
+            teleprompter = BootstrapFewShot(
+                metric=metric,
+                max_bootstrapped_demos=max_bootstrapped_demos,
+                max_labeled_demos=max_labeled_demos,
+            )
+
+        elif optimizer == "BootstrapFewShotWithRandomSearch":
+            from dspy.teleprompt import BootstrapFewShotWithRandomSearch
+
+            print(
+                f"Parameters: num_candidate_programs={num_candidate_programs}, num_threads={num_threads}"
+            )
+            teleprompter = BootstrapFewShotWithRandomSearch(
+                metric=metric,
+                max_bootstrapped_demos=max_bootstrapped_demos,
+                max_labeled_demos=max_labeled_demos,
+                num_candidate_programs=num_candidate_programs,
+                num_threads=num_threads,
+            )
+
+        elif optimizer == "COPRO":
+            from dspy.teleprompt import COPRO
+
+            print(
+                f"Parameters: breadth={breadth}, depth={depth}, init_temperature={init_temperature}"
+            )
+            teleprompter = COPRO(
+                metric=metric,
+                breadth=breadth,
+                depth=depth,
+                init_temperature=init_temperature,
+            )
+
+        elif optimizer == "MIPROv2":
+            from dspy.teleprompt import MIPROv2
+
+            print(
+                f"Parameters: auto={auto}, max_bootstrapped_demos={max_bootstrapped_demos}, max_labeled_demos={max_labeled_demos}"
+            )
+            # Cast auto to Literal type for MIPROv2
+            auto_mode: Literal["light", "medium", "heavy"] = auto  # type: ignore
+            teleprompter = MIPROv2(
+                metric=metric,
+                auto=auto_mode,
+                max_bootstrapped_demos=max_bootstrapped_demos,
+                max_labeled_demos=max_labeled_demos,
+            )
+        else:
+            raise ValueError(f"Unknown optimizer: {optimizer}")
 
         # Compile (optimize) the module
-        print(
-            f"Starting MIPROv2 optimization (mode={auto}) with {len(training_examples)} training examples..."
-        )
-        optimized_module = teleprompter.compile(
-            self.module,
-            trainset=training_examples,
-            valset=eval_examples,
-        )
+        print(f"\nStarting {optimizer} optimization...")
+        print("This may take several minutes...\n")
+
+        # Different optimizers use different compile signatures
+        if optimizer == "COPRO":
+            # COPRO doesn't use valset
+            optimized_module = teleprompter.compile(
+                self.module,
+                trainset=training_examples,
+            )
+        else:
+            # Other optimizers support valset
+            optimized_module = teleprompter.compile(
+                self.module,
+                trainset=training_examples,
+                valset=eval_examples,
+            )
 
         # Update the module
         self.module = optimized_module
 
         # Save if path provided
         if save_path:
-            print(f"Saving optimized module to {save_path}")
+            print(f"\nSaving optimized module to {save_path}")
             optimized_module.save(save_path)
 
+        print(f"\n✓ {optimizer} optimization complete!")
         return optimized_module
 
     @staticmethod
