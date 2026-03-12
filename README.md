@@ -155,7 +155,14 @@ python scripts/generate_dspy_model.py \
   output/train_test_sets/data_test.tsv \
   output/models/optimized_model.json
 
-# Use the trained model
+# Batch analyze an ontology using the trained model
+python scripts/batch_analyze_dspy.py \
+  ontology/guarino_messy.owl \
+  --compiled-model output/models/optimized_model.json \
+  --model llama3b \
+  --output results.tsv
+
+# Or use the trained model in Python
 python -c "
 from src.llm_clean.ontology.dspy_analyzer import DSPyOntologyAnalyzer
 analyzer = DSPyOntologyAnalyzer(
@@ -210,7 +217,29 @@ uv run scripts/batch_analyze_owl_agents.py output/ontologies/guarino_messy.owl -
 
 #### **Batch Analysis Tools**
 
-Two tools are provided for batch analyzing OWL files:
+Three tools are provided for batch analyzing OWL files:
+
+**`batch_analyze_dspy.py`** - DSPy-optimized analyzer (recommended):
+```bash
+# Using a pre-trained optimized model
+python scripts/batch_analyze_dspy.py \
+  ontology/guarino_messy.owl \
+  --compiled-model output/models/optimized_llama3b.json \
+  --model llama3b \
+  --output results.tsv
+
+# Using base model without optimization
+python scripts/batch_analyze_dspy.py ontology.owl \
+  --model llama8b \
+  --output results.tsv
+
+# With runtime optimization
+python scripts/batch_analyze_dspy.py ontology.owl \
+  --train-file train.tsv \
+  --test-file test.tsv \
+  --optimize-mode medium \
+  --output results.tsv
+```
 
 **`batch_analyze_owl.py`** - Standard rdflib-based parser:
 ```bash
