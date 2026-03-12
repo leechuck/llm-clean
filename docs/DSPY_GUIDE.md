@@ -76,7 +76,7 @@ python scripts/generate_dspy_model.py \
 python -c "
 from src.llm_clean.ontology.dspy_analyzer import DSPyOntologyAnalyzer
 analyzer = DSPyOntologyAnalyzer(
-    model='gemini',
+    model='llama3b',
     compiled_model_path='output/models/optimized_model.json'
 )
 result = analyzer.analyze('Student', 'A person enrolled in a university')
@@ -218,12 +218,12 @@ python scripts/generate_dspy_model.py \
 ### Supported Models
 
 **Model Shortcuts** (use native API keys):
+- `llama3b` → meta-llama/llama-3.2-3b-instruct (default - fast and cost-effective)
+- `llama8b` → meta-llama/llama-3.1-8b-instruct
 - `gemini` → google/gemini-3-flash-preview (uses GOOGLE_API_KEY or GEMINI_API_KEY)
 - `anthropic` → anthropic/claude-4.5-sonnet (uses ANTHROPIC_API_KEY)
 - `gemma9b` → google/gemma-2-9b-it
 - `qwen7b` → qwen/qwen-2.5-7b-instruct
-- `llama3b` → meta-llama/llama-3.2-3b-instruct
-- `llama8b` → meta-llama/llama-3.1-8b-instruct
 
 **Full Model Names** (use OPENROUTER_API_KEY):
 - `google/gemini-3-flash-preview`
@@ -266,7 +266,7 @@ python scripts/generate_dspy_model.py \
 ```bash
 python scripts/generate_dspy_model.py \
   train.tsv test.tsv output.json \
-  --model anthropic \                    # Use Claude instead of Gemini
+  --model anthropic \                    # Use Claude instead of default llama3b
   --optimize-mode heavy \                # Thorough optimization
   --skip-pre-eval \                      # Skip initial evaluation
   --skip-post-eval                       # Skip final evaluation
@@ -276,7 +276,7 @@ python scripts/generate_dspy_model.py \
 - `train_file`: Path to training data (TSV, CSV, or JSON)
 - `test_file`: Path to test data (TSV, CSV, or JSON)
 - `output`: Path to save compiled model (JSON format)
-- `--model`: LLM model to use (default: `gemini`)
+- `--model`: LLM model to use (default: `llama3b`)
 - `--optimize-mode`: Optimization thoroughness (default: `medium`)
 - `--skip-pre-eval`: Skip pre-optimization evaluation
 - `--skip-post-eval`: Skip post-optimization evaluation
@@ -292,7 +292,7 @@ Loaded 14 training examples
 Loading test data from test.tsv...
 Loaded 7 test examples
 
-Initializing DSPy analyzer with model: gemini
+Initializing DSPy analyzer with model: llama3b
 ✓ Analyzer initialized successfully
 
 === Pre-Optimization Evaluation ===
@@ -342,7 +342,7 @@ from src.llm_clean.ontology.dspy_analyzer import DSPyOntologyAnalyzer
 
 # Load a pre-trained model
 analyzer = DSPyOntologyAnalyzer(
-    model='gemini',  # Must match the model used for training
+    model='llama3b',  # Must match the model used for training
     compiled_model_path='output/models/optimized_model.json'
 )
 
@@ -379,7 +379,7 @@ You can also optimize during runtime:
 
 ```python
 analyzer = DSPyOntologyAnalyzer(
-    model='gemini',
+    model='llama3b',
     train_file='output/train_test_sets/data_train.tsv',
     test_file='output/train_test_sets/data_test.tsv'
 )
@@ -402,7 +402,7 @@ import csv
 
 # Load model
 analyzer = DSPyOntologyAnalyzer(
-    model='gemini',
+    model='llama3b',
     compiled_model_path='output/models/optimized_model.json'
 )
 
@@ -546,7 +546,7 @@ class DSPyOntologyAnalyzer:
     
     def __init__(
         self,
-        model: str = "gemini",
+        model: str = "llama3b",
         train_file: Optional[str] = None,
         test_file: Optional[str] = None,
         compiled_model_path: Optional[str] = None
@@ -641,7 +641,7 @@ python scripts/generate_dspy_model.py TRAIN_FILE TEST_FILE OUTPUT [OPTIONS]
 - `output`: Path to save compiled model
 
 **Options:**
-- `--model MODEL`: LLM model to use (default: gemini)
+- `--model MODEL`: LLM model to use (default: llama3b)
 - `--optimize-mode {light,medium,heavy}`: Optimization mode (default: medium)
 - `--skip-pre-eval`: Skip pre-optimization evaluation
 - `--skip-post-eval`: Skip post-optimization evaluation
@@ -657,9 +657,10 @@ python scripts/generate_dspy_model.py TRAIN_FILE TEST_FILE OUTPUT [OPTIONS]
 4. **Consistent Format**: Stick to one format (TSV recommended for readability)
 
 ### Model Selection
-1. **Start Small**: Use `gemini` (fast, cost-effective) for initial experiments
-2. **Scale Up**: Switch to `anthropic` or `openai/gpt-4o` for production
-3. **Match Training**: Use the same model for training and inference
+1. **Start Small**: Use `llama3b` (default, fast, cost-effective) for initial experiments
+2. **Try Alternatives**: Experiment with `gemini` or `llama8b` for different performance
+3. **Scale Up**: Switch to `anthropic` or `openai/gpt-4o` for production
+4. **Match Training**: Use the same model for training and inference
 
 ### Optimization
 1. **Start Light**: Use `light` mode for quick iterations
@@ -697,7 +698,7 @@ python scripts/generate_dspy_model.py TRAIN_FILE TEST_FILE OUTPUT [OPTIONS]
 **Issue: "Optimization takes too long"**
 - Use `light` mode for faster results
 - Reduce training set size
-- Try a faster model (gemini instead of anthropic)
+- Try a faster/smaller model (llama3b is the default and quite fast)
 
 **Issue: "Poor performance after optimization"**
 - Check training data quality
@@ -722,20 +723,19 @@ python scripts/generate_train_test.py \
   output/analyzed_entities/agent_results.tsv \
   --train-size 0.75
 
-# Step 2: Train optimized model
+# Step 2: Train optimized model (uses llama3b by default)
 python scripts/generate_dspy_model.py \
   output/train_test_sets/agent_results_train.tsv \
   output/train_test_sets/agent_results_test.tsv \
-  output/models/optimized_gemini.json \
-  --model gemini \
+  output/models/optimized_llama3b.json \
   --optimize-mode medium
 
 # Step 3: Use trained model
 python -c "
 from src.llm_clean.ontology.dspy_analyzer import DSPyOntologyAnalyzer
 analyzer = DSPyOntologyAnalyzer(
-    model='gemini',
-    compiled_model_path='output/models/optimized_gemini.json'
+    model='llama3b',
+    compiled_model_path='output/models/optimized_llama3b.json'
 )
 result = analyzer.analyze('Professor', 'An academic faculty member at a university')
 print(f'Classification: {result[\"classification\"]}')
@@ -746,28 +746,28 @@ print(f'Reasoning: {result[\"reasoning\"]}')
 ### Example 2: Model Comparison
 
 ```bash
-# Train Gemini model
+# Train Llama 3B model (default, fast)
 python scripts/generate_dspy_model.py \
-  train.tsv test.tsv output/gemini_model.json \
-  --model gemini --optimize-mode medium
+  train.tsv test.tsv output/llama3b_model.json \
+  --optimize-mode medium
 
-# Train Claude model
+# Train Llama 8B model (more capable)
 python scripts/generate_dspy_model.py \
-  train.tsv test.tsv output/claude_model.json \
-  --model anthropic --optimize-mode medium
+  train.tsv test.tsv output/llama8b_model.json \
+  --model llama8b --optimize-mode medium
 
 # Compare both
 python -c "
 from src.llm_clean.ontology.dspy_analyzer import DSPyOntologyAnalyzer
 
-gemini = DSPyOntologyAnalyzer('gemini', compiled_model_path='output/gemini_model.json')
-claude = DSPyOntologyAnalyzer('anthropic', compiled_model_path='output/claude_model.json')
+llama3b = DSPyOntologyAnalyzer('llama3b', compiled_model_path='output/llama3b_model.json')
+llama8b = DSPyOntologyAnalyzer('llama8b', compiled_model_path='output/llama8b_model.json')
 
 test_term = 'Employee'
 test_desc = 'A person working for an organization'
 
-print('Gemini:', gemini.analyze(test_term, test_desc)['classification'])
-print('Claude:', claude.analyze(test_term, test_desc)['classification'])
+print('Llama 3B:', llama3b.analyze(test_term, test_desc)['classification'])
+print('Llama 8B:', llama8b.analyze(test_term, test_desc)['classification'])
 "
 ```
 
@@ -779,7 +779,7 @@ import json
 
 # Load model
 analyzer = DSPyOntologyAnalyzer(
-    model='gemini',
+    model='llama3b',
     compiled_model_path='output/models/optimized_model.json'
 )
 

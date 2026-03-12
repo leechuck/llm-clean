@@ -153,8 +153,8 @@ Examples:
 
     parser.add_argument(
         "--model",
-        default="gemini",
-        help="Model to use (default: gemini). Options: gemini, anthropic, gemma9b, qwen7b, llama3b, llama8b",
+        default="llama3b",
+        help="Model to use (default: llama3b). Options: gemini, anthropic, gemma9b, qwen7b, llama3b, llama8b",
     )
 
     parser.add_argument(

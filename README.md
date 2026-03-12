@@ -159,7 +159,7 @@ python scripts/generate_dspy_model.py \
 python -c "
 from src.llm_clean.ontology.dspy_analyzer import DSPyOntologyAnalyzer
 analyzer = DSPyOntologyAnalyzer(
-    model='gemini',
+    model='llama3b',
     compiled_model_path='output/models/optimized_model.json'
 )
 result = analyzer.analyze('Student', 'A person enrolled in a university')
@@ -176,8 +176,9 @@ print(result)
 **Benefits of DSPy:**
 - ✅ Automatic prompt optimization based on training data
 - ✅ Reproducible and measurable improvements
-- ✅ Works across different model types (Gemini, Claude, GPT-4, etc.)
+- ✅ Works across different model types (Llama, Gemini, Claude, GPT-4, etc.)
 - ✅ No manual prompt engineering required
+- ✅ Default uses Llama 3B (fast, cost-effective)
 
 ---
 
