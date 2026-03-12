@@ -394,7 +394,43 @@ result = analyzer.analyze('Employee', 'A person working for an organization')
 analyzer.module.save('output/models/my_model.json')
 ```
 
-### Batch Analysis
+### Batch Analysis from OWL Files
+
+For analyzing entire ontologies, use the `batch_analyze_dspy.py` script:
+
+```bash
+# Using a pre-trained optimized model
+python scripts/batch_analyze_dspy.py \
+  ontology/guarino_messy.owl \
+  --compiled-model output/models/optimized_llama3b.json \
+  --model llama3b \
+  --output results.tsv
+
+# Using base model without optimization
+python scripts/batch_analyze_dspy.py \
+  ontology/my_ontology.owl \
+  --model llama8b \
+  --output results.json \
+  --format json
+
+# With runtime optimization
+python scripts/batch_analyze_dspy.py \
+  ontology/my_ontology.owl \
+  --train-file output/train_test_sets/data_train.tsv \
+  --test-file output/train_test_sets/data_test.tsv \
+  --optimize-mode medium \
+  --output results.tsv
+
+# Test on limited entities
+python scripts/batch_analyze_dspy.py \
+  ontology/my_ontology.owl \
+  --compiled-model models/optimized.json \
+  --limit 5
+```
+
+### Batch Analysis from Python
+
+For custom batch processing in Python:
 
 ```python
 from src.llm_clean.ontology.dspy_analyzer import DSPyOntologyAnalyzer
@@ -445,7 +481,8 @@ src/llm_clean/ontology/
 
 scripts/
 ├── generate_train_test.py    # Data splitting tool
-└── generate_dspy_model.py    # Model training tool
+├── generate_dspy_model.py    # Model training tool
+└── batch_analyze_dspy.py     # Batch ontology analysis with DSPy
 ```
 
 ### DSPyOntologyAnalyzer Architecture
@@ -646,6 +683,40 @@ python scripts/generate_dspy_model.py TRAIN_FILE TEST_FILE OUTPUT [OPTIONS]
 - `--skip-pre-eval`: Skip pre-optimization evaluation
 - `--skip-post-eval`: Skip post-optimization evaluation
 
+### batch_analyze_dspy.py
+
+```bash
+python scripts/batch_analyze_dspy.py INPUT_OWL [OPTIONS]
+```
+
+**Arguments:**
+- `input_owl`: Path to OWL ontology file
+
+**Options:**
+- `--format {tsv,json}`: Output format (default: tsv)
+- `--output FILE`: Output file path (default: stdout)
+- `--limit N`: Limit number of classes to analyze (for testing)
+- `--model MODEL`: LLM model to use (default: llama3b)
+- `--compiled-model PATH`: Path to pre-trained/optimized DSPy model (JSON file)
+- `--train-file PATH`: Path to training data for runtime optimization (TSV, CSV, or JSON)
+- `--test-file PATH`: Path to test data for evaluation during optimization (TSV, CSV, or JSON)
+- `--optimize-mode {light,medium,heavy}`: Optimization mode (only used with --train-file)
+
+**Examples:**
+```bash
+# Use pre-trained model
+python scripts/batch_analyze_dspy.py input.owl \
+  --compiled-model models/optimized.json \
+  --output results.tsv
+
+# Runtime optimization
+python scripts/batch_analyze_dspy.py input.owl \
+  --train-file train.tsv \
+  --test-file test.tsv \
+  --optimize-mode medium \
+  --output results.tsv
+```
+
 ---
 
 ## Tips & Best Practices
@@ -771,7 +842,36 @@ print('Llama 8B:', llama8b.analyze(test_term, test_desc)['classification'])
 "
 ```
 
-### Example 3: Custom Evaluation
+### Example 3: Batch Analyze Ontology
+
+```bash
+# Step 1: Train an optimized model (if you haven't already)
+python scripts/generate_dspy_model.py \
+  output/train_test_sets/data_train.tsv \
+  output/train_test_sets/data_test.tsv \
+  output/models/optimized_llama3b.json \
+  --optimize-mode medium
+
+# Step 2: Analyze entire ontology using trained model
+python scripts/batch_analyze_dspy.py \
+  ontology/guarino_messy.owl \
+  --compiled-model output/models/optimized_llama3b.json \
+  --model llama3b \
+  --output output/analyzed_entities/dspy_results.tsv
+
+# Step 3: Compare with ground truth
+python scripts/evaluate_analysis.py \
+  output/analyzed_entities/dspy_results.tsv \
+  data/raw/ground_truth.tsv \
+  --output output/evaluation_results/dspy_evaluation.json
+
+# View detailed classification metrics
+python scripts/evaluate_classification_metrics.py \
+  output/analyzed_entities/dspy_results.tsv \
+  data/raw/ground_truth.tsv
+```
+
+### Example 4: Custom Evaluation
 
 ```python
 from src.llm_clean.ontology.dspy_analyzer import DSPyOntologyAnalyzer
