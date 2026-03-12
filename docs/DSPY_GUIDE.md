@@ -215,6 +215,55 @@ python scripts/generate_dspy_model.py \
   output/models/optimized_model.json
 ```
 
+### Supported Optimizers
+
+DSPy provides multiple optimization strategies. Choose based on your dataset size and quality needs:
+
+| Optimizer | Speed | Quality | Best For | Recommended Dataset Size |
+|-----------|-------|---------|----------|-------------------------|
+| **BootstrapFewShot** (default) | ⚡⚡⚡ Fast | ⭐⭐ Good | Small datasets, quick iterations | 10-50 samples |
+| **BootstrapFewShotWithRandomSearch** | ⚡⚡ Moderate | ⭐⭐⭐ Better | Testing multiple variations | 20-100 samples |
+| **COPRO** | ⚡⚡ Moderate | ⭐⭐⭐ Better | Instruction optimization | 20-100 samples |
+| **MIPROv2** | ⚡ Slow | ⭐⭐⭐⭐ Best | Large datasets, production use | 100+ samples |
+
+**Optimizer Selection Guide:**
+
+```bash
+# BootstrapFewShot (default - recommended for ~20 samples)
+python scripts/generate_dspy_model.py \
+  train.tsv test.tsv output.json \
+  --optimizer BootstrapFewShot
+
+# BootstrapFewShotWithRandomSearch (tests multiple prompt variations)
+python scripts/generate_dspy_model.py \
+  train.tsv test.tsv output.json \
+  --optimizer BootstrapFewShotWithRandomSearch \
+  --num-candidate-programs 10 \
+  --num-threads 4
+
+# COPRO (optimizes instructions)
+python scripts/generate_dspy_model.py \
+  train.tsv test.tsv output.json \
+  --optimizer COPRO \
+  --breadth 10 \
+  --depth 3
+
+# MIPROv2 (most advanced, for larger datasets)
+python scripts/generate_dspy_model.py \
+  train.tsv test.tsv output.json \
+  --optimizer MIPROv2 \
+  --auto medium
+```
+
+**Default Parameters (optimized for 20 samples):**
+
+- **BootstrapFewShot**: `max_bootstrapped_demos=3`, `max_labeled_demos=3`
+- **BootstrapFewShotWithRandomSearch**: `num_candidate_programs=10`, `num_threads=4`
+- **COPRO**: `breadth=10`, `depth=3`, `init_temperature=1.0`
+- **MIPROv2**: `auto='medium'`, `max_bootstrapped_demos=3`, `max_labeled_demos=3`
+
+All parameters can be overridden via command-line flags.
+
 ### Supported Models
 
 **Model Shortcuts** (use native API keys):
@@ -232,15 +281,15 @@ python scripts/generate_dspy_model.py \
 - `meta-llama/llama-3.1-70b-instruct`
 - And any other OpenRouter-supported model
 
-### Optimization Modes
+### MIPROv2 Optimization Modes
 
-MIPROv2 supports three optimization modes:
+If using MIPROv2 optimizer, you can specify the optimization thoroughness:
 
 | Mode | Speed | Quality | Best For |
 |------|-------|---------|----------|
-| `light` | Fast | Good | Quick experiments, small datasets |
+| `light` | Fast | Good | Quick experiments |
 | `medium` | Moderate | Better | General use (default) |
-| `heavy` | Slow | Best | Production models, large datasets |
+| `heavy` | Slow | Best | Production models |
 
 **Example Usage:**
 
@@ -248,17 +297,20 @@ MIPROv2 supports three optimization modes:
 # Light mode (fast experimentation)
 python scripts/generate_dspy_model.py \
   train.tsv test.tsv output.json \
-  --optimize-mode light
+  --optimizer MIPROv2 \
+  --auto light
 
 # Medium mode (balanced, default)
 python scripts/generate_dspy_model.py \
   train.tsv test.tsv output.json \
-  --optimize-mode medium
+  --optimizer MIPROv2 \
+  --auto medium
 
 # Heavy mode (best quality)
 python scripts/generate_dspy_model.py \
   train.tsv test.tsv output.json \
-  --optimize-mode heavy
+  --optimizer MIPROv2 \
+  --auto heavy
 ```
 
 ### Advanced Options
@@ -266,20 +318,44 @@ python scripts/generate_dspy_model.py \
 ```bash
 python scripts/generate_dspy_model.py \
   train.tsv test.tsv output.json \
-  --model anthropic \                    # Use Claude instead of default llama3b
-  --optimize-mode heavy \                # Thorough optimization
-  --skip-pre-eval \                      # Skip initial evaluation
-  --skip-post-eval                       # Skip final evaluation
+  --model anthropic \                      # Use Claude instead of default llama3b
+  --optimizer MIPROv2 \                    # Use MIPROv2 instead of default BootstrapFewShot
+  --auto heavy \                           # Thorough optimization (MIPROv2 only)
+  --max-bootstrapped-demos 5 \             # Override default (3)
+  --max-labeled-demos 5 \                  # Override default (3)
+  --evaluate-before \                      # Evaluate before optimization
+  --evaluate-after                         # Evaluate after optimization
 ```
 
 **All Options:**
+
+**Required:**
 - `train_file`: Path to training data (TSV, CSV, or JSON)
 - `test_file`: Path to test data (TSV, CSV, or JSON)
-- `output`: Path to save compiled model (JSON format)
+- `--output`: Path to save compiled model (JSON format)
+
+**General:**
 - `--model`: LLM model to use (default: `llama3b`)
-- `--optimize-mode`: Optimization thoroughness (default: `medium`)
-- `--skip-pre-eval`: Skip pre-optimization evaluation
-- `--skip-post-eval`: Skip post-optimization evaluation
+- `--optimizer`: Optimizer to use (default: `BootstrapFewShot`)
+  - Options: `BootstrapFewShot`, `BootstrapFewShotWithRandomSearch`, `COPRO`, `MIPROv2`
+- `--evaluate-before`: Evaluate model before optimization
+- `--evaluate-after`: Evaluate model after optimization
+
+**BootstrapFewShot / BootstrapFewShotWithRandomSearch:**
+- `--max-bootstrapped-demos`: Max bootstrapped demonstrations (default: 3)
+- `--max-labeled-demos`: Max labeled demonstrations (default: 3)
+
+**BootstrapFewShotWithRandomSearch only:**
+- `--num-candidate-programs`: Number of candidate programs (default: 10)
+- `--num-threads`: Number of parallel threads (default: 4)
+
+**COPRO only:**
+- `--breadth`: Number of instructions per step (default: 10)
+- `--depth`: Number of optimization rounds (default: 3)
+- `--init-temperature`: Initial temperature (default: 1.0)
+
+**MIPROv2 only:**
+- `--auto`: Optimization mode - `light`, `medium`, `heavy` (default: `medium`)
 
 ### Understanding the Output
 
@@ -384,14 +460,25 @@ analyzer = DSPyOntologyAnalyzer(
     test_file='output/train_test_sets/data_test.tsv'
 )
 
-# Optimize the model
-analyzer.optimize(mode='medium')
+# Optimize the model (using default BootstrapFewShot)
+analyzer.optimize(
+    training_examples=analyzer.train_examples,
+    validation_examples=analyzer.test_examples,
+    optimizer='BootstrapFewShot',  # or 'BootstrapFewShotWithRandomSearch', 'COPRO', 'MIPROv2'
+    save_path='output/models/my_model.json'
+)
 
 # Now use it for analysis
 result = analyzer.analyze('Employee', 'A person working for an organization')
 
-# Save for later use
-analyzer.module.save('output/models/my_model.json')
+# Try different optimizers
+analyzer.optimize(
+    training_examples=analyzer.train_examples,
+    validation_examples=analyzer.test_examples,
+    optimizer='MIPROv2',
+    auto='heavy',  # MIPROv2-specific parameter
+    save_path='output/models/mipro_model.json'
+)
 ```
 
 ### Batch Analysis from OWL Files
@@ -627,17 +714,38 @@ Analyzes an entity and returns ontological properties.
 ```python
 def optimize(
     self,
-    mode: str = "medium"
-) -> None
+    training_examples: List[dspy.Example],
+    validation_examples: Optional[List[dspy.Example]] = None,
+    metric: Optional[callable] = None,
+    optimizer: str = "BootstrapFewShot",
+    save_path: Optional[str] = None,
+    # Optimizer-specific parameters
+    max_bootstrapped_demos: int = 3,
+    max_labeled_demos: int = 3,
+    num_candidate_programs: int = 10,
+    num_threads: int = 4,
+    breadth: int = 10,
+    depth: int = 3,
+    init_temperature: float = 1.0,
+    auto: str = "medium",
+) -> dspy.Module
 ```
 
-Runs MIPROv2 optimization on training data.
+Optimizes the analyzer using the specified DSPy optimizer.
 
 **Parameters:**
-- `mode`: Optimization mode ('light', 'medium', or 'heavy')
+- `training_examples`: List of training examples (dspy.Example objects)
+- `validation_examples`: Optional validation examples
+- `metric`: Custom metric function (optional, uses default if None)
+- `optimizer`: Optimizer to use (default: 'BootstrapFewShot')
+  - Options: `'BootstrapFewShot'`, `'BootstrapFewShotWithRandomSearch'`, `'COPRO'`, `'MIPROv2'`
+- `save_path`: Path to save optimized module (optional)
+- **BootstrapFewShot/BootstrapFewShotWithRandomSearch**: `max_bootstrapped_demos`, `max_labeled_demos`
+- **BootstrapFewShotWithRandomSearch**: `num_candidate_programs`, `num_threads`
+- **COPRO**: `breadth`, `depth`, `init_temperature`
+- **MIPROv2**: `auto` (`'light'`, `'medium'`, or `'heavy'`)
 
-**Requirements:**
-- Must have `train_file` and `test_file` set during initialization
+**Returns:** Optimized DSPy module
 
 #### evaluate()
 ```python
@@ -679,9 +787,18 @@ python scripts/generate_dspy_model.py TRAIN_FILE TEST_FILE OUTPUT [OPTIONS]
 
 **Options:**
 - `--model MODEL`: LLM model to use (default: llama3b)
-- `--optimize-mode {light,medium,heavy}`: Optimization mode (default: medium)
-- `--skip-pre-eval`: Skip pre-optimization evaluation
-- `--skip-post-eval`: Skip post-optimization evaluation
+- `--optimizer`: Optimizer to use (default: BootstrapFewShot)
+  - Options: `BootstrapFewShot`, `BootstrapFewShotWithRandomSearch`, `COPRO`, `MIPROv2`
+- `--max-bootstrapped-demos INT`: Max bootstrapped demos (default: 3)
+- `--max-labeled-demos INT`: Max labeled demos (default: 3)
+- `--num-candidate-programs INT`: Candidate programs for RandomSearch (default: 10)
+- `--num-threads INT`: Threads for RandomSearch (default: 4)
+- `--breadth INT`: COPRO breadth (default: 10)
+- `--depth INT`: COPRO depth (default: 3)
+- `--init-temperature FLOAT`: COPRO temperature (default: 1.0)
+- `--auto {light,medium,heavy}`: MIPROv2 mode (default: medium)
+- `--evaluate-before`: Evaluate before optimization
+- `--evaluate-after`: Evaluate after optimization
 
 ### batch_analyze_dspy.py
 
@@ -734,10 +851,12 @@ python scripts/batch_analyze_dspy.py input.owl \
 4. **Match Training**: Use the same model for training and inference
 
 ### Optimization
-1. **Start Light**: Use `light` mode for quick iterations
-2. **Go Medium**: Use `medium` mode for most use cases (good balance)
-3. **Go Heavy**: Use `heavy` mode only for final production models
-4. **Monitor Progress**: Watch the evaluation scores to see improvement
+1. **Start Simple**: Use `BootstrapFewShot` (default) for initial experiments with small datasets
+2. **Try Variations**: Use `BootstrapFewShotWithRandomSearch` to test multiple prompt variations
+3. **Instruction Tuning**: Use `COPRO` if you want to optimize instructions specifically
+4. **Scale Up**: Use `MIPROv2` for larger datasets (100+ samples) and production use
+5. **Tune Parameters**: Adjust `max_bootstrapped_demos` and `max_labeled_demos` based on dataset size
+6. **Monitor Progress**: Watch the evaluation scores to see improvement
 
 ### Evaluation
 1. **Holdout Test Set**: Never train on your test data
