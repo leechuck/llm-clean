@@ -488,8 +488,14 @@ class DSPyOntologyAnalyzer:
         print("This may take several minutes...\n")
 
         # Different optimizers use different compile signatures
-        if optimizer in [
-            "COPRO",
+        if optimizer == "COPRO":
+            # COPRO requires eval_kwargs (passed to the metric function)
+            optimized_module = teleprompter.compile(
+                self.module,
+                trainset=training_examples,
+                eval_kwargs={"num_threads": num_threads},
+            )
+        elif optimizer in [
             "BootstrapFewShot",
             "BootstrapFewShotWithRandomSearch",
         ]:
