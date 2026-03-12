@@ -1,0 +1,97 @@
+{
+  "analyzer.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "LivingBeing",
+        "description": "",
+        "usage": "",
+        "reasoning": "\"LivingBeing\" refers to any organism that exhibits the characteristics of life (metabolism, growth, reproduction, etc.). This is a fundamental biological category. Rigidity: Something is essentially a living being - if an entity is a living being, it cannot cease to be one without ceasing to exist (death = non-existence as that entity), making it +R (Rigid). Identity: Living beings carry identity conditions - they maintain continuity through biological processes and have clear criteria for individuation and persistence (+I). Own Identity: \"LivingBeing\" supplies its own identity condition based on biological organization and life processes (+O). Unity: Living beings are intrinsic wholes with functional integration of their parts, making them +U (Unifying). Dependence: Living beings can exist independently as self-sufficient organisms without intrinsically depending on other specific entities (-D).",
+        "rigidity": "+R",
+        "identity": "+I",
+        "own_identity": "+O",
+        "unity": "+U",
+        "dependence": "-D",
+        "classification": "Sortal (Natural Kind)"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "\"RedApple\" is a phase-like property combining the sortal \"Apple\" with the contingent property \"Red\". An apple can be red at one time and not red at another (e.g., a green apple that ripens to red, or a red apple that rots and changes color). The redness is not essential to being that particular apple - the same individual apple can exist while being green or red. This makes it anti-rigid (~R). As a sortal-based concept, it carries identity inherited from \"Apple\" (+I), but does not supply its own identity condition beyond what \"Apple\" provides (-O). Apples are intrinsic wholes with clear boundaries (+U), and they can exist independently without intrinsic dependence on other entities (-D).",
+        "rigidity": "~R",
+        "identity": "+I",
+        "own_identity": "-O",
+        "unity": "+U",
+        "dependence": "-D",
+        "classification": "Phase"
+      },
+      {
+        "term": "Person",
+        "description": "",
+        "usage": "",
+        "rigidity": "+R",
+        "identity": "+I",
+        "own_identity": "+O",
+        "unity": "+U",
+        "dependence": "-D"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the \"Formal Ontology of Properties\" methodology by Guarino and Welty (2000). Your task is to perform rigorous philosophical analysis of a given term to determine its fundamental ontological meta-properties.\n\n**Analysis Framework:**\n\nFor the given term, systematically evaluate each of the five meta-properties by asking the following diagnostic questions:\n\n**1. Rigidity (R)** - *Is this property essential to its instances?*\n   - **+R (Rigid)**: Could any instance lose this property and still exist as the same entity? If NO → +R. Example: \"Person\" is rigid because a person cannot cease being a person and remain the same entity.\n   - **~R (Anti-Rigid)**: Is this property necessarily non-essential, representing a phase or role? If YES → ~R. Example: \"Student\" is anti-rigid because being a student is temporary and contextual.\n   - **-R (Non-Rigid)**: Otherwise → -R. The property may or may not be essential to different instances.\n\n**2. Identity (I)** - *Does this property carry criteria for identifying instances across time and possible worlds?*\n   - **+I**: Does this property provide or inherit principles for tracking individual instances? Examples: \"Person\" (+I), \"Organization\" (+I)\n   - **-I**: Does the property lack identity criteria? Examples: \"Red\" (-I), \"Heavy\" (-I)\n\n**3. Own Identity (O)** - *Does this property supply its OWN unique identity condition, rather than inheriting it?*\n   - **+O**: Does this property define NEW identity criteria specific to itself? This is rare - typically only for natural kinds and fundamental sortals. Example: \"Person\" supplies its own biological/psychological continuity criteria.\n   - **-O**: Does it inherit identity from elsewhere or have none? Examples: \"Student\" inherits identity from Person, \"Employee\" inherits from Person.\n   - **Constraint**: +O necessarily implies +I (you cannot supply identity without carrying it)\n\n**4. Unity (U)** - *Do instances form integrated wholes or can they be arbitrary collections?*\n   - **+U (Unifying)**: Are instances necessarily bounded, cohesive wholes with intrinsic unity? Examples: \"Person\" (+U), \"Building\" (+U)\n   - **~U (Anti-Unity)**: Are instances essentially collections, aggregates, or sums? Examples: \"GroupOfPeople\" (~U), \"Forest\" (~U)\n   - **-U (Non-Unifying)**: Instances need not form wholes but aren't necessarily aggregates. Example: \"Red\" can apply to unified objects or scattered collections.\n\n**5. Dependence (D)** - *Must instances intrinsically depend on other entities to exist?*\n   - **+D (Dependent)**: Cannot exist without something else. Examples: \"Role\" depends on players, \"Employee\" depends on employer, \"Color\" depends on colored objects.\n   - **-D (Independent)**: Can exist autonomously. Examples: \"Person\" (-D), \"Tree\" (-D)\n\n**Analysis Process:**\n\n1. **Understand the term's semantics**: Consider what the term fundamentally means, not contingent facts about specific instances\n2. **Apply the diagnostic questions** systematically for each meta-property\n3. **Check logical constraints**: Verify +O implies +I; ensure consistency across properties\n4. **Determine classification**: Based on the meta-property pattern:\n   - **Sortal**: +R, +I, typically +O, +U, -D (e.g., natural kinds like \"Person\", \"Tree\")\n   - **Role**: ~R, +I, -O, +U, +D (e.g., \"Student\", \"Employee\", \"LegalAgent\")\n   - **Mixin**: -R, +I, -O (properties that are sometimes essential, sometimes not)\n   - **Quality/Attribute**: -R, -I, -O (e.g., \"Red\", \"Heavy\")\n   - **Collective**: ~R, +I, -O, ~U, +D (e.g., \"GroupOfPeople\", \"Committee\")\n5. **Provide clear reasoning**: Explain WHY each meta-property receives its value, referencing the term's semantics and the framework's definitions\n\n**Output Format:**\n\nProvide your complete analysis with:\n- **Reasoning**: A coherent explanation addressing each meta-property and how you determined its value\n- **Rigidity**: Exactly one of: +R, -R, ~R\n- **Identity**: Exactly one of: +I, -I\n- **Own Identity**: Exactly one of: +O, -O\n- **Unity**: Exactly one of: +U, -U, ~U\n- **Dependence**: Exactly one of: +D, -D\n- **Classification**: The ontological category (Sortal, Role, Mixin, Quality, Collective, etc.)\n\nAnalyze the term based purely on its semantic meaning and philosophical nature, not on contingent empirical facts.",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context for the entity"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Brief explanation of the analysis and classification"
+        },
+        {
+          "prefix": "Rigidity:",
+          "description": "Rigidity meta-property value: '+R' (Rigid), '-R' (Non-Rigid), or '~R' (Anti-Rigid)"
+        },
+        {
+          "prefix": "Identity:",
+          "description": "Identity meta-property value: '+I' (carries identity) or '-I' (no identity)"
+        },
+        {
+          "prefix": "Own Identity:",
+          "description": "Own Identity meta-property value: '+O' (supplies own IC) or '-O' (does not supply own IC)"
+        },
+        {
+          "prefix": "Unity:",
+          "description": "Unity meta-property value: '+U' (Unifying), '-U' (Non-Unifying), or '~U' (Anti-Unity)"
+        },
+        {
+          "prefix": "Dependence:",
+          "description": "Dependence meta-property value: '+D' (Dependent) or '-D' (Independent)"
+        },
+        {
+          "prefix": "Classification:",
+          "description": "Entity classification based on meta-properties (e.g., 'Sortal', 'Role', 'Mixin')"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.1.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}

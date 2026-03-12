@@ -2,40 +2,9 @@
   "analyzer.predict": {
     "traces": [],
     "train": [],
-    "demos": [
-      {
-        "term": "LivingBeing",
-        "description": "",
-        "usage": "",
-        "rigidity": "+R",
-        "identity": "+I",
-        "own_identity": "+O",
-        "unity": "+U",
-        "dependence": "-D"
-      },
-      {
-        "term": "Country",
-        "description": "",
-        "usage": "",
-        "rigidity": "+R",
-        "identity": "+I",
-        "own_identity": "+O",
-        "unity": "+U",
-        "dependence": "+D"
-      },
-      {
-        "term": "Person",
-        "description": "",
-        "usage": "",
-        "rigidity": "+R",
-        "identity": "+I",
-        "own_identity": "+O",
-        "unity": "+U",
-        "dependence": "-D"
-      }
-    ],
+    "demos": [],
     "signature": {
-      "instructions": "To analyze an entity using the Guarino and Welty framework, provide the entity term, description, and usage context, and specify the meta-properties to be assigned, using the following definitions:\n- Rigidity (R): +R (Rigid), -R (Non-Rigid), or ~R (Anti-Rigid)\n- Identity (I): +I (carries identity) or -I (no identity)\n- Own Identity (O): +O (supplies own IC) or -O (does not supply own IC)\n- Unity (U): +U (Unifying), -U (Non-Unifying), or ~U (Anti-Unity)\n- Dependence (D): +D (Dependent) or -D (Independent)\nReturn your analysis in strict JSON format, including the classification and a brief explanation.",
+      "instructions": "You are an expert Ontological Analyst specializing in the \"Formal Ontology of Properties\" methodology by Guarino and Welty (2000). Your task is to analyze a given entity and assign its 5 ontological meta-properties (Rigidity, Identity, Own Identity, Unity, and Dependence) based on the paper's framework. The entity's representation will be provided in a structured format, including its lexical and conceptual information. Return your analysis in strict JSON format, along with a classification of the entity into Sortal, Role, Mixin, or other categories based on its meta-properties, and a brief explanation of your reasoning.",
       "fields": [
         {
           "prefix": "Term:",
@@ -74,7 +43,7 @@
           "description": "Dependence meta-property value: '+D' (Dependent) or '-D' (Independent)"
         },
         {
-          "prefix": "Classification:",
+          "prefix": "Entity Representation: A structured format including the entity's lexical and conceptual information.",
           "description": "Entity classification based on meta-properties (e.g., 'Sortal', 'Role', 'Mixin')"
         }
       ]

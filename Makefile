@@ -216,6 +216,103 @@ classify-critic-gemini: ## Generate classification metrics for agent critic Gemi
 	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_no_intro.tsv data/raw/ground_truth.tsv --agent-name gemini-critic-no-intro --output output/evaluation_results/classify_gemini_critic_no_intro.csv
 	uv run python scripts/evaluate_classification_metrics.py output/analyzed_entities/analyzed_entities_gemini_agents_critic_using_files_with_intro.tsv data/raw/ground_truth.tsv --agent-name gemini-critic-with-intro --output output/evaluation_results/classify_gemini_critic_with_intro.csv
 
+##@ Generate DSPy Models
+TRAIN_FILE = output/train_test_sets/guarino_train.json
+TEST_FILE = output/train_test_sets/guarino_test.json
+	
+generate-anthropic-%-dspy-model: ## Generate DSPy model for Claude analyses
+	@echo "$(BLUE)Generating DSPy model for Claude analyses...$(NC)"
+	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model anthropic \
+	--optimizer $* \
+	--output output/dspy_models/guarino_claude_$*_model.json
+
+generate-anthropic-dspy-models: \
+	generate-anthropic-BootstrapFewShot-dspy-model \
+	generate-anthropic-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-anthropic-COPRO-dspy-model \
+	generate-anthropic-MIPROv2-dspy-model
+
+generate-gemini-%-dspy-model: ## Generate DSPy model for Gemini analyses
+	@echo "$(BLUE)Generating DSPy model for Gemini analyses...$(NC)"
+	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model gemini \
+	--optimizer $* \
+	--output output/dspy_models/guarino_gemini_$*_model.json
+
+generate-gemini-dspy-models: \
+	generate-gemini-BootstrapFewShot-dspy-model \
+	generate-gemini-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-gemini-COPRO-dspy-model \
+	generate-gemini-MIPROv2-dspy-model
+
+generate-large-llm-dspy-models: \
+	generate-anthropic-dspy-models \
+	generate-gemini-dspy-models
+
+generate-gemma9b-%-dspy-model: ## Generate DSPy model for Gemma 9B analyses
+	@echo "$(BLUE)Generating DSPy model for Gemma 9B analyses...$(NC)"
+	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model gemma9b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_gemma9b_$*_model.json
+
+generate-qwen7b-%-dspy-model: ## Generate DSPy model for Qwen 7B analyses
+	@echo "$(BLUE)Generating DSPy model for Qwen 7B analyses...$(NC)"
+	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen7b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_qwen7b_$*_model.json
+
+generate-llama8b-%-dspy-model: ## Generate DSPy model for LLaMA 8B analyses
+	@echo "$(BLUE)Generating DSPy model for LLaMA 8B analyses...$(NC)"
+	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama8b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_llama8b_$*_model.json
+
+generate-llama3b-%-dspy-model: ## Generate DSPy model for LLaMA 3B analyses
+	@echo "$(BLUE)Generating DSPy model for LLaMA 3B analyses...$(NC)"
+	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama3b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_llama3b_$*_model.json
+
+generate-small-llm-dspy-models: \
+	generate-gemma9b-BootstrapFewShot-dspy-model \
+	generate-gemma9b-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-gemma9b-COPRO-dspy-model \
+	generate-gemma9b-MIPROv2-dspy-model \
+	generate-qwen7b-BootstrapFewShot-dspy-model \
+	generate-qwen7b-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-qwen7b-COPRO-dspy-model \
+	generate-qwen7b-MIPROv2-dspy-model \
+	generate-llama8b-BootstrapFewShot-dspy-model \
+	generate-llama8b-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-llama8b-COPRO-dspy-model \
+	generate-llama8b-MIPROv2-dspy-model \
+	generate-llama3b-BootstrapFewShot-dspy-model \
+	generate-llama3b-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-llama3b-COPRO-dspy-model \
+	generate-llama3b-MIPROv2-dspy-model
+
+##@ Batch Analysis Non-Agent DSPy Compiled Models
+ONTOLOGY_FILE = output/ontologies/guarino_messy.owl
+MODEL_DIR = output/dspy_models
+
+define batch-non-agent-dspy
+	echo "--compiled-model $(MODEL_DIR)/guarino_$(1)_$(2)_model.json --model $(3)"
+# 	uv run python scripts/batch_analyze_dspy.py $(ONTOLOGY_FILE) \
+# 	--compiled-model $(MODEL_DIR)/guarino_$(1)_$(2)_model.json \
+# 	--model $(3) \
+# 	--output output/analyzed_entities/dspy_analyzed_entities_$*.tsv
+
+endef
+
+batch-non-agent-dspy-using-gemma9b-with-anthropic-%-model:
+	$(call batch-non-agent-dspy,claude,$*,gemma9b)
+
+# batch-non-agent-dspy-using-gemma9b-with-anthropic-%-model: ## Analyze ontology with DSPy model
+# 	@echo "$(BLUE)Batch analyzing non-agent model with DSPy anthropic $* model...$(NC)"
+# 	uv run python scripts/batch_analyze_dspy.py $(ONTOLOGY_FILE) \
+# 	--compiled-model $(MODEL_DIR)/guarino_claude_$*_model.json \
+# 	--model gemma9b \
+# 	--output output/analyzed_entities/dspy_analyzed_entities_$*.tsv
+
 ##@ Results Collection and Reports
 
 collect-non-agent: ## Collect non-agent evaluation results into reports

@@ -1,0 +1,60 @@
+{
+  "analyzer.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "You are a formal ontologist applying the OntoClean methodology (Guarino & Welty, 2000) to validate taxonomic structures. Your goal is to evaluate a specific term's essence, identity, and structure to determine its meta-properties and formal category.\n\n### The 5 Meta-Properties (OntoClean):\n1.  **Rigidity (R)**: \n    *   **+R**: If an instance belongs to this property, it *must* belong to it in all possible worlds (e.g., Person, Animal).\n    *   **-R**: Not essential to every instance (e.g., High-rise building).\n    *   **~R (Anti-Rigid)**: Not essential to *any* instance; an entity can stop having this property without ceasing to exist (e.g., Student, Employee, Phase).\n2.  **Identity (I)**: Does the property carry an Identity Condition (IC) that allows us to distinguish two instances and track them over time? (+I / -I).\n3.  **Own Identity (O)**: Does the property *provide* the IC (+O), or does it *inherit* it from a parent? \n    *   *Constraint*: If +O, it must also be +I.\n4.  **Unity (U)**:\n    *   **+U**: Every instance is a single whole with a common unifying relation (topological unity).\n    *   **-U**: No common wholeness is implied.\n    *   **~U (Anti-Unity)**: Instances are strictly sums/collections/aggregates (e.g., \"Group of People\", \"Furniture\").\n5.  **Dependence (D)**: Is the property (+D) or (-D) dependent? Does an instance of this property require the existence of another specific entity (not a part)? (e.g., \"LegalAgent\" depends on \"Law\").\n\n### Classification Guide:\n- **Sortal**: (+R, +I, +O)\n- **Role**: (~R, +I, -O, +D)\n- **Phase**: (~R, +I, -O, -D)\n- **Collective**: (+R, +I, +O, ~U)\n- **Attributive/Mixin**: Properties typically carrying -I or ~R that represent qualities rather than entities.\n\n### Output Format:\nYour output must be structured with the following keys:\n- **Reasoning**: A step-by-step logical deduction for each property value. Mention \"Identity Conditions\" and \"Essentiality\" specifically.\n- **Rigidity**: Choose [+R, -R, ~R]\n- **Identity**: Choose [+I, -I]\n- **Own_identity**: Choose [+O, -O]\n- **Unity**: Choose [+U, -U, ~U]\n- **Dependence**: Choose [+D, -D]\n- **Classification**: State the formal OntoClean category (e.g., Type, Role, Phase, Mixin, Collective).",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context for the entity"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Brief explanation of the analysis and classification"
+        },
+        {
+          "prefix": "Rigidity:",
+          "description": "Rigidity meta-property value: '+R' (Rigid), '-R' (Non-Rigid), or '~R' (Anti-Rigid)"
+        },
+        {
+          "prefix": "Identity:",
+          "description": "Identity meta-property value: '+I' (carries identity) or '-I' (no identity)"
+        },
+        {
+          "prefix": "Own Identity:",
+          "description": "Own Identity meta-property value: '+O' (supplies own IC) or '-O' (does not supply own IC)"
+        },
+        {
+          "prefix": "Unity:",
+          "description": "Unity meta-property value: '+U' (Unifying), '-U' (Non-Unifying), or '~U' (Anti-Unity)"
+        },
+        {
+          "prefix": "Dependence:",
+          "description": "Dependence meta-property value: '+D' (Dependent) or '-D' (Independent)"
+        },
+        {
+          "prefix": "Classification:",
+          "description": "Entity classification based on meta-properties (e.g., 'Sortal', 'Role', 'Mixin')"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.1.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}

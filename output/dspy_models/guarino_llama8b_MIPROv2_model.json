@@ -4,7 +4,20 @@
     "train": [],
     "demos": [
       {
-        "term": "LivingBeing",
+        "augmented": true,
+        "term": "LegalAgent",
+        "description": "",
+        "usage": "",
+        "reasoning": "A LegalAgent is a role or position that holds legal power or authority, which implies that its instances are non-rigid (can change over time) and have no inherent unity as an entity, and they typically do not have own identity or unity. Their existence depends on the human entity holding the role or position.",
+        "rigidity": "~R",
+        "identity": "-I",
+        "own_identity": "-O",
+        "unity": "~U",
+        "dependence": "-D",
+        "classification": "Role"
+      },
+      {
+        "term": "Animal",
         "description": "",
         "usage": "",
         "rigidity": "+R",
@@ -14,28 +27,18 @@
         "dependence": "-D"
       },
       {
-        "term": "Country",
+        "term": "Agent",
         "description": "",
         "usage": "",
-        "rigidity": "+R",
-        "identity": "+I",
-        "own_identity": "+O",
-        "unity": "+U",
+        "rigidity": "~R",
+        "identity": "-I",
+        "own_identity": "-O",
+        "unity": "-U",
         "dependence": "+D"
-      },
-      {
-        "term": "Person",
-        "description": "",
-        "usage": "",
-        "rigidity": "+R",
-        "identity": "+I",
-        "own_identity": "+O",
-        "unity": "+U",
-        "dependence": "-D"
       }
     ],
     "signature": {
-      "instructions": "To analyze an entity using the Guarino and Welty framework, provide the entity term, description, and usage context, and specify the meta-properties to be assigned, using the following definitions:\n- Rigidity (R): +R (Rigid), -R (Non-Rigid), or ~R (Anti-Rigid)\n- Identity (I): +I (carries identity) or -I (no identity)\n- Own Identity (O): +O (supplies own IC) or -O (does not supply own IC)\n- Unity (U): +U (Unifying), -U (Non-Unifying), or ~U (Anti-Unity)\n- Dependence (D): +D (Dependent) or -D (Independent)\nReturn your analysis in strict JSON format, including the classification and a brief explanation.",
+      "instructions": "You are an expert Ontological Analyst specializing in the \"Formal Ontology of Properties\" methodology by Guarino and Welty (2000). Your task is to analyze a given entity (term) and assign its 5 ontological meta-properties based on the paper's framework, including rigidity, identity, own identity, unity, and dependence. Use the following definitions for the meta-properties and return your analysis in strict JSON format:\n{\n  \"properties\": {\n    \"rigidity\": \"+R\" | \"-R\" | \"~R\",\n    \"identity\": \"+I\" | \"-I\",\n    \"own_identity\": \"+O\" | \"-O\",\n    \"unity\": \"+U\" | \"-U\" | \"~U\",\n    \"dependence\": \"+D\" | \"-D\"\n  },\n  \"classification\": \"Sortal/Role/Mixin/etc\",\n  \"reasoning\": \"Brief explanation based on the entity's characteristics and usage context.\"\n}",
       "fields": [
         {
           "prefix": "Term:",
