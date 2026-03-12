@@ -142,7 +142,48 @@ Run `make help` to see the full list with descriptions.
 
 ## 🧪 OntoClean Property Analysis
 
-LLM-Clean provides two primary modes for analyzing entity meta-properties (Rigidity, Identity, Unity, Dependence).
+LLM-Clean provides multiple modes for analyzing entity meta-properties (Rigidity, Identity, Unity, Dependence):
+
+### 🚀 DSPy-Based Optimization (Recommended)
+
+For improved accuracy through automatic prompt optimization, use the **DSPy-based analyzer** with MIPROv2:
+
+```bash
+# Quick Start: Train an optimized model
+python scripts/generate_dspy_model.py \
+  output/train_test_sets/data_train.tsv \
+  output/train_test_sets/data_test.tsv \
+  output/models/optimized_model.json
+
+# Use the trained model
+python -c "
+from src.llm_clean.ontology.dspy_analyzer import DSPyOntologyAnalyzer
+analyzer = DSPyOntologyAnalyzer(
+    model='gemini',
+    compiled_model_path='output/models/optimized_model.json'
+)
+result = analyzer.analyze('Student', 'A person enrolled in a university')
+print(result)
+"
+```
+
+**📖 Full DSPy Guide**: See [docs/DSPY_GUIDE.md](docs/DSPY_GUIDE.md) for complete documentation on:
+- Data preparation and train/test splitting
+- Model training and optimization with MIPROv2
+- Using trained models for inference
+- Evaluation and comparison workflows
+
+**Benefits of DSPy:**
+- ✅ Automatic prompt optimization based on training data
+- ✅ Reproducible and measurable improvements
+- ✅ Works across different model types (Gemini, Claude, GPT-4, etc.)
+- ✅ No manual prompt engineering required
+
+---
+
+### Traditional Analysis Modes
+
+For direct inference without optimization, LLM-Clean provides two primary modes:
 
 ### 1. Analysis Modes
 
