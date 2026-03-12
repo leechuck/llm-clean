@@ -146,14 +146,20 @@ LLM-Clean provides multiple modes for analyzing entity meta-properties (Rigidity
 
 ### 🚀 DSPy-Based Optimization (Recommended)
 
-For improved accuracy through automatic prompt optimization, use the **DSPy-based analyzer** with MIPROv2:
+For improved accuracy through automatic prompt optimization, use the **DSPy-based analyzer**:
 
 ```bash
-# Quick Start: Train an optimized model
+# Quick Start: Train an optimized model (uses BootstrapFewShot by default)
 python scripts/generate_dspy_model.py \
   output/train_test_sets/data_train.tsv \
   output/train_test_sets/data_test.tsv \
   output/models/optimized_model.json
+
+# Or choose a different optimizer
+python scripts/generate_dspy_model.py \
+  train.tsv test.tsv output.json \
+  --optimizer MIPROv2 \
+  --auto heavy
 
 # Batch analyze an ontology using the trained model
 python scripts/batch_analyze_dspy.py \
@@ -174,18 +180,37 @@ print(result)
 "
 ```
 
+**Optimizer Options** (case-insensitive):
+
+| Optimizer | Speed | Quality | Best For |
+|-----------|-------|---------|----------|
+| **BootstrapFewShot** (default) | ⚡⚡⚡ Fast | ⭐⭐ Good | Small datasets (10-50 samples) |
+| **BootstrapFewShotWithRandomSearch** | ⚡⚡ Moderate | ⭐⭐⭐ Better | Testing variations (20-100 samples) |
+| **COPRO** | ⚡⚡ Moderate | ⭐⭐⭐ Better | Instruction optimization (20-100 samples) |
+| **MIPROv2** | ⚡ Slow | ⭐⭐⭐⭐ Best | Large datasets (100+ samples) |
+
+```bash
+# Examples with different optimizers (case-insensitive)
+python scripts/generate_dspy_model.py train.tsv test.tsv out.json --optimizer bootstrapfewshot
+python scripts/generate_dspy_model.py train.tsv test.tsv out.json --optimizer bootstrap-few-shot-with-random-search
+python scripts/generate_dspy_model.py train.tsv test.tsv out.json --optimizer COPRO --breadth 12
+python scripts/generate_dspy_model.py train.tsv test.tsv out.json --optimizer mipro_v2 --auto heavy
+```
+
 **📖 Full DSPy Guide**: See [docs/DSPY_GUIDE.md](docs/DSPY_GUIDE.md) for complete documentation on:
 - Data preparation and train/test splitting
-- Model training and optimization with MIPROv2
+- Choosing the right optimizer for your dataset
+- Optimizer-specific parameters and tuning
 - Using trained models for inference
 - Evaluation and comparison workflows
 
 **Benefits of DSPy:**
 - ✅ Automatic prompt optimization based on training data
+- ✅ Multiple optimizer options for different use cases
 - ✅ Reproducible and measurable improvements
 - ✅ Works across different model types (Llama, Gemini, Claude, GPT-4, etc.)
 - ✅ No manual prompt engineering required
-- ✅ Default uses Llama 3B (fast, cost-effective)
+- ✅ Defaults optimized for small datasets (~20 samples)
 
 ---
 
