@@ -1,8 +1,8 @@
 """
-DSPy-based Ontology Analyzer with MIPROv2 Optimization.
+DSPy-based Ontology Analyzer with Optimization.
 
 This analyzer uses the DSPy framework to create an optimizable ontology analysis pipeline.
-It uses the MIPROv2 optimizer to iteratively improve the model based on training examples.
+It uses an optimizer to improve the model.
 """
 
 import os

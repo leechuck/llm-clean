@@ -293,25 +293,89 @@ generate-small-llm-dspy-models: \
 ##@ Batch Analysis Non-Agent DSPy Compiled Models
 ONTOLOGY_FILE = output/ontologies/guarino_messy.owl
 MODEL_DIR = output/dspy_models
+ANALYZED_OUTPUT_DIR = output/analyzed_entities
+EVALUATION_RESULTS_DIR = output/evaluation_results
 
 define batch-non-agent-dspy
-	echo "--compiled-model $(MODEL_DIR)/guarino_$(1)_$(2)_model.json --model $(3)"
-# 	uv run python scripts/batch_analyze_dspy.py $(ONTOLOGY_FILE) \
-# 	--compiled-model $(MODEL_DIR)/guarino_$(1)_$(2)_model.json \
-# 	--model $(3) \
-# 	--output output/analyzed_entities/dspy_analyzed_entities_$*.tsv
+	@echo "DSPy Batch Analyzing guarino_$(1)_$(2)_model.json using model $(3)"
 
+	uv run python scripts/batch_analyze_dspy.py $(ONTOLOGY_FILE) \
+	--compiled-model $(MODEL_DIR)/guarino_$(1)_$(2)_model.json \
+	--model $(3) \
+	--output $(ANALYZED_OUTPUT_DIR)/dspy_analyzed_entities_$(1)_$(2)_$(3).tsv \
+	&& \
+	uv run python scripts/evaluate_classification_metrics.py\
+		$(strip \
+			$(ANALYZED_OUTPUT_DIR)/dspy_analyzed_entities_$(1)_$(2)_$(3).tsv \
+			data/raw/ground_truth.tsv
+		) \
+	--agent-name $(3) \
+	--output $(EVALUATION_RESULTS_DIR)/evaluate_dspy_$(1)_$(2)_$(3).json
 endef
 
-batch-non-agent-dspy-using-gemma9b-with-anthropic-%-model:
+batch-non-agent-dspy-anthropic-%-gemma9b:
 	$(call batch-non-agent-dspy,claude,$*,gemma9b)
 
-# batch-non-agent-dspy-using-gemma9b-with-anthropic-%-model: ## Analyze ontology with DSPy model
-# 	@echo "$(BLUE)Batch analyzing non-agent model with DSPy anthropic $* model...$(NC)"
-# 	uv run python scripts/batch_analyze_dspy.py $(ONTOLOGY_FILE) \
-# 	--compiled-model $(MODEL_DIR)/guarino_claude_$*_model.json \
-# 	--model gemma9b \
-# 	--output output/analyzed_entities/dspy_analyzed_entities_$*.tsv
+batch-non-agent-dspy-anthropic-%-qwen7b:
+	$(call batch-non-agent-dspy,claude,$*,qwen7b)
+
+batch-non-agent-dspy-anthropic-%-llama8b:
+	$(call batch-non-agent-dspy,claude,$*,llama8b)
+
+batch-non-agent-dspy-anthropic-%-llama3b:
+	$(call batch-non-agent-dspy,claude,$*,llama3b)
+
+batch-non-agent-dspy-gemini-%-gemma9b:
+	$(call batch-non-agent-dspy,gemini,$*,gemma9b)
+
+batch-non-agent-dspy-gemini-%-qwen7b:
+	$(call batch-non-agent-dspy,gemini,$*,qwen7b)
+
+batch-non-agent-dspy-gemini-%-llama8b:
+	$(call batch-non-agent-dspy,gemini,$*,llama8b)
+
+batch-non-agent-dspy-gemini-%-llama3b:
+	$(call batch-non-agent-dspy,gemini,$*,llama3b)
+
+batch-non-agent-dspy-anthropic-small-models: \
+	batch-non-agent-dspy-anthropic-BootstrapFewShot-gemma9b \
+	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-gemma9b \
+	batch-non-agent-dspy-anthropic-COPRO-gemma9b \
+	batch-non-agent-dspy-anthropic-MIPROv2-gemma9b \
+	batch-non-agent-dspy-anthropic-BootstrapFewShot-qwen7b \
+	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-qwen7b \
+	batch-non-agent-dspy-anthropic-COPRO-qwen7b \
+	batch-non-agent-dspy-anthropic-MIPROv2-qwen7b \
+	batch-non-agent-dspy-anthropic-BootstrapFewShot-llama8b \
+	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-llama8b \
+	batch-non-agent-dspy-anthropic-COPRO-llama8b \
+	batch-non-agent-dspy-anthropic-MIPROv2-llama8b \
+	batch-non-agent-dspy-anthropic-BootstrapFewShot-llama3b \
+	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-llama3b \
+	batch-non-agent-dspy-anthropic-COPRO-llama3b \
+	batch-non-agent-dspy-anthropic-MIPROv2-llama3b
+
+batch-non-agent-dspy-gemini-small-models: \
+	batch-non-agent-dspy-gemini-BootstrapFewShot-gemma9b \
+	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-gemma9b \
+	batch-non-agent-dspy-gemini-COPRO-gemma9b \
+	batch-non-agent-dspy-gemini-MIPROv2-gemma9b \
+	batch-non-agent-dspy-gemini-BootstrapFewShot-qwen7b \
+	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-qwen7b \
+	batch-non-agent-dspy-gemini-COPRO-qwen7b \
+	batch-non-agent-dspy-gemini-MIPROv2-qwen7b \
+	batch-non-agent-dspy-gemini-BootstrapFewShot-llama8b \
+	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-llama8b \
+	batch-non-agent-dspy-gemini-COPRO-llama8b \
+	batch-non-agent-dspy-gemini-MIPROv2-llama8b \
+	batch-non-agent-dspy-gemini-BootstrapFewShot-llama3b \
+	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-llama3b \
+	batch-non-agent-dspy-gemini-COPRO-llama3b \
+	batch-non-agent-dspy-gemini-MIPROv2-llama3b
+
+batch-non-agent-dspy-small-models: \
+	batch-non-agent-dspy-anthropic-small-models \
+	batch-non-agent-dspy-gemini-small-models
 
 ##@ Results Collection and Reports
 
