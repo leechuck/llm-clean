@@ -13,7 +13,13 @@
         collect-non-agent collect-agent collect-critic \
         reports reproduce-static reproduce-batch \
         generate-gpt4o-mini-dspy-models generate-llama70b-dspy-models \
-        generate-mistral-small-dspy-models generate-qwen72b-dspy-models
+        generate-mistral-small-dspy-models generate-qwen72b-dspy-models \
+        generate-anthropic-dspy-agent-models generate-gemini-dspy-agent-models \
+        generate-gemma9b-dspy-agent-models generate-qwen7b-dspy-agent-models \
+        generate-llama8b-dspy-agent-models generate-llama3b-dspy-agent-models \
+        generate-gpt4o-mini-dspy-agent-models generate-llama70b-dspy-agent-models \
+        generate-mistral-small-dspy-agent-models generate-qwen72b-dspy-agent-models \
+        generate-large-llm-dspy-agent-models generate-small-llm-dspy-agent-models
 
 # Default target
 .DEFAULT_GOAL := help
@@ -349,6 +355,142 @@ generate-small-llm-dspy-models: \
 	generate-mistral-small-BootstrapFewShotWithRandomSearch-dspy-model \
 	generate-mistral-small-COPRO-dspy-model \
 	generate-mistral-small-MIPROv2-dspy-model
+
+##@ Generate DSPy Agent Models
+
+generate-anthropic-%-dspy-agent-model: ## Generate DSPy agent model for Claude analyses
+	@echo "$(BLUE)Generating DSPy agent model for Claude analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model anthropic \
+	--optimizer $* \
+	--output output/dspy_models/guarino_claude_$*_agent_model.json
+
+generate-anthropic-dspy-agent-models: \
+	generate-anthropic-BootstrapFewShot-dspy-agent-model \
+	generate-anthropic-BootstrapFewShotWithRandomSearch-dspy-agent-model \
+	generate-anthropic-COPRO-dspy-agent-model \
+	generate-anthropic-MIPROv2-dspy-agent-model
+
+generate-gemini-%-dspy-agent-model: ## Generate DSPy agent model for Gemini analyses
+	@echo "$(BLUE)Generating DSPy agent model for Gemini analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model gemini \
+	--optimizer $* \
+	--output output/dspy_models/guarino_gemini_$*_agent_model.json
+
+generate-gemini-dspy-agent-models: \
+	generate-gemini-BootstrapFewShot-dspy-agent-model \
+	generate-gemini-BootstrapFewShotWithRandomSearch-dspy-agent-model \
+	generate-gemini-COPRO-dspy-agent-model \
+	generate-gemini-MIPROv2-dspy-agent-model
+
+generate-gemma9b-%-dspy-agent-model: ## Generate DSPy agent model for Gemma 9B analyses
+	@echo "$(BLUE)Generating DSPy agent model for Gemma 9B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model gemma9b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_gemma9b_$*_agent_model.json
+
+generate-gemma9b-dspy-agent-models: \
+	generate-gemma9b-BootstrapFewShot-dspy-agent-model \
+	generate-gemma9b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
+	generate-gemma9b-COPRO-dspy-agent-model \
+	generate-gemma9b-MIPROv2-dspy-agent-model
+
+generate-qwen7b-%-dspy-agent-model: ## Generate DSPy agent model for Qwen 7B analyses
+	@echo "$(BLUE)Generating DSPy agent model for Qwen 7B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen7b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_qwen7b_$*_agent_model.json
+
+generate-qwen7b-dspy-agent-models: \
+	generate-qwen7b-BootstrapFewShot-dspy-agent-model \
+	generate-qwen7b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
+	generate-qwen7b-COPRO-dspy-agent-model \
+	generate-qwen7b-MIPROv2-dspy-agent-model
+
+generate-llama8b-%-dspy-agent-model: ## Generate DSPy agent model for LLaMA 8B analyses
+	@echo "$(BLUE)Generating DSPy agent model for LLaMA 8B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama8b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_llama8b_$*_agent_model.json
+
+generate-llama8b-dspy-agent-models: \
+	generate-llama8b-BootstrapFewShot-dspy-agent-model \
+	generate-llama8b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
+	generate-llama8b-COPRO-dspy-agent-model \
+	generate-llama8b-MIPROv2-dspy-agent-model
+
+generate-llama3b-%-dspy-agent-model: ## Generate DSPy agent model for LLaMA 3B analyses
+	@echo "$(BLUE)Generating DSPy agent model for LLaMA 3B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama3b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_llama3b_$*_agent_model.json
+
+generate-llama3b-dspy-agent-models: \
+	generate-llama3b-BootstrapFewShot-dspy-agent-model \
+	generate-llama3b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
+	generate-llama3b-COPRO-dspy-agent-model \
+	generate-llama3b-MIPROv2-dspy-agent-model
+
+generate-gpt4o-mini-%-dspy-agent-model: ## Generate DSPy agent model for GPT-4o Mini analyses
+	@echo "$(BLUE)Generating DSPy agent model for GPT-4o Mini analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model gpt4o-mini \
+	--optimizer $* \
+	--output output/dspy_models/guarino_gpt4o-mini_$*_agent_model.json
+
+generate-gpt4o-mini-dspy-agent-models: \
+	generate-gpt4o-mini-BootstrapFewShot-dspy-agent-model \
+	generate-gpt4o-mini-BootstrapFewShotWithRandomSearch-dspy-agent-model \
+	generate-gpt4o-mini-COPRO-dspy-agent-model \
+	generate-gpt4o-mini-MIPROv2-dspy-agent-model
+
+generate-llama70b-%-dspy-agent-model: ## Generate DSPy agent model for LLaMA 3.3 70B analyses
+	@echo "$(BLUE)Generating DSPy agent model for LLaMA 3.3 70B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama70b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_llama70b_$*_agent_model.json
+
+generate-llama70b-dspy-agent-models: \
+	generate-llama70b-BootstrapFewShot-dspy-agent-model \
+	generate-llama70b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
+	generate-llama70b-COPRO-dspy-agent-model \
+	generate-llama70b-MIPROv2-dspy-agent-model
+
+generate-mistral-small-%-dspy-agent-model: ## Generate DSPy agent model for Mistral Small analyses
+	@echo "$(BLUE)Generating DSPy agent model for Mistral Small analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model mistral-small-3.1 \
+	--optimizer $* \
+	--output output/dspy_models/guarino_mistral-small_$*_agent_model.json
+
+generate-mistral-small-dspy-agent-models: \
+	generate-mistral-small-BootstrapFewShot-dspy-agent-model \
+	generate-mistral-small-BootstrapFewShotWithRandomSearch-dspy-agent-model \
+	generate-mistral-small-COPRO-dspy-agent-model \
+	generate-mistral-small-MIPROv2-dspy-agent-model
+
+generate-qwen72b-%-dspy-agent-model: ## Generate DSPy agent model for Qwen 2.5 72B analyses
+	@echo "$(BLUE)Generating DSPy agent model for Qwen 2.5 72B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen72b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_qwen72b_$*_agent_model.json
+
+generate-qwen72b-dspy-agent-models: \
+	generate-qwen72b-BootstrapFewShot-dspy-agent-model \
+	generate-qwen72b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
+	generate-qwen72b-COPRO-dspy-agent-model \
+	generate-qwen72b-MIPROv2-dspy-agent-model
+
+generate-large-llm-dspy-agent-models: \
+	generate-anthropic-dspy-agent-models \
+	generate-gemini-dspy-agent-models \
+	generate-llama70b-dspy-agent-models \
+	generate-qwen72b-dspy-agent-models
+
+generate-small-llm-dspy-agent-models: \
+	generate-gemma9b-dspy-agent-models \
+	generate-qwen7b-dspy-agent-models \
+	generate-llama8b-dspy-agent-models \
+	generate-llama3b-dspy-agent-models \
+	generate-gpt4o-mini-dspy-agent-models \
+	generate-mistral-small-dspy-agent-models
 
 ##@ Batch Analysis Non-Agent DSPy Compiled Models
 ONTOLOGY_FILE = output/ontologies/guarino_messy.owl
