@@ -245,10 +245,7 @@ generate-gemini-%-dspy-model: ## Generate DSPy model for Gemini analyses
 
 generate-gemini-dspy-models: \
 	generate-gemini-BootstrapFewShot-dspy-model \
-	generate-gemini-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-gemini-COPRO-dspy-model \
-	generate-gemini-MIPROv2-dspy-model
-
+	
 generate-large-llm-dspy-models: \
 	generate-anthropic-dspy-models \
 	generate-gemini-dspy-models \
@@ -287,10 +284,7 @@ generate-gpt4o-mini-%-dspy-model: ## Generate DSPy model for GPT-4o Mini analyse
 
 generate-gpt4o-mini-dspy-models: \
 	generate-gpt4o-mini-BootstrapFewShot-dspy-model \
-	generate-gpt4o-mini-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-gpt4o-mini-COPRO-dspy-model \
-	generate-gpt4o-mini-MIPROv2-dspy-model
-
+	
 generate-llama70b-%-dspy-model: ## Generate DSPy model for LLaMA 3.3 70B analyses
 	@echo "$(BLUE)Generating DSPy model for LLaMA 3.3 70B analyses...$(NC)"
 	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama70b \
@@ -299,10 +293,7 @@ generate-llama70b-%-dspy-model: ## Generate DSPy model for LLaMA 3.3 70B analyse
 
 generate-llama70b-dspy-models: \
 	generate-llama70b-BootstrapFewShot-dspy-model \
-	generate-llama70b-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-llama70b-COPRO-dspy-model \
-	generate-llama70b-MIPROv2-dspy-model
-
+	
 generate-mistral-small-%-dspy-model: ## Generate DSPy model for Mistral Small analyses
 	@echo "$(BLUE)Generating DSPy model for Mistral Small analyses...$(NC)"
 	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model mistral-small-3.1 \
@@ -311,10 +302,7 @@ generate-mistral-small-%-dspy-model: ## Generate DSPy model for Mistral Small an
 
 generate-mistral-small-dspy-models: \
 	generate-mistral-small-BootstrapFewShot-dspy-model \
-	generate-mistral-small-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-mistral-small-COPRO-dspy-model \
-	generate-mistral-small-MIPROv2-dspy-model
-
+	
 generate-qwen72b-%-dspy-model: ## Generate DSPy model for Qwen 2.5 72B analyses
 	@echo "$(BLUE)Generating DSPy model for Qwen 2.5 72B analyses...$(NC)"
 	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen72b \
@@ -323,36 +311,15 @@ generate-qwen72b-%-dspy-model: ## Generate DSPy model for Qwen 2.5 72B analyses
 
 generate-qwen72b-dspy-models: \
 	generate-qwen72b-BootstrapFewShot-dspy-model \
-	generate-qwen72b-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-qwen72b-COPRO-dspy-model \
-	generate-qwen72b-MIPROv2-dspy-model
-
+	
 generate-small-llm-dspy-models: \
 	generate-gemma9b-BootstrapFewShot-dspy-model \
-	generate-gemma9b-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-gemma9b-COPRO-dspy-model \
-	generate-gemma9b-MIPROv2-dspy-model \
 	generate-qwen7b-BootstrapFewShot-dspy-model \
-	generate-qwen7b-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-qwen7b-COPRO-dspy-model \
-	generate-qwen7b-MIPROv2-dspy-model \
 	generate-llama8b-BootstrapFewShot-dspy-model \
-	generate-llama8b-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-llama8b-COPRO-dspy-model \
-	generate-llama8b-MIPROv2-dspy-model \
 	generate-llama3b-BootstrapFewShot-dspy-model \
-	generate-llama3b-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-llama3b-COPRO-dspy-model \
-	generate-llama3b-MIPROv2-dspy-model \
 	generate-gpt4o-mini-BootstrapFewShot-dspy-model \
-	generate-gpt4o-mini-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-gpt4o-mini-COPRO-dspy-model \
-	generate-gpt4o-mini-MIPROv2-dspy-model \
-	generate-mistral-small-BootstrapFewShot-dspy-model \
-	generate-mistral-small-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-mistral-small-COPRO-dspy-model \
-	generate-mistral-small-MIPROv2-dspy-model
-
+	generate-mistral-small-BootstrapFewShot-dspy-model
+	
 ##@ Generate DSPy Agent Models
 
 generate-anthropic-%-dspy-agent-model: ## Generate DSPy agent model for Claude analyses
@@ -372,10 +339,7 @@ generate-gemini-%-dspy-agent-model: ## Generate DSPy agent model for Gemini anal
 
 generate-gemini-dspy-agent-models: \
 	generate-gemini-BootstrapFewShot-dspy-agent-model \
-	generate-gemini-BootstrapFewShotWithRandomSearch-dspy-agent-model \
-	generate-gemini-COPRO-dspy-agent-model \
-	generate-gemini-MIPROv2-dspy-agent-model
-
+	
 generate-gemma9b-%-dspy-agent-model: ## Generate DSPy agent model for Gemma 9B analyses
 	@echo "$(BLUE)Generating DSPy agent model for Gemma 9B analyses...$(NC)"
 	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model gemma9b \
@@ -384,10 +348,7 @@ generate-gemma9b-%-dspy-agent-model: ## Generate DSPy agent model for Gemma 9B a
 
 generate-gemma9b-dspy-agent-models: \
 	generate-gemma9b-BootstrapFewShot-dspy-agent-model \
-	generate-gemma9b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
-	generate-gemma9b-COPRO-dspy-agent-model \
-	generate-gemma9b-MIPROv2-dspy-agent-model
-
+	
 generate-qwen7b-%-dspy-agent-model: ## Generate DSPy agent model for Qwen 7B analyses
 	@echo "$(BLUE)Generating DSPy agent model for Qwen 7B analyses...$(NC)"
 	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen7b \
@@ -395,11 +356,8 @@ generate-qwen7b-%-dspy-agent-model: ## Generate DSPy agent model for Qwen 7B ana
 	--output output/dspy_models/guarino_qwen7b_$*_agent_model.json
 
 generate-qwen7b-dspy-agent-models: \
-	generate-qwen7b-BootstrapFewShot-dspy-agent-model \
-	generate-qwen7b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
-	generate-qwen7b-COPRO-dspy-agent-model \
-	generate-qwen7b-MIPROv2-dspy-agent-model
-
+	generate-qwen7b-BootstrapFewShot-dspy-agent-model 
+	
 generate-llama8b-%-dspy-agent-model: ## Generate DSPy agent model for LLaMA 8B analyses
 	@echo "$(BLUE)Generating DSPy agent model for LLaMA 8B analyses...$(NC)"
 	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama8b \
@@ -407,11 +365,8 @@ generate-llama8b-%-dspy-agent-model: ## Generate DSPy agent model for LLaMA 8B a
 	--output output/dspy_models/guarino_llama8b_$*_agent_model.json
 
 generate-llama8b-dspy-agent-models: \
-	generate-llama8b-BootstrapFewShot-dspy-agent-model \
-	generate-llama8b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
-	generate-llama8b-COPRO-dspy-agent-model \
-	generate-llama8b-MIPROv2-dspy-agent-model
-
+	generate-llama8b-BootstrapFewShot-dspy-agent-model 
+	
 generate-llama3b-%-dspy-agent-model: ## Generate DSPy agent model for LLaMA 3B analyses
 	@echo "$(BLUE)Generating DSPy agent model for LLaMA 3B analyses...$(NC)"
 	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama3b \
@@ -419,11 +374,8 @@ generate-llama3b-%-dspy-agent-model: ## Generate DSPy agent model for LLaMA 3B a
 	--output output/dspy_models/guarino_llama3b_$*_agent_model.json
 
 generate-llama3b-dspy-agent-models: \
-	generate-llama3b-BootstrapFewShot-dspy-agent-model \
-	generate-llama3b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
-	generate-llama3b-COPRO-dspy-agent-model \
-	generate-llama3b-MIPROv2-dspy-agent-model
-
+	generate-llama3b-BootstrapFewShot-dspy-agent-model 
+	
 generate-gpt4o-mini-%-dspy-agent-model: ## Generate DSPy agent model for GPT-4o Mini analyses
 	@echo "$(BLUE)Generating DSPy agent model for GPT-4o Mini analyses...$(NC)"
 	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model gpt4o-mini \
@@ -431,10 +383,7 @@ generate-gpt4o-mini-%-dspy-agent-model: ## Generate DSPy agent model for GPT-4o 
 	--output output/dspy_models/guarino_gpt4o-mini_$*_agent_model.json
 
 generate-gpt4o-mini-dspy-agent-models: \
-	generate-gpt4o-mini-BootstrapFewShot-dspy-agent-model \
-	generate-gpt4o-mini-BootstrapFewShotWithRandomSearch-dspy-agent-model \
-	generate-gpt4o-mini-COPRO-dspy-agent-model \
-	generate-gpt4o-mini-MIPROv2-dspy-agent-model
+	generate-gpt4o-mini-BootstrapFewShot-dspy-agent-model 
 
 generate-llama70b-%-dspy-agent-model: ## Generate DSPy agent model for LLaMA 3.3 70B analyses
 	@echo "$(BLUE)Generating DSPy agent model for LLaMA 3.3 70B analyses...$(NC)"
@@ -443,10 +392,7 @@ generate-llama70b-%-dspy-agent-model: ## Generate DSPy agent model for LLaMA 3.3
 	--output output/dspy_models/guarino_llama70b_$*_agent_model.json
 
 generate-llama70b-dspy-agent-models: \
-	generate-llama70b-BootstrapFewShot-dspy-agent-model \
-	generate-llama70b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
-	generate-llama70b-COPRO-dspy-agent-model \
-	generate-llama70b-MIPROv2-dspy-agent-model
+	generate-llama70b-BootstrapFewShot-dspy-agent-model 
 
 generate-mistral-small-%-dspy-agent-model: ## Generate DSPy agent model for Mistral Small analyses
 	@echo "$(BLUE)Generating DSPy agent model for Mistral Small analyses...$(NC)"
@@ -455,11 +401,8 @@ generate-mistral-small-%-dspy-agent-model: ## Generate DSPy agent model for Mist
 	--output output/dspy_models/guarino_mistral-small_$*_agent_model.json
 
 generate-mistral-small-dspy-agent-models: \
-	generate-mistral-small-BootstrapFewShot-dspy-agent-model \
-	generate-mistral-small-BootstrapFewShotWithRandomSearch-dspy-agent-model \
-	generate-mistral-small-COPRO-dspy-agent-model \
-	generate-mistral-small-MIPROv2-dspy-agent-model
-
+	generate-mistral-small-BootstrapFewShot-dspy-agent-model 
+	
 generate-qwen72b-%-dspy-agent-model: ## Generate DSPy agent model for Qwen 2.5 72B analyses
 	@echo "$(BLUE)Generating DSPy agent model for Qwen 2.5 72B analyses...$(NC)"
 	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen72b \
@@ -467,11 +410,8 @@ generate-qwen72b-%-dspy-agent-model: ## Generate DSPy agent model for Qwen 2.5 7
 	--output output/dspy_models/guarino_qwen72b_$*_agent_model.json
 
 generate-qwen72b-dspy-agent-models: \
-	generate-qwen72b-BootstrapFewShot-dspy-agent-model \
-	generate-qwen72b-BootstrapFewShotWithRandomSearch-dspy-agent-model \
-	generate-qwen72b-COPRO-dspy-agent-model \
-	generate-qwen72b-MIPROv2-dspy-agent-model
-
+	generate-qwen72b-BootstrapFewShot-dspy-agent-model 
+	
 generate-large-llm-dspy-agent-models: \
 	generate-anthropic-dspy-agent-models \
 	generate-gemini-dspy-agent-models \
