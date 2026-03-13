@@ -139,6 +139,8 @@ make clean
 - **Generate DSPy Models**: `generate-large-llm-dspy-models`, `generate-small-llm-dspy-models` (+ per-model and per-optimizer variants)
 - **Generate DSPy Agent Models**: `generate-large-llm-dspy-agent-models`, `generate-small-llm-dspy-agent-models` (+ per-model and per-optimizer variants)
 - **Generate DSPy Agent+Critic Models**: `generate-large-llm-dspy-agent-critic-models`, `generate-small-llm-dspy-agent-critic-models` (+ per-model and per-optimizer variants)
+- **Batch DSPy Agent Analysis**: `batch-agent-dspy-small-models`, `batch-agent-dspy-anthropic-small-models`, `batch-agent-dspy-gemini-small-models` (+ per-combination variants)
+- **Batch DSPy Agent+Critic Analysis**: `batch-agent-critic-dspy-small-models`, `batch-agent-critic-dspy-anthropic-small-models`, `batch-agent-critic-dspy-gemini-small-models` (+ per-combination variants)
 - **Complete Workflows**: `all`, `reproduce-batch`
 
 Run `make help` to see the full list with descriptions.
@@ -492,6 +494,56 @@ python scripts/batch_analyze_dspy.py ontology.owl \
   --test-file test.tsv \
   --optimize-mode medium \
   --output results.tsv
+```
+
+**`batch_analyze_agent_dspy.py`** - DSPy agent-based analyzer (per-property ReAct agents):
+```bash
+# Using a pre-trained optimized agent model
+python scripts/batch_analyze_agent_dspy.py \
+  ontology/guarino_messy.owl \
+  --compiled-model output/dspy_models/guarino_claude_BootstrapFewShot_agent_model.json \
+  --model llama3b \
+  --output results.tsv
+
+# Using base agent model without optimization
+python scripts/batch_analyze_agent_dspy.py ontology.owl \
+  --model gemini \
+  --output results.tsv
+```
+
+**Makefile targets** (use compiled agent model + inference model):
+```bash
+make batch-agent-dspy-anthropic-BootstrapFewShot-llama3b
+make batch-agent-dspy-gemini-BootstrapFewShot-gemma9b
+make batch-agent-dspy-anthropic-small-models   # all 8 inference models, Claude-trained
+make batch-agent-dspy-gemini-small-models      # all 8 inference models, Gemini-trained
+make batch-agent-dspy-small-models             # both of the above
+```
+
+**`batch_analyze_agent_critic_dspy.py`** - DSPy agent+critic analyzer (per-property ReAct agents with critic feedback loop):
+```bash
+# Using a pre-trained optimized agent+critic model
+python scripts/batch_analyze_agent_critic_dspy.py \
+  ontology/guarino_messy.owl \
+  --compiled-model output/dspy_models/guarino_claude_BootstrapFewShot_agent_critic_model.json \
+  --model llama3b \
+  --max-critique-attempts 3 \
+  --output results.tsv
+
+# Using base agent+critic model without optimization
+python scripts/batch_analyze_agent_critic_dspy.py ontology.owl \
+  --model gemini \
+  --max-critique-attempts 2 \
+  --output results.tsv
+```
+
+**Makefile targets** (use compiled agent+critic model + inference model):
+```bash
+make batch-agent-critic-dspy-anthropic-BootstrapFewShot-llama3b
+make batch-agent-critic-dspy-gemini-BootstrapFewShot-gemma9b
+make batch-agent-critic-dspy-anthropic-small-models   # all 8 inference models, Claude-trained
+make batch-agent-critic-dspy-gemini-small-models      # all 8 inference models, Gemini-trained
+make batch-agent-critic-dspy-small-models             # both of the above
 ```
 
 **`batch_analyze_owl.py`** - Standard rdflib-based parser:
