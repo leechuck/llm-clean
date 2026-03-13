@@ -1,0 +1,60 @@
+{
+  "analyzer.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "To further improve the analysis of a given entity and assign its 5 ontological meta-properties based on the \"Formal Ontology of Properties\" methodology by Guarino and Welty (2000), consider the following refined steps:\n\n1. **Rigidity (R)**: Determine if the entity is essential to all instances in all possible worlds (+R), not essential to some instances (-R), or essential not to be essential (~R) by evaluating its necessity and universality across different contexts and scenarios.\n2. **Identity (I)**: Assess if the entity carries a unique identity (+I) by examining if it has distinctive characteristics, properties, or features that differentiate it from others, or if it lacks such uniqueness (-I).\n3. **Supplies Own Identity (O)**: Evaluate if the entity supplies its own global identity condition (+O) by considering if it inherently possesses a defining set of properties or conditions that establish its identity, or if it relies on external factors for its identity (-O). Ensure that if +O is assigned, +I must also be true.\n4. **Unity (U)**: Analyze the entity's instances to determine if they form intrinsic wholes (+U), are not necessarily wholes (-U), or are strictly sums or aggregates (~U) by considering their structural and functional integrity.\n5. **Dependence (D)**: Examine the entity's instances to assess if they intrinsically depend on other entities to exist (+D) or can exist independently (-D) by evaluating their reliance on external factors for their existence or persistence.\n\nTo classify the entity, consider the combinations of meta-properties and how they align with known categories (e.g., Sortal, Role, Mixin) based on the \"Formal Ontology of Properties\" framework. Provide a detailed reasoning for the assigned meta-properties, including how each property contributes to the overall classification of the entity.",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context for the entity"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Brief explanation of the analysis and classification"
+        },
+        {
+          "prefix": "Rigidity:",
+          "description": "Rigidity meta-property value: '+R' (Rigid), '-R' (Non-Rigid), or '~R' (Anti-Rigid)"
+        },
+        {
+          "prefix": "Identity:",
+          "description": "Identity meta-property value: '+I' (carries identity) or '-I' (no identity)"
+        },
+        {
+          "prefix": "Own Identity:",
+          "description": "Own Identity meta-property value: '+O' (supplies own IC) or '-O' (does not supply own IC)"
+        },
+        {
+          "prefix": "Unity:",
+          "description": "Unity meta-property value: '+U' (Unifying), '-U' (Non-Unifying), or '~U' (Anti-Unity)"
+        },
+        {
+          "prefix": "Dependence:",
+          "description": "Dependence meta-property value: '+D' (Dependent) or '-D' (Independent)"
+        },
+        {
+          "prefix": "{\n  \"properties\": {\n    \"rigidity\": \"\",\n    \"identity\": \"\",\n    \"own_identity\": \"\",\n    \"unity\": \"\",\n    \"dependence\": \"\"\n  },\n  \"classification\": \"\",\n  \"reasoning\": \"\"\n}",
+          "description": "Entity classification based on meta-properties (e.g., 'Sortal', 'Role', 'Mixin')"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.1.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}
