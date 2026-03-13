@@ -147,6 +147,11 @@ Examples:
     args = parser.parse_args()
     args.input_owl = os.path.abspath(args.input_owl)
 
+    # Strip the "dspy_" prefix that the Makefile adds to model names for
+    # output-file/agent-name labelling — the analyzer only knows bare shortcuts.
+    if args.model.startswith("dspy_"):
+        args.model = args.model[len("dspy_") :]
+
     # Validate arguments
     if args.optimize_mode and not args.train_file:
         print("Error: --optimize-mode requires --train-file", file=sys.stderr)
