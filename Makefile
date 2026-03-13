@@ -370,7 +370,7 @@ define batch-non-agent-dspy
 			data/raw/ground_truth.tsv
 		) \
 	--agent-name $(3) \
-	--output $(EVALUATION_RESULTS_DIR)/evaluate_dspy_$(1)_$(2)_$(3).json
+	--output $(EVALUATION_RESULTS_DIR)/classify_dspy_$(1)_$(2)_$(3).json
 endef
 
 batch-non-agent-dspy-anthropic-%-gemma9b:
