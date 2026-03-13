@@ -68,7 +68,7 @@ def parse_agent_name(
       - Otherwise use agent_name from the JSON summary if present.
       - Fall back to deriving from the filename if not in the summary.
 
-    Example: classify_dspy_claude_MIPROv2_gpt4o-mini.json -> claude_MIPROv2_gpt4o-mini
+    Example: classify_dspy_claude_MIPROv2_gpt4o-mini.json -> dspy_claude_MIPROv2_gpt4o-mini
     """
     if not force_from_path and summary.get("agent_name"):
         return summary["agent_name"]
@@ -76,9 +76,9 @@ def parse_agent_name(
     stem = os.path.splitext(os.path.basename(json_path))[0]
     marker = "dspy_"
     idx = stem.find(marker)
-    if idx != -1:
-        return stem[idx + len(marker) :]
-    return stem
+    # if idx != -1: # this would skip the "dspy_"prefix
+    #     return stem[idx + len(marker) :]
+    return stem[idx:]
 
 
 def metrics_row(

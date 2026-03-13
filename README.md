@@ -136,6 +136,8 @@ make clean
 - **Evaluation**: `eval-non-agent`, `eval-agent`, `eval-critic` (+ model-specific variants)
 - **Classification Metrics**: `classify-non-agent`, `classify-agent`, `classify-critic` (+ model-specific variants)
 - **Reports**: `collect-non-agent`, `collect-agent`, `collect-critic`, `reports`
+- **Generate DSPy Models**: `generate-large-llm-dspy-models`, `generate-small-llm-dspy-models` (+ per-model and per-optimizer variants)
+- **Generate DSPy Agent Models**: `generate-large-llm-dspy-agent-models`, `generate-small-llm-dspy-agent-models` (+ per-model and per-optimizer variants)
 - **Complete Workflows**: `all`, `reproduce-batch`
 
 Run `make help` to see the full list with descriptions.
@@ -211,6 +213,114 @@ python scripts/generate_dspy_model.py train.tsv test.tsv out.json --optimizer mi
 - ✅ Works across different model types (Llama, Gemini, Claude, GPT-4, etc.)
 - ✅ No manual prompt engineering required
 - ✅ Defaults optimized for small datasets (~20 samples)
+
+---
+
+### 🤖 DSPy Agent-Based Analyzer
+
+`src/llm_clean/ontology/dspy_agent_analyzer.py` provides an agent-based variant of the DSPy analyzer where **each meta-property is evaluated by a dedicated ReAct agent**. Each agent can call ontology-definition tools before committing to a value, enabling more deliberate, step-by-step reasoning per property.
+
+**Architecture:**
+
+| Component | Role |
+|---|---|
+| `get_property_definition(property_name)` | Tool — returns the formal OntoClean definition for a property |
+| `get_property_examples(property_name)` | Tool — returns canonical positive/negative examples |
+| `check_constraints(property_name, value, context)` | Tool — validates OntoClean constraints (e.g. +O → +I) |
+| `DSPyRigiditySignature` → `ReAct` agent | Evaluates rigidity (+R / -R / ~R) |
+| `DSPyIdentitySignature` → `ReAct` agent | Evaluates identity (+I / -I) |
+| `DSPyOwnIdentitySignature` → `ReAct` agent | Evaluates own_identity (+O / -O); receives the identity result as input to enforce the +O → +I constraint |
+| `DSPyUnitySignature` → `ReAct` agent | Evaluates unity (+U / -U / ~U) |
+| `DSPyDependenceSignature` → `ReAct` agent | Evaluates dependence (+D / -D) |
+| `DSPyClassifySignature` → `ChainOfThought` | Derives the classification and overall reasoning from the five values |
+| `DSPyAgentOntologyAnalysisModule` | Orchestrates the five agents sequentially |
+| `DSPyAgentOntologyAnalyzer` | Public-facing class — same interface as `DSPyOntologyAnalyzer` |
+
+Agents run sequentially: Rigidity → Identity → Own Identity → Unity → Dependence → Classify. The Own Identity agent receives the already-determined Identity value so it can call `check_constraints` to detect the +O → +I violation at inference time.
+
+**Generating an optimized agent model:**
+
+```bash
+# Train with BootstrapFewShot (default, recommended for small datasets)
+python scripts/generate_dspy_agent_model.py \
+  output/train_test_sets/data_train.tsv \
+  output/train_test_sets/data_test.tsv \
+  --output output/dspy_models/guarino_agent_model.json \
+  --model gemini
+
+# Train with MIPROv2 and evaluate before/after
+python scripts/generate_dspy_agent_model.py \
+  output/train_test_sets/data_train.tsv \
+  output/train_test_sets/data_test.tsv \
+  --output output/dspy_models/guarino_agent_mipro.json \
+  --model gemini \
+  --optimizer MIPROv2 \
+  --auto medium \
+  --evaluate-before \
+  --evaluate-after
+```
+
+**Additional parameter:** `--max-iters N` controls the maximum number of ReAct iterations per property agent (default: 5).
+
+**Generating agent models via Make:**
+
+```bash
+# Single model + optimizer combination
+make generate-gemini-BootstrapFewShot-dspy-agent-model
+make generate-anthropic-MIPROv2-dspy-agent-model
+
+# All four optimizers for a specific model
+make generate-gemini-dspy-agent-models
+make generate-anthropic-dspy-agent-models
+make generate-llama70b-dspy-agent-models
+make generate-qwen72b-dspy-agent-models
+make generate-gpt4o-mini-dspy-agent-models
+make generate-mistral-small-dspy-agent-models
+
+# All large models (anthropic, gemini, llama70b, qwen72b)
+make generate-large-llm-dspy-agent-models
+
+# All small models (gemma9b, qwen7b, llama8b, llama3b, gpt4o-mini, mistral-small)
+make generate-small-llm-dspy-agent-models
+```
+
+Output files are saved to `output/dspy_models/` with the suffix `_agent_model.json`, e.g. `guarino_gemini_BootstrapFewShot_agent_model.json`.
+
+**Using the agent analyzer in Python:**
+
+```python
+from src.llm_clean.ontology.dspy_agent_analyzer import DSPyAgentOntologyAnalyzer
+
+# Base model (no optimization)
+analyzer = DSPyAgentOntologyAnalyzer(model="gemini")
+result = analyzer.analyze("Student", description="A person enrolled in a university")
+print(result)
+# {
+#   "properties": {"rigidity": "~R", "identity": "+I", "own_identity": "-O",
+#                  "unity": "+U", "dependence": "+D"},
+#   "classification": "Role",
+#   "reasoning": "..."
+# }
+
+# With an optimized model
+analyzer = DSPyAgentOntologyAnalyzer(
+    model="gemini",
+    optimized_module_path="output/dspy_models/guarino_agent_model.json"
+)
+result = analyzer.analyze("Person", description="A human being")
+```
+
+**Running the test suite:**
+
+```bash
+# Runs tool tests and constraint tests (no API calls), then basic analysis
+python src/llm_clean/ontology/test_dspy_agent_analyzer.py
+```
+
+The test suite covers:
+- **Tool tests** — verifies all five property definition and example tools return content
+- **Constraint tests** — verifies `check_constraints` detects +O/−I violations and passes valid combinations
+- **Basic analysis** — runs the full agent pipeline on Student, Person, Red, and Employee and validates all output values are in their legal sets
 
 ---
 
