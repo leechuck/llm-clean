@@ -235,10 +235,7 @@ generate-anthropic-%-dspy-model: ## Generate DSPy model for Claude analyses
 	--output output/dspy_models/guarino_claude_$*_model.json
 
 generate-anthropic-dspy-models: \
-	generate-anthropic-BootstrapFewShot-dspy-model \
-	generate-anthropic-BootstrapFewShotWithRandomSearch-dspy-model \
-	generate-anthropic-COPRO-dspy-model \
-	generate-anthropic-MIPROv2-dspy-model
+	generate-anthropic-BootstrapFewShot-dspy-model
 
 generate-gemini-%-dspy-model: ## Generate DSPy model for Gemini analyses
 	@echo "$(BLUE)Generating DSPy model for Gemini analyses...$(NC)"
@@ -365,10 +362,7 @@ generate-anthropic-%-dspy-agent-model: ## Generate DSPy agent model for Claude a
 	--output output/dspy_models/guarino_claude_$*_agent_model.json
 
 generate-anthropic-dspy-agent-models: \
-	generate-anthropic-BootstrapFewShot-dspy-agent-model \
-	generate-anthropic-BootstrapFewShotWithRandomSearch-dspy-agent-model \
-	generate-anthropic-COPRO-dspy-agent-model \
-	generate-anthropic-MIPROv2-dspy-agent-model
+	generate-anthropic-BootstrapFewShot-dspy-agent-model
 
 generate-gemini-%-dspy-agent-model: ## Generate DSPy agent model for Gemini analyses
 	@echo "$(BLUE)Generating DSPy agent model for Gemini analyses...$(NC)"
@@ -516,120 +510,72 @@ define batch-non-agent-dspy
 endef
 
 batch-non-agent-dspy-anthropic-%-gemma9b:
-	$(call batch-non-agent-dspy,claude,$*,gemma9b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_gemma9b)
 
 batch-non-agent-dspy-anthropic-%-qwen7b:
-	$(call batch-non-agent-dspy,claude,$*,qwen7b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_qwen7b)
 
 batch-non-agent-dspy-anthropic-%-llama8b:
-	$(call batch-non-agent-dspy,claude,$*,llama8b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_llama8b)
 
 batch-non-agent-dspy-anthropic-%-llama3b:
-	$(call batch-non-agent-dspy,claude,$*,llama3b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_llama3b)
 
 batch-non-agent-dspy-gemini-%-gemma9b:
-	$(call batch-non-agent-dspy,gemini,$*,gemma9b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_gemma9b)
 
 batch-non-agent-dspy-gemini-%-qwen7b:
-	$(call batch-non-agent-dspy,gemini,$*,qwen7b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_qwen7b)
 
 batch-non-agent-dspy-gemini-%-llama8b:
-	$(call batch-non-agent-dspy,gemini,$*,llama8b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_llama8b)
 
 batch-non-agent-dspy-gemini-%-llama3b:
-	$(call batch-non-agent-dspy,gemini,$*,llama3b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_llama3b)
 
 batch-non-agent-dspy-anthropic-%-gpt4o-mini:
-	$(call batch-non-agent-dspy,claude,$*,gpt4o-mini)
+	$(call batch-non-agent-dspy,claude,$*,dspy_gpt4o-mini)
 
 batch-non-agent-dspy-anthropic-%-mistral-small-3.1:
-	$(call batch-non-agent-dspy,claude,$*,mistral-small-3.1)
+	$(call batch-non-agent-dspy,claude,$*,dspy_mistral-small-3.1)
 
 batch-non-agent-dspy-anthropic-%-llama70b:
-	$(call batch-non-agent-dspy,claude,$*,llama70b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_llama70b)
 
 batch-non-agent-dspy-anthropic-%-qwen72b:
-	$(call batch-non-agent-dspy,claude,$*,qwen72b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_qwen72b)
 
 batch-non-agent-dspy-gemini-%-gpt4o-mini:
-	$(call batch-non-agent-dspy,gemini,$*,gpt4o-mini)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_gpt4o-mini)
 
 batch-non-agent-dspy-gemini-%-mistral-small-3.1:
-	$(call batch-non-agent-dspy,gemini,$*,mistral-small-3.1)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_mistral-small-3.1)
 
 batch-non-agent-dspy-gemini-%-llama70b:
-	$(call batch-non-agent-dspy,gemini,$*,llama70b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_llama70b)
 
 batch-non-agent-dspy-gemini-%-qwen72b:
-	$(call batch-non-agent-dspy,gemini,$*,qwen72b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_qwen72b)
 
 batch-non-agent-dspy-anthropic-small-models: \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-gemma9b \
-	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-gemma9b \
-	batch-non-agent-dspy-anthropic-COPRO-gemma9b \
-	batch-non-agent-dspy-anthropic-MIPROv2-gemma9b \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-qwen7b \
-	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-qwen7b \
-	batch-non-agent-dspy-anthropic-COPRO-qwen7b \
-	batch-non-agent-dspy-anthropic-MIPROv2-qwen7b \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-llama8b \
-	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-llama8b \
-	batch-non-agent-dspy-anthropic-COPRO-llama8b \
-	batch-non-agent-dspy-anthropic-MIPROv2-llama8b \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-llama3b \
-	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-llama3b \
-	batch-non-agent-dspy-anthropic-COPRO-llama3b \
-	batch-non-agent-dspy-anthropic-MIPROv2-llama3b \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-gpt4o-mini \
-	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-gpt4o-mini \
-	batch-non-agent-dspy-anthropic-COPRO-gpt4o-mini \
-	batch-non-agent-dspy-anthropic-MIPROv2-gpt4o-mini \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-mistral-small-3.1 \
-	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-mistral-small-3.1 \
-	batch-non-agent-dspy-anthropic-COPRO-mistral-small-3.1 \
-	batch-non-agent-dspy-anthropic-MIPROv2-mistral-small-3.1 \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-llama70b \
-	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-llama70b \
-	batch-non-agent-dspy-anthropic-COPRO-llama70b \
-	batch-non-agent-dspy-anthropic-MIPROv2-llama70b \
-	batch-non-agent-dspy-anthropic-BootstrapFewShot-qwen72b \
-	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-qwen72b \
-	batch-non-agent-dspy-anthropic-COPRO-qwen72b \
-	batch-non-agent-dspy-anthropic-MIPROv2-qwen72b
+	batch-non-agent-dspy-anthropic-BootstrapFewShot-qwen72b
 
 batch-non-agent-dspy-gemini-small-models: \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-gemma9b \
-	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-gemma9b \
-	batch-non-agent-dspy-gemini-COPRO-gemma9b \
-	batch-non-agent-dspy-gemini-MIPROv2-gemma9b \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-qwen7b \
-	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-qwen7b \
-	batch-non-agent-dspy-gemini-COPRO-qwen7b \
-	batch-non-agent-dspy-gemini-MIPROv2-qwen7b \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-llama8b \
-	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-llama8b \
-	batch-non-agent-dspy-gemini-COPRO-llama8b \
-	batch-non-agent-dspy-gemini-MIPROv2-llama8b \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-llama3b \
-	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-llama3b \
-	batch-non-agent-dspy-gemini-COPRO-llama3b \
-	batch-non-agent-dspy-gemini-MIPROv2-llama3b \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-gpt4o-mini \
-	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-gpt4o-mini \
-	batch-non-agent-dspy-gemini-COPRO-gpt4o-mini \
-	batch-non-agent-dspy-gemini-MIPROv2-gpt4o-mini \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-mistral-small-3.1 \
-	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-mistral-small-3.1 \
-	batch-non-agent-dspy-gemini-COPRO-mistral-small-3.1 \
-	batch-non-agent-dspy-gemini-MIPROv2-mistral-small-3.1 \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-llama70b \
-	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-llama70b \
-	batch-non-agent-dspy-gemini-COPRO-llama70b \
-	batch-non-agent-dspy-gemini-MIPROv2-llama70b \
-	batch-non-agent-dspy-gemini-BootstrapFewShot-qwen72b \
-	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-qwen72b \
-	batch-non-agent-dspy-gemini-COPRO-qwen72b \
-	batch-non-agent-dspy-gemini-MIPROv2-qwen72b
+	batch-non-agent-dspy-gemini-BootstrapFewShot-qwen72b
 
 batch-non-agent-dspy-small-models: \
 	batch-non-agent-dspy-anthropic-small-models \

@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from dspy_agent_analyzer import (
     DSPyAgentOntologyAnalyzer,
+    initiate_task,
     get_property_definition,
     get_property_examples,
     check_constraints,
@@ -98,6 +99,13 @@ def test_agent_tools():
     print("=" * 60)
 
     errors = []
+
+    # initiate_task
+    result = initiate_task("test task")
+    if "Task initiated" in result:
+        print(f"  ✓ initiate_task returns acknowledgement")
+    else:
+        errors.append(f"initiate_task returned unexpected: {result!r}")
 
     for prop in PROPERTIES:
         defn = get_property_definition(prop)

@@ -159,6 +159,15 @@ def get_property_examples(property_name: str) -> str:
     )
 
 
+def initiate_task(task_description: str = "") -> str:
+    """Start a property analysis task. Call this first to acknowledge the task before using other tools.
+
+    Args:
+        task_description: Optional description of what you are about to analyze.
+    """
+    return "Task initiated. Use get_property_definition and get_property_examples to look up the property, then check_constraints if needed, and finish when ready."
+
+
 def check_constraints(
     property_name: str, proposed_value: str, context: str = ""
 ) -> str:
@@ -201,7 +210,12 @@ def check_constraints(
 
 
 # Shared tool list for all agents
-AGENT_TOOLS = [get_property_definition, get_property_examples, check_constraints]
+AGENT_TOOLS = [
+    initiate_task,
+    get_property_definition,
+    get_property_examples,
+    check_constraints,
+]
 
 
 # ---------------------------------------------------------------------------

@@ -191,6 +191,8 @@ print(result)
 | **COPRO** | ⚡⚡ Moderate | ⭐⭐⭐ Better | Instruction optimization (20-100 samples) |
 | **MIPROv2** | ⚡ Slow | ⭐⭐⭐⭐ Best | Large datasets (100+ samples) |
 
+> **Note:** The Makefile `generate-anthropic-dspy-models`, `generate-anthropic-dspy-agent-models`, and all `batch-non-agent-dspy-*` aggregate targets are restricted to **BootstrapFewShot only** to keep cost and runtime practical. Other optimizers can still be run individually, e.g. `make generate-anthropic-COPRO-dspy-model`.
+
 ```bash
 # Examples with different optimizers (case-insensitive)
 python scripts/generate_dspy_model.py train.tsv test.tsv out.json --optimizer bootstrapfewshot
