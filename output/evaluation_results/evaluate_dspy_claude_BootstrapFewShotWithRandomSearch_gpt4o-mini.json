@@ -1,0 +1,233 @@
+{
+  "evaluation_summary": {
+    "ground_truth_file": "data/raw/ground_truth.tsv",
+    "prediction_file": "output/analyzed_entities/dspy_analyzed_entities_claude_BootstrapFewShotWithRandomSearch_gpt4o-mini.tsv",
+    "total_ground_truth_terms": 22,
+    "overall_metrics": {
+      "accuracy": 0.72,
+      "precision": 0.53,
+      "recall": 0.59,
+      "f1_score": 0.53,
+      "support": 110,
+      "tp": 73,
+      "fp": 37,
+      "tn": 117,
+      "fn": 37
+    },
+    "per_property_metrics": {
+      "rigidity": {
+        "accuracy": 0.41,
+        "macro_avg": {
+          "accuracy": 0.61,
+          "precision": 0.29,
+          "recall": 0.51,
+          "f1_score": 0.26,
+          "support": 22,
+          "tp": 9,
+          "fp": 13,
+          "tn": 31,
+          "fn": 13
+        },
+        "per_class": {
+          "~R": {
+            "accuracy": 0.73,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 6,
+            "tp": 0,
+            "fp": 0,
+            "tn": 16,
+            "fn": 6
+          },
+          "-R": {
+            "accuracy": 0.5,
+            "precision": 0.08,
+            "recall": 1.0,
+            "f1_score": 0.15,
+            "support": 1,
+            "tp": 1,
+            "fp": 11,
+            "tn": 10,
+            "fn": 0
+          },
+          "+R": {
+            "accuracy": 0.59,
+            "precision": 0.8,
+            "recall": 0.53,
+            "f1_score": 0.64,
+            "support": 15,
+            "tp": 8,
+            "fp": 2,
+            "tn": 5,
+            "fn": 7
+          }
+        }
+      },
+      "identity": {
+        "accuracy": 0.82,
+        "macro_avg": {
+          "accuracy": 0.82,
+          "precision": 0.61,
+          "recall": 0.61,
+          "f1_score": 0.61,
+          "support": 22,
+          "tp": 18,
+          "fp": 4,
+          "tn": 18,
+          "fn": 4
+        },
+        "per_class": {
+          "+I": {
+            "accuracy": 0.82,
+            "precision": 0.89,
+            "recall": 0.89,
+            "f1_score": 0.89,
+            "support": 19,
+            "tp": 17,
+            "fp": 2,
+            "tn": 1,
+            "fn": 2
+          },
+          "-I": {
+            "accuracy": 0.82,
+            "precision": 0.33,
+            "recall": 0.33,
+            "f1_score": 0.33,
+            "support": 3,
+            "tp": 1,
+            "fp": 2,
+            "tn": 17,
+            "fn": 2
+          }
+        }
+      },
+      "own_identity": {
+        "accuracy": 0.55,
+        "macro_avg": {
+          "accuracy": 0.55,
+          "precision": 0.56,
+          "recall": 0.56,
+          "f1_score": 0.55,
+          "support": 22,
+          "tp": 12,
+          "fp": 10,
+          "tn": 12,
+          "fn": 10
+        },
+        "per_class": {
+          "+O": {
+            "accuracy": 0.55,
+            "precision": 0.67,
+            "recall": 0.46,
+            "f1_score": 0.55,
+            "support": 13,
+            "tp": 6,
+            "fp": 3,
+            "tn": 6,
+            "fn": 7
+          },
+          "-O": {
+            "accuracy": 0.55,
+            "precision": 0.46,
+            "recall": 0.67,
+            "f1_score": 0.55,
+            "support": 9,
+            "tp": 6,
+            "fp": 7,
+            "tn": 6,
+            "fn": 3
+          }
+        }
+      },
+      "unity": {
+        "accuracy": 0.82,
+        "macro_avg": {
+          "accuracy": 0.88,
+          "precision": 0.55,
+          "recall": 0.57,
+          "f1_score": 0.56,
+          "support": 22,
+          "tp": 18,
+          "fp": 4,
+          "tn": 40,
+          "fn": 4
+        },
+        "per_class": {
+          "~U": {
+            "accuracy": 0.91,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 2,
+            "tp": 0,
+            "fp": 0,
+            "tn": 20,
+            "fn": 2
+          },
+          "+U": {
+            "accuracy": 0.86,
+            "precision": 0.81,
+            "recall": 1.0,
+            "f1_score": 0.9,
+            "support": 13,
+            "tp": 13,
+            "fp": 3,
+            "tn": 6,
+            "fn": 0
+          },
+          "-U": {
+            "accuracy": 0.86,
+            "precision": 0.83,
+            "recall": 0.71,
+            "f1_score": 0.77,
+            "support": 7,
+            "tp": 5,
+            "fp": 1,
+            "tn": 14,
+            "fn": 2
+          }
+        }
+      },
+      "dependence": {
+        "accuracy": 0.73,
+        "macro_avg": {
+          "accuracy": 0.73,
+          "precision": 0.65,
+          "recall": 0.68,
+          "f1_score": 0.66,
+          "support": 22,
+          "tp": 16,
+          "fp": 6,
+          "tn": 16,
+          "fn": 6
+        },
+        "per_class": {
+          "+D": {
+            "accuracy": 0.73,
+            "precision": 0.43,
+            "recall": 0.6,
+            "f1_score": 0.5,
+            "support": 5,
+            "tp": 3,
+            "fp": 4,
+            "tn": 13,
+            "fn": 2
+          },
+          "-D": {
+            "accuracy": 0.73,
+            "precision": 0.87,
+            "recall": 0.76,
+            "f1_score": 0.81,
+            "support": 17,
+            "tp": 13,
+            "fp": 2,
+            "tn": 3,
+            "fn": 4
+          }
+        }
+      }
+    },
+    "agent_name": "gpt4o-mini"
+  }
+}

@@ -109,14 +109,21 @@ class DSPyOntologyAnalyzer:
         "qwen7b",
         "llama3b",
         "llama8b",
+        "gpt4o-mini",
+        "llama70b",
+        "mistral-small-3.1",
+        "qwen72b",
         # Full model names
         "google/gemini-3-flash-preview",
         "anthropic/claude-4.5-sonnet",
-        "openai/gpt-4o",
+        "openai/gpt-4o-mini",
         "google/gemma-2-9b-it",
         "qwen/qwen-2.5-7b-instruct",
         "meta-llama/llama-3.2-3b-instruct",
         "meta-llama/llama-3.1-8b-instruct",
+        "meta-llama/llama-3.3-70b-instruct",
+        "mistralai/mistral-small-3.1-24b-instruct",
+        "qwen/qwen-2.5-72b-instruct",
     ]
 
     def __init__(
@@ -139,6 +146,10 @@ class DSPyOntologyAnalyzer:
                    - "qwen7b" -> qwen/qwen-2.5-7b-instruct
                    - "llama3b" -> meta-llama/llama-3.2-3b-instruct
                    - "llama8b" -> meta-llama/llama-3.1-8b-instruct
+                   - "gpt4o-mini" -> openai/gpt-4o-mini
+                   - "llama70b" -> meta-llama/llama-3.3-70b-instruct
+                   - "mistral-small-3.1" -> mistralai/mistral-small-3.1-24b-instruct
+                   - "qwen72b" -> qwen/qwen-2.5-72b-instruct
                    Or use full model names from OpenRouter.
             optimized_module_path: Path to a saved optimized module (optional)
             train_file: Path to training data file (TSV, CSV, or JSON) (optional)
@@ -155,6 +166,10 @@ class DSPyOntologyAnalyzer:
             "qwen7b": "qwen/qwen-2.5-7b-instruct",
             "llama3b": "meta-llama/llama-3.2-3b-instruct",
             "llama8b": "meta-llama/llama-3.1-8b-instruct",
+            "gpt4o-mini": "openai/gpt-4o-mini",
+            "llama70b": "meta-llama/llama-3.3-70b-instruct",
+            "mistral-small-3.1": "mistralai/mistral-small-3.1-24b-instruct",
+            "qwen72b": "qwen/qwen-2.5-72b-instruct",
         }
 
         # Apply shortcut if available

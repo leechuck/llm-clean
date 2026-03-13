@@ -1,0 +1,657 @@
+{
+  "evaluation_summary": {
+    "total_evaluated": 20,
+    "metrics": {
+      "rigidity": "18/20 (90.00%)",
+      "identity": "17/20 (85.00%)",
+      "own_identity": "16/20 (80.00%)",
+      "unity": "15/20 (75.00%)",
+      "dependence": "17/20 (85.00%)",
+      "exact_match": "9/20 (45.00%)",
+      "ave_critique_attempts": 5.65,
+      "agent_name": "gemini"
+    }
+  },
+  "detailed_results": [
+    {
+      "term": "Location",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "-U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 6
+    },
+    {
+      "term": "AmountOfMatter",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "-I",
+          "ground_truth": "+I",
+          "match": false
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "~U",
+          "ground_truth": "~U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 6
+    },
+    {
+      "term": "Red",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "-R",
+          "ground_truth": "-R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "-I",
+          "ground_truth": "-I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "-O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "-U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "+D",
+          "ground_truth": "-D",
+          "match": false
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "Agent",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "~R",
+          "ground_truth": "~R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "-I",
+          "match": false
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "-O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "-U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "+D",
+          "match": false
+        }
+      },
+      "total_critique_attempts": 6
+    },
+    {
+      "term": "Group",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "~U",
+          "ground_truth": "+U",
+          "match": false
+        },
+        "dependence": {
+          "predicted": "+D",
+          "ground_truth": "-D",
+          "match": false
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "PhysicalObject",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "+U",
+          "match": false
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "LivingBeing",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "GroupOfPeople",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "-O",
+          "match": false
+        },
+        "unity": {
+          "predicted": "~U",
+          "ground_truth": "+U",
+          "match": false
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 8
+    },
+    {
+      "term": "Fruit",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 6
+    },
+    {
+      "term": "Food",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "~R",
+          "ground_truth": "~R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "-I",
+          "ground_truth": "+I",
+          "match": false
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "-O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "~U",
+          "match": false
+        },
+        "dependence": {
+          "predicted": "+D",
+          "ground_truth": "+D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "Animal",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "SocialEntity",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "+O",
+          "match": false
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "+U",
+          "match": false
+        },
+        "dependence": {
+          "predicted": "+D",
+          "ground_truth": "+D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 6
+    },
+    {
+      "term": "Apple",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "LegalAgent",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "~R",
+          "ground_truth": "~R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "+O",
+          "match": false
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "-U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "+D",
+          "ground_truth": "+D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 6
+    },
+    {
+      "term": "Organization",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "+D",
+          "ground_truth": "+D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "RedApple",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "~R",
+          "ground_truth": "~R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "-O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 8
+    },
+    {
+      "term": "Caterpillar",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "~R",
+          "ground_truth": "~R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "-O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 6
+    },
+    {
+      "term": "Butterfly",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "~R",
+          "match": false
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "-O",
+          "match": false
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "Person",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "Country",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "~R",
+          "match": false
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "+D",
+          "ground_truth": "+D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 5
+    }
+  ]
+}

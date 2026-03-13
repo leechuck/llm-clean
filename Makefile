@@ -11,7 +11,9 @@
         classify-agent classify-agent-claude classify-agent-gemini \
         classify-critic classify-critic-claude classify-critic-gemini \
         collect-non-agent collect-agent collect-critic \
-        reports reproduce-static reproduce-batch
+        reports reproduce-static reproduce-batch \
+        generate-gpt4o-mini-dspy-models generate-llama70b-dspy-models \
+        generate-mistral-small-dspy-models generate-qwen72b-dspy-models
 
 # Default target
 .DEFAULT_GOAL := help
@@ -246,7 +248,9 @@ generate-gemini-dspy-models: \
 
 generate-large-llm-dspy-models: \
 	generate-anthropic-dspy-models \
-	generate-gemini-dspy-models
+	generate-gemini-dspy-models \
+	generate-llama70b-dspy-models \
+	generate-qwen72b-dspy-models
 
 generate-gemma9b-%-dspy-model: ## Generate DSPy model for Gemma 9B analyses
 	@echo "$(BLUE)Generating DSPy model for Gemma 9B analyses...$(NC)"
@@ -272,6 +276,54 @@ generate-llama3b-%-dspy-model: ## Generate DSPy model for LLaMA 3B analyses
 	--optimizer $* \
 	--output output/dspy_models/guarino_llama3b_$*_model.json
 
+generate-gpt4o-mini-%-dspy-model: ## Generate DSPy model for GPT-4o Mini analyses
+	@echo "$(BLUE)Generating DSPy model for GPT-4o Mini analyses...$(NC)"
+	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model gpt4o-mini \
+	--optimizer $* \
+	--output output/dspy_models/guarino_gpt4o-mini_$*_model.json
+
+generate-gpt4o-mini-dspy-models: \
+	generate-gpt4o-mini-BootstrapFewShot-dspy-model \
+	generate-gpt4o-mini-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-gpt4o-mini-COPRO-dspy-model \
+	generate-gpt4o-mini-MIPROv2-dspy-model
+
+generate-llama70b-%-dspy-model: ## Generate DSPy model for LLaMA 3.3 70B analyses
+	@echo "$(BLUE)Generating DSPy model for LLaMA 3.3 70B analyses...$(NC)"
+	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama70b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_llama70b_$*_model.json
+
+generate-llama70b-dspy-models: \
+	generate-llama70b-BootstrapFewShot-dspy-model \
+	generate-llama70b-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-llama70b-COPRO-dspy-model \
+	generate-llama70b-MIPROv2-dspy-model
+
+generate-mistral-small-%-dspy-model: ## Generate DSPy model for Mistral Small analyses
+	@echo "$(BLUE)Generating DSPy model for Mistral Small analyses...$(NC)"
+	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model mistral-small-3.1 \
+	--optimizer $* \
+	--output output/dspy_models/guarino_mistral-small_$*_model.json
+
+generate-mistral-small-dspy-models: \
+	generate-mistral-small-BootstrapFewShot-dspy-model \
+	generate-mistral-small-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-mistral-small-COPRO-dspy-model \
+	generate-mistral-small-MIPROv2-dspy-model
+
+generate-qwen72b-%-dspy-model: ## Generate DSPy model for Qwen 2.5 72B analyses
+	@echo "$(BLUE)Generating DSPy model for Qwen 2.5 72B analyses...$(NC)"
+	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen72b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_qwen72b_$*_model.json
+
+generate-qwen72b-dspy-models: \
+	generate-qwen72b-BootstrapFewShot-dspy-model \
+	generate-qwen72b-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-qwen72b-COPRO-dspy-model \
+	generate-qwen72b-MIPROv2-dspy-model
+
 generate-small-llm-dspy-models: \
 	generate-gemma9b-BootstrapFewShot-dspy-model \
 	generate-gemma9b-BootstrapFewShotWithRandomSearch-dspy-model \
@@ -288,7 +340,15 @@ generate-small-llm-dspy-models: \
 	generate-llama3b-BootstrapFewShot-dspy-model \
 	generate-llama3b-BootstrapFewShotWithRandomSearch-dspy-model \
 	generate-llama3b-COPRO-dspy-model \
-	generate-llama3b-MIPROv2-dspy-model
+	generate-llama3b-MIPROv2-dspy-model \
+	generate-gpt4o-mini-BootstrapFewShot-dspy-model \
+	generate-gpt4o-mini-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-gpt4o-mini-COPRO-dspy-model \
+	generate-gpt4o-mini-MIPROv2-dspy-model \
+	generate-mistral-small-BootstrapFewShot-dspy-model \
+	generate-mistral-small-BootstrapFewShotWithRandomSearch-dspy-model \
+	generate-mistral-small-COPRO-dspy-model \
+	generate-mistral-small-MIPROv2-dspy-model
 
 ##@ Batch Analysis Non-Agent DSPy Compiled Models
 ONTOLOGY_FILE = output/ontologies/guarino_messy.owl
@@ -337,6 +397,30 @@ batch-non-agent-dspy-gemini-%-llama8b:
 batch-non-agent-dspy-gemini-%-llama3b:
 	$(call batch-non-agent-dspy,gemini,$*,llama3b)
 
+batch-non-agent-dspy-anthropic-%-gpt4o-mini:
+	$(call batch-non-agent-dspy,claude,$*,gpt4o-mini)
+
+batch-non-agent-dspy-anthropic-%-mistral-small-3.1:
+	$(call batch-non-agent-dspy,claude,$*,mistral-small-3.1)
+
+batch-non-agent-dspy-anthropic-%-llama70b:
+	$(call batch-non-agent-dspy,claude,$*,llama70b)
+
+batch-non-agent-dspy-anthropic-%-qwen72b:
+	$(call batch-non-agent-dspy,claude,$*,qwen72b)
+
+batch-non-agent-dspy-gemini-%-gpt4o-mini:
+	$(call batch-non-agent-dspy,gemini,$*,gpt4o-mini)
+
+batch-non-agent-dspy-gemini-%-mistral-small-3.1:
+	$(call batch-non-agent-dspy,gemini,$*,mistral-small-3.1)
+
+batch-non-agent-dspy-gemini-%-llama70b:
+	$(call batch-non-agent-dspy,gemini,$*,llama70b)
+
+batch-non-agent-dspy-gemini-%-qwen72b:
+	$(call batch-non-agent-dspy,gemini,$*,qwen72b)
+
 batch-non-agent-dspy-anthropic-small-models: \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-gemma9b \
 	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-gemma9b \
@@ -353,7 +437,23 @@ batch-non-agent-dspy-anthropic-small-models: \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-llama3b \
 	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-llama3b \
 	batch-non-agent-dspy-anthropic-COPRO-llama3b \
-	batch-non-agent-dspy-anthropic-MIPROv2-llama3b
+	batch-non-agent-dspy-anthropic-MIPROv2-llama3b \
+	batch-non-agent-dspy-anthropic-BootstrapFewShot-gpt4o-mini \
+	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-gpt4o-mini \
+	batch-non-agent-dspy-anthropic-COPRO-gpt4o-mini \
+	batch-non-agent-dspy-anthropic-MIPROv2-gpt4o-mini \
+	batch-non-agent-dspy-anthropic-BootstrapFewShot-mistral-small-3.1 \
+	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-mistral-small-3.1 \
+	batch-non-agent-dspy-anthropic-COPRO-mistral-small-3.1 \
+	batch-non-agent-dspy-anthropic-MIPROv2-mistral-small-3.1 \
+	batch-non-agent-dspy-anthropic-BootstrapFewShot-llama70b \
+	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-llama70b \
+	batch-non-agent-dspy-anthropic-COPRO-llama70b \
+	batch-non-agent-dspy-anthropic-MIPROv2-llama70b \
+	batch-non-agent-dspy-anthropic-BootstrapFewShot-qwen72b \
+	batch-non-agent-dspy-anthropic-BootstrapFewShotWithRandomSearch-qwen72b \
+	batch-non-agent-dspy-anthropic-COPRO-qwen72b \
+	batch-non-agent-dspy-anthropic-MIPROv2-qwen72b
 
 batch-non-agent-dspy-gemini-small-models: \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-gemma9b \
@@ -371,7 +471,23 @@ batch-non-agent-dspy-gemini-small-models: \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-llama3b \
 	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-llama3b \
 	batch-non-agent-dspy-gemini-COPRO-llama3b \
-	batch-non-agent-dspy-gemini-MIPROv2-llama3b
+	batch-non-agent-dspy-gemini-MIPROv2-llama3b \
+	batch-non-agent-dspy-gemini-BootstrapFewShot-gpt4o-mini \
+	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-gpt4o-mini \
+	batch-non-agent-dspy-gemini-COPRO-gpt4o-mini \
+	batch-non-agent-dspy-gemini-MIPROv2-gpt4o-mini \
+	batch-non-agent-dspy-gemini-BootstrapFewShot-mistral-small-3.1 \
+	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-mistral-small-3.1 \
+	batch-non-agent-dspy-gemini-COPRO-mistral-small-3.1 \
+	batch-non-agent-dspy-gemini-MIPROv2-mistral-small-3.1 \
+	batch-non-agent-dspy-gemini-BootstrapFewShot-llama70b \
+	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-llama70b \
+	batch-non-agent-dspy-gemini-COPRO-llama70b \
+	batch-non-agent-dspy-gemini-MIPROv2-llama70b \
+	batch-non-agent-dspy-gemini-BootstrapFewShot-qwen72b \
+	batch-non-agent-dspy-gemini-BootstrapFewShotWithRandomSearch-qwen72b \
+	batch-non-agent-dspy-gemini-COPRO-qwen72b \
+	batch-non-agent-dspy-gemini-MIPROv2-qwen72b
 
 batch-non-agent-dspy-small-models: \
 	batch-non-agent-dspy-anthropic-small-models \

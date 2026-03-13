@@ -1,0 +1,497 @@
+{
+  "evaluation_summary": {
+    "total_evaluated": 15,
+    "metrics": {
+      "rigidity": "12/15 (80.00%)",
+      "identity": "12/15 (80.00%)",
+      "own_identity": "10/15 (66.67%)",
+      "unity": "12/15 (80.00%)",
+      "dependence": "13/15 (86.67%)",
+      "exact_match": "4/15 (26.67%)",
+      "ave_critique_attempts": 6.93,
+      "agent_name": "anthropic"
+    }
+  },
+  "detailed_results": [
+    {
+      "term": "AmountOfMatter",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "-I",
+          "ground_truth": "+I",
+          "match": false
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "+O",
+          "match": false
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "~U",
+          "match": false
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 8
+    },
+    {
+      "term": "Red",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "-R",
+          "ground_truth": "-R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "-I",
+          "ground_truth": "-I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "-O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "-U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "+D",
+          "ground_truth": "-D",
+          "match": false
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "PhysicalObject",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 5
+    },
+    {
+      "term": "LivingBeing",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 7
+    },
+    {
+      "term": "Fruit",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "-R",
+          "ground_truth": "+R",
+          "match": false
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 6
+    },
+    {
+      "term": "Food",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "-R",
+          "ground_truth": "~R",
+          "match": false
+        },
+        "identity": {
+          "predicted": "-I",
+          "ground_truth": "+I",
+          "match": false
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "-O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "~U",
+          "match": false
+        },
+        "dependence": {
+          "predicted": "+D",
+          "ground_truth": "+D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 6
+    },
+    {
+      "term": "Animal",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "+O",
+          "match": false
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 6
+    },
+    {
+      "term": "SocialEntity",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "+U",
+          "match": false
+        },
+        "dependence": {
+          "predicted": "+D",
+          "ground_truth": "+D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 8
+    },
+    {
+      "term": "Apple",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "+O",
+          "match": false
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 8
+    },
+    {
+      "term": "Vertebrate",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "-O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 6
+    },
+    {
+      "term": "LegalAgent",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "~R",
+          "ground_truth": "~R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "+O",
+          "match": false
+        },
+        "unity": {
+          "predicted": "-U",
+          "ground_truth": "-U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "+D",
+          "ground_truth": "+D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 8
+    },
+    {
+      "term": "Organization",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "-R",
+          "ground_truth": "+R",
+          "match": false
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "+D",
+          "match": false
+        }
+      },
+      "total_critique_attempts": 8
+    },
+    {
+      "term": "Caterpillar",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "~R",
+          "ground_truth": "~R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "-I",
+          "ground_truth": "+I",
+          "match": false
+        },
+        "own_identity": {
+          "predicted": "-O",
+          "ground_truth": "-O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 10
+    },
+    {
+      "term": "Butterfly",
+      "exact_match": false,
+      "properties": {
+        "rigidity": {
+          "predicted": "~R",
+          "ground_truth": "~R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "-O",
+          "match": false
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 8
+    },
+    {
+      "term": "Person",
+      "exact_match": true,
+      "properties": {
+        "rigidity": {
+          "predicted": "+R",
+          "ground_truth": "+R",
+          "match": true
+        },
+        "identity": {
+          "predicted": "+I",
+          "ground_truth": "+I",
+          "match": true
+        },
+        "own_identity": {
+          "predicted": "+O",
+          "ground_truth": "+O",
+          "match": true
+        },
+        "unity": {
+          "predicted": "+U",
+          "ground_truth": "+U",
+          "match": true
+        },
+        "dependence": {
+          "predicted": "-D",
+          "ground_truth": "-D",
+          "match": true
+        }
+      },
+      "total_critique_attempts": 5
+    }
+  ]
+}

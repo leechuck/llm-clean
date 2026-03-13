@@ -1,0 +1,233 @@
+{
+  "evaluation_summary": {
+    "ground_truth_file": "data/raw/ground_truth.tsv",
+    "prediction_file": "output/analyzed_entities/dspy_analyzed_entities_gemini_MIPROv2_mistral-small-3.1.tsv",
+    "total_ground_truth_terms": 22,
+    "overall_metrics": {
+      "accuracy": 0.74,
+      "precision": 0.59,
+      "recall": 0.54,
+      "f1_score": 0.53,
+      "support": 110,
+      "tp": 76,
+      "fp": 34,
+      "tn": 120,
+      "fn": 34
+    },
+    "per_property_metrics": {
+      "rigidity": {
+        "accuracy": 0.59,
+        "macro_avg": {
+          "accuracy": 0.73,
+          "precision": 0.37,
+          "recall": 0.39,
+          "f1_score": 0.37,
+          "support": 22,
+          "tp": 13,
+          "fp": 9,
+          "tn": 35,
+          "fn": 9
+        },
+        "per_class": {
+          "-R": {
+            "accuracy": 0.95,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 1,
+            "tp": 0,
+            "fp": 0,
+            "tn": 21,
+            "fn": 1
+          },
+          "~R": {
+            "accuracy": 0.59,
+            "precision": 0.33,
+            "recall": 0.5,
+            "f1_score": 0.4,
+            "support": 6,
+            "tp": 3,
+            "fp": 6,
+            "tn": 10,
+            "fn": 3
+          },
+          "+R": {
+            "accuracy": 0.64,
+            "precision": 0.77,
+            "recall": 0.67,
+            "f1_score": 0.71,
+            "support": 15,
+            "tp": 10,
+            "fp": 3,
+            "tn": 4,
+            "fn": 5
+          }
+        }
+      },
+      "identity": {
+        "accuracy": 0.86,
+        "macro_avg": {
+          "accuracy": 0.86,
+          "precision": 0.7,
+          "recall": 0.64,
+          "f1_score": 0.66,
+          "support": 22,
+          "tp": 19,
+          "fp": 3,
+          "tn": 19,
+          "fn": 3
+        },
+        "per_class": {
+          "-I": {
+            "accuracy": 0.86,
+            "precision": 0.5,
+            "recall": 0.33,
+            "f1_score": 0.4,
+            "support": 3,
+            "tp": 1,
+            "fp": 1,
+            "tn": 18,
+            "fn": 2
+          },
+          "+I": {
+            "accuracy": 0.86,
+            "precision": 0.9,
+            "recall": 0.95,
+            "f1_score": 0.92,
+            "support": 19,
+            "tp": 18,
+            "fp": 2,
+            "tn": 1,
+            "fn": 1
+          }
+        }
+      },
+      "own_identity": {
+        "accuracy": 0.55,
+        "macro_avg": {
+          "accuracy": 0.55,
+          "precision": 0.53,
+          "recall": 0.53,
+          "f1_score": 0.53,
+          "support": 22,
+          "tp": 12,
+          "fp": 10,
+          "tn": 12,
+          "fn": 10
+        },
+        "per_class": {
+          "-O": {
+            "accuracy": 0.55,
+            "precision": 0.44,
+            "recall": 0.44,
+            "f1_score": 0.44,
+            "support": 9,
+            "tp": 4,
+            "fp": 5,
+            "tn": 8,
+            "fn": 5
+          },
+          "+O": {
+            "accuracy": 0.55,
+            "precision": 0.62,
+            "recall": 0.62,
+            "f1_score": 0.62,
+            "support": 13,
+            "tp": 8,
+            "fp": 5,
+            "tn": 4,
+            "fn": 5
+          }
+        }
+      },
+      "unity": {
+        "accuracy": 0.68,
+        "macro_avg": {
+          "accuracy": 0.79,
+          "precision": 0.69,
+          "recall": 0.55,
+          "f1_score": 0.5,
+          "support": 22,
+          "tp": 15,
+          "fp": 7,
+          "tn": 37,
+          "fn": 7
+        },
+        "per_class": {
+          "-U": {
+            "accuracy": 0.73,
+            "precision": 1.0,
+            "recall": 0.14,
+            "f1_score": 0.25,
+            "support": 7,
+            "tp": 1,
+            "fp": 0,
+            "tn": 15,
+            "fn": 6
+          },
+          "+U": {
+            "accuracy": 0.77,
+            "precision": 0.72,
+            "recall": 1.0,
+            "f1_score": 0.84,
+            "support": 13,
+            "tp": 13,
+            "fp": 5,
+            "tn": 4,
+            "fn": 0
+          },
+          "~U": {
+            "accuracy": 0.86,
+            "precision": 0.33,
+            "recall": 0.5,
+            "f1_score": 0.4,
+            "support": 2,
+            "tp": 1,
+            "fp": 2,
+            "tn": 18,
+            "fn": 1
+          }
+        }
+      },
+      "dependence": {
+        "accuracy": 0.77,
+        "macro_avg": {
+          "accuracy": 0.77,
+          "precision": 0.65,
+          "recall": 0.57,
+          "f1_score": 0.58,
+          "support": 22,
+          "tp": 17,
+          "fp": 5,
+          "tn": 17,
+          "fn": 5
+        },
+        "per_class": {
+          "+D": {
+            "accuracy": 0.77,
+            "precision": 0.5,
+            "recall": 0.2,
+            "f1_score": 0.29,
+            "support": 5,
+            "tp": 1,
+            "fp": 1,
+            "tn": 16,
+            "fn": 4
+          },
+          "-D": {
+            "accuracy": 0.77,
+            "precision": 0.8,
+            "recall": 0.94,
+            "f1_score": 0.86,
+            "support": 17,
+            "tp": 16,
+            "fp": 4,
+            "tn": 1,
+            "fn": 1
+          }
+        }
+      }
+    },
+    "agent_name": "mistral-small-3.1"
+  }
+}
