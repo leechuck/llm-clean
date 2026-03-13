@@ -25,7 +25,9 @@
         generate-llama8b-dspy-agent-critic-models generate-llama3b-dspy-agent-critic-models \
         generate-gpt4o-mini-dspy-agent-critic-models generate-llama70b-dspy-agent-critic-models \
         generate-mistral-small-dspy-agent-critic-models generate-qwen72b-dspy-agent-critic-models \
-        generate-large-llm-dspy-agent-critic-models generate-small-llm-dspy-agent-critic-models
+        generate-large-llm-dspy-agent-critic-models generate-small-llm-dspy-agent-critic-models \
+        batch-agent-dspy-anthropic-small-models batch-agent-dspy-gemini-small-models \
+        batch-agent-dspy-small-models
 
 # Default target
 .DEFAULT_GOAL := help
@@ -632,6 +634,97 @@ batch-non-agent-dspy-gemini-small-models: \
 batch-non-agent-dspy-small-models: \
 	batch-non-agent-dspy-anthropic-small-models \
 	batch-non-agent-dspy-gemini-small-models
+
+##@ Batch Analysis Agent DSPy Compiled Models
+
+define batch-agent-dspy
+	@echo "DSPy Agent Batch Analyzing guarino_$(1)_$(2)_agent_model.json using model $(3)"
+
+	uv run python scripts/batch_analyze_agent_dspy.py $(ONTOLOGY_FILE) \
+	--compiled-model $(MODEL_DIR)/guarino_$(1)_$(2)_agent_model.json \
+	--model $(3) \
+	--output $(ANALYZED_OUTPUT_DIR)/dspy_agent_analyzed_entities_$(1)_$(2)_$(3).tsv \
+	&& \
+	uv run python scripts/evaluate_classification_metrics.py\
+		$(strip \
+			$(ANALYZED_OUTPUT_DIR)/dspy_agent_analyzed_entities_$(1)_$(2)_$(3).tsv \
+			data/raw/ground_truth.tsv
+		) \
+	--agent-name $(3) \
+	--output $(EVALUATION_RESULTS_DIR)/classify_dspy_agent_$(1)_$(2)_$(3).json
+endef
+
+batch-agent-dspy-anthropic-%-gemma9b:
+	$(call batch-agent-dspy,claude,$*,dspy_gemma9b)
+
+batch-agent-dspy-anthropic-%-qwen7b:
+	$(call batch-agent-dspy,claude,$*,dspy_qwen7b)
+
+batch-agent-dspy-anthropic-%-llama8b:
+	$(call batch-agent-dspy,claude,$*,dspy_llama8b)
+
+batch-agent-dspy-anthropic-%-llama3b:
+	$(call batch-agent-dspy,claude,$*,dspy_llama3b)
+
+batch-agent-dspy-gemini-%-gemma9b:
+	$(call batch-agent-dspy,gemini,$*,dspy_gemma9b)
+
+batch-agent-dspy-gemini-%-qwen7b:
+	$(call batch-agent-dspy,gemini,$*,dspy_qwen7b)
+
+batch-agent-dspy-gemini-%-llama8b:
+	$(call batch-agent-dspy,gemini,$*,dspy_llama8b)
+
+batch-agent-dspy-gemini-%-llama3b:
+	$(call batch-agent-dspy,gemini,$*,dspy_llama3b)
+
+batch-agent-dspy-anthropic-%-gpt4o-mini:
+	$(call batch-agent-dspy,claude,$*,dspy_gpt4o-mini)
+
+batch-agent-dspy-anthropic-%-mistral-small-3.1:
+	$(call batch-agent-dspy,claude,$*,dspy_mistral-small-3.1)
+
+batch-agent-dspy-anthropic-%-llama70b:
+	$(call batch-agent-dspy,claude,$*,dspy_llama70b)
+
+batch-agent-dspy-anthropic-%-qwen72b:
+	$(call batch-agent-dspy,claude,$*,dspy_qwen72b)
+
+batch-agent-dspy-gemini-%-gpt4o-mini:
+	$(call batch-agent-dspy,gemini,$*,dspy_gpt4o-mini)
+
+batch-agent-dspy-gemini-%-mistral-small-3.1:
+	$(call batch-agent-dspy,gemini,$*,dspy_mistral-small-3.1)
+
+batch-agent-dspy-gemini-%-llama70b:
+	$(call batch-agent-dspy,gemini,$*,dspy_llama70b)
+
+batch-agent-dspy-gemini-%-qwen72b:
+	$(call batch-agent-dspy,gemini,$*,dspy_qwen72b)
+
+batch-agent-dspy-anthropic-small-models: \
+	batch-agent-dspy-anthropic-BootstrapFewShot-gemma9b \
+	batch-agent-dspy-anthropic-BootstrapFewShot-qwen7b \
+	batch-agent-dspy-anthropic-BootstrapFewShot-llama8b \
+	batch-agent-dspy-anthropic-BootstrapFewShot-llama3b \
+	batch-agent-dspy-anthropic-BootstrapFewShot-gpt4o-mini \
+	batch-agent-dspy-anthropic-BootstrapFewShot-mistral-small-3.1 \
+	batch-agent-dspy-anthropic-BootstrapFewShot-llama70b \
+	batch-agent-dspy-anthropic-BootstrapFewShot-qwen72b
+
+batch-agent-dspy-gemini-small-models: \
+	batch-agent-dspy-gemini-BootstrapFewShot-gemma9b \
+	batch-agent-dspy-gemini-BootstrapFewShot-qwen7b \
+	batch-agent-dspy-gemini-BootstrapFewShot-llama8b \
+	batch-agent-dspy-gemini-BootstrapFewShot-llama3b \
+	batch-agent-dspy-gemini-BootstrapFewShot-gpt4o-mini \
+	batch-agent-dspy-gemini-BootstrapFewShot-mistral-small-3.1 \
+	batch-agent-dspy-gemini-BootstrapFewShot-llama70b \
+	batch-agent-dspy-gemini-BootstrapFewShot-qwen72b
+
+batch-agent-dspy-small-models: \
+	batch-agent-dspy-anthropic-small-models \
+	batch-agent-dspy-gemini-small-models
 
 ##@ Results Collection and Reports
 
