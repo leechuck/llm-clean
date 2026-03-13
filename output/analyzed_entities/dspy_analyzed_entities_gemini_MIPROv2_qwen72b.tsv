@@ -1,0 +1,138 @@
+term	uri	rigidity	identity	own_identity	unity	dependence	classification	reasoning	error
+Butterfly	http://example.org/guarino-messy#Butterfly	+R	+I	+O	+U	-D	Sortal	"The term ""Butterfly"" refers to a specific type of insect. As a biological species, being a butterfly is essential to any individual of that species; a butterfly cannot cease to be a butterfly without ceasing to exist. This indicates rigidity (+R). Butterflies have a clear identity condition based on their biological characteristics, allowing us to distinguish one butterfly from another and track them over time, which gives them +I. Since the identity condition is inherent to the butterfly itself, it provides its own IC, giving it +O. Butterflies are individual organisms, each a single whole, which means they have topological unity (+U). Finally, butterflies do not depend on any other specific entity for their existence, so they are independent (-D)."	
+Red	http://example.org/guarino-messy#Red	~R	-I	-O	-U	-D	Mixin	"""Red"" is a color, which is a quality or attribute rather than a distinct entity. It does not have a clear identity condition (IC) that can be used to distinguish specific instances and track them over time. It is not essential to every instance of an entity, and it does not provide its own identity. ""Red"" is also not dependent on another specific entity for its existence. It can be applied to various objects without those objects ceasing to exist or changing their core identity.
+
+- **Rigidity**: ""Red"" is not essential to any instance. An object can be red in one context and not red in another (e.g., a chameleon changing color, a car being repainted). Thus, it is classified as ~R (Anti-Rigid).
+- **Identity**: ""Red"" does not carry an identity condition that allows us to distinguish and track instances over time. It is a quality that can be applied to multiple entities without a unique identity. Thus, it is -I.
+- **Own Identity**: Since ""Red"" does not carry an identity condition, it cannot provide its own identity. Thus, it is -O.
+- **Unity**: ""Red"" does not imply a single, unified whole. It is a quality that can be distributed across various entities without a unifying relation. Thus, it is -U.
+- **Dependence**: ""Red"" does not depend on another specific entity for its existence. It is a quality that can be applied to multiple objects independently. Thus, it is -D."	
+Food	http://example.org/guarino-messy#Food	~R	+I	-O	-U	-D	Role	"The term ""Food"" is a broad and context-dependent term. It is not rigidly essential to the existence of an entity (e.g., a tomato can be food in one context but a plant in another), so it is classified as ~R (Anti-Rigid). ""Food"" does carry an identity condition (+I) because we can distinguish different types of food and track them over time (e.g., an apple and a banana). However, ""Food"" does not supply its own identity condition (-O) because the identity of a specific food item is usually derived from its more specific type (e.g., an apple). ""Food"" is not a unifying entity (+U), as it can be a collection of different items or substances. It is also independent (-D) because it can exist without depending on another specific entity for its existence."	
+Animal	http://example.org/guarino-messy#Animal	+R	+I	+O	+U	-D	Sortal	Animal is a fundamental category in the biological domain. It is a rigid property because if something is an animal, it must be an animal in all possible worlds. This means that being an animal is an essential property. Animals have a clear identity condition based on their genetic makeup and biological characteristics, allowing us to distinguish and track individual animals over time. The category Animal provides its own identity condition and is not dependent on other entities for its existence. Additionally, each individual animal is a single, unified entity, making it a unifying entity.	
+RedApple	http://example.org/guarino-messy#RedApple	-R	+I	-O	+U	-D	Mixin	"The term ""RedApple"" refers to a specific type of apple that is red in color. 
+
+- **Rigidity**: RedApple is not rigid because an apple can exist without being red. The property of being red is not essential to the apple's existence.
+- **Identity**: RedApple carries an identity condition (IC) because it is a specific type of apple that can be distinguished from other types of apples (e.g., GreenApple).
+- **Own Identity**: RedApple inherits its identity from the more general category of Apple, rather than providing its own distinct IC.
+- **Unity**: RedApple instances are unified wholes, as each RedApple is a single, cohesive object.
+- **Dependence**: RedApple is independent because it does not require the existence of another specific entity to be a RedApple."	
+Group	http://example.org/guarino-messy#Group	~R	+I	-O	~U	-D	Collective	"The term ""Group"" typically refers to an aggregate of entities that are considered together for a specific purpose. 
+- **Rigidity**: ""Group"" is not a rigid property because it can change in composition without ceasing to be a group (e.g., a group of friends can change members but still be considered the same group). Thus, it is non-rigid (~R).
+- **Identity**: ""Group"" does carry an identity condition because it can be distinguished from other groups and tracked over time (e.g., ""our group"" vs. ""their group"").
+- **Own Identity**: However, ""Group"" does not provide its own identity condition; it inherits it from the individuals that make up the group (-O).
+- **Unity**: ""Group"" typically represents a collection of entities, and it does not have a single, unifying topological whole (~U).
+- **Dependence**: A ""Group"" is often dependent on the entities that constitute it, but it is not dependent on a specific external entity (-D)."	
+Country	http://example.org/guarino-messy#Country	+R	+I	+O	+U	-D	Sortal	"**Rigidity**: ""Country"" is a rigid property because a country that exists in one possible world must also exist in all other possible worlds. It is a fundamental and essential characteristic.
+
+**Identity**: Countries have a clear identity condition (IC) that allows us to distinguish one country from another and track them over time. The IC is typically based on geopolitical boundaries, government, and international recognition.
+
+**Own Identity**: ""Country"" provides its own IC because it is a primary entity with a distinct set of attributes that define it, such as its name, government, borders, and population.
+
+**Unity**: Countries are unifying entities. They have a common unifying relation that defines them as a single whole, typically through a centralized government and a defined territory.
+
+**Dependence**: While countries can be influenced by external factors (e.g., international laws, treaties), they are fundamentally independent entities that do not require the existence of another specific entity to maintain their identity.
+
+**Classification**: Given the meta-properties, ""Country"" is classified as a **Sortal**."	
+AmountOfMatter	http://example.org/guarino-messy#AmountOfMatter	~R	+I	-O	-U	+D	Role	"""AmountOfMatter"" refers to a quantity or measure of matter, which can vary depending on the context. Let's analyze the meta-properties:
+
+- **Rigidity**: ""AmountOfMatter"" is not a rigid property because the amount of matter can change without the entity ceasing to exist. For example, a quantity of water can be increased or decreased without the water itself becoming a different kind of entity. Thus, it is ~R (Anti-Rigid).
+- **Identity**: ""AmountOfMatter"" does carry an identity condition because it can be distinguished and tracked over time. For instance, a specific amount of water can be identified and measured consistently. Thus, it is +I.
+- **Own Identity**: ""AmountOfMatter"" does not provide its own identity condition; it inherits it from the underlying substance or object it quantifies. Thus, it is -O.
+- **Unity**: ""AmountOfMatter"" is not a single whole with a common unifying relation. It is a measure that can vary and does not imply a single, unified entity. Thus, it is -U.
+- **Dependence**: ""AmountOfMatter"" is dependent on the existence of the matter it quantifies. For example, the amount of water depends on the water itself existing. Thus, it is +D.
+
+Based on these properties, ""AmountOfMatter"" can be classified as a **Role**."	
+PhysicalObject	http://example.org/guarino-messy#PhysicalObject	+R	+I	+O	+U	-D	Sortal	PhysicalObject is an entity that has a stable and unchanging set of essential properties across all possible worlds, such as having a physical presence and occupying space. This indicates that it is a rigid entity. PhysicalObject also carries an identity condition (IC) that allows us to distinguish and track individual instances over time and across different contexts. This IC is inherent to the entity itself, meaning it provides its own identity. Each instance of PhysicalObject is a single, unified whole, which implies topological unity. Finally, PhysicalObject is independent, as it does not depend on the existence of another specific entity to be what it is.	
+GroupOfPeople	http://example.org/guarino-messy#GroupOfPeople	~R	+I	-O	~U	+D	Mixin	"A ""GroupOfPeople"" is a collection of individuals who come together for a specific purpose or context. 
+
+1. **Rigidity**: A ""GroupOfPeople"" is an Anti-Rigid entity because it can cease to be a group without the individuals ceasing to exist. For example, if the members disperse, the group no longer exists, but the individuals remain.
+2. **Identity**: A ""GroupOfPeople"" does carry an Identity Condition (IC) because we can distinguish one group from another (e.g., a group of friends vs. a group of colleagues).
+3. **Own Identity**: However, the Identity Condition is not supplied by the group itself but rather by the individuals it contains and the context in which they come together. Therefore, it inherits its IC from the individuals.
+4. **Unity**: A ""GroupOfPeople"" is an Anti-Unity entity because it is a collection of individuals without a single unifying structure. It is a sum or aggregate rather than a single whole.
+5. **Dependence**: The group is Dependent because it requires the existence of the individuals to form the group. Without the individuals, the group cannot exist."	
+LivingBeing	http://example.org/guarino-messy#LivingBeing	+R	+I	+O	+U	-D	Sortal	"The term ""LivingBeing"" refers to any entity that exhibits the characteristics of life, such as growth, reproduction, responsiveness to stimuli, and metabolism. 
+
+- **Rigidity**: ""LivingBeing"" is a rigid property because being a living being is an essential characteristic that cannot change without the entity ceasing to be what it is. For example, a tree cannot cease to be a living being and still remain a tree.
+- **Identity**: ""LivingBeing"" carries an identity condition because we can distinguish and track individual living beings over time. Each living being has a unique set of properties that allow us to identify it.
+- **Own Identity**: ""LivingBeing"" provides its own identity condition, as the identity of a living being is intrinsic to its being a living being and does not depend on inheriting it from a parent.
+- **Unity**: ""LivingBeing"" is a unifying entity because each instance of a living being is a single, coherent whole with a common unifying relation (e.g., a tree, an animal, a plant).
+- **Dependence**: ""LivingBeing"" is independent because a living being does not require another specific entity to exist. It can exist on its own."	
+SocialEntity	http://example.org/guarino-messy#SocialEntity	~R	+I	-O	~U	+D	Role	"The term ""SocialEntity"" refers to entities that exist within a social context. To determine its meta-properties, we need to consider the following:
+
+1. **Rigidity (R)**: A SocialEntity is not rigid because the property of being a social entity is not essential to an instance in all possible worlds. For example, a person can exist without being part of a specific social entity.
+2. **Identity (I)**: SocialEntities typically carry an identity condition (IC) because they can be distinguished from one another and tracked over time. For example, a specific club or organization can be identified and followed over time.
+3. **Own Identity (O)**: SocialEntities do not provide their own identity conditions; they inherit them from the individuals or groups that constitute them.
+4. **Unity (U)**: SocialEntities often consist of multiple individuals or parts, but they do not necessarily form a single, unified whole with a common unifying relation. They are often collections or aggregates.
+5. **Dependence (D)**: SocialEntities are dependent on the individuals or groups that constitute them. They cannot exist without these constituent parts.
+
+Given these properties, the term ""SocialEntity"" fits the profile of a Role, as it is non-rigid, carries identity, does not provide its own identity, and is dependent on other entities."	
+Location	http://example.org/guarino-messy#Location	-R	+I	-O	+U	+D	Role	"""Location"" refers to a place or position in space. It does not have a fixed essence that must remain the same across all possible worlds, making it non-rigid. Locations can be identified and distinguished from one another, hence they carry an identity. However, the identity of a location is not intrinsic to the location itself but is often derived from the context or the entities that occupy it. Locations are typically single, unified places, so they can be considered to have unity. Locations are inherently dependent on the physical world or the entities that define them."	
+Fruit	http://example.org/guarino-messy#Fruit	+R	+I	+O	+U	-D	Sortal	"The term ""Fruit"" refers to a category of edible plant products that are generally sweet or tart and contain seeds. 
+
+1. **Rigidity**: Being a fruit is essential to the identity of a specific type of fruit (e.g., an apple is always a fruit). However, individual fruits can exist in different states (e.g., ripe, unripe, cooked) without ceasing to be fruits. Therefore, the rigidity of ""Fruit"" is +R (Rigid).
+
+2. **Identity**: Fruits have distinct identity conditions that allow us to distinguish one fruit from another and track them over time (e.g., an apple can be identified as the same apple from the tree to the table). Thus, ""Fruit"" is +I (carries identity).
+
+3. **Own Identity**: Fruits provide their own identity conditions; they are not defined by inheriting identity from a more general category. For example, an apple is identifiable as an apple without needing to reference a broader category like ""plant."" Therefore, ""Fruit"" is +O (provides own identity).
+
+4. **Unity**: Individual fruits are single wholes with a common unifying structure (e.g., a single apple, a single banana). This implies that fruits have topological unity. Thus, ""Fruit"" is +U (Unifying).
+
+5. **Dependence**: Fruits do not require the existence of another specific entity to be fruits. They can exist independently. Therefore, ""Fruit"" is -D (Independent)."	
+Vertebrate	http://example.org/guarino-messy#Vertebrate	+R	+I	+O	+U	-D	Sortal	"The term ""Vertebrate"" refers to a biological classification that includes animals with a vertebral column. 
+
+1. **Rigidity (R)**: Being a vertebrate is an essential property for members of this class. An animal that is a vertebrate cannot cease to be a vertebrate without ceasing to exist as that particular animal. This suggests +R.
+2. **Identity (I)**: Vertebrates can be distinguished from one another based on their unique biological and physical characteristics, which persist over time. This indicates +I.
+3. **Own Identity (O)**: The identity of a vertebrate is intrinsic to the individual and is not derived from a more general class. Therefore, this supports +O.
+4. **Unity (U)**: Each vertebrate is a single, unified organism with a coherent structure and function. This aligns with +U.
+5. **Dependence (D)**: Vertebrates do not depend on another specific entity for their existence. They are independent biological entities. This suggests -D.
+6. **Classification**: Given the meta-properties, ""Vertebrate"" is best classified as a **Sortal**."	
+Caterpillar	http://example.org/guarino-messy#Caterpillar	~R	+I	-O	+U	-D	Phase	"The term ""Caterpillar"" refers to the larval stage of a butterfly or moth. 
+- **Rigidity**: Being a caterpillar is a phase in the life cycle of a butterfly or moth, and it is not essential to the entity's nature in all possible worlds. Therefore, it is classified as ~R (Anti-Rigid).
+- **Identity**: Caterpillars do carry an identity condition, as we can distinguish one caterpillar from another and track it over time during its larval stage. Thus, it is +I.
+- **Own Identity**: The identity of a caterpillar is not its own but is inherited from the overall identity of the individual butterfly or moth. Therefore, it is -O.
+- **Unity**: Caterpillars are single, unified organisms, even though they undergo significant changes during their life cycle. Thus, they are +U.
+- **Dependence**: Caterpillars do not depend on another specific entity for their existence; they are independent organisms. Therefore, they are -D.
+- **Classification**: Given the meta-properties, ""Caterpillar"" can be classified as a Phase."	
+Person	http://example.org/guarino-messy#Person	+R	+I	+O	+U	-D	Sortal	"The term ""Person"" is a fundamental concept in ontology. It is +R (Rigid) because being a person is an essential property that does not change across possible worlds. It is +I (provides identity) because it has a clear Identity Condition (IC) that allows us to distinguish and track individuals over time. It is also +O (supplies own IC) because the identity of a person is intrinsic and not derived from another entity. A person has +U (Unity) because it is a single, unified entity. Finally, it is -D (Independent) because a person does not depend on another specific entity for its existence."	
+LegalAgent	http://example.org/guarino-messy#LegalAgent	~R	+I	-O	-U	+D	Role	"The term ""LegalAgent"" refers to an entity that acts on behalf of another in a legal context. To determine its meta-properties, we consider the following:
+
+1. **Rigidity**: ""LegalAgent"" is not a rigid property because being a legal agent is not an essential characteristic that must hold in all possible worlds. An individual can act as a legal agent in one context but not in another. Therefore, it is anti-rigid (~R).
+
+2. **Identity**: ""LegalAgent"" carries an identity condition (+I) because we can distinguish different legal agents and track them over time based on their specific legal responsibilities and actions.
+
+3. **Own Identity**: ""LegalAgent"" does not provide its own identity condition (-O) because the identity of a legal agent is derived from the individual or entity that is acting as the agent. The identity of the legal agent is not independent of the underlying individual or entity.
+
+4. **Unity**: ""LegalAgent"" does not imply a single, unified entity (+U) because a legal agent can be a person, a corporation, or any other entity capable of acting legally. Therefore, it lacks a common unifying relation and is classified as non-unifying (-U).
+
+5. **Dependence**: ""LegalAgent"" is dependent (+D) because the existence of a legal agent is contingent upon the existence of a legal context or a principal for whom the agent acts. Without a legal context or principal, the role of a legal agent does not exist.
+
+Based on these meta-properties, ""LegalAgent"" is classified as a Role."	
+Entity	http://example.org/guarino-messy#Entity	+R	+I	+O	-U	-D	Sortal	"The term ""Entity"" is a very broad and foundational concept in ontological frameworks. It is generally considered to be one of the most fundamental categories, encompassing anything that can be said to exist. Given its broad and essential nature:
+
+1. **Rigidity (R)**: ""Entity"" is a rigid concept because any instance of an entity, by definition, must be an entity in all possible worlds. It is an essential property of existence.
+2. **Identity (I)**: ""Entity"" carries an identity condition because it allows us to distinguish one entity from another and track them over time.
+3. **Own Identity (O)**: ""Entity"" provides its own identity condition, as it is a fundamental concept that does not inherit its identity from a more specific category.
+4. **Unity (U)**: ""Entity"" does not imply a specific wholeness or structure, as it can apply to both simple and complex entities. However, it is not explicitly a collection or aggregate, so it is neutral in terms of unity.
+5. **Dependence (D)**: ""Entity"" is independent, as it does not require the existence of another specific entity to be an entity."	
+Organization	http://example.org/guarino-messy#Organization	+R	+I	+O	+U	-D	Sortal	"The term ""Organization"" can be analyzed as follows:
+
+1. **Rigidity**: An ""Organization"" is generally considered a rigid entity. The essence of being an organization (a structured group with a common purpose) is essential to its existence. Therefore, an instance of an organization must be an organization in all possible worlds where it exists.
+2. **Identity**: An ""Organization"" carries an identity condition (IC) that allows us to distinguish one organization from another and track it over time. Each organization has a unique set of characteristics, such as name, legal status, and members.
+3. **Own Identity**: An ""Organization"" provides its own IC. The identity of an organization is not derived from another entity but is intrinsic to the organization itself.
+4. **Unity**: An ""Organization"" is a single, unified entity with a common purpose and structure. It has topological unity, meaning that it is a whole with parts that are integrated and function together.
+5. **Dependence**: An ""Organization"" is independent. It does not require the existence of another specific entity to exist. While organizations may have dependencies on other entities (e.g., members, legal frameworks), these dependencies do not make the organization dependent in the sense of OntoClean."	
+Agent	http://example.org/guarino-messy#Agent	~R	+I	-O	-U	+D	Role	"The term ""Agent"" is quite broad and can be applied to various entities that have the capacity to act. However, in formal ontology, ""Agent"" typically refers to an entity that is capable of performing actions and has some level of autonomy. 
+
+1. **Rigidity**: ""Agent"" is not a rigid property because an entity can gain or lose the capacity to act (e.g., a person becoming an agent when they start a job, or a machine becoming an agent when it is activated). Therefore, it is not essential to an entity in all possible worlds.
+2. **Identity**: ""Agent"" carries an identity condition because we can distinguish and track different agents over time (e.g., different people or machines performing actions).
+3. **Own Identity**: ""Agent"" does not provide its own identity condition; it inherits identity from the entities that instantiate it (e.g., a specific person or machine). Therefore, it is not +O.
+4. **Unity**: ""Agent"" does not imply a specific topological unity. It can be instantiated by various entities, and these entities can be disparate (e.g., a person, a machine, a software program).
+5. **Dependence**: ""Agent"" is often dependent on other entities for its instantiation. For example, a person can be an agent in the context of a specific role or job, which depends on the existence of that role or job."	
+Apple	http://example.org/guarino-messy#Apple	+R	+I	+O	+U	-D	Sortal	"The term ""Apple"" refers to a fruit, which is a tangible object with a well-defined identity and essence. 
+
+1. **Rigidity**: An apple is a rigid property because it is essential to every instance of an apple. If something is an apple, it must always be an apple in all possible worlds. Thus, it is +R.
+2. **Identity**: An apple has a clear identity condition (IC) that allows us to distinguish one apple from another and track it over time. Thus, it is +I.
+3. **Own Identity**: The property ""Apple"" provides its own IC, as the identity of an apple is intrinsic to the apple itself. Thus, it is +O.
+4. **Unity**: An apple is a single, unified whole. Each instance of an apple is a single, coherent object. Thus, it is +U.
+5. **Dependence**: An apple is an independent entity; it does not require the existence of another specific entity to be an apple. Thus, it is -D.
+6. **Classification**: Given the meta-properties, ""Apple"" is classified as a **Sortal**."	

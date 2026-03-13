@@ -1,0 +1,231 @@
+term	uri	rigidity	identity	own_identity	unity	dependence	classification	reasoning	error
+Butterfly	http://example.org/guarino-messy#Butterfly	+R	+I	+O	+U	-D	Sortal	"To determine the meta-properties of the term ""Butterfly,"" we need to analyze its essential characteristics and identity conditions.
+
+1. **Rigidity (+R)**: Butterflies are inherently rigid entities. An instance of a butterfly must always be a butterfly in all possible worlds. This is because the essence of being a butterfly is fixed and does not change.
+
+2. **Identity (+I)**: Butterflies carry an identity condition that allows us to distinguish one butterfly from another and track them over time. This is evident because we can identify and track individual butterflies based on their unique physical characteristics.
+
+3. **Own Identity (+O)**: Butterflies provide their own identity condition. The concept of a butterfly inherently supplies the criteria for distinguishing one butterfly from another without needing to inherit these criteria from a parent concept.
+
+4. **Unity (+U)**: Butterflies are unified wholes. Each butterfly is a single, coherent entity with a common unifying relation, making it a topological unity.
+
+5. **Dependence (-D)**: Butterflies are independent entities. Their existence does not depend on the existence of any other specific entity (beyond general ecological dependencies, which are not specific to the concept of a butterfly)."	
+Red	http://example.org/guarino-messy#Red	~R	-I	-O	-U	-D	Attributive/Mixin	"The term ""Red"" refers to a specific color. To determine its meta-properties, we need to analyze its essentiality, identity conditions, and structural characteristics.
+
+1. **Rigidity**: The property of being red is not essential to any instance. An object can change from red to another color without ceasing to exist. Therefore, ""Red"" is anti-rigid (~R).
+
+2. **Identity**: The property of being red does not carry an identity condition. Two red objects can be distinct and tracked over time based on other properties, not just their color. Therefore, ""Red"" is -I.
+
+3. **Own Identity**: Since ""Red"" does not carry an identity condition, it does not provide its own identity condition. Therefore, ""Red"" is -O.
+
+4. **Unity**: The property of being red does not imply any common wholeness or unifying relation among instances. Therefore, ""Red"" is -U.
+
+5. **Dependence**: The property of being red does not depend on the existence of another specific entity. Therefore, ""Red"" is -D."	
+Food	http://example.org/guarino-messy#Food	~R	-I	-O	~U	-D	Mixin	"To determine the meta-properties of the term ""Food,"" we need to analyze its essentiality, identity conditions, unity, and dependence.
+
+1. **Rigidity (R)**: Food is not an essential property for all instances in all possible worlds. For example, an object can exist without being food (e.g., a rock). Therefore, ""Food"" is not rigid.
+2. **Identity (I)**: Food does not carry an identity condition that allows us to distinguish two instances and track them over time. For example, a piece of bread today is not the same piece of bread tomorrow, even if it looks identical. Therefore, ""Food"" does not carry an identity condition.
+3. **Own Identity (O)**: Since ""Food"" does not carry an identity condition (+I), it cannot provide its own identity condition. Therefore, ""Food"" does not supply its own identity condition.
+4. **Unity (U)**: Food does not imply a common wholeness. Different types of food can be aggregated without forming a single unified whole. Therefore, ""Food"" is anti-unity.
+5. **Dependence (D)**: Food does not depend on the existence of another specific entity (not a part) to exist. Therefore, ""Food"" is independent."	
+Animal	http://example.org/guarino-messy#Animal	+R	+I	+O	+U	-D	Sortal	"To determine the meta-properties of the term ""Animal,"" we need to analyze its essential characteristics and identity conditions.
+
+1. **Rigidity (+R)**: The property of being an animal is essential to every instance of an animal. An entity that is an animal must always be an animal in all possible worlds. This is a rigid property because it is part of the essence of what it means to be an animal.
+
+2. **Identity (+I)**: The term ""Animal"" carries an identity condition. We can distinguish between different animals and track them over time based on their biological characteristics and genetic makeup.
+
+3. **Own Identity (+O)**: The term ""Animal"" provides its own identity condition. Being an animal is not inherited from a more general category but is a fundamental property that defines what an animal is.
+
+4. **Unity (+U)**: Every instance of an animal is a single whole with a common unifying relation. Animals have a topological unity, meaning they are individual organisms with a coherent structure.
+
+5. **Dependence (-D)**: The term ""Animal"" is independent. An animal does not require the existence of another specific entity to exist. It is a self-contained biological entity."	
+RedApple	http://example.org/guarino-messy#RedApple	+R	+I	+O	+U	-D	Sortal	"To determine the meta-properties of ""RedApple,"" we need to analyze its essential characteristics and identity conditions.
+
+1. **Rigidity (+R)**: An apple that is red must always be red in all possible worlds where it exists as a red apple. The color red is an essential property for identifying it as a red apple. If it ceases to be red, it ceases to be a red apple.
+
+2. **Identity (+I)**: ""RedApple"" carries an identity condition because we can distinguish between different red apples and track them over time based on their properties, including their color.
+
+3. **Own Identity (+O)**: ""RedApple"" provides its own identity condition. The property of being a red apple is sufficient to identify and track instances of red apples independently of other properties.
+
+4. **Unity (+U)**: A red apple is a single, unified whole. It has a common unifying relation that makes it a single entity.
+
+5. **Dependence (-D)**: A red apple does not depend on the existence of another specific entity to exist. It is an independent entity."	
+Group	http://example.org/guarino-messy#Group	~R	+I	-O	~U	+D	Collective	"To determine the meta-properties of the term ""Group,"" we need to analyze its essential characteristics:
+
+1. **Rigidity (R)**: A ""Group"" is not an essential property of its members. An entity can exist independently of being part of a group. Therefore, ""Group"" is not rigid in the sense that it is not essential to every instance in all possible worlds.
+
+2. **Identity (I)**: A ""Group"" carries an Identity Condition (IC) because we can distinguish between different groups and track them over time. For example, we can identify ""Group A"" as distinct from ""Group B.""
+
+3. **Own Identity (O)**: A ""Group"" does not provide its own IC; rather, it inherits the IC from its members. The identity of a group is derived from the identity of its constituent members.
+
+4. **Unity (U)**: A ""Group"" is an aggregate of individuals and does not imply a common wholeness. It is a collection of entities that can be separated without losing their individual identities. Therefore, ""Group"" exhibits anti-unity.
+
+5. **Dependence (D)**: A ""Group"" is dependent on the existence of its members. Without the members, the group cannot exist. Therefore, ""Group"" is dependent."	
+Country	http://example.org/guarino-messy#Country	+R	+I	+O	+U	-D	Sortal	"To determine the meta-properties of the term ""Country,"" we need to analyze its essential characteristics and identity conditions.
+
+1. **Rigidity (+R)**: A country is an entity that, once it exists, must continue to be a country in all possible worlds where it exists. This is because the concept of a country is inherently tied to its political and geographical essence. Therefore, ""Country"" is rigid.
+
+2. **Identity (+I)**: Countries have distinct identity conditions that allow us to track them over time. For example, we can identify and distinguish between France and Germany based on their unique characteristics, borders, and political systems.
+
+3. **Own Identity (+O)**: The concept of ""Country"" provides its own identity conditions. These conditions are not inherited from a more general concept but are intrinsic to what it means to be a country.
+
+4. **Unity (+U)**: A country is a unified whole with a common unifying relation. It has a defined territory, government, and population, all of which contribute to its topological unity.
+
+5. **Dependence (-D)**: A country does not depend on the existence of another specific entity to exist. It is an independent political entity."	
+AmountOfMatter	http://example.org/guarino-messy#AmountOfMatter	+R	+I	+O	+U	-D	Sortal	"The term ""AmountOfMatter"" refers to a quantity of matter, which is a fundamental concept in physics and chemistry. To determine its meta-properties:
+
+1. **Rigidity**: The concept of ""AmountOfMatter"" is essential to any instance that possesses it. An instance with a certain amount of matter must always have that amount in all possible worlds where it exists. Therefore, it is rigid (+R).
+
+2. **Identity**: ""AmountOfMatter"" carries an Identity Condition (IC) because it allows us to distinguish between different quantities of matter and track them over time. For example, 10 grams of water can be distinguished from 20 grams of water. Thus, it is +I.
+
+3. **Own Identity**: Since ""AmountOfMatter"" provides its own IC (it is inherently about the quantity of matter), it supplies its own identity condition. Therefore, it is +O.
+
+4. **Unity**: ""AmountOfMatter"" implies a single, unified whole. For instance, 5 grams of a substance is a single, unified quantity. Therefore, it is +U.
+
+5. **Dependence**: ""AmountOfMatter"" does not depend on the existence of another specific entity to exist. It is an independent concept. Therefore, it is -D."	
+PhysicalObject	http://example.org/guarino-messy#PhysicalObject	+R	+I	+O	+U	-D	Sortal	"To determine the meta-properties of the term ""PhysicalObject,"" we need to analyze its essential characteristics:
+
+1. **Rigidity (R)**: A ""PhysicalObject"" is inherently rigid because it must possess physical properties in all possible worlds. If an entity is not physical, it cannot be a ""PhysicalObject."" This indicates that the property is essential to every instance.
+
+2. **Identity (I)**: ""PhysicalObject"" carries an Identity Condition (IC) because we can distinguish and track physical objects over time based on their physical properties and spatial location. This means that ""PhysicalObject"" has a +I value.
+
+3. **Own Identity (O)**: Since ""PhysicalObject"" provides its own IC based on physical properties, it supplies its own identity. Therefore, it has a +O value.
+
+4. **Unity (U)**: Every instance of a ""PhysicalObject"" is a single whole with a common unifying relation, such as spatial coherence and physical boundaries. This indicates that ""PhysicalObject"" has a +U value.
+
+5. **Dependence (D)**: A ""PhysicalObject"" does not depend on the existence of another specific entity to exist. It is independent in this regard, so it has a -D value."	
+GroupOfPeople	http://example.org/guarino-messy#GroupOfPeople	~R	+I	-O	~U	-D	Collective	"To determine the meta-properties of ""GroupOfPeople,"" we need to analyze its essential characteristics:
+
+1. **Rigidity (R)**: A ""GroupOfPeople"" is not an essential property of any individual person. People can exist independently of being part of a group. Therefore, it is not rigid.
+2. **Identity (I)**: A ""GroupOfPeople"" carries an Identity Condition (IC) because we can distinguish between different groups of people and track them over time. For example, ""Group A"" can be distinguished from ""Group B.""
+3. **Own Identity (O)**: A ""GroupOfPeople"" does not provide its own IC; it inherits the IC from the individuals that make up the group. Therefore, it does not supply its own IC.
+4. **Unity (U)**: A ""GroupOfPeople"" is strictly a collection or aggregate of individuals. It does not have a common unifying relation that makes it a single whole.
+5. **Dependence (D)**: A ""GroupOfPeople"" does not depend on the existence of another specific entity (not a part) for its existence. The group exists as long as the individuals are considered together."	
+LivingBeing	http://example.org/guarino-messy#LivingBeing	+R	+I	+O	+U	-D	Sortal	"To determine the meta-properties of the term ""LivingBeing,"" we need to analyze its essential characteristics and identity conditions.
+
+1. **Rigidity (+R)**: The property of being a living being is essential to every instance of a living being. In all possible worlds, if an entity is a living being, it must possess the properties that define life, such as metabolism, growth, and reproduction. Therefore, ""LivingBeing"" is rigid.
+
+2. **Identity (+I)**: Living beings have intrinsic identity conditions that allow us to distinguish one living being from another and track them over time. These conditions are based on biological properties and continuity.
+
+3. **Own Identity (+O)**: The property ""LivingBeing"" provides its own identity conditions. It is not inheriting these conditions from a parent property but defines them based on the essential characteristics of life.
+
+4. **Unity (+U)**: Every instance of a living being is a single, unified whole with a common unifying relation. This unity is based on the biological and physiological processes that define life.
+
+5. **Dependence (-D)**: Living beings do not depend on the existence of another specific entity (not a part) to exist. They are independent entities in their own right."	
+SocialEntity	http://example.org/guarino-messy#SocialEntity	~R	+I	-O	+U	-D	Sortal	"To determine the meta-properties of the term ""SocialEntity,"" we need to analyze its essentiality, identity conditions, unity, and dependence.
+
+1. **Rigidity (R)**: ""SocialEntity"" is a broad category that can encompass various types of entities that participate in social structures. It is not essential for any specific instance to belong to this category in all possible worlds. For example, an individual can exist without being part of any social entity. Therefore, ""SocialEntity"" is anti-rigid (~R).
+
+2. **Identity (I)**: ""SocialEntity"" carries an identity condition that allows us to distinguish between different social entities and track them over time. For instance, we can identify and track specific organizations, groups, or communities as distinct social entities. Thus, ""SocialEntity"" is +I.
+
+3. **Own Identity (O)**: ""SocialEntity"" does not provide its own identity condition; rather, it inherits the identity condition from more specific types of social entities (e.g., ""Organization,"" ""Group""). Therefore, ""SocialEntity"" is -O.
+
+4. **Unity (U)**: ""SocialEntity"" implies a common unifying relation among its instances. Each social entity is a single whole with a common purpose or structure. For example, a company, a club, or a community is a unified entity with a shared goal or identity. Thus, ""SocialEntity"" is +U.
+
+5. **Dependence (D)**: ""SocialEntity"" does not depend on the existence of another specific entity for its existence. A social entity can exist independently of other entities. Therefore, ""SocialEntity"" is -D."	
+Location	http://example.org/guarino-messy#Location	~R	+I	-O	+U	-D	Phase	"To determine the meta-properties of the term ""Location,"" we need to analyze its essentiality, identity conditions, unity, and dependence.
+
+1. **Rigidity (R)**: ""Location"" is not an essential property that all instances must possess in all possible worlds. For example, an object can exist without being in a specific location at all times. Therefore, ""Location"" is not rigid.
+
+2. **Identity (I)**: ""Location"" carries an identity condition because it allows us to distinguish between different instances. For example, ""New York"" and ""Los Angeles"" are distinct locations that can be tracked over time.
+
+3. **Own Identity (O)**: ""Location"" does not provide its own identity condition. Instead, it inherits its identity from more specific sorts, such as ""City"" or ""Country,"" which have their own identity conditions.
+
+4. **Unity (U)**: ""Location"" is unifying because it refers to a single, coherent entity. For example, ""New York"" is a unified concept that refers to a specific geographical area.
+
+5. **Dependence (D)**: ""Location"" is independent because an instance of a location does not require the existence of another specific entity to exist. For example, ""New York"" exists independently of other entities."	
+Fruit	http://example.org/guarino-messy#Fruit	+R	+I	+O	+U	-D	Sortal	"To determine the meta-properties of the term ""Fruit,"" we need to analyze its essentiality, identity conditions, and structural characteristics.
+
+1. **Rigidity (R)**: Fruits are essential to the entities that produce them. For example, an apple is always a fruit in all possible worlds. Therefore, ""Fruit"" is a rigid property.
+2. **Identity (I)**: Fruits carry an identity condition that allows us to distinguish between different instances of fruits. For example, an apple can be tracked over time as the same apple, distinct from other apples or fruits.
+3. **Own Identity (O)**: The property ""Fruit"" provides its own identity condition. Being a fruit is not inherited from a parent property but is an essential characteristic of the entity itself.
+4. **Unity (U)**: Fruits are single, unified wholes. Each fruit is a complete entity with a common unifying relation, such as the structure and biological makeup of the fruit.
+5. **Dependence (D)**: Fruits do not depend on the existence of another specific entity to exist. They are independent entities that can exist on their own."	
+Vertebrate	http://example.org/guarino-messy#Vertebrate	+R	+I	+O	+U	-D	Sortal	"To determine the meta-properties of the term ""Vertebrate,"" we need to analyze its essential characteristics and identity conditions.
+
+1. **Rigidity (+R)**: Vertebrates are defined by the presence of a vertebral column or spine. This characteristic is essential to every instance of a vertebrate. Therefore, if an entity is a vertebrate in one possible world, it must have a vertebral column in all possible worlds. This makes ""Vertebrate"" a rigid property.
+
+2. **Identity (+I)**: Vertebrates have a clear identity condition that allows us to distinguish one vertebrate from another and track them over time. The presence of a vertebral column is a key feature that contributes to this identity condition.
+
+3. **Own Identity (+O)**: The property ""Vertebrate"" provides its own identity condition. The presence of a vertebral column is a defining feature that distinguishes vertebrates from other animals. Therefore, ""Vertebrate"" supplies its own identity condition.
+
+4. **Unity (+U)**: Every instance of a vertebrate is a single, unified whole. The vertebral column is a unifying structure that contributes to the topological unity of the organism.
+
+5. **Dependence (-D)**: Vertebrates do not depend on the existence of another specific entity to exist. They are independent organisms that can exist on their own."	
+Caterpillar	http://example.org/guarino-messy#Caterpillar	~R	+I	-O	+U	-D	Phase	"To determine the meta-properties of the term ""Caterpillar,"" we need to analyze its essential characteristics and identity conditions.
+
+1. **Rigidity (R)**: A caterpillar is a specific stage in the life cycle of certain insects, particularly butterflies and moths. Being a caterpillar is essential to the identity of the entity during this stage, but it is not essential in all possible worlds because the entity can transform into a butterfly or moth. Therefore, ""Caterpillar"" is anti-rigid (~R).
+
+2. **Identity (I)**: Caterpillars have a distinct identity condition that allows us to track them over time as they grow and eventually transform into butterflies or moths. Thus, ""Caterpillar"" carries an identity condition (+I).
+
+3. **Own Identity (O)**: The identity condition for a caterpillar is not provided by the term ""Caterpillar"" itself but is inherited from the broader category of insects or the specific species it belongs to. Therefore, ""Caterpillar"" does not supply its own identity condition (-O).
+
+4. **Unity (U)**: A caterpillar is a single, unified organism with a common topological structure. It is not a collection or aggregate of parts but a whole entity. Therefore, ""Caterpillar"" is unifying (+U).
+
+5. **Dependence (D)**: A caterpillar does not depend on the existence of another specific entity (not a part) to exist. It is an independent organism. Therefore, ""Caterpillar"" is independent (-D)."	
+Person	http://example.org/guarino-messy#Person	+R	+I	+O	+U	-D	Sortal	"To determine the meta-properties of the term ""Person,"" we need to analyze its essential characteristics and identity conditions.
+
+1. **Rigidity (+R)**: The property of being a person is essential to every instance. In all possible worlds, if an entity is a person, it must always be a person. This is a rigid property because it is not contingent on any specific context or situation.
+
+2. **Identity (+I)**: The term ""Person"" carries an identity condition. We can distinguish between different persons and track them over time based on their unique identities.
+
+3. **Own Identity (+O)**: The term ""Person"" provides its own identity condition. It is not inherited from a parent term but is intrinsic to the concept of a person.
+
+4. **Unity (+U)**: Every instance of a person is a single whole with a common unifying relation. A person is not a collection or aggregate but a unified entity.
+
+5. **Dependence (-D)**: The existence of a person does not depend on the existence of another specific entity. A person can exist independently of other entities."	
+LegalAgent	http://example.org/guarino-messy#LegalAgent	~R	+I	-O	+U	+D	Role	"To determine the meta-properties of the term ""LegalAgent,"" we need to analyze its essentiality, identity conditions, and dependencies.
+
+1. **Rigidity (R)**: A ""LegalAgent"" is not an essential property of any entity in all possible worlds. An entity can exist without being a legal agent. For example, a person can exist without ever acting as a legal agent. Therefore, ""LegalAgent"" is anti-rigid (~R).
+
+2. **Identity (I)**: The term ""LegalAgent"" carries an identity condition. We can distinguish between different legal agents and track them over time. For instance, we can identify and track specific legal agents involved in different cases.
+
+3. **Own Identity (O)**: The term ""LegalAgent"" does not provide its own identity condition. Instead, it inherits the identity condition from the entity that is acting as the legal agent (e.g., a person). Therefore, ""LegalAgent"" is -O.
+
+4. **Unity (U)**: A ""LegalAgent"" is a single entity with a common unifying relation. It is not a collection or aggregate of different entities. Therefore, ""LegalAgent"" is +U.
+
+5. **Dependence (D)**: A ""LegalAgent"" is dependent on the existence of legal frameworks and the entity that is acting as the agent. Without these, a ""LegalAgent"" cannot exist. Therefore, ""LegalAgent"" is +D."	
+Entity	http://example.org/guarino-messy#Entity	+R	+I	+O	+U	-D	Sortal	"The term ""Entity"" is a fundamental concept in ontology and metaphysics, referring to anything that exists. To determine its meta-properties:
+
+1. **Rigidity**: The concept of an ""Entity"" is essential to every instance that exists. If something exists, it must be an entity in all possible worlds. Therefore, ""Entity"" is rigid.
+
+2. **Identity**: The term ""Entity"" carries an Identity Condition (IC) because it allows us to distinguish and track individual entities over time. For example, we can identify and track a specific entity as it changes or interacts with other entities.
+
+3. **Own Identity**: The term ""Entity"" provides its own IC because it is a fundamental concept that does not inherit its identity from a more specific category. It is the most general category from which more specific categories derive their identity.
+
+4. **Unity**: The term ""Entity"" implies that every instance is a single whole. While entities can be complex and composed of parts, they are unified by the fact that they exist as distinct, individual entities.
+
+5. **Dependence**: The term ""Entity"" is independent because an entity does not require the existence of another specific entity to exist. An entity can exist on its own."	
+Organization	http://example.org/guarino-messy#Organization	~R	+I	-O	+U	-D	Sortal	"To determine the meta-properties of the term ""Organization,"" we need to analyze its essentiality, identity conditions, unity, and dependence.
+
+1. **Rigidity (R)**: An organization is not an essential property of any entity. An entity can exist without being an organization. For example, a group of people can disband and no longer be an organization, but the individuals can still exist. Therefore, ""Organization"" is anti-rigid (~R).
+
+2. **Identity (I)**: Organizations have identity conditions that allow us to distinguish one organization from another and track them over time. For example, we can identify an organization by its name, legal status, and operational activities. Thus, ""Organization"" carries an identity condition (+I).
+
+3. **Own Identity (O)**: The identity condition for an organization is not provided by the term ""Organization"" itself but is inherited from more fundamental sortals like ""Legal Entity"" or ""Group of People."" Therefore, ""Organization"" does not supply its own identity condition (-O).
+
+4. **Unity (U)**: An organization is a unified whole with a common purpose and structure. It is not merely a collection of individuals but a single entity with a shared goal and operational framework. Therefore, ""Organization"" is unifying (+U).
+
+5. **Dependence (D)**: An organization does not depend on the existence of another specific entity for its existence. While it may interact with other entities, its existence is independent of any single other entity. Therefore, ""Organization"" is independent (-D)."	
+Agent	http://example.org/guarino-messy#Agent	+R	+I	+O	+U	-D	Sortal	"To determine the meta-properties of the term ""Agent,"" we need to analyze its essentiality, identity conditions, unity, and dependence.
+
+1. **Rigidity (R)**: An agent is an entity that can act to change or move things. This property is essential to the concept of an agent in all possible worlds. For example, a robot is an agent if it can perform actions, and this property is rigidly tied to its definition.
+
+2. **Identity (I)**: Agents carry an identity condition that allows us to distinguish between different agents and track them over time. For instance, we can identify and track a specific robot or a specific human agent based on their unique properties and behaviors.
+
+3. **Own Identity (O)**: The property of being an agent provides its own identity condition. This means that the concept of ""agent"" itself supplies the criteria for distinguishing and tracking instances of agents.
+
+4. **Unity (U)**: Agents are typically considered single, unified entities with a common unifying relation. For example, a robot or a human agent is a single whole with a common structure and behavior.
+
+5. **Dependence (D)**: The property of being an agent is independent. An agent does not require the existence of another specific entity to exist. For example, a robot can exist and act as an agent without depending on another specific entity."	
+Apple	http://example.org/guarino-messy#Apple	+R	+I	+O	+U	-D	Sortal	"To determine the meta-properties of the term ""Apple,"" we need to analyze its essential characteristics and identity conditions.
+
+1. **Rigidity (+R)**: An apple is a type of fruit that exists independently of any other entities. Being an apple is an essential property that an instance must possess in all possible worlds. For example, if something is an apple, it must always be an apple.
+
+2. **Identity (+I)**: Apples have a clear identity condition. We can distinguish one apple from another based on its physical properties and track it over time. For instance, we can identify a specific apple in a basket and follow it as it ripens.
+
+3. **Own Identity (+O)**: The property of being an apple provides its own identity condition. An apple's identity is not inherited from a parent property but is intrinsic to what it means to be an apple.
+
+4. **Unity (+U)**: An apple is a single, unified whole. It has a common unifying relation that makes it a single entity, distinct from other apples or parts of apples.
+
+5. **Dependence (-D)**: An apple does not depend on the existence of any other specific entity to exist. It is an independent entity."	
