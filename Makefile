@@ -27,7 +27,9 @@
         generate-mistral-small-dspy-agent-critic-models generate-qwen72b-dspy-agent-critic-models \
         generate-large-llm-dspy-agent-critic-models generate-small-llm-dspy-agent-critic-models \
         batch-agent-dspy-anthropic-small-models batch-agent-dspy-gemini-small-models \
-        batch-agent-dspy-small-models
+        batch-agent-dspy-small-models \
+        batch-agent-critic-dspy-anthropic-small-models batch-agent-critic-dspy-gemini-small-models \
+        batch-agent-critic-dspy-small-models
 
 # Default target
 .DEFAULT_GOAL := help
@@ -725,6 +727,97 @@ batch-agent-dspy-gemini-small-models: \
 batch-agent-dspy-small-models: \
 	batch-agent-dspy-anthropic-small-models \
 	batch-agent-dspy-gemini-small-models
+
+##@ Batch Analysis Agent+Critic DSPy Compiled Models
+
+define batch-agent-critic-dspy
+	@echo "DSPy Agent+Critic Batch Analyzing guarino_$(1)_$(2)_agent_critic_model.json using model $(3)"
+
+	uv run python scripts/batch_analyze_agent_critic_dspy.py $(ONTOLOGY_FILE) \
+	--compiled-model $(MODEL_DIR)/guarino_$(1)_$(2)_agent_critic_model.json \
+	--model $(3) \
+	--output $(ANALYZED_OUTPUT_DIR)/dspy_agent_critic_analyzed_entities_$(1)_$(2)_$(3).tsv \
+	&& \
+	uv run python scripts/evaluate_classification_metrics.py\
+		$(strip \
+			$(ANALYZED_OUTPUT_DIR)/dspy_agent_critic_analyzed_entities_$(1)_$(2)_$(3).tsv \
+			data/raw/ground_truth.tsv
+		) \
+	--agent-name $(3) \
+	--output $(EVALUATION_RESULTS_DIR)/classify_dspy_agent_critic_$(1)_$(2)_$(3).json
+endef
+
+batch-agent-critic-dspy-anthropic-%-gemma9b:
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_gemma9b)
+
+batch-agent-critic-dspy-anthropic-%-qwen7b:
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_qwen7b)
+
+batch-agent-critic-dspy-anthropic-%-llama8b:
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_llama8b)
+
+batch-agent-critic-dspy-anthropic-%-llama3b:
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_llama3b)
+
+batch-agent-critic-dspy-gemini-%-gemma9b:
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemma9b)
+
+batch-agent-critic-dspy-gemini-%-qwen7b:
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_qwen7b)
+
+batch-agent-critic-dspy-gemini-%-llama8b:
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_llama8b)
+
+batch-agent-critic-dspy-gemini-%-llama3b:
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_llama3b)
+
+batch-agent-critic-dspy-anthropic-%-gpt4o-mini:
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_gpt4o-mini)
+
+batch-agent-critic-dspy-anthropic-%-mistral-small-3.1:
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_mistral-small-3.1)
+
+batch-agent-critic-dspy-anthropic-%-llama70b:
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_llama70b)
+
+batch-agent-critic-dspy-anthropic-%-qwen72b:
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_qwen72b)
+
+batch-agent-critic-dspy-gemini-%-gpt4o-mini:
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gpt4o-mini)
+
+batch-agent-critic-dspy-gemini-%-mistral-small-3.1:
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_mistral-small-3.1)
+
+batch-agent-critic-dspy-gemini-%-llama70b:
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_llama70b)
+
+batch-agent-critic-dspy-gemini-%-qwen72b:
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_qwen72b)
+
+batch-agent-critic-dspy-anthropic-small-models: \
+	batch-agent-critic-dspy-anthropic-BootstrapFewShot-gemma9b \
+	batch-agent-critic-dspy-anthropic-BootstrapFewShot-qwen7b \
+	batch-agent-critic-dspy-anthropic-BootstrapFewShot-llama8b \
+	batch-agent-critic-dspy-anthropic-BootstrapFewShot-llama3b \
+	batch-agent-critic-dspy-anthropic-BootstrapFewShot-gpt4o-mini \
+	batch-agent-critic-dspy-anthropic-BootstrapFewShot-mistral-small-3.1 \
+	batch-agent-critic-dspy-anthropic-BootstrapFewShot-llama70b \
+	batch-agent-critic-dspy-anthropic-BootstrapFewShot-qwen72b
+
+batch-agent-critic-dspy-gemini-small-models: \
+	batch-agent-critic-dspy-gemini-BootstrapFewShot-gemma9b \
+	batch-agent-critic-dspy-gemini-BootstrapFewShot-qwen7b \
+	batch-agent-critic-dspy-gemini-BootstrapFewShot-llama8b \
+	batch-agent-critic-dspy-gemini-BootstrapFewShot-llama3b \
+	batch-agent-critic-dspy-gemini-BootstrapFewShot-gpt4o-mini \
+	batch-agent-critic-dspy-gemini-BootstrapFewShot-mistral-small-3.1 \
+	batch-agent-critic-dspy-gemini-BootstrapFewShot-llama70b \
+	batch-agent-critic-dspy-gemini-BootstrapFewShot-qwen72b
+
+batch-agent-critic-dspy-small-models: \
+	batch-agent-critic-dspy-anthropic-small-models \
+	batch-agent-critic-dspy-gemini-small-models
 
 ##@ Results Collection and Reports
 
