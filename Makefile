@@ -19,7 +19,13 @@
         generate-llama8b-dspy-agent-models generate-llama3b-dspy-agent-models \
         generate-gpt4o-mini-dspy-agent-models generate-llama70b-dspy-agent-models \
         generate-mistral-small-dspy-agent-models generate-qwen72b-dspy-agent-models \
-        generate-large-llm-dspy-agent-models generate-small-llm-dspy-agent-models
+        generate-large-llm-dspy-agent-models generate-small-llm-dspy-agent-models \
+        generate-anthropic-dspy-agent-critic-models generate-gemini-dspy-agent-critic-models \
+        generate-gemma9b-dspy-agent-critic-models generate-qwen7b-dspy-agent-critic-models \
+        generate-llama8b-dspy-agent-critic-models generate-llama3b-dspy-agent-critic-models \
+        generate-gpt4o-mini-dspy-agent-critic-models generate-llama70b-dspy-agent-critic-models \
+        generate-mistral-small-dspy-agent-critic-models generate-qwen72b-dspy-agent-critic-models \
+        generate-large-llm-dspy-agent-critic-models generate-small-llm-dspy-agent-critic-models
 
 # Default target
 .DEFAULT_GOAL := help
@@ -425,6 +431,112 @@ generate-small-llm-dspy-agent-models: \
 	generate-llama3b-dspy-agent-models \
 	generate-gpt4o-mini-dspy-agent-models \
 	generate-mistral-small-dspy-agent-models
+
+##@ DSPy Agent+Critic Model Generation
+
+generate-anthropic-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for Claude analyses
+	@echo "$(BLUE)Generating DSPy agent+critic model for Claude analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model anthropic \
+	--optimizer $* \
+	--output output/dspy_models/guarino_claude_$*_agent_critic_model.json
+
+generate-anthropic-dspy-agent-critic-models: \
+	generate-anthropic-BootstrapFewShot-dspy-agent-critic-model
+
+generate-gemini-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for Gemini analyses
+	@echo "$(BLUE)Generating DSPy agent+critic model for Gemini analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model gemini \
+	--optimizer $* \
+	--output output/dspy_models/guarino_gemini_$*_agent_critic_model.json
+
+generate-gemini-dspy-agent-critic-models: \
+	generate-gemini-BootstrapFewShot-dspy-agent-critic-model \
+
+generate-gemma9b-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for Gemma 9B analyses
+	@echo "$(BLUE)Generating DSPy agent+critic model for Gemma 9B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model gemma9b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_gemma9b_$*_agent_critic_model.json
+
+generate-gemma9b-dspy-agent-critic-models: \
+	generate-gemma9b-BootstrapFewShot-dspy-agent-critic-model \
+
+generate-qwen7b-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for Qwen 7B analyses
+	@echo "$(BLUE)Generating DSPy agent+critic model for Qwen 7B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen7b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_qwen7b_$*_agent_critic_model.json
+
+generate-qwen7b-dspy-agent-critic-models: \
+	generate-qwen7b-BootstrapFewShot-dspy-agent-critic-model
+
+generate-llama8b-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for LLaMA 8B analyses
+	@echo "$(BLUE)Generating DSPy agent+critic model for LLaMA 8B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama8b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_llama8b_$*_agent_critic_model.json
+
+generate-llama8b-dspy-agent-critic-models: \
+	generate-llama8b-BootstrapFewShot-dspy-agent-critic-model
+
+generate-llama3b-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for LLaMA 3B analyses
+	@echo "$(BLUE)Generating DSPy agent+critic model for LLaMA 3B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama3b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_llama3b_$*_agent_critic_model.json
+
+generate-llama3b-dspy-agent-critic-models: \
+	generate-llama3b-BootstrapFewShot-dspy-agent-critic-model
+
+generate-gpt4o-mini-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for GPT-4o Mini analyses
+	@echo "$(BLUE)Generating DSPy agent+critic model for GPT-4o Mini analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model gpt4o-mini \
+	--optimizer $* \
+	--output output/dspy_models/guarino_gpt4o-mini_$*_agent_critic_model.json
+
+generate-gpt4o-mini-dspy-agent-critic-models: \
+	generate-gpt4o-mini-BootstrapFewShot-dspy-agent-critic-model
+
+generate-llama70b-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for LLaMA 3.3 70B analyses
+	@echo "$(BLUE)Generating DSPy agent+critic model for LLaMA 3.3 70B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model llama70b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_llama70b_$*_agent_critic_model.json
+
+generate-llama70b-dspy-agent-critic-models: \
+	generate-llama70b-BootstrapFewShot-dspy-agent-critic-model
+
+generate-mistral-small-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for Mistral Small analyses
+	@echo "$(BLUE)Generating DSPy agent+critic model for Mistral Small analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model mistral-small-3.1 \
+	--optimizer $* \
+	--output output/dspy_models/guarino_mistral-small_$*_agent_critic_model.json
+
+generate-mistral-small-dspy-agent-critic-models: \
+	generate-mistral-small-BootstrapFewShot-dspy-agent-critic-model
+
+generate-qwen72b-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for Qwen 2.5 72B analyses
+	@echo "$(BLUE)Generating DSPy agent+critic model for Qwen 2.5 72B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen72b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_qwen72b_$*_agent_critic_model.json
+
+generate-qwen72b-dspy-agent-critic-models: \
+	generate-qwen72b-BootstrapFewShot-dspy-agent-critic-model
+
+generate-large-llm-dspy-agent-critic-models: \
+	generate-anthropic-dspy-agent-critic-models \
+	generate-gemini-dspy-agent-critic-models \
+	generate-llama70b-dspy-agent-critic-models \
+	generate-qwen72b-dspy-agent-critic-models
+
+generate-small-llm-dspy-agent-critic-models: \
+	generate-gemma9b-dspy-agent-critic-models \
+	generate-qwen7b-dspy-agent-critic-models \
+	generate-llama8b-dspy-agent-critic-models \
+	generate-llama3b-dspy-agent-critic-models \
+	generate-gpt4o-mini-dspy-agent-critic-models \
+	generate-mistral-small-dspy-agent-critic-models
 
 ##@ Batch Analysis Non-Agent DSPy Compiled Models
 ONTOLOGY_FILE = output/ontologies/guarino_messy.owl

@@ -138,6 +138,7 @@ make clean
 - **Reports**: `collect-non-agent`, `collect-agent`, `collect-critic`, `reports`
 - **Generate DSPy Models**: `generate-large-llm-dspy-models`, `generate-small-llm-dspy-models` (+ per-model and per-optimizer variants)
 - **Generate DSPy Agent Models**: `generate-large-llm-dspy-agent-models`, `generate-small-llm-dspy-agent-models` (+ per-model and per-optimizer variants)
+- **Generate DSPy Agent+Critic Models**: `generate-large-llm-dspy-agent-critic-models`, `generate-small-llm-dspy-agent-critic-models` (+ per-model and per-optimizer variants)
 - **Complete Workflows**: `all`, `reproduce-batch`
 
 Run `make help` to see the full list with descriptions.
@@ -323,6 +324,121 @@ The test suite covers:
 - **Tool tests** — verifies all five property definition and example tools return content
 - **Constraint tests** — verifies `check_constraints` detects +O/−I violations and passes valid combinations
 - **Basic analysis** — runs the full agent pipeline on Student, Person, Red, and Employee and validates all output values are in their legal sets
+
+---
+
+### 🤖🔍 DSPy Agent+Critic Analyzer
+
+`src/llm_clean/ontology/dspy_agent_critic_analyzer.py` extends the agent-based analyzer with a **critic feedback loop** for each property. After the ReAct agent produces a value, a `Predict`-based critic validates it. If the critic rejects the result, it provides actionable feedback and the agent reruns — up to `max_critique_attempts` times per property.
+
+**Architecture:**
+
+| Component | Role |
+|---|---|
+| `DSPyRigiditySignature` → `ReAct` agent | Evaluates rigidity (+R / -R / ~R) |
+| `DSPyCriticSignature` → `Predict` critic | Validates the agent's proposed value and reasoning |
+| `_run_with_critique(agent, critic, ...)` | Feedback loop helper — retries agent up to `max_critique_attempts` times on REJECT |
+| `DSPyAgentCriticOntologyAnalysisModule` | Orchestrates five property agents (each with a dedicated critic) then classifies |
+| `DSPyAgentCriticOntologyAnalyzer` | Public-facing class — compatible with `DSPyAgentOntologyAnalyzer`; adds `critique_info` to results |
+
+The same five property agents and tools as the base agent analyzer are used. The critic for each property receives the proposed value and reasoning and outputs `APPROVE` or `REJECT` with feedback. On rejection, the feedback is appended to the agent's description for the next attempt.
+
+The `analyze()` return dict includes an extra `critique_info` key:
+
+```python
+{
+    "properties": { "rigidity": "~R", ... },
+    "classification": "Role",
+    "reasoning": "...",
+    "critique_info": {
+        "rigidity_attempts":  1,   "rigidity_feedback":  "...", "rigidity_approved":  True,
+        "identity_attempts":  2,   "identity_feedback":  "...", "identity_approved":  True,
+        "own_identity_attempts": 1, ...
+        "unity_attempts":     1,   ...
+        "dependence_attempts": 3,  "dependence_approved": False,  # max attempts hit
+    }
+}
+```
+
+**Generating an optimized agent+critic model:**
+
+```bash
+# Train with BootstrapFewShot (default), 3 critique attempts per property
+python scripts/generate_dspy_agent_critic_model.py \
+  output/train_test_sets/data_train.tsv \
+  output/train_test_sets/data_test.tsv \
+  --output output/dspy_models/guarino_agent_critic_model.json \
+  --model gemini \
+  --max-critique-attempts 3
+
+# Train with MIPROv2, evaluate before/after
+python scripts/generate_dspy_agent_critic_model.py \
+  output/train_test_sets/data_train.tsv \
+  output/train_test_sets/data_test.tsv \
+  --output output/dspy_models/guarino_agent_critic_mipro.json \
+  --model gemini \
+  --optimizer MIPROv2 \
+  --auto medium \
+  --evaluate-before \
+  --evaluate-after
+```
+
+**Generating agent+critic models via Make:**
+
+```bash
+# Single model + optimizer combination
+make generate-gemini-BootstrapFewShot-dspy-agent-critic-model
+make generate-anthropic-BootstrapFewShot-dspy-agent-critic-model
+
+# All optimizers for a specific model
+make generate-gemini-dspy-agent-critic-models
+make generate-anthropic-dspy-agent-critic-models
+make generate-llama70b-dspy-agent-critic-models
+
+# All large models (anthropic, gemini, llama70b, qwen72b)
+make generate-large-llm-dspy-agent-critic-models
+
+# All small models (gemma9b, qwen7b, llama8b, llama3b, gpt4o-mini, mistral-small)
+make generate-small-llm-dspy-agent-critic-models
+```
+
+Output files are saved to `output/dspy_models/` with the suffix `_agent_critic_model.json`, e.g. `guarino_gemini_BootstrapFewShot_agent_critic_model.json`.
+
+**Using the agent+critic analyzer in Python:**
+
+```python
+from src.llm_clean.ontology.dspy_agent_critic_analyzer import DSPyAgentCriticOntologyAnalyzer
+
+# Base model, 3 critique attempts per property
+analyzer = DSPyAgentCriticOntologyAnalyzer(model="gemini", max_critique_attempts=3)
+result = analyzer.analyze("Student", description="A person enrolled in a university")
+print(result["properties"])    # {"rigidity": "~R", ...}
+print(result["critique_info"]) # per-property attempt counts and approval status
+
+# With an optimized model
+analyzer = DSPyAgentCriticOntologyAnalyzer(
+    model="gemini",
+    optimized_module_path="output/dspy_models/guarino_agent_critic_model.json",
+    max_critique_attempts=3,
+)
+result = analyzer.analyze("Person", description="A human being")
+```
+
+**Running the test suite:**
+
+```bash
+# Runs all non-LLM tests (signature, mock critic loop, tools, constraints, critique_info structure)
+# then basic analysis with LLM calls
+python src/llm_clean/ontology/test_dspy_agent_critic_analyzer.py
+```
+
+The test suite covers:
+- **Signature tests** — verifies `DSPyCriticSignature` has all expected input/output fields
+- **Mock critic loop** — verifies `_run_with_critique` approve-on-first-attempt, reject-then-approve, and max-attempts-reached scenarios without LLM calls
+- **Tool tests** — all five property definition and example tools return content
+- **Constraint tests** — `check_constraints` detects +O/−I violations correctly
+- **`critique_info` structure** — verifies the analyze() return dict contains all expected per-property keys
+- **Basic analysis** — full pipeline on Student, Person, Red, and Employee with live LLM calls
 
 ---
 
