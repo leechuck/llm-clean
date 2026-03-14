@@ -233,109 +233,152 @@ class DSPyAgentCriticOntologyAnalysisModule(dspy.Module):
         """
         Run all five property agents (each with a critic feedback loop) then classify.
 
+        Each agent+critic call is wrapped in a try/except so that an
+        AdapterParseError from one weak-model ReAct step does not abort the
+        entire analysis.  A sentinel value ("N/A") is used for any property
+        whose agent fails, and the remaining agents and the final classifier
+        still run.
+
         Returns a dspy.Prediction with fields:
             rigidity, identity, own_identity, unity, dependence,
             classification, reasoning,
             critique_info (dict of per-property attempt counts and feedback)
         """
+        import warnings
+
         critique_info: Dict[str, Any] = {}
 
+        _failed = {
+            "value": "N/A",
+            "reasoning": "",
+            "critique_attempts": 0,
+            "critique_feedback": "agent parse error",
+            "approved": False,
+        }
+
         # 1. Rigidity
-        r_result = _run_with_critique(
-            agent=self.rigidity_agent,
-            critic=self.rigidity_critic,
-            property_name="rigidity",
-            value_attr="rigidity",
-            reasoning_attr="rigidity_reasoning",
-            max_critique_attempts=self.max_critique_attempts,
-            term=term,
-            description=description,
-            usage=usage,
-        )
+        try:
+            r_result = _run_with_critique(
+                agent=self.rigidity_agent,
+                critic=self.rigidity_critic,
+                property_name="rigidity",
+                value_attr="rigidity",
+                reasoning_attr="rigidity_reasoning",
+                max_critique_attempts=self.max_critique_attempts,
+                term=term,
+                description=description,
+                usage=usage,
+            )
+        except Exception as e:
+            warnings.warn(f"Rigidity agent+critic failed for '{term}': {e}")
+            r_result = dict(_failed)
         rigidity = r_result["value"]
         critique_info["rigidity_attempts"] = r_result["critique_attempts"]
         critique_info["rigidity_feedback"] = r_result["critique_feedback"]
         critique_info["rigidity_approved"] = r_result["approved"]
 
         # 2. Identity
-        i_result = _run_with_critique(
-            agent=self.identity_agent,
-            critic=self.identity_critic,
-            property_name="identity",
-            value_attr="identity",
-            reasoning_attr="identity_reasoning",
-            max_critique_attempts=self.max_critique_attempts,
-            term=term,
-            description=description,
-            usage=usage,
-        )
+        try:
+            i_result = _run_with_critique(
+                agent=self.identity_agent,
+                critic=self.identity_critic,
+                property_name="identity",
+                value_attr="identity",
+                reasoning_attr="identity_reasoning",
+                max_critique_attempts=self.max_critique_attempts,
+                term=term,
+                description=description,
+                usage=usage,
+            )
+        except Exception as e:
+            warnings.warn(f"Identity agent+critic failed for '{term}': {e}")
+            i_result = dict(_failed)
         identity = i_result["value"]
         critique_info["identity_attempts"] = i_result["critique_attempts"]
         critique_info["identity_feedback"] = i_result["critique_feedback"]
         critique_info["identity_approved"] = i_result["approved"]
 
         # 3. Own Identity — passes identity result for constraint checking
-        oi_result = _run_with_critique(
-            agent=self.own_identity_agent,
-            critic=self.own_identity_critic,
-            property_name="own_identity",
-            value_attr="own_identity",
-            reasoning_attr="own_identity_reasoning",
-            max_critique_attempts=self.max_critique_attempts,
-            term=term,
-            description=description,
-            usage=usage,
-            identity_result=identity,
-        )
+        try:
+            oi_result = _run_with_critique(
+                agent=self.own_identity_agent,
+                critic=self.own_identity_critic,
+                property_name="own_identity",
+                value_attr="own_identity",
+                reasoning_attr="own_identity_reasoning",
+                max_critique_attempts=self.max_critique_attempts,
+                term=term,
+                description=description,
+                usage=usage,
+                identity_result=identity,
+            )
+        except Exception as e:
+            warnings.warn(f"Own-identity agent+critic failed for '{term}': {e}")
+            oi_result = dict(_failed)
         own_identity = oi_result["value"]
         critique_info["own_identity_attempts"] = oi_result["critique_attempts"]
         critique_info["own_identity_feedback"] = oi_result["critique_feedback"]
         critique_info["own_identity_approved"] = oi_result["approved"]
 
         # 4. Unity
-        u_result = _run_with_critique(
-            agent=self.unity_agent,
-            critic=self.unity_critic,
-            property_name="unity",
-            value_attr="unity",
-            reasoning_attr="unity_reasoning",
-            max_critique_attempts=self.max_critique_attempts,
-            term=term,
-            description=description,
-            usage=usage,
-        )
+        try:
+            u_result = _run_with_critique(
+                agent=self.unity_agent,
+                critic=self.unity_critic,
+                property_name="unity",
+                value_attr="unity",
+                reasoning_attr="unity_reasoning",
+                max_critique_attempts=self.max_critique_attempts,
+                term=term,
+                description=description,
+                usage=usage,
+            )
+        except Exception as e:
+            warnings.warn(f"Unity agent+critic failed for '{term}': {e}")
+            u_result = dict(_failed)
         unity = u_result["value"]
         critique_info["unity_attempts"] = u_result["critique_attempts"]
         critique_info["unity_feedback"] = u_result["critique_feedback"]
         critique_info["unity_approved"] = u_result["approved"]
 
         # 5. Dependence
-        d_result = _run_with_critique(
-            agent=self.dependence_agent,
-            critic=self.dependence_critic,
-            property_name="dependence",
-            value_attr="dependence",
-            reasoning_attr="dependence_reasoning",
-            max_critique_attempts=self.max_critique_attempts,
-            term=term,
-            description=description,
-            usage=usage,
-        )
+        try:
+            d_result = _run_with_critique(
+                agent=self.dependence_agent,
+                critic=self.dependence_critic,
+                property_name="dependence",
+                value_attr="dependence",
+                reasoning_attr="dependence_reasoning",
+                max_critique_attempts=self.max_critique_attempts,
+                term=term,
+                description=description,
+                usage=usage,
+            )
+        except Exception as e:
+            warnings.warn(f"Dependence agent+critic failed for '{term}': {e}")
+            d_result = dict(_failed)
         dependence = d_result["value"]
         critique_info["dependence_attempts"] = d_result["critique_attempts"]
         critique_info["dependence_feedback"] = d_result["critique_feedback"]
         critique_info["dependence_approved"] = d_result["approved"]
 
         # 6. Classification
-        classify_result = self.classifier(
-            term=term,
-            description=description,
-            rigidity=rigidity,
-            identity=identity,
-            own_identity=own_identity,
-            unity=unity,
-            dependence=dependence,
-        )
+        try:
+            classify_result = self.classifier(
+                term=term,
+                description=description,
+                rigidity=rigidity,
+                identity=identity,
+                own_identity=own_identity,
+                unity=unity,
+                dependence=dependence,
+            )
+            classification = classify_result.classification
+            reasoning = classify_result.reasoning
+        except Exception as e:
+            warnings.warn(f"Classifier failed for '{term}': {e}")
+            classification = "N/A"
+            reasoning = f"Classification failed: {e}"
 
         return dspy.Prediction(
             rigidity=rigidity,
@@ -343,8 +386,8 @@ class DSPyAgentCriticOntologyAnalysisModule(dspy.Module):
             own_identity=own_identity,
             unity=unity,
             dependence=dependence,
-            classification=classify_result.classification,
-            reasoning=classify_result.reasoning,
+            classification=classification,
+            reasoning=reasoning,
             critique_info=critique_info,
         )
 

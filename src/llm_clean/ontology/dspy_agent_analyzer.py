@@ -387,51 +387,97 @@ class DSPyAgentOntologyAnalysisModule(dspy.Module):
         """
         Run all five property agents then derive the classification.
 
+        Each agent call is wrapped in a try/except so that an AdapterParseError
+        from one weak-model ReAct step does not abort the entire analysis.  A
+        sentinel value ("N/A") is used for any property whose agent fails, and
+        the remaining agents and the final classifier still run.
+
         Returns a dspy.Prediction with fields:
             rigidity, identity, own_identity, unity, dependence,
             classification, reasoning
         """
         # 1. Rigidity
-        rigidity_result = self.rigidity_agent(
-            term=term, description=description, usage=usage
-        )
-        rigidity = rigidity_result.rigidity
+        try:
+            rigidity_result = self.rigidity_agent(
+                term=term, description=description, usage=usage
+            )
+            rigidity = rigidity_result.rigidity
+        except Exception as e:
+            import warnings
+
+            warnings.warn(f"Rigidity agent failed for '{term}': {e}")
+            rigidity = "N/A"
 
         # 2. Identity
-        identity_result = self.identity_agent(
-            term=term, description=description, usage=usage
-        )
-        identity = identity_result.identity
+        try:
+            identity_result = self.identity_agent(
+                term=term, description=description, usage=usage
+            )
+            identity = identity_result.identity
+        except Exception as e:
+            import warnings
+
+            warnings.warn(f"Identity agent failed for '{term}': {e}")
+            identity = "N/A"
 
         # 3. Own Identity — passes identity result for constraint checking
-        own_identity_result = self.own_identity_agent(
-            term=term,
-            description=description,
-            usage=usage,
-            identity_result=identity,
-        )
-        own_identity = own_identity_result.own_identity
+        try:
+            own_identity_result = self.own_identity_agent(
+                term=term,
+                description=description,
+                usage=usage,
+                identity_result=identity,
+            )
+            own_identity = own_identity_result.own_identity
+        except Exception as e:
+            import warnings
+
+            warnings.warn(f"Own-identity agent failed for '{term}': {e}")
+            own_identity = "N/A"
 
         # 4. Unity
-        unity_result = self.unity_agent(term=term, description=description, usage=usage)
-        unity = unity_result.unity
+        try:
+            unity_result = self.unity_agent(
+                term=term, description=description, usage=usage
+            )
+            unity = unity_result.unity
+        except Exception as e:
+            import warnings
+
+            warnings.warn(f"Unity agent failed for '{term}': {e}")
+            unity = "N/A"
 
         # 5. Dependence
-        dependence_result = self.dependence_agent(
-            term=term, description=description, usage=usage
-        )
-        dependence = dependence_result.dependence
+        try:
+            dependence_result = self.dependence_agent(
+                term=term, description=description, usage=usage
+            )
+            dependence = dependence_result.dependence
+        except Exception as e:
+            import warnings
+
+            warnings.warn(f"Dependence agent failed for '{term}': {e}")
+            dependence = "N/A"
 
         # 6. Classification
-        classify_result = self.classifier(
-            term=term,
-            description=description,
-            rigidity=rigidity,
-            identity=identity,
-            own_identity=own_identity,
-            unity=unity,
-            dependence=dependence,
-        )
+        try:
+            classify_result = self.classifier(
+                term=term,
+                description=description,
+                rigidity=rigidity,
+                identity=identity,
+                own_identity=own_identity,
+                unity=unity,
+                dependence=dependence,
+            )
+            classification = classify_result.classification
+            reasoning = classify_result.reasoning
+        except Exception as e:
+            import warnings
+
+            warnings.warn(f"Classifier failed for '{term}': {e}")
+            classification = "N/A"
+            reasoning = f"Classification failed: {e}"
 
         return dspy.Prediction(
             rigidity=rigidity,
@@ -439,8 +485,8 @@ class DSPyAgentOntologyAnalysisModule(dspy.Module):
             own_identity=own_identity,
             unity=unity,
             dependence=dependence,
-            classification=classify_result.classification,
-            reasoning=classify_result.reasoning,
+            classification=classification,
+            reasoning=reasoning,
         )
 
 
