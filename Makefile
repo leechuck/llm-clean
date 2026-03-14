@@ -744,7 +744,7 @@ define batch-agent-critic-dspy
 			data/raw/ground_truth.tsv
 		) \
 	--agent-name $(3) \
-	--output $(EVALUATION_RESULTS_DIR)/classify_dspy_agent_critic_$(1)_$(2)_$(3).json
+	--output $(EVALUATION_RESULTS_DIR)/classify_dspy_agent_critic_$(1)_$(2)_$(3).tsv
 endef
 
 batch-agent-critic-dspy-anthropic-%-gemma9b:
