@@ -7,13 +7,13 @@ feedback and the agent reruns (up to ``max_critique_attempts`` times).
 
 Architecture
 ------------
-  Per-property ReAct agent  (same as DSPyAgentOntologyAnalyzer)
+  Per-property ChainOfThought agent  (same signatures as DSPyAgentOntologyAnalyzer)
         ↓
-  Per-property Critic        (DSPy Predict with CriticSignature)
-        ↓  REJECT → feedback → agent reruns
+  Per-property Critic  (DSPy Predict with CriticSignature)
+        ↓  REJECT → feedback injected into description → agent reruns
         ↓  APPROVE → continue to next property
 
-  ClassifySignature          → ChainOfThought (same as DSPyAgentOntologyAnalyzer)
+  Classification is derived deterministically (same rules as agent_analyzer.py).
 
   DSPyAgentCriticOntologyAnalysisModule – orchestrates everything
   DSPyAgentCriticOntologyAnalyzer       – public-facing class
@@ -23,6 +23,7 @@ import os
 import logging
 import json
 import csv
+import warnings
 import dspy
 from typing import Optional, List, Dict, Any, Literal
 from pathlib import Path
@@ -30,49 +31,33 @@ from dotenv import load_dotenv
 
 # Try relative import first, fall back to direct import
 try:
-    from .prompts import (
-        AGENT_RIGIDITY_SYSTEM_PROMPT,
-        AGENT_IDENTITY_SYSTEM_PROMPT,
-        AGENT_OWN_IDENTITY_SYSTEM_PROMPT,
-        AGENT_UNITY_SYSTEM_PROMPT,
-        AGENT_DEPENDENCE_SYSTEM_PROMPT,
-        get_critic_system_prompt,
-    )
+    from .prompts import get_critic_system_prompt
     from .dspy_agent_analyzer import (
-        AGENT_TOOLS,
-        DSPyRigiditySignature,
-        DSPyIdentitySignature,
-        DSPyOwnIdentitySignature,
-        DSPyUnitySignature,
-        DSPyDependenceSignature,
-        DSPyClassifySignature,
+        RigiditySignature,
+        IdentitySignature,
+        OwnIdentitySignature,
+        UnitySignature,
+        DependenceSignature,
+        _classify_entity,
     )
 except ImportError:
-    from prompts import (
-        AGENT_RIGIDITY_SYSTEM_PROMPT,
-        AGENT_IDENTITY_SYSTEM_PROMPT,
-        AGENT_OWN_IDENTITY_SYSTEM_PROMPT,
-        AGENT_UNITY_SYSTEM_PROMPT,
-        AGENT_DEPENDENCE_SYSTEM_PROMPT,
-        get_critic_system_prompt,
-    )
+    from prompts import get_critic_system_prompt
     from dspy_agent_analyzer import (
-        AGENT_TOOLS,
-        DSPyRigiditySignature,
-        DSPyIdentitySignature,
-        DSPyOwnIdentitySignature,
-        DSPyUnitySignature,
-        DSPyDependenceSignature,
-        DSPyClassifySignature,
+        RigiditySignature,
+        IdentitySignature,
+        OwnIdentitySignature,
+        UnitySignature,
+        DependenceSignature,
+        _classify_entity,
     )
 
 
 # ---------------------------------------------------------------------------
-# Critic DSPy Signatures
+# Critic Signature
 # ---------------------------------------------------------------------------
 
 
-class DSPyCriticSignature(dspy.Signature):
+class CriticSignature(dspy.Signature):
     """Validate an ontological meta-property analysis.
 
     Review the proposed value and reasoning for a single OntoClean
@@ -112,31 +97,33 @@ def _run_with_critique(
     agent,
     critic,
     property_name: str,
-    value_attr: str,
-    reasoning_attr: str,
     max_critique_attempts: int,
     **agent_kwargs,
 ) -> Dict[str, Any]:
     """
     Run *agent* then *critic* in a loop up to *max_critique_attempts* times.
 
+    The agent is expected to return a Prediction with ``value`` and
+    ``reasoning`` output fields (matching the signatures in dspy_agent_analyzer).
+
     Returns a dict::
 
         {
-            "value": "<property value>",
-            "reasoning": "<reasoning text>",
+            "value":             "<property value>",
+            "reasoning":         "<reasoning text>",
             "critique_attempts": <int>,
             "critique_feedback": "<last feedback>",
-            "approved": <bool>,
+            "approved":          <bool>,
         }
     """
     last_feedback: Optional[str] = None
+    value = "N/A"
+    reasoning = ""
 
     for attempt in range(1, max_critique_attempts + 1):
-        # Re-inject critic feedback into the agent on subsequent attempts
         kwargs = dict(agent_kwargs)
+        # Re-inject critic feedback into the description on subsequent attempts
         if last_feedback is not None:
-            # Append previous feedback to the description so the agent sees it
             existing_desc = kwargs.get("description", "")
             kwargs["description"] = (
                 existing_desc
@@ -144,8 +131,8 @@ def _run_with_critique(
             )
 
         agent_result = agent(**kwargs)
-        value = getattr(agent_result, value_attr, "")
-        reasoning = getattr(agent_result, reasoning_attr, "")
+        value = getattr(agent_result, "value", "N/A")
+        reasoning = getattr(agent_result, "reasoning", "")
 
         # Ask the critic
         critic_result = critic(
@@ -168,13 +155,12 @@ def _run_with_critique(
                 "approved": True,
             }
 
-        # REJECT — store feedback and loop
         last_feedback = feedback
 
-    # Max attempts reached — return last result with a warning note
+    # Max attempts reached — return last result with a note
     return {
-        "value": value,  # type: ignore[possibly-undefined]  # set in the loop
-        "reasoning": reasoning,  # type: ignore[possibly-undefined]
+        "value": value,
+        "reasoning": reasoning,
         "critique_attempts": max_critique_attempts,
         "critique_feedback": f"Max critique attempts reached. Last feedback: {last_feedback}",
         "approved": False,
@@ -186,47 +172,37 @@ def _run_with_critique(
 # ---------------------------------------------------------------------------
 
 
-class DSPyAgentCriticOntologyAnalysisModule(dspy.Module):
+class AgentCriticOntologyAnalysisModule(dspy.Module):
     """
-    DSPy module where each meta-property ReAct agent is followed by a critic.
+    DSPy module where each meta-property ChainOfThought agent is followed by
+    a Predict-based critic.
 
-    If the critic rejects the agent's output, the agent reruns with feedback
-    appended to the description.  This loop repeats up to ``max_critique_attempts``
-    times per property.
+    If the critic rejects the agent's output, the agent reruns with the
+    critic's feedback appended to the description.  This loop repeats up to
+    ``max_critique_attempts`` times per property.
 
-    Evaluation order: Rigidity → Identity → Own Identity → Unity → Dependence → Classify.
+    Evaluation order: Rigidity → Identity → Own Identity → Unity → Dependence.
+    Own Identity receives the Identity result to enforce +O → +I.
+    Classification is derived deterministically (no extra LLM call).
     """
 
-    def __init__(self, max_iters: int = 5, max_critique_attempts: int = 3):
+    def __init__(self, max_critique_attempts: int = 3):
         super().__init__()
         self.max_critique_attempts = max_critique_attempts
 
-        # Property agents (same as DSPyAgentOntologyAnalysisModule)
-        self.rigidity_agent = dspy.ReAct(
-            DSPyRigiditySignature, tools=AGENT_TOOLS, max_iters=max_iters
-        )
-        self.identity_agent = dspy.ReAct(
-            DSPyIdentitySignature, tools=AGENT_TOOLS, max_iters=max_iters
-        )
-        self.own_identity_agent = dspy.ReAct(
-            DSPyOwnIdentitySignature, tools=AGENT_TOOLS, max_iters=max_iters
-        )
-        self.unity_agent = dspy.ReAct(
-            DSPyUnitySignature, tools=AGENT_TOOLS, max_iters=max_iters
-        )
-        self.dependence_agent = dspy.ReAct(
-            DSPyDependenceSignature, tools=AGENT_TOOLS, max_iters=max_iters
-        )
+        # Property agents (ChainOfThought, same signatures as AgentOntologyAnalysisModule)
+        self.rigidity_agent = dspy.ChainOfThought(RigiditySignature)
+        self.identity_agent = dspy.ChainOfThought(IdentitySignature)
+        self.own_identity_agent = dspy.ChainOfThought(OwnIdentitySignature)
+        self.unity_agent = dspy.ChainOfThought(UnitySignature)
+        self.dependence_agent = dspy.ChainOfThought(DependenceSignature)
 
         # Per-property critics
-        self.rigidity_critic = dspy.Predict(DSPyCriticSignature)
-        self.identity_critic = dspy.Predict(DSPyCriticSignature)
-        self.own_identity_critic = dspy.Predict(DSPyCriticSignature)
-        self.unity_critic = dspy.Predict(DSPyCriticSignature)
-        self.dependence_critic = dspy.Predict(DSPyCriticSignature)
-
-        # Final classifier
-        self.classifier = dspy.ChainOfThought(DSPyClassifySignature)
+        self.rigidity_critic = dspy.Predict(CriticSignature)
+        self.identity_critic = dspy.Predict(CriticSignature)
+        self.own_identity_critic = dspy.Predict(CriticSignature)
+        self.unity_critic = dspy.Predict(CriticSignature)
+        self.dependence_critic = dspy.Predict(CriticSignature)
 
     def forward(
         self, term: str, description: str = "", usage: str = ""
@@ -234,22 +210,23 @@ class DSPyAgentCriticOntologyAnalysisModule(dspy.Module):
         """
         Run all five property agents (each with a critic feedback loop) then classify.
 
-        Each agent+critic call is wrapped in a try/except so that an
-        AdapterParseError from one weak-model ReAct step does not abort the
-        entire analysis.  A sentinel value ("N/A") is used for any property
-        whose agent fails, and the remaining agents and the final classifier
-        still run.
+        Each agent+critic call is wrapped in a try/except so that a parse
+        failure from a weak model does not abort the entire analysis.
+        A sentinel ("N/A") is used for any property that fails; remaining
+        agents and the final classification still run.
 
         Returns a dspy.Prediction with fields:
-            rigidity, identity, own_identity, unity, dependence,
-            classification, reasoning,
+            rigidity, rigidity_reasoning,
+            identity, identity_reasoning,
+            own_identity, own_identity_reasoning,
+            unity, unity_reasoning,
+            dependence, dependence_reasoning,
+            classification,
             critique_info (dict of per-property attempt counts and feedback)
         """
-        import warnings
-
         critique_info: Dict[str, Any] = {}
 
-        _failed = {
+        _failed: Dict[str, Any] = {
             "value": "N/A",
             "reasoning": "",
             "critique_attempts": 0,
@@ -259,12 +236,10 @@ class DSPyAgentCriticOntologyAnalysisModule(dspy.Module):
 
         # 1. Rigidity
         try:
-            r_result = _run_with_critique(
+            r = _run_with_critique(
                 agent=self.rigidity_agent,
                 critic=self.rigidity_critic,
                 property_name="rigidity",
-                value_attr="rigidity",
-                reasoning_attr="rigidity_reasoning",
                 max_critique_attempts=self.max_critique_attempts,
                 term=term,
                 description=description,
@@ -272,20 +247,21 @@ class DSPyAgentCriticOntologyAnalysisModule(dspy.Module):
             )
         except Exception as e:
             warnings.warn(f"Rigidity agent+critic failed for '{term}': {e}")
-            r_result = dict(_failed)
-        rigidity = r_result["value"]
-        critique_info["rigidity_attempts"] = r_result["critique_attempts"]
-        critique_info["rigidity_feedback"] = r_result["critique_feedback"]
-        critique_info["rigidity_approved"] = r_result["approved"]
+            r = dict(_failed)
+        rigidity = r["value"]
+        rigidity_reasoning = r["reasoning"]
+        critique_info["rigidity"] = {
+            "attempts": r["critique_attempts"],
+            "feedback": r["critique_feedback"],
+            "approved": r["approved"],
+        }
 
         # 2. Identity
         try:
-            i_result = _run_with_critique(
+            i = _run_with_critique(
                 agent=self.identity_agent,
                 critic=self.identity_critic,
                 property_name="identity",
-                value_attr="identity",
-                reasoning_attr="identity_reasoning",
                 max_critique_attempts=self.max_critique_attempts,
                 term=term,
                 description=description,
@@ -293,42 +269,44 @@ class DSPyAgentCriticOntologyAnalysisModule(dspy.Module):
             )
         except Exception as e:
             warnings.warn(f"Identity agent+critic failed for '{term}': {e}")
-            i_result = dict(_failed)
-        identity = i_result["value"]
-        critique_info["identity_attempts"] = i_result["critique_attempts"]
-        critique_info["identity_feedback"] = i_result["critique_feedback"]
-        critique_info["identity_approved"] = i_result["approved"]
+            i = dict(_failed)
+        identity = i["value"]
+        identity_reasoning = i["reasoning"]
+        critique_info["identity"] = {
+            "attempts": i["critique_attempts"],
+            "feedback": i["critique_feedback"],
+            "approved": i["approved"],
+        }
 
-        # 3. Own Identity — passes identity result for constraint checking
+        # 3. Own Identity — passes identity result for constraint enforcement
         try:
-            oi_result = _run_with_critique(
+            oi = _run_with_critique(
                 agent=self.own_identity_agent,
                 critic=self.own_identity_critic,
                 property_name="own_identity",
-                value_attr="own_identity",
-                reasoning_attr="own_identity_reasoning",
                 max_critique_attempts=self.max_critique_attempts,
                 term=term,
                 description=description,
                 usage=usage,
-                identity_result=identity,
+                identity_value=identity,
             )
         except Exception as e:
             warnings.warn(f"Own-identity agent+critic failed for '{term}': {e}")
-            oi_result = dict(_failed)
-        own_identity = oi_result["value"]
-        critique_info["own_identity_attempts"] = oi_result["critique_attempts"]
-        critique_info["own_identity_feedback"] = oi_result["critique_feedback"]
-        critique_info["own_identity_approved"] = oi_result["approved"]
+            oi = dict(_failed)
+        own_identity = oi["value"]
+        own_identity_reasoning = oi["reasoning"]
+        critique_info["own_identity"] = {
+            "attempts": oi["critique_attempts"],
+            "feedback": oi["critique_feedback"],
+            "approved": oi["approved"],
+        }
 
         # 4. Unity
         try:
-            u_result = _run_with_critique(
+            u = _run_with_critique(
                 agent=self.unity_agent,
                 critic=self.unity_critic,
                 property_name="unity",
-                value_attr="unity",
-                reasoning_attr="unity_reasoning",
                 max_critique_attempts=self.max_critique_attempts,
                 term=term,
                 description=description,
@@ -336,20 +314,21 @@ class DSPyAgentCriticOntologyAnalysisModule(dspy.Module):
             )
         except Exception as e:
             warnings.warn(f"Unity agent+critic failed for '{term}': {e}")
-            u_result = dict(_failed)
-        unity = u_result["value"]
-        critique_info["unity_attempts"] = u_result["critique_attempts"]
-        critique_info["unity_feedback"] = u_result["critique_feedback"]
-        critique_info["unity_approved"] = u_result["approved"]
+            u = dict(_failed)
+        unity = u["value"]
+        unity_reasoning = u["reasoning"]
+        critique_info["unity"] = {
+            "attempts": u["critique_attempts"],
+            "feedback": u["critique_feedback"],
+            "approved": u["approved"],
+        }
 
         # 5. Dependence
         try:
-            d_result = _run_with_critique(
+            d = _run_with_critique(
                 agent=self.dependence_agent,
                 critic=self.dependence_critic,
                 property_name="dependence",
-                value_attr="dependence",
-                reasoning_attr="dependence_reasoning",
                 max_critique_attempts=self.max_critique_attempts,
                 term=term,
                 description=description,
@@ -357,38 +336,38 @@ class DSPyAgentCriticOntologyAnalysisModule(dspy.Module):
             )
         except Exception as e:
             warnings.warn(f"Dependence agent+critic failed for '{term}': {e}")
-            d_result = dict(_failed)
-        dependence = d_result["value"]
-        critique_info["dependence_attempts"] = d_result["critique_attempts"]
-        critique_info["dependence_feedback"] = d_result["critique_feedback"]
-        critique_info["dependence_approved"] = d_result["approved"]
+            d = dict(_failed)
+        dependence = d["value"]
+        dependence_reasoning = d["reasoning"]
+        critique_info["dependence"] = {
+            "attempts": d["critique_attempts"],
+            "feedback": d["critique_feedback"],
+            "approved": d["approved"],
+        }
 
-        # 6. Classification
-        try:
-            classify_result = self.classifier(
-                term=term,
-                description=description,
-                rigidity=rigidity,
-                identity=identity,
-                own_identity=own_identity,
-                unity=unity,
-                dependence=dependence,
-            )
-            classification = classify_result.classification
-            reasoning = classify_result.reasoning
-        except Exception as e:
-            warnings.warn(f"Classifier failed for '{term}': {e}")
-            classification = "N/A"
-            reasoning = f"Classification failed: {e}"
+        # Deterministic classification
+        classification = _classify_entity(
+            {
+                "rigidity": rigidity,
+                "identity": identity,
+                "own_identity": own_identity,
+                "unity": unity,
+                "dependence": dependence,
+            }
+        )
 
         return dspy.Prediction(
             rigidity=rigidity,
+            rigidity_reasoning=rigidity_reasoning,
             identity=identity,
+            identity_reasoning=identity_reasoning,
             own_identity=own_identity,
+            own_identity_reasoning=own_identity_reasoning,
             unity=unity,
+            unity_reasoning=unity_reasoning,
             dependence=dependence,
+            dependence_reasoning=dependence_reasoning,
             classification=classification,
-            reasoning=reasoning,
             critique_info=critique_info,
         )
 
@@ -400,19 +379,17 @@ class DSPyAgentCriticOntologyAnalysisModule(dspy.Module):
 
 class DSPyAgentCriticOntologyAnalyzer:
     """
-    Agent+Critic ontology analyzer using DSPy.
+    Agent+Critic ontology analyzer using DSPy ChainOfThought per meta-property.
 
-    Each meta-property is first evaluated by a dedicated ReAct agent, then
-    validated by a Predict-based critic.  If the critic rejects the result,
-    the agent reruns with the critic's feedback appended, up to
+    Each property is first evaluated by a dedicated ChainOfThought predictor,
+    then validated by a Predict-based critic.  If the critic rejects the
+    result, the agent reruns with the critic's feedback appended, up to
     ``max_critique_attempts`` times per property.
 
-    The public API is intentionally compatible with ``DSPyAgentOntologyAnalyzer``
-    so the two can be used interchangeably, with the addition of
-    ``critique_info`` in the returned dict.
+    The public API is compatible with DSPyAgentOntologyAnalyzer, with the
+    addition of ``critique_info`` in the returned dict.
     """
 
-    # Same supported models as DSPyAgentOntologyAnalyzer
     SUPPORTED_MODELS = [
         # Shortcuts
         "gemini",
@@ -458,7 +435,6 @@ class DSPyAgentCriticOntologyAnalyzer:
         optimized_module_path: Optional[str] = None,
         train_file: Optional[str] = None,
         test_file: Optional[str] = None,
-        max_iters: int = 5,
         max_critique_attempts: int = 3,
     ):
         """
@@ -471,7 +447,6 @@ class DSPyAgentCriticOntologyAnalyzer:
             optimized_module_path: Path to a saved optimized module (optional).
             train_file: Path to training data file (TSV, CSV, or JSON) (optional).
             test_file:  Path to test data file (TSV, CSV, or JSON) (optional).
-            max_iters: Maximum ReAct iterations per agent (default: 5).
             max_critique_attempts: Maximum critique-and-retry cycles per property
                                    (default: 3).
         """
@@ -491,16 +466,9 @@ class DSPyAgentCriticOntologyAnalyzer:
             api_key=self.api_key,
             api_base="https://openrouter.ai/api/v1",
         )
-        # Disable the ChatAdapter→JSONAdapter fallback (same rationale as
-        # DSPyAgentOntologyAnalyzer: prevents raw ValueError from JSONAdapter
-        # when weak models hallucinate invalid tool names).
-        dspy.configure(lm=lm, adapter=dspy.ChatAdapter(use_json_adapter_fallback=False))
+        dspy.configure(lm=lm)
 
-        logging.getLogger("dspy.predict.react").setLevel(logging.ERROR)
-        logging.getLogger("dspy.adapters.chat_adapter").setLevel(logging.ERROR)
-
-        self.module = DSPyAgentCriticOntologyAnalysisModule(
-            max_iters=max_iters,
+        self.module = AgentCriticOntologyAnalysisModule(
             max_critique_attempts=max_critique_attempts,
         )
 
@@ -532,7 +500,8 @@ class DSPyAgentCriticOntologyAnalyzer:
         usage: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
-        Analyze an entity using per-property ReAct agents with critic validation.
+        Analyze an entity using per-property ChainOfThought agents with
+        critic validation.
 
         Returns:
             {
@@ -543,14 +512,20 @@ class DSPyAgentCriticOntologyAnalyzer:
                     "unity":        "+U" | "-U" | "~U",
                     "dependence":   "+D" | "-D",
                 },
+                "reasoning": {
+                    "rigidity":     "...",
+                    "identity":     "...",
+                    "own_identity": "...",
+                    "unity":        "...",
+                    "dependence":   "...",
+                },
                 "classification": "Sortal/Role/...",
-                "reasoning": "...",
                 "critique_info": {
-                    "rigidity_attempts":       <int>,
-                    "rigidity_feedback":       "...",
-                    "rigidity_approved":       <bool>,
-                    "identity_attempts":       <int>,
-                    ...
+                    "rigidity":     {"attempts": <int>, "feedback": "...", "approved": <bool>},
+                    "identity":     {...},
+                    "own_identity": {...},
+                    "unity":        {...},
+                    "dependence":   {...},
                 }
             }
         """
@@ -567,13 +542,19 @@ class DSPyAgentCriticOntologyAnalyzer:
                 "unity": result.unity,
                 "dependence": result.dependence,
             },
+            "reasoning": {
+                "rigidity": result.rigidity_reasoning,
+                "identity": result.identity_reasoning,
+                "own_identity": result.own_identity_reasoning,
+                "unity": result.unity_reasoning,
+                "dependence": result.dependence_reasoning,
+            },
             "classification": result.classification,
-            "reasoning": result.reasoning,
             "critique_info": result.critique_info,
         }
 
     # ------------------------------------------------------------------
-    # Optimization (mirrors DSPyAgentOntologyAnalyzer.optimize)
+    # Optimization
     # ------------------------------------------------------------------
 
     def optimize(
@@ -716,7 +697,7 @@ class DSPyAgentCriticOntologyAnalyzer:
         return optimized_module
 
     # ------------------------------------------------------------------
-    # Example helpers (mirrors DSPyAgentOntologyAnalyzer API)
+    # Example helpers
     # ------------------------------------------------------------------
 
     @staticmethod
@@ -766,7 +747,6 @@ class DSPyAgentCriticOntologyAnalyzer:
                 raise ValueError("JSON training file must contain a list of objects.")
             for item in data:
                 examples.append(self._dict_to_example(item))
-
         elif ext in (".tsv", ".csv"):
             delimiter = "\t" if ext == ".tsv" else ","
             with open(file_path, "r", encoding="utf-8") as f:

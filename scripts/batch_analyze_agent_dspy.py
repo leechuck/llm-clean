@@ -146,14 +146,6 @@ Examples:
         help="Optimization mode (light, medium, heavy). Only used with --train-file",
     )
 
-    parser.add_argument(
-        "--max-iters",
-        dest="max_iters",
-        type=int,
-        default=5,
-        help="Maximum ReAct iterations per property agent (default: 5)",
-    )
-
     args = parser.parse_args()
     args.input_owl = os.path.abspath(args.input_owl)
 
@@ -195,7 +187,6 @@ Examples:
             optimized_module_path=args.compiled_model_path,
             train_file=args.train_file,
             test_file=args.test_file,
-            max_iters=args.max_iters,
         )
 
         # Run optimization if requested
@@ -236,6 +227,15 @@ Examples:
 
             props = analysis.get("properties", {})
 
+            # reasoning may be a dict (one entry per property) or a plain string
+            raw_reasoning = analysis.get("reasoning", "N/A")
+            if isinstance(raw_reasoning, dict):
+                reasoning_str = " | ".join(
+                    f"{k}: {v}" for k, v in raw_reasoning.items()
+                )
+            else:
+                reasoning_str = raw_reasoning
+
             row = {
                 "term": term,
                 "uri": cls["uri"],
@@ -245,7 +245,7 @@ Examples:
                 "unity": props.get("unity", "N/A"),
                 "dependence": props.get("dependence", "N/A"),
                 "classification": analysis.get("classification", "N/A"),
-                "reasoning": analysis.get("reasoning", "N/A"),
+                "reasoning": reasoning_str,
             }
             results.append(row)
 

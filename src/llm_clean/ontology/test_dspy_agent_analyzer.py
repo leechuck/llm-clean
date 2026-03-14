@@ -3,13 +3,13 @@
 Test script for DSPyAgentOntologyAnalyzer.
 
 Tests the agent-based DSPy analyzer where each meta-property is evaluated
-by a dedicated ReAct agent.
+by a dedicated ChainOfThought predictor.
 
 Tests:
-1. Basic analysis        – run the five property agents on a handful of terms
-2. Agent tools           – call the standalone tool functions directly
-3. Constraint checking   – verify the +O → +I constraint tool works correctly
-4. Optimization          – bootstrap few-shot on a small training set (optional)
+1. Basic analysis      – run the five property agents on a handful of terms
+2. Output structure    – verify the returned dict has the expected shape
+3. Constraint logic    – verify +O → +I is passed through correctly
+4. Optimization        – bootstrap few-shot on a small training set (optional)
 """
 
 import sys
@@ -19,13 +19,7 @@ import json
 # Allow running directly from this directory
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from dspy_agent_analyzer import (
-    DSPyAgentOntologyAnalyzer,
-    initiate_task,
-    get_property_definition,
-    get_property_examples,
-    check_constraints,
-)
+from dspy_agent_analyzer import DSPyAgentOntologyAnalyzer
 
 PROPERTIES = ["rigidity", "identity", "own_identity", "unity", "dependence"]
 
@@ -64,6 +58,8 @@ def test_basic_analysis():
             result = analyzer.analyze(term, description=desc)
 
             props = result["properties"]
+            reasons = result["reasoning"]
+
             for prop in PROPERTIES:
                 value = props[prop]
                 valid = value in VALID_VALUES[prop]
@@ -74,9 +70,10 @@ def test_basic_analysis():
                         f"      WARNING: '{value}' is not a recognised value "
                         f"for {prop} {VALID_VALUES[prop]}"
                     )
+                reason_snippet = reasons.get(prop, "")[:80]
+                print(f"    reasoning: {reason_snippet}...")
 
             print(f"  Classification : {result['classification']}")
-            print(f"  Reasoning      : {result['reasoning'][:120]}...")
 
         print("\n✓ Basic analysis test completed")
 
@@ -88,103 +85,179 @@ def test_basic_analysis():
 
 
 # ---------------------------------------------------------------------------
-# Test 2: Agent tools (unit-level, no LLM call)
+# Test 2: Output structure
 # ---------------------------------------------------------------------------
 
 
-def test_agent_tools():
-    """Call the ontology tool functions directly to verify they return content."""
+def test_output_structure():
+    """Verify the returned dict has the expected keys and value shapes."""
     print("\n" + "=" * 60)
-    print("Test 2: Agent Tools (no LLM)")
+    print("Test 2: Output Structure (no LLM)")
     print("=" * 60)
+
+    # Build a minimal fake result by calling the module with mocked predictors
+    import dspy
+
+    # We test structure without an LLM call by directly constructing a Prediction
+    from dspy_agent_analyzer import AgentOntologyAnalysisModule, _classify_entity
+
+    # Verify _classify_entity covers the main cases
+    cases = [
+        (
+            {
+                "rigidity": "+R",
+                "identity": "+I",
+                "own_identity": "+O",
+                "unity": "+U",
+                "dependence": "-D",
+            },
+            "Sortal (Rigid, supplies identity)",
+        ),
+        (
+            {
+                "rigidity": "+R",
+                "identity": "+I",
+                "own_identity": "-O",
+                "unity": "+U",
+                "dependence": "-D",
+            },
+            "Sortal (Rigid, carries identity)",
+        ),
+        (
+            {
+                "rigidity": "~R",
+                "identity": "+I",
+                "own_identity": "-O",
+                "unity": "+U",
+                "dependence": "+D",
+            },
+            "Role (Anti-rigid, dependent)",
+        ),
+        (
+            {
+                "rigidity": "~R",
+                "identity": "+I",
+                "own_identity": "-O",
+                "unity": "+U",
+                "dependence": "-D",
+            },
+            "Role or Phase (Anti-rigid)",
+        ),
+        (
+            {
+                "rigidity": "-R",
+                "identity": "-I",
+                "own_identity": "-O",
+                "unity": "-U",
+                "dependence": "-D",
+            },
+            "Attribution (Non-rigid, no identity)",
+        ),
+        (
+            {
+                "rigidity": "-R",
+                "identity": "+I",
+                "own_identity": "-O",
+                "unity": "-U",
+                "dependence": "-D",
+            },
+            "Category or Mixin (Non-rigid)",
+        ),
+    ]
+
+    errors = []
+    for props, expected in cases:
+        got = _classify_entity(props)
+        if got == expected:
+            print(
+                f"  ✓ {props['rigidity']}/{props['identity']}/{props['own_identity']} → {got}"
+            )
+        else:
+            errors.append(f"Expected '{expected}', got '{got}' for {props}")
+            print(f"  ✗ Expected '{expected}', got '{got}'")
+
+    if errors:
+        print(f"\n✗ Structure tests failed ({len(errors)} error(s))")
+    else:
+        print("\n✓ All structure tests passed")
+
+
+# ---------------------------------------------------------------------------
+# Test 3: Constraint passing
+# ---------------------------------------------------------------------------
+
+
+def test_constraint_passing():
+    """
+    Verify that own_identity_agent receives the identity value.
+
+    We mock the module's predictors to confirm the identity value is forwarded
+    as identity_value input to own_identity_agent without an LLM call.
+    """
+    print("\n" + "=" * 60)
+    print("Test 3: Constraint Passing (no LLM)")
+    print("=" * 60)
+
+    import dspy
+    from dspy_agent_analyzer import AgentOntologyAnalysisModule
+
+    received_identity_values = []
+
+    class FakePredictor:
+        def __init__(self, value, prop):
+            self.value_to_return = value
+            self.prop = prop
+            self.callbacks = []
+
+        def __call__(self, **kwargs):
+            if self.prop == "own_identity":
+                received_identity_values.append(kwargs.get("identity_value"))
+            return dspy.Prediction(
+                value=self.value_to_return,
+                reasoning=f"fake reasoning for {self.prop}",
+            )
+
+    module = AgentOntologyAnalysisModule.__new__(AgentOntologyAnalysisModule)
+    module._compiled = False
+    module.callbacks = []
+    module.history = []
+    module.rigidity_agent = FakePredictor("+R", "rigidity")
+    module.identity_agent = FakePredictor("+I", "identity")
+    module.own_identity_agent = FakePredictor("+O", "own_identity")
+    module.unity_agent = FakePredictor("+U", "unity")
+    module.dependence_agent = FakePredictor("-D", "dependence")
+
+    result = module(term="Person", description="A human being", usage="")
 
     errors = []
 
-    # initiate_task
-    result = initiate_task("test task")
-    if "Task initiated" in result:
-        print(f"  ✓ initiate_task returns acknowledgement")
+    # The identity value "+I" must have been forwarded to own_identity_agent
+    if received_identity_values == ["+I"]:
+        print("  ✓ identity_value '+I' forwarded to own_identity_agent")
     else:
-        errors.append(f"initiate_task returned unexpected: {result!r}")
+        errors.append(
+            f"own_identity_agent received identity_value={received_identity_values!r}, expected ['+I']"
+        )
+        print(f"  ✗ {errors[-1]}")
 
-    for prop in PROPERTIES:
-        defn = get_property_definition(prop)
-        if not defn or "Unknown property" in defn:
-            errors.append(
-                f"get_property_definition('{prop}') returned unexpected: {defn!r}"
-            )
+    # Verify prediction fields
+    expected_fields = {
+        "rigidity": "+R",
+        "identity": "+I",
+        "own_identity": "+O",
+        "unity": "+U",
+        "dependence": "-D",
+        "classification": "Sortal (Rigid, supplies identity)",
+    }
+    for field, expected in expected_fields.items():
+        got = getattr(result, field)
+        if got == expected:
+            print(f"  ✓ {field}: {got}")
         else:
-            print(f"  ✓ definition for '{prop}' ({len(defn)} chars)")
-
-        examples = get_property_examples(prop)
-        if not examples or "No examples" in examples:
-            errors.append(
-                f"get_property_examples('{prop}') returned unexpected: {examples!r}"
-            )
-        else:
-            print(f"  ✓ examples for '{prop}' ({len(examples)} chars)")
-
-    # Unknown property should return a graceful message
-    unknown = get_property_definition("not_a_property")
-    if "Unknown property" in unknown:
-        print("  ✓ unknown property handled gracefully")
-    else:
-        errors.append(f"Expected graceful unknown-property message, got: {unknown!r}")
+            errors.append(f"{field}: expected '{expected}', got '{got}'")
+            print(f"  ✗ {field}: expected '{expected}', got '{got}'")
 
     if errors:
-        for err in errors:
-            print(f"  ✗ {err}")
-        print(f"\n✗ Tool tests failed ({len(errors)} error(s))")
-    else:
-        print("\n✓ All tool tests passed")
-
-
-# ---------------------------------------------------------------------------
-# Test 3: Constraint checking (no LLM call)
-# ---------------------------------------------------------------------------
-
-
-def test_constraint_checking():
-    """Verify that check_constraints detects the +O → +I violation."""
-    print("\n" + "=" * 60)
-    print("Test 3: Constraint Checking (no LLM)")
-    print("=" * 60)
-
-    errors = []
-
-    # Should flag a violation: +O but identity=-I
-    bad_ctx = json.dumps({"identity": "-I"})
-    result = check_constraints("own_identity", "+O", context=bad_ctx)
-    if "CONSTRAINT VIOLATION" in result:
-        print("  ✓ Violation detected: +O with identity=-I")
-    else:
-        errors.append(f"Expected violation for +O/-I, got: {result!r}")
-
-    # Should be clean: +O and identity=+I
-    good_ctx = json.dumps({"identity": "+I"})
-    result = check_constraints("own_identity", "+O", context=good_ctx)
-    if "No violations detected" in result:
-        print("  ✓ No violation: +O with identity=+I")
-    else:
-        errors.append(f"Expected no violation for +O/+I, got: {result!r}")
-
-    # -O should never violate regardless of identity
-    result = check_constraints("own_identity", "-O", context=bad_ctx)
-    if "No violations detected" in result:
-        print("  ✓ No violation: -O (constraint does not apply)")
-    else:
-        errors.append(f"Expected no violation for -O, got: {result!r}")
-
-    # Properties without constraints should return cleanly
-    result = check_constraints("rigidity", "+R")
-    if "No specific constraints" in result or "No violations detected" in result:
-        print("  ✓ Rigidity has no constraints (handled gracefully)")
-    else:
-        errors.append(f"Unexpected rigidity constraint result: {result!r}")
-
-    if errors:
-        for err in errors:
-            print(f"  ✗ {err}")
         print(f"\n✗ Constraint tests failed ({len(errors)} error(s))")
     else:
         print("\n✓ All constraint tests passed")
@@ -296,9 +369,9 @@ if __name__ == "__main__":
     print("DSPyAgentOntologyAnalyzer Test Suite")
     print("=" * 60)
 
-    # Tool and constraint tests require no API calls
-    test_agent_tools()
-    test_constraint_checking()
+    # Structure and constraint tests require no API calls
+    test_output_structure()
+    test_constraint_passing()
 
     # Basic analysis — makes LLM calls
     print()

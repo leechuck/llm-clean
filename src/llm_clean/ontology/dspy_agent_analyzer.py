@@ -1,36 +1,38 @@
 """
 DSPy-based Agent Ontology Analyzer.
 
-Each ontological meta-property (Rigidity, Identity, Own Identity, Unity, Dependence)
-is evaluated by a dedicated DSPy ReAct agent.  The agents share access to a set of
-ontology-definition tools so they can look up definitions and examples on demand,
-then reason their way to a value.
-
-The overall module orchestrates the five agents sequentially so that later agents
-(e.g. own_identity) can receive the results of earlier ones as context.
+Each ontological meta-property (Rigidity, Identity, Own Identity, Unity,
+Dependence) is evaluated by a dedicated DSPy ChainOfThought module, exactly
+mirroring the per-property agent design in agent_analyzer.py but using DSPy
+so the prompts can be optimized via BootstrapFewShot / MIPROv2.
 
 Architecture
 ------------
-  PropertyDefinitionTool  – returns the formal definition of any meta-property
-  PropertyExamplesTool    – returns canonical positive/negative examples
-  ConstraintCheckTool     – checks known OntoClean constraints (e.g. +O → +I)
+  RigiditySignature     → dspy.ChainOfThought
+  IdentitySignature     → dspy.ChainOfThought
+  OwnIdentitySignature  → dspy.ChainOfThought  (receives identity result)
+  UnitySignature        → dspy.ChainOfThought
+  DependenceSignature   → dspy.ChainOfThought
 
-  RigiditySignature       → ReAct agent
-  IdentitySignature       → ReAct agent
-  OwnIdentitySignature    → ReAct agent  (receives identity result for constraint)
-  UnitySignature          → ReAct agent
-  DependenceSignature     → ReAct agent
+  AgentOntologyAnalysisModule – orchestrates the five predictors and derives
+                                classification deterministically from their
+                                outputs (same rules as agent_analyzer.py).
 
-  ClassifySignature       → ChainOfThought  (derives classification from five values)
+  DSPyAgentOntologyAnalyzer   – public-facing class (compatible API with
+                                DSPyOntologyAnalyzer and agent_analyzer.py).
 
-  AgentOntologyAnalysisModule  – orchestrates all of the above
-  DSPyAgentOntologyAnalyzer    – public-facing class (mirrors DSPyOntologyAnalyzer API)
+Prompt source
+-------------
+Each signature's docstring is set directly from the corresponding
+AGENT_*_SYSTEM_PROMPT constant in prompts.py so that the domain knowledge
+lives in one place and DSPy optimizers can improve the instructions.
 """
 
 import logging
 import os
 import json
 import csv
+import warnings
 import dspy
 from typing import Optional, List, Dict, Any, Literal
 from pathlib import Path
@@ -56,181 +58,14 @@ except ImportError:
 
 
 # ---------------------------------------------------------------------------
-# Ontology knowledge base (used by agent tools)
-# ---------------------------------------------------------------------------
-
-_PROPERTY_DEFINITIONS = {
-    "rigidity": (
-        "Rigidity (R) describes whether a property is essential to all its instances:\n"
-        "  +R (Rigid): The property is essential in ALL possible worlds. "
-        "Every instance must always have this property.\n"
-        "  -R (Non-Rigid): The property is not essential; instances can gain or lose it.\n"
-        "  ~R (Anti-Rigid): The property is contingent BY DEFINITION — it is essential "
-        "that it is NOT essential (e.g. roles, phases)."
-    ),
-    "identity": (
-        "Identity (I) describes whether a property carries an Identity Condition (IC):\n"
-        "  +I: The property carries an IC — there is a principled criterion to "
-        "distinguish and re-identify instances over time.\n"
-        "  -I: The property does NOT carry an IC — no such criterion exists."
-    ),
-    "own_identity": (
-        "Own Identity (O) describes whether a property SUPPLIES its own global IC:\n"
-        "  +O: The property supplies its own IC (does not inherit it).\n"
-        "  -O: The property does not supply its own IC "
-        "(inherits from a supertype, or has none).\n"
-        "CONSTRAINT: +O implies +I — you cannot supply an IC without carrying one."
-    ),
-    "unity": (
-        "Unity (U) describes whether instances are unified wholes:\n"
-        "  +U (Unifying): Instances are intrinsic wholes with integrated parts.\n"
-        "  -U (Non-Unifying): Instances are not necessarily wholes.\n"
-        "  ~U (Anti-Unity): Instances are strictly aggregates or sums."
-    ),
-    "dependence": (
-        "Dependence (D) describes existential dependence on other entities:\n"
-        "  +D (Dependent): Instances necessarily depend on other specific entities.\n"
-        "  -D (Independent): Instances can exist without depending on specific others."
-    ),
-}
-
-_PROPERTY_EXAMPLES = {
-    "rigidity": (
-        "+R examples: Person, Physical Object, Number\n"
-        "-R examples: Red Thing, Student (can stop being a student)\n"
-        "~R examples: Role, Employee, Child (phase), Adult (phase)"
-    ),
-    "identity": (
-        "+I examples: Person (DNA / fingerprints), Physical Object (spatio-temporal continuity)\n"
-        "-I examples: Red, Amount of Matter, Property"
-    ),
-    "own_identity": (
-        "+O examples: Person (supplies own IC), Physical Object (supplies own IC)\n"
-        "-O examples: Student (inherits IC from Person), Red (has no IC to supply)"
-    ),
-    "unity": (
-        "+U examples: Person (integrated biological system), Car (functional whole)\n"
-        "-U examples: Red Thing, Amount of Water\n"
-        "~U examples: Collection, Group, Forest"
-    ),
-    "dependence": (
-        "+D examples: Student (depends on educational institution), "
-        "Parasite (depends on host), Role (depends on relatum)\n"
-        "-D examples: Person, Physical Object"
-    ),
-}
-
-_CONSTRAINTS = {
-    "own_identity": (
-        "If own_identity = '+O', then identity MUST be '+I'.\n"
-        "You cannot supply an identity condition without carrying one."
-    ),
-}
-
-
-# ---------------------------------------------------------------------------
-# Agent tools (plain callables — DSPy ReAct accepts any callable)
-# ---------------------------------------------------------------------------
-
-
-def get_property_definition(property_name: str) -> str:
-    """Return the formal OntoClean definition for a meta-property.
-
-    Args:
-        property_name: One of 'rigidity', 'identity', 'own_identity', 'unity', 'dependence'.
-    """
-    key = property_name.lower().strip()
-    return _PROPERTY_DEFINITIONS.get(
-        key,
-        f"Unknown property '{property_name}'. "
-        f"Valid options: {list(_PROPERTY_DEFINITIONS.keys())}",
-    )
-
-
-def get_property_examples(property_name: str) -> str:
-    """Return canonical positive and negative examples for a meta-property.
-
-    Args:
-        property_name: One of 'rigidity', 'identity', 'own_identity', 'unity', 'dependence'.
-    """
-    key = property_name.lower().strip()
-    return _PROPERTY_EXAMPLES.get(
-        key,
-        f"No examples found for '{property_name}'.",
-    )
-
-
-def initiate_task(task_description: str = "") -> str:
-    """Start a property analysis task. Call this first to acknowledge the task before using other tools.
-
-    Args:
-        task_description: Optional description of what you are about to analyze.
-    """
-    return "Task initiated. Use get_property_definition and get_property_examples to look up the property, then check_constraints if needed, and finish when ready."
-
-
-def check_constraints(
-    property_name: str, proposed_value: str, context: str = ""
-) -> str:
-    """Check OntoClean constraints for the given property and proposed value.
-
-    Args:
-        property_name: The property being evaluated.
-        proposed_value: The proposed value (e.g. '+O', '-R').
-        context: Optional JSON string of already-determined property values
-                 (e.g. '{"identity": "+I"}').
-    """
-    key = property_name.lower().strip()
-    constraint_info = _CONSTRAINTS.get(
-        key, "No specific constraints for this property."
-    )
-
-    violations = []
-
-    if key == "own_identity" and proposed_value == "+O":
-        try:
-            ctx = json.loads(context) if context else {}
-        except json.JSONDecodeError:
-            ctx = {}
-        identity_val = ctx.get("identity", "unknown")
-        if identity_val != "+I":
-            violations.append(
-                f"CONSTRAINT VIOLATION: '+O' requires identity='+I', "
-                f"but identity='{identity_val}'. "
-                f"Either change own_identity to '-O' or reconsider identity."
-            )
-
-    if violations:
-        return (
-            "Constraints:\n"
-            + constraint_info
-            + "\n\nViolations found:\n"
-            + "\n".join(violations)
-        )
-    return "Constraints:\n" + constraint_info + "\n\nNo violations detected."
-
-
-# Shared tool list for all agents
-AGENT_TOOLS = [
-    initiate_task,
-    get_property_definition,
-    get_property_examples,
-    check_constraints,
-]
-
-
-# ---------------------------------------------------------------------------
 # Per-property DSPy Signatures
 # ---------------------------------------------------------------------------
+# Each docstring is populated from the matching AGENT_*_SYSTEM_PROMPT so that
+# the instructions are defined once and can be tuned by DSPy optimizers.
 
 
-class DSPyRigiditySignature(dspy.Signature):
-    """Analyze the Rigidity meta-property of an ontological entity.
-
-    Rigidity (R) describes whether a property is essential to all its instances
-    in all possible worlds.  Use the available tools to look up the definition
-    and examples, then determine the correct value: +R, -R, or ~R.
-    """
+class RigiditySignature(dspy.Signature):
+    __doc__ = AGENT_RIGIDITY_SYSTEM_PROMPT
 
     term: str = dspy.InputField(desc="The entity/term to analyze")
     description: str = dspy.InputField(
@@ -238,19 +73,16 @@ class DSPyRigiditySignature(dspy.Signature):
     )
     usage: str = dspy.InputField(desc="Optional usage context", default="")
 
-    rigidity: str = dspy.OutputField(
+    value: str = dspy.OutputField(
         desc="Rigidity value: '+R' (Rigid), '-R' (Non-Rigid), or '~R' (Anti-Rigid)"
     )
-    rigidity_reasoning: str = dspy.OutputField(desc="Reasoning for the rigidity value")
+    reasoning: str = dspy.OutputField(
+        desc="Explanation of why this entity has this rigidity value"
+    )
 
 
-class DSPyIdentitySignature(dspy.Signature):
-    """Analyze the Identity meta-property of an ontological entity.
-
-    Identity (I) describes whether the property carries an Identity Condition (IC).
-    Use the available tools to look up the definition and examples, then determine
-    the correct value: +I or -I.
-    """
+class IdentitySignature(dspy.Signature):
+    __doc__ = AGENT_IDENTITY_SYSTEM_PROMPT
 
     term: str = dspy.InputField(desc="The entity/term to analyze")
     description: str = dspy.InputField(
@@ -258,44 +90,37 @@ class DSPyIdentitySignature(dspy.Signature):
     )
     usage: str = dspy.InputField(desc="Optional usage context", default="")
 
-    identity: str = dspy.OutputField(
+    value: str = dspy.OutputField(
         desc="Identity value: '+I' (carries identity condition) or '-I' (no identity condition)"
     )
-    identity_reasoning: str = dspy.OutputField(desc="Reasoning for the identity value")
+    reasoning: str = dspy.OutputField(
+        desc="Explanation of whether this entity carries an identity condition"
+    )
 
 
-class DSPyOwnIdentitySignature(dspy.Signature):
-    """Analyze the Own Identity meta-property of an ontological entity.
-
-    Own Identity (O) describes whether the property supplies its OWN global identity
-    condition.  Note the hard constraint: +O implies +I.  Use the check_constraints
-    tool to verify your proposed value against the already-determined identity value.
-    """
+class OwnIdentitySignature(dspy.Signature):
+    __doc__ = AGENT_OWN_IDENTITY_SYSTEM_PROMPT
 
     term: str = dspy.InputField(desc="The entity/term to analyze")
     description: str = dspy.InputField(
         desc="Optional description of the entity", default=""
     )
     usage: str = dspy.InputField(desc="Optional usage context", default="")
-    identity_result: str = dspy.InputField(
-        desc="Previously determined identity value (e.g. '+I' or '-I') for constraint checking"
+    identity_value: str = dspy.InputField(
+        desc="Previously determined Identity value ('+I' or '-I') — "
+        "used to enforce the constraint: +O requires +I"
     )
 
-    own_identity: str = dspy.OutputField(
+    value: str = dspy.OutputField(
         desc="Own Identity value: '+O' (supplies own IC) or '-O' (does not supply own IC)"
     )
-    own_identity_reasoning: str = dspy.OutputField(
-        desc="Reasoning for the own_identity value"
+    reasoning: str = dspy.OutputField(
+        desc="Explanation of whether this entity supplies its own identity condition"
     )
 
 
-class DSPyUnitySignature(dspy.Signature):
-    """Analyze the Unity meta-property of an ontological entity.
-
-    Unity (U) describes whether instances of the property are unified wholes.
-    Use the available tools to look up the definition and examples, then determine
-    the correct value: +U, -U, or ~U.
-    """
+class UnitySignature(dspy.Signature):
+    __doc__ = AGENT_UNITY_SYSTEM_PROMPT
 
     term: str = dspy.InputField(desc="The entity/term to analyze")
     description: str = dspy.InputField(
@@ -303,19 +128,16 @@ class DSPyUnitySignature(dspy.Signature):
     )
     usage: str = dspy.InputField(desc="Optional usage context", default="")
 
-    unity: str = dspy.OutputField(
+    value: str = dspy.OutputField(
         desc="Unity value: '+U' (Unifying), '-U' (Non-Unifying), or '~U' (Anti-Unity)"
     )
-    unity_reasoning: str = dspy.OutputField(desc="Reasoning for the unity value")
+    reasoning: str = dspy.OutputField(
+        desc="Explanation of the unity characteristics of this entity"
+    )
 
 
-class DSPyDependenceSignature(dspy.Signature):
-    """Analyze the Dependence meta-property of an ontological entity.
-
-    Dependence (D) describes whether instances necessarily depend on other entities.
-    Use the available tools to look up the definition and examples, then determine
-    the correct value: +D or -D.
-    """
+class DependenceSignature(dspy.Signature):
+    __doc__ = AGENT_DEPENDENCE_SYSTEM_PROMPT
 
     term: str = dspy.InputField(desc="The entity/term to analyze")
     description: str = dspy.InputField(
@@ -323,171 +145,169 @@ class DSPyDependenceSignature(dspy.Signature):
     )
     usage: str = dspy.InputField(desc="Optional usage context", default="")
 
-    dependence: str = dspy.OutputField(
+    value: str = dspy.OutputField(
         desc="Dependence value: '+D' (Dependent) or '-D' (Independent)"
     )
-    dependence_reasoning: str = dspy.OutputField(
-        desc="Reasoning for the dependence value"
-    )
-
-
-class DSPyClassifySignature(dspy.Signature):
-    """Derive the OntoClean entity classification and overall reasoning from the five meta-property values."""
-
-    term: str = dspy.InputField(desc="The entity/term")
-    description: str = dspy.InputField(desc="Optional description", default="")
-    rigidity: str = dspy.InputField(desc="Rigidity value (+R, -R, ~R)")
-    identity: str = dspy.InputField(desc="Identity value (+I, -I)")
-    own_identity: str = dspy.InputField(desc="Own Identity value (+O, -O)")
-    unity: str = dspy.InputField(desc="Unity value (+U, -U, ~U)")
-    dependence: str = dspy.InputField(desc="Dependence value (+D, -D)")
-
-    classification: str = dspy.OutputField(
-        desc="Entity classification (e.g. 'Sortal', 'Role', 'Mixin', 'Category', 'Phase Sortal')"
-    )
     reasoning: str = dspy.OutputField(
-        desc="Overall reasoning explaining the meta-property values and classification"
+        desc="Explanation of the dependence characteristics of this entity"
     )
 
 
 # ---------------------------------------------------------------------------
-# Agent module
+# Deterministic classification (mirrors agent_analyzer.py._classify_entity)
 # ---------------------------------------------------------------------------
 
 
-class DSPyAgentOntologyAnalysisModule(dspy.Module):
+def _classify_entity(properties: Dict[str, str]) -> str:
     """
-    DSPy module that evaluates each meta-property with a dedicated ReAct agent.
+    Derive entity classification from meta-property values.
 
-    Evaluation order: Rigidity → Identity → Own Identity → Unity → Dependence → Classify.
-    Own Identity receives the Identity result so it can check the +O → +I constraint.
+    Mirrors AgentOntologyAnalyzer._classify_entity exactly so that the DSPy
+    and non-DSPy analyzers produce consistent classifications.
+    """
+    r = properties.get("rigidity")
+    i = properties.get("identity")
+    o = properties.get("own_identity")
+
+    if r == "+R" and i == "+I" and o == "+O":
+        return "Sortal (Rigid, supplies identity)"
+    elif r == "+R" and i == "+I":
+        return "Sortal (Rigid, carries identity)"
+    elif r == "~R" and properties.get("dependence") == "+D":
+        return "Role (Anti-rigid, dependent)"
+    elif r == "~R":
+        return "Role or Phase (Anti-rigid)"
+    elif r == "-R" and i == "-I":
+        return "Attribution (Non-rigid, no identity)"
+    elif r == "-R":
+        return "Category or Mixin (Non-rigid)"
+    elif i == "-I":
+        return "Attribution or Quality"
+    else:
+        return "Complex Type (see properties for details)"
+
+
+# ---------------------------------------------------------------------------
+# DSPy module
+# ---------------------------------------------------------------------------
+
+
+class AgentOntologyAnalysisModule(dspy.Module):
+    """
+    DSPy module that evaluates each meta-property with a dedicated
+    ChainOfThought predictor, mirroring the per-agent design of
+    AgentOntologyAnalyzer but with DSPy-optimizable prompts.
+
+    Evaluation order: Rigidity → Identity → Own Identity → Unity → Dependence.
+    Own Identity receives the Identity result to enforce +O → +I.
+    Classification is derived deterministically (no extra LLM call).
     """
 
-    def __init__(self, max_iters: int = 5):
+    def __init__(self):
         super().__init__()
-        self.rigidity_agent = dspy.ReAct(
-            DSPyRigiditySignature, tools=AGENT_TOOLS, max_iters=max_iters
-        )
-        self.identity_agent = dspy.ReAct(
-            DSPyIdentitySignature, tools=AGENT_TOOLS, max_iters=max_iters
-        )
-        self.own_identity_agent = dspy.ReAct(
-            DSPyOwnIdentitySignature, tools=AGENT_TOOLS, max_iters=max_iters
-        )
-        self.unity_agent = dspy.ReAct(
-            DSPyUnitySignature, tools=AGENT_TOOLS, max_iters=max_iters
-        )
-        self.dependence_agent = dspy.ReAct(
-            DSPyDependenceSignature, tools=AGENT_TOOLS, max_iters=max_iters
-        )
-        self.classifier = dspy.ChainOfThought(DSPyClassifySignature)
+        self.rigidity_agent = dspy.ChainOfThought(RigiditySignature)
+        self.identity_agent = dspy.ChainOfThought(IdentitySignature)
+        self.own_identity_agent = dspy.ChainOfThought(OwnIdentitySignature)
+        self.unity_agent = dspy.ChainOfThought(UnitySignature)
+        self.dependence_agent = dspy.ChainOfThought(DependenceSignature)
 
     def forward(
         self, term: str, description: str = "", usage: str = ""
     ) -> dspy.Prediction:
         """
-        Run all five property agents then derive the classification.
+        Run all five property predictors then derive classification.
 
-        Each agent call is wrapped in a try/except so that an AdapterParseError
-        from one weak-model ReAct step does not abort the entire analysis.  A
-        sentinel value ("N/A") is used for any property whose agent fails, and
-        the remaining agents and the final classifier still run.
+        Each predictor call is wrapped in a try/except so that a parse
+        failure from a weak model does not abort the entire analysis.
+        A sentinel value ("N/A") is used for any property that fails;
+        remaining predictors and the final classification still run.
 
         Returns a dspy.Prediction with fields:
-            rigidity, identity, own_identity, unity, dependence,
-            classification, reasoning
+            rigidity, rigidity_reasoning,
+            identity, identity_reasoning,
+            own_identity, own_identity_reasoning,
+            unity, unity_reasoning,
+            dependence, dependence_reasoning,
+            classification
         """
         # 1. Rigidity
         try:
-            rigidity_result = self.rigidity_agent(
-                term=term, description=description, usage=usage
-            )
-            rigidity = rigidity_result.rigidity
+            r = self.rigidity_agent(term=term, description=description, usage=usage)
+            rigidity = r.value
+            rigidity_reasoning = r.reasoning
         except Exception as e:
-            import warnings
-
             warnings.warn(f"Rigidity agent failed for '{term}': {e}")
             rigidity = "N/A"
+            rigidity_reasoning = f"Agent failed: {e}"
 
         # 2. Identity
         try:
-            identity_result = self.identity_agent(
-                term=term, description=description, usage=usage
-            )
-            identity = identity_result.identity
+            i = self.identity_agent(term=term, description=description, usage=usage)
+            identity = i.value
+            identity_reasoning = i.reasoning
         except Exception as e:
-            import warnings
-
             warnings.warn(f"Identity agent failed for '{term}': {e}")
             identity = "N/A"
+            identity_reasoning = f"Agent failed: {e}"
 
-        # 3. Own Identity — passes identity result for constraint checking
+        # 3. Own Identity — receives identity result for constraint enforcement
         try:
-            own_identity_result = self.own_identity_agent(
+            oi = self.own_identity_agent(
                 term=term,
                 description=description,
                 usage=usage,
-                identity_result=identity,
+                identity_value=identity,
             )
-            own_identity = own_identity_result.own_identity
+            own_identity = oi.value
+            own_identity_reasoning = oi.reasoning
         except Exception as e:
-            import warnings
-
             warnings.warn(f"Own-identity agent failed for '{term}': {e}")
             own_identity = "N/A"
+            own_identity_reasoning = f"Agent failed: {e}"
 
         # 4. Unity
         try:
-            unity_result = self.unity_agent(
-                term=term, description=description, usage=usage
-            )
-            unity = unity_result.unity
+            u = self.unity_agent(term=term, description=description, usage=usage)
+            unity = u.value
+            unity_reasoning = u.reasoning
         except Exception as e:
-            import warnings
-
             warnings.warn(f"Unity agent failed for '{term}': {e}")
             unity = "N/A"
+            unity_reasoning = f"Agent failed: {e}"
 
         # 5. Dependence
         try:
-            dependence_result = self.dependence_agent(
-                term=term, description=description, usage=usage
-            )
-            dependence = dependence_result.dependence
+            d = self.dependence_agent(term=term, description=description, usage=usage)
+            dependence = d.value
+            dependence_reasoning = d.reasoning
         except Exception as e:
-            import warnings
-
             warnings.warn(f"Dependence agent failed for '{term}': {e}")
             dependence = "N/A"
+            dependence_reasoning = f"Agent failed: {e}"
 
-        # 6. Classification
-        try:
-            classify_result = self.classifier(
-                term=term,
-                description=description,
-                rigidity=rigidity,
-                identity=identity,
-                own_identity=own_identity,
-                unity=unity,
-                dependence=dependence,
-            )
-            classification = classify_result.classification
-            reasoning = classify_result.reasoning
-        except Exception as e:
-            import warnings
-
-            warnings.warn(f"Classifier failed for '{term}': {e}")
-            classification = "N/A"
-            reasoning = f"Classification failed: {e}"
+        # Deterministic classification (no extra LLM call)
+        classification = _classify_entity(
+            {
+                "rigidity": rigidity,
+                "identity": identity,
+                "own_identity": own_identity,
+                "unity": unity,
+                "dependence": dependence,
+            }
+        )
 
         return dspy.Prediction(
             rigidity=rigidity,
+            rigidity_reasoning=rigidity_reasoning,
             identity=identity,
+            identity_reasoning=identity_reasoning,
             own_identity=own_identity,
+            own_identity_reasoning=own_identity_reasoning,
             unity=unity,
+            unity_reasoning=unity_reasoning,
             dependence=dependence,
+            dependence_reasoning=dependence_reasoning,
             classification=classification,
-            reasoning=reasoning,
         )
 
 
@@ -498,15 +318,18 @@ class DSPyAgentOntologyAnalysisModule(dspy.Module):
 
 class DSPyAgentOntologyAnalyzer:
     """
-    Agent-based ontology analyzer using DSPy.
+    Agent-based ontology analyzer using DSPy ChainOfThought per meta-property.
 
-    Each meta-property is evaluated by a dedicated ReAct agent that can call
-    ontology-definition tools before committing to a value.  The interface is
-    intentionally compatible with DSPyOntologyAnalyzer so the two can be used
-    interchangeably in batch scripts.
+    Each property is evaluated by its own ChainOfThought predictor whose
+    instructions come from the AGENT_*_SYSTEM_PROMPT constants in prompts.py.
+    This mirrors AgentOntologyAnalyzer's design but makes the prompts
+    optimizable via DSPy (BootstrapFewShot, MIPROv2, etc.).
+
+    The public API is compatible with both DSPyOntologyAnalyzer and
+    AgentOntologyAnalyzer so the three can be used interchangeably in
+    batch scripts.
     """
 
-    # Supported models (same set as DSPyOntologyAnalyzer)
     SUPPORTED_MODELS = [
         # Shortcuts
         "gemini",
@@ -552,7 +375,6 @@ class DSPyAgentOntologyAnalyzer:
         optimized_module_path: Optional[str] = None,
         train_file: Optional[str] = None,
         test_file: Optional[str] = None,
-        max_iters: int = 5,
     ):
         """
         Initialize the DSPy agent-based analyzer.
@@ -560,20 +382,19 @@ class DSPyAgentOntologyAnalyzer:
         Args:
             api_key: OpenRouter API key (optional, uses OPENROUTER_API_KEY env var).
             model: Model shortcut or full OpenRouter model name. Shortcuts:
-                   - "gemini"          -> google/gemini-3-flash-preview
-                   - "anthropic"       -> anthropic/claude-4.5-sonnet
-                   - "gemma9b"         -> google/gemma-2-9b-it
-                   - "qwen7b"          -> qwen/qwen-2.5-7b-instruct
-                   - "llama3b"         -> meta-llama/llama-3.2-3b-instruct
-                   - "llama8b"         -> meta-llama/llama-3.1-8b-instruct
-                   - "gpt4o-mini"      -> openai/gpt-4o-mini
-                   - "llama70b"        -> meta-llama/llama-3.3-70b-instruct
+                   - "gemini"            -> google/gemini-3-flash-preview
+                   - "anthropic"         -> anthropic/claude-4.5-sonnet
+                   - "gemma9b"           -> google/gemma-2-9b-it
+                   - "qwen7b"            -> qwen/qwen-2.5-7b-instruct
+                   - "llama3b"           -> meta-llama/llama-3.2-3b-instruct
+                   - "llama8b"           -> meta-llama/llama-3.1-8b-instruct
+                   - "gpt4o-mini"        -> openai/gpt-4o-mini
+                   - "llama70b"          -> meta-llama/llama-3.3-70b-instruct
                    - "mistral-small-3.1" -> mistralai/mistral-small-3.1-24b-instruct
-                   - "qwen72b"         -> qwen/qwen-2.5-72b-instruct
+                   - "qwen72b"           -> qwen/qwen-2.5-72b-instruct
             optimized_module_path: Path to a saved optimized module (optional).
             train_file: Path to training data file (TSV, CSV, or JSON) (optional).
             test_file:  Path to test data file (TSV, CSV, or JSON) (optional).
-            max_iters: Maximum ReAct iterations per agent (default: 5).
         """
         load_dotenv()
 
@@ -591,21 +412,9 @@ class DSPyAgentOntologyAnalyzer:
             api_key=self.api_key,
             api_base="https://openrouter.ai/api/v1",
         )
-        # Disable the ChatAdapter→JSONAdapter fallback.  When qwen/llama models
-        # hallucinate an invalid next_tool_name the fallback re-raises a raw
-        # ValueError (JSONAdapter.parse doesn't wrap parse_value errors) that
-        # produces a noisy chained traceback in stderr.  With the fallback
-        # disabled, ChatAdapter raises AdapterParseError directly, which
-        # ReAct.forward() propagates out of the loop and our per-agent
-        # except Exception blocks handle cleanly.
-        dspy.configure(lm=lm, adapter=dspy.ChatAdapter(use_json_adapter_fallback=False))
+        dspy.configure(lm=lm)
 
-        # Silence the DSPy adapter/react logger for known parse failures so the
-        # chained traceback doesn't clutter stderr during normal operation.
-        logging.getLogger("dspy.predict.react").setLevel(logging.ERROR)
-        logging.getLogger("dspy.adapters.chat_adapter").setLevel(logging.ERROR)
-
-        self.module = DSPyAgentOntologyAnalysisModule(max_iters=max_iters)
+        self.module = AgentOntologyAnalysisModule()
 
         if optimized_module_path and os.path.exists(optimized_module_path):
             print(f"Loading optimized module from {optimized_module_path}")
@@ -635,7 +444,7 @@ class DSPyAgentOntologyAnalyzer:
         usage: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
-        Analyze an entity using per-property ReAct agents.
+        Analyze an entity using per-property ChainOfThought agents.
 
         Returns:
             {
@@ -646,8 +455,14 @@ class DSPyAgentOntologyAnalyzer:
                     "unity":        "+U" | "-U" | "~U",
                     "dependence":   "+D" | "-D",
                 },
-                "classification": "Sortal/Role/...",
-                "reasoning": "..."
+                "reasoning": {
+                    "rigidity":     "...",
+                    "identity":     "...",
+                    "own_identity": "...",
+                    "unity":        "...",
+                    "dependence":   "...",
+                },
+                "classification": "Sortal/Role/..."
             }
         """
         result = self.module(
@@ -663,12 +478,18 @@ class DSPyAgentOntologyAnalyzer:
                 "unity": result.unity,
                 "dependence": result.dependence,
             },
+            "reasoning": {
+                "rigidity": result.rigidity_reasoning,
+                "identity": result.identity_reasoning,
+                "own_identity": result.own_identity_reasoning,
+                "unity": result.unity_reasoning,
+                "dependence": result.dependence_reasoning,
+            },
             "classification": result.classification,
-            "reasoning": result.reasoning,
         }
 
     # ------------------------------------------------------------------
-    # Optimization (mirrors DSPyOntologyAnalyzer.optimize)
+    # Optimization
     # ------------------------------------------------------------------
 
     def optimize(
@@ -815,7 +636,7 @@ class DSPyAgentOntologyAnalyzer:
         return optimized_module
 
     # ------------------------------------------------------------------
-    # Example helpers (mirrors DSPyOntologyAnalyzer API)
+    # Example helpers
     # ------------------------------------------------------------------
 
     @staticmethod

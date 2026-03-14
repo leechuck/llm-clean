@@ -150,14 +150,6 @@ Examples:
     )
 
     parser.add_argument(
-        "--max-iters",
-        dest="max_iters",
-        type=int,
-        default=5,
-        help="Maximum ReAct iterations per property agent (default: 5)",
-    )
-
-    parser.add_argument(
         "--max-critique-attempts",
         dest="max_critique_attempts",
         type=int,
@@ -210,7 +202,6 @@ Examples:
             optimized_module_path=args.compiled_model_path,
             train_file=args.train_file,
             test_file=args.test_file,
-            max_iters=args.max_iters,
             max_critique_attempts=args.max_critique_attempts,
         )
 
@@ -252,6 +243,15 @@ Examples:
 
             props = analysis.get("properties", {})
 
+            # reasoning may be a dict (one entry per property) or a plain string
+            raw_reasoning = analysis.get("reasoning", "N/A")
+            if isinstance(raw_reasoning, dict):
+                reasoning_str = " | ".join(
+                    f"{k}: {v}" for k, v in raw_reasoning.items()
+                )
+            else:
+                reasoning_str = raw_reasoning
+
             row = {
                 "term": term,
                 "uri": cls["uri"],
@@ -261,7 +261,7 @@ Examples:
                 "unity": props.get("unity", "N/A"),
                 "dependence": props.get("dependence", "N/A"),
                 "classification": analysis.get("classification", "N/A"),
-                "reasoning": analysis.get("reasoning", "N/A"),
+                "reasoning": reasoning_str,
             }
             results.append(row)
 
