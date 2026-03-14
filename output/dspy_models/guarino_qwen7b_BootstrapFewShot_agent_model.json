@@ -1,0 +1,296 @@
+{
+  "rigidity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"Agent\" is typically used in various contexts, such as in artificial intelligence, customer service, or computing. In these contexts, agents can refer to entities that perform tasks on behalf of other entities, handle customer inquiries, or even act as a proxy in network communications. Understanding its usage requires delving into the specific field where it is employed.",
+        "value": "An \"Agent\" in the context of AI and computing is an entity that can perform tasks autonomously to achieve goals or objectives."
+      },
+      {
+        "augmented": true,
+        "term": "Vertebrate",
+        "description": "",
+        "usage": "",
+        "reasoning": "A Vertebrate refers to any animal with a backbone or spinal column. This property is essential for all instances of Vertebrates because having a backbone is an intrinsic characteristic that distinguishes them from other animals. If an instance loses its vertebral column, it can no longer be considered a Vertebrate. Therefore, this essential feature makes Vertebrates rigid with respect to their membership.",
+        "value": "+R"
+      },
+      {
+        "augmented": true,
+        "term": "Red",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"Red\" refers to a color. In many contexts, objects can change their color without ceasing to exist as the same object. For instance, a tomato can be red today and yellow tomorrow if it ripens, yet it remains fundamentally the same object. Therefore, the property of being red is not essential to the identity of an object across all possible worlds.",
+        "value": "-R"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Rigidity meta-property from Guarino and Welty (2000).\n\n**Rigidity (R)** - Analyze whether the property is essential to all its instances:\n   - **+R (Rigid)**: Essential to ALL instances in ALL possible worlds.\n     Examples: Person (anything that is a person is necessarily a person), Physical Object\n   - **-R (Non-Rigid)**: Not essential to some instances; instances can gain/lose it.\n     Examples: Student (a person can become/stop being a student), Red Thing\n   - **~R (Anti-Rigid)**: Essential NOT to be essential (contingent by definition).\n     Examples: Role (like Student, Employee), Phase (like Child, Adult)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+R\" | \"-R\" | \"~R\",\n  \"reasoning\": \"Brief explanation of why this entity has this rigidity value.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of why this entity has this rigidity value"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Rigidity value: '+R' (Rigid), '-R' (Non-Rigid), or '~R' (Anti-Rigid)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An agent typically refers to a being or entity that is capable of intentional actions and decision-making. While there is variability in how agents may perform tasks or make decisions, they are generally recognized by their ability to maintain certain characteristics over time, such as personal identity, memory, and continuous functioning. However, without additional constraints, it's challenging to strictly define what features must persist for an entity to retain its agent status across different contexts and scenarios. Nevertheless, the concept of an 'agent' often implies some level of enduring identity and agency.",
+        "value": "-I"
+      },
+      {
+        "augmented": true,
+        "term": "Vertebrate",
+        "description": "",
+        "usage": "",
+        "reasoning": "Vertebrates are a group of animals characterized by the presence of a backbone or spinal column. This category includes various species such as mammals, birds, reptiles, amphibians, and fish. While the individual members of these species may have unique identifiers (such as genetic markers or physical characteristics), the category itself, Vertebrate, does not carry an identity condition in the ontological sense. This is because there is no principled way to distinguish one instance of the category \"Vertebrate\" from another in a manner that would preserve its identity condition over time. For example, while specific vertebrates can be identified and distinguished from each other, it is not clear what feature would persist across all vertebrates to maintain their identity as a class.",
+        "value": "-I"
+      },
+      {
+        "augmented": true,
+        "term": "Red",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"Red\" is a color in the visible spectrum that is often used to describe objects, emotions, symbols, and more. It can evoke strong emotions and has various meanings in different contexts, such as warning signals, love, or danger.",
+        "value": "Red can be used to describe the color of objects, represent various concepts, and denote emotions or states in a narrative or conversational context."
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Identity meta-property from Guarino and Welty (2000).\n\n**Identity (I) - Carries Identity Condition** - Does this property carry an identity condition for its instances?\n   - **+I**: The property carries an Identity Condition (IC). Instances can be distinguished and re-identified.\n     Examples: Person (has IC like DNA, fingerprints), Physical Object (has spatio-temporal continuity)\n   - **-I**: The property does NOT carry an identity condition. No principled way to distinguish instances.\n     Examples: Red (what makes one instance of red the same over time?), Amount of Matter\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+I\" | \"-I\",\n  \"reasoning\": \"Brief explanation of whether this entity carries an identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity carries an identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Identity value: '+I' (carries identity condition) or '-I' (no identity condition)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "own_identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "identity_value": "-I",
+        "reasoning": "An Agent, in a broad sense, can refer to any being capable of intentional actions. However, the term itself does not supply a unique, global identity condition because different entities can fulfill the role of an Agent without sharing a common, intrinsic quality that distinguishes all Agents from each other. For example, both humans and animals can be agents, but they do not have a shared identity condition that is specific to the concept of being an agent alone.",
+        "value": "-O"
+      },
+      {
+        "augmented": true,
+        "term": "Vertebrate",
+        "description": "",
+        "usage": "",
+        "identity_value": "-I",
+        "reasoning": "A vertebrate is any member of the chordate subphylum Vertebrata, which includes animals with backbones. These animals have a vertebral column that allows them to maintain a fixed body shape, supports their body, and acts as a passageway for the spinal cord. This definition is important for understanding the anatomy and physiology of these organisms, as well as their evolutionary history and biodiversity.",
+        "value": "[[ ## term ## ]]: Vertebrate"
+      },
+      {
+        "augmented": true,
+        "term": "Red",
+        "description": "",
+        "usage": "",
+        "identity_value": "Red can be used to describe the color of objects, represent various concepts, and denote emotions or states in a narrative or conversational context.",
+        "reasoning": "The term \"Red\" denotes a color and does not supply its own identity condition because it is a quality rather than a distinct entity with its own global identity. Instead, it is attributed to objects that possess this color property.",
+        "value": "-O"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Own Identity meta-property from Guarino and Welty (2000).\n\n**Own Identity (O) - Supplies Identity Condition** - Does this property supply its OWN identity condition?\n   - **+O**: Supplies its own global identity condition.\n     Examples: Person (supplies own IC), Physical Object (supplies own IC)\n   - **-O**: Does not supply own IC (inherits it from a more general property, or has none).\n     Examples: Student (inherits IC from Person), Red (has no IC to supply)\n\n**IMPORTANT CONSTRAINT**: If +O, then +I must be true. You cannot supply an IC without carrying one.\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+O\" | \"-O\",\n  \"reasoning\": \"Brief explanation of whether this entity supplies its own identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Identity Value:",
+          "description": "Previously determined Identity value ('+I' or '-I') — used to enforce the constraint: +O requires +I"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity supplies its own identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Own Identity value: '+O' (supplies own IC) or '-O' (does not supply own IC)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "unity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An Agent is a being or entity that is capable of acting with intention and making choices. Agents are often understood as having coherent sets of capabilities, intentions, and behaviors. While an individual agent may be viewed as an integrated entity with a unified purpose and structure, the concept of Agent itself does not specify this. Agents can vary widely in form and function, from biological organisms to artificial constructs, and their components (like the parts of a robot) are typically well-integrated to achieve their goals. However, the term \"Agent\" by itself refers to any entity that exhibits intentional behavior, which can be diverse and may not always imply a cohesive structure.",
+        "value": "+U"
+      },
+      {
+        "augmented": true,
+        "term": "Vertebrate",
+        "description": "",
+        "usage": "",
+        "reasoning": "Vertebrates are a subgroup of chordates characterized by the presence of a backbone or spinal column. They include animals such as mammals, birds, reptiles, amphibians, and fish. Vertebrates are important in biology and ecology as they represent the vast majority of animal species with complex nervous systems and organ systems. Understanding vertebrates helps in studying evolution, physiology, and ecosystems.",
+        "value": "An animal with a backbone or spinal column."
+      },
+      {
+        "augmented": true,
+        "term": "Red",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"Red\" refers to the quality or state of having the color red. This property does not inherently denote a coherent whole with integrated parts but rather describes the coloring attribute of objects. Objects that are red can be scattered, varying in shape, size, and form. The color itself is not a unifying factor that forms a holistic entity beyond its mere chromatic quality.",
+        "value": "-U"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Unity meta-property from Guarino and Welty (2000).\n\n**Unity (U)** - Are instances of this property wholes with integrated parts?\n   - **+U (Unifying)**: Instances are intrinsic wholes with clear mereological structure.\n     Examples: Person (integrated biological system), Car (functional whole)\n   - **-U (Non-Unifying)**: Instances are not necessarily wholes; parts may be arbitrary.\n     Examples: Red Thing (scattered red objects), Amount of Water\n   - **~U (Anti-Unity)**: Instances are strictly aggregates/sums without integration.\n     Examples: Collection, Group, Scattered Object\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+U\" | \"-U\" | \"~U\",\n  \"reasoning\": \"Brief explanation of the unity characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the unity characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Unity value: '+U' (Unifying), '-U' (Non-Unifying), or '~U' (Anti-Unity)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "dependence_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An agent is a being or thing that acts upon another thing. Agents in the abstract can include people, organizations, and natural forces, among others. For agents like persons or organizations, they often operate within specific frameworks or structures. However, as abstract entities, they do not fundamentally depend on these frameworks for their independent existence. An agent's actions may rely on certain contexts, but the entity itself retains its identity and capacity to act independently.",
+        "value": "-D"
+      },
+      {
+        "augmented": true,
+        "term": "Vertebrate",
+        "description": "",
+        "usage": "",
+        "reasoning": "Vertebrates are animals that have a backbone or spinal column. This characteristic sets them apart from invertebrates and includes fish, amphibians, reptiles, birds, and mammals. Understanding the concept of vertebrates is crucial in biology as it distinguishes major animal groups and aids in studying their evolutionary history, physiological features, and ecological roles.",
+        "value": "Animals with a backbone or spinal column"
+      },
+      {
+        "augmented": true,
+        "term": "Red",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"Red\" is a color that can have various meanings and uses depending on the context provided in the \"description\" and \"usage\" fields. It is often associated with emotions such as love, passion, or anger, and it can also symbolize danger, stop, or warning signals. In different cultures and settings, the color red can carry different connotations and be used for a wide range of purposes.",
+        "value": "Red"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Dependence meta-property from Guarino and Welty (2000).\n\n**Dependence (D)** - Do instances intrinsically depend on other entities?\n   - **+D (Dependent)**: Instances necessarily depend on other entities to exist.\n     Examples: Student (depends on School/Educational Institution), Parasite (depends on Host)\n   - **-D (Independent)**: Instances can exist without depending on specific other entities.\n     Examples: Person (independent), Physical Object (independent)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+D\" | \"-D\",\n  \"reasoning\": \"Brief explanation of the dependence characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the dependence characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Dependence value: '+D' (Dependent) or '-D' (Independent)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.1.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}

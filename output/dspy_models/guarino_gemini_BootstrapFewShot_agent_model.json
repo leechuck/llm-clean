@@ -1,0 +1,296 @@
+{
+  "rigidity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term 'Agent' refers to a role played by an entity (such as a person, organization, or software) when it acts on behalf of another or performs an action. Being an agent is not essential to the identity of the underlying entity; a person can exist without being an agent, and they can cease being an agent while still remaining the same individual. Since every instance of 'Agent' is an entity that could potentially exist without this property, it is classified as Anti-Rigid.",
+        "value": "~R"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "In biological taxonomy, 'Butterfly' refers to a specific phase (imago) in the life cycle of certain insects. Because an individual organism (the insect) is not a butterfly for its entire existence—beginning as an egg, then a larva (caterpillar), and a pupa—the property of being a 'Butterfly' is contingent. The entity can exist without being a butterfly (e.g., as a caterpillar), and it ceases to be a butterfly upon death or if the phase ends. Since this property is essential to none of its instances (they all must transition through other phases to reach it), it is classified as Anti-Rigid.",
+        "value": "~R"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term 'RedApple' represents a specialization of the concept 'Apple' based on a contingent color property. While the property of being an 'Apple' might be considered rigid, being 'Red' is not. An individual apple can be red at one point and then change color (e.g., as it rots or if it is painted), or it could have been a green variety of the same species. Since an instance of a RedApple can cease to be red while maintaining its identity as the same physical object (an apple), the property 'Red' is not essential to all its instances in all possible worlds. Therefore, it is Non-Rigid.",
+        "value": "-R"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Rigidity meta-property from Guarino and Welty (2000).\n\n**Rigidity (R)** - Analyze whether the property is essential to all its instances:\n   - **+R (Rigid)**: Essential to ALL instances in ALL possible worlds.\n     Examples: Person (anything that is a person is necessarily a person), Physical Object\n   - **-R (Non-Rigid)**: Not essential to some instances; instances can gain/lose it.\n     Examples: Student (a person can become/stop being a student), Red Thing\n   - **~R (Anti-Rigid)**: Essential NOT to be essential (contingent by definition).\n     Examples: Role (like Student, Employee), Phase (like Child, Adult)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+R\" | \"-R\" | \"~R\",\n  \"reasoning\": \"Brief explanation of why this entity has this rigidity value.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of why this entity has this rigidity value"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Rigidity value: '+R' (Rigid), '-R' (Non-Rigid), or '~R' (Anti-Rigid)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term 'Agent' refers to an entity (human, legal, or software) that acts or is capable of acting within a system. While the property of 'being an Agent' is often used as a role or a generalization of specific classes (like Person or Organization), it inherently carries an identity condition because its instances must be discrete, identifiable, and re-identifiable entities that are responsible for actions. Whether the underlying identity is based on biological markers, legal registration, or unique identifiers, an Agent must be distinguishable from other Agents to participate in interactions or hold accountability.",
+        "value": "+I"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "'Butterfly' is a sortal property representing a distinct biological species. It carries a principled identity condition based on biological and spatio-temporal continuity. This allows for individual butterflies to be uniquely identified, distinguished from one another, and tracked as the same individual throughout their life cycle (from caterpillar to pupa to adult).",
+        "value": "+I"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "RedApple represents a specialization of a physical object (Apple) characterized by a specific property (Red). As a count noun representing a discrete physical entity, it carries an identity condition (IC) based on spatio-temporal continuity and physical characteristics. Although it is a subtype, it inherits the identity conditions from its parent concept (Apple), allowing for individual instances of a red apple to be distinguished from one another and re-identified over time.",
+        "value": "+I"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Identity meta-property from Guarino and Welty (2000).\n\n**Identity (I) - Carries Identity Condition** - Does this property carry an identity condition for its instances?\n   - **+I**: The property carries an Identity Condition (IC). Instances can be distinguished and re-identified.\n     Examples: Person (has IC like DNA, fingerprints), Physical Object (has spatio-temporal continuity)\n   - **-I**: The property does NOT carry an identity condition. No principled way to distinguish instances.\n     Examples: Red (what makes one instance of red the same over time?), Amount of Matter\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+I\" | \"-I\",\n  \"reasoning\": \"Brief explanation of whether this entity carries an identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity carries an identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Identity value: '+I' (carries identity condition) or '-I' (no identity condition)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "own_identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "The term 'Agent' refers to a role or a capability of an entity to act within a system. While it carries an identity condition (+I), it typically does not supply its own global identity condition. Instead, identity is usually inherited from the underlying substantial entity (such as a Person, Organization, or Robot) that is performing the agency. In ontological modeling, 'Agent' is often viewed as a role or a phased sortal rather than a foundational category that establishes a new way of identifying individuals.",
+        "value": "-O"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "The term 'Butterfly' represents a biological species, which acts as a substance sortal. It provides a specific, global identity condition (IC) for its instances, allowing us to distinguish one butterfly from another and track their persistence over time through metamorphism. Unlike a role (e.g., 'Caterpillar' as a life stage) or a property (e.g., 'Winged'), 'Butterfly' identifies the fundamental nature of the entity. Since it carries identity (+I) and is the source of that identity condition rather than inheriting it from a more general sortal like 'Insect' or 'Animal' in a way that those parents exhaust the identity, it is considered to supply its own IC.",
+        "value": "+O"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "'RedApple' is a specialized subclass of 'Apple'. While it carries an identity condition (+I) because it is a physical object, it does not supply this condition itself. The identity conditions for a RedApple (e.g., spatio-temporal continuity) are inherited from the rigid sortal 'Apple'. Therefore, it is -O because it provides a specialization based on color rather than defining a new global principle of identity.",
+        "value": "-O"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Own Identity meta-property from Guarino and Welty (2000).\n\n**Own Identity (O) - Supplies Identity Condition** - Does this property supply its OWN identity condition?\n   - **+O**: Supplies its own global identity condition.\n     Examples: Person (supplies own IC), Physical Object (supplies own IC)\n   - **-O**: Does not supply own IC (inherits it from a more general property, or has none).\n     Examples: Student (inherits IC from Person), Red (has no IC to supply)\n\n**IMPORTANT CONSTRAINT**: If +O, then +I must be true. You cannot supply an IC without carrying one.\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+O\" | \"-O\",\n  \"reasoning\": \"Brief explanation of whether this entity supplies its own identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Identity Value:",
+          "description": "Previously determined Identity value ('+I' or '-I') — used to enforce the constraint: +O requires +I"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity supplies its own identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Own Identity value: '+O' (supplies own IC) or '-O' (does not supply own IC)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "unity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An Agent is characterized as an intentional or autonomous entity capable of acting upon an environment. Whether biological (like a Person) or artificial (like a Software Agent), it implies a functionally integrated whole with internal mechanisms that coordinate its actions. Because every instance of an Agent must be a singular, integrated entity rather than an arbitrary collection or a mere sum of parts, it possesses a clear mereological structure that defines it as a whole.",
+        "value": "+U"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "A Butterfly is a biological organism that constitutes a concrete individual with a highly integrated structure. Its parts (wings, thorax, abdomen, antennae) are functionally and physically interdependent, forming an intrinsic whole. According to the OntoClean methodology, biological entities are prototypical examples of +U because they possess a clear principle of unity that defines their boundaries and the relationship between their parts.",
+        "value": "+U"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "An instance of a RedApple is a discrete physical biological object with a clearly defined boundary and an integrated internal structure (skin, flesh, core, seeds). Every instance is an intrinsic whole where the parts are functionally and spatially connected to form a single entity. The addition of the property 'Red' does not change the ontological status of the 'Apple' as a unifying whole.",
+        "value": "+U"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Unity meta-property from Guarino and Welty (2000).\n\n**Unity (U)** - Are instances of this property wholes with integrated parts?\n   - **+U (Unifying)**: Instances are intrinsic wholes with clear mereological structure.\n     Examples: Person (integrated biological system), Car (functional whole)\n   - **-U (Non-Unifying)**: Instances are not necessarily wholes; parts may be arbitrary.\n     Examples: Red Thing (scattered red objects), Amount of Water\n   - **~U (Anti-Unity)**: Instances are strictly aggregates/sums without integration.\n     Examples: Collection, Group, Scattered Object\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+U\" | \"-U\" | \"~U\",\n  \"reasoning\": \"Brief explanation of the unity characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the unity characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Unity value: '+U' (Unifying), '-U' (Non-Unifying), or '~U' (Anti-Unity)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "dependence_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term 'Agent' refers to an entity that performs actions or acts on behalf of another entity. Ontologically, an agent cannot exist in a vacuum; it is defined by its capacity for agency (acting upon something) or its representational relationship to a principal. Whether viewed as a role (acting for another) or a functional capacity (acting within an environment), its existence as an 'Agent' is extrinsically defined by its relation to the actions it performs or the entities it represents.",
+        "value": "+D"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "A Butterfly is a biological organism that is considered a physical object. According to the OntoClean methodology, while an organism requires an environment to survive, it does not have a specific ontological dependence on another individual entity for its identity or existence in the way a role (like 'Student') depends on an institution. It is an independent substance.",
+        "value": "-D"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "A RedApple is a specific type of physical object (Apple) characterized by its color. Like most physical objects, its existence does not intrinsically depend on the existence of another specific entity or instance (the way a \"Student\" depends on a \"School\"). It exists as an autonomous physical entity.",
+        "value": "-D"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Dependence meta-property from Guarino and Welty (2000).\n\n**Dependence (D)** - Do instances intrinsically depend on other entities?\n   - **+D (Dependent)**: Instances necessarily depend on other entities to exist.\n     Examples: Student (depends on School/Educational Institution), Parasite (depends on Host)\n   - **-D (Independent)**: Instances can exist without depending on specific other entities.\n     Examples: Person (independent), Physical Object (independent)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+D\" | \"-D\",\n  \"reasoning\": \"Brief explanation of the dependence characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the dependence characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Dependence value: '+D' (Dependent) or '-D' (Independent)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.1.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}

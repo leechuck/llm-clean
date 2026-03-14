@@ -1,0 +1,646 @@
+{
+  "rigidity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "\n\n[Critic feedback from attempt 2]: The description provided for the term \"Agent\" is thorough and covers various domains including artificial intelligence, computational contexts like multi-agent systems, and customer service. This level of detail is beneficial for understanding the term in different contexts. No further elaboration or changes are suggested for the given proposed value.",
+        "usage": "",
+        "reasoning": "The term \"Agent\" is used across multiple domains and contexts, such as artificial intelligence, multi-agent systems, and customer service. In these contexts, an agent typically refers to an entity capable of autonomous action, decision-making, and interaction with other entities. Despite the variation in specific roles within these different domains, the core essence of an \"Agent\" remains consistent: it is something that acts, initiates processes, and responds to stimuli. This essential function is preserved across different possible worlds and contexts, making \"Agent\" a rigid property.",
+        "value": "+R"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"butterfly\" is a noun that often refers to a type of insect known for its vibrant wings and unique life cycle. It can also be used metaphorically to represent transformation, beauty, and change in various contexts, such as literature, art, and popular culture.",
+        "value": "A butterfly is a colorful insect with a distinct life cycle that includes stages such as egg, larva, pupa, and adult. Butterflies are known for their large, often intricate and bright wings, which they use to flutter gracefully through the air. They play a crucial role in pollination and are valued for their beauty and importance in ecosystems.\n\nButterflies can also be used metaphorically. In literature and poetry, they often symbolize transformation and change, such as the metamorphosis of a caterpillar into a butterfly. They can represent hope, freedom, and the ephemeral nature of life, among other meanings. In popular culture, butterflies are frequently featured in various media for their aesthetic appeal and symbolic significance.\n\nAdditionally, the term \"butterfly\" can be used as a metaphor in business and innovation, where it is used to describe a butterfly effect, a situation where a small change can lead to significant effects, much like how a butterfly's wings may cause a chain reaction that results in a storm."
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"RedApple\" by itself doesn't refer to a specific concept, object, or entity that is commonly known or used, so it's difficult to provide a concrete usage scenario. However, it could be interpreted in various contexts, such as a product name, a metaphor, or a brand. For the purpose of this response, I'll assume \"RedApple\" refers to a general term that could be used in a variety of contexts, like a marketing slogan or a nickname.",
+        "value": "RedApple can be used as a brand name for a product, a marketing slogan to highlight the color and quality of an apple, or a nickname for an individual with a preference for red apples."
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Rigidity meta-property from Guarino and Welty (2000).\n\n**Rigidity (R)** - Analyze whether the property is essential to all its instances:\n   - **+R (Rigid)**: Essential to ALL instances in ALL possible worlds.\n     Examples: Person (anything that is a person is necessarily a person), Physical Object\n   - **-R (Non-Rigid)**: Not essential to some instances; instances can gain/lose it.\n     Examples: Student (a person can become/stop being a student), Red Thing\n   - **~R (Anti-Rigid)**: Essential NOT to be essential (contingent by definition).\n     Examples: Role (like Student, Employee), Phase (like Child, Adult)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+R\" | \"-R\" | \"~R\",\n  \"reasoning\": \"Brief explanation of why this entity has this rigidity value.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of why this entity has this rigidity value"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Rigidity value: '+R' (Rigid), '-R' (Non-Rigid), or '~R' (Anti-Rigid)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An agent typically refers to a being or entity that is capable of intentional actions and decision-making. While there is variability in how agents may perform tasks or make decisions, they are generally recognized by their ability to maintain certain characteristics over time, such as personal identity, memory, and continuous functioning. However, without additional constraints, it's challenging to strictly define what features must persist for an entity to retain its agent status across different contexts and scenarios. Nevertheless, the concept of an 'agent' often implies some level of enduring identity and agency.",
+        "value": "-I"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"Butterfly\" can be approached in several contexts, ranging from its literal usage as a noun referring to an insect known for its colorful wings and delicate nature, to its metaphorical usage where it can symbolize transformation or beauty in various forms of literature, art, and culture.",
+        "value": "Butterfly can refer to both the literal insect and a symbolic representation in literature and art."
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"RedApple\" seems to be a unique identifier or a placeholder that doesn't directly correspond to a well-known term or concept. Without further context, it could refer to a variety of things such as a product name, a brand, a specific type of apple, or a color-apple combination. However, to provide useful information, we need to determine a specific usage or meaning. Since no additional context is given, we'll assume it's a product name or brand and provide a general usage example.",
+        "value": "A product name or brand"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Identity meta-property from Guarino and Welty (2000).\n\n**Identity (I) - Carries Identity Condition** - Does this property carry an identity condition for its instances?\n   - **+I**: The property carries an Identity Condition (IC). Instances can be distinguished and re-identified.\n     Examples: Person (has IC like DNA, fingerprints), Physical Object (has spatio-temporal continuity)\n   - **-I**: The property does NOT carry an identity condition. No principled way to distinguish instances.\n     Examples: Red (what makes one instance of red the same over time?), Amount of Matter\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+I\" | \"-I\",\n  \"reasoning\": \"Brief explanation of whether this entity carries an identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity carries an identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Identity value: '+I' (carries identity condition) or '-I' (no identity condition)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "own_identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "An Agent is a being that can either perform actions on itself or have actions performed on it. This concept is broad enough to include a wide variety of entities such as people, animals, and even artificial agents in certain contexts. While it is a general category, it is not something that supplies its own identity condition. Instead, it inherits its identity condition from more specific entities that fall under the broader category of agents, which could be any of the entities mentioned above.",
+        "value": "-O"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "\n\n[Critic feedback from attempt 1]: Your description provides a comprehensive understanding of the term \"butterfly,\" covering its literal meaning, metaphorical usage, and specific applications in decision-making and chaos theory. The inclusion of the identity value \"+I\" to suggest a connection with transformation and personal growth is also insightful and aligns well with the concept of metamorphosis. However, it might be beneficial to provide examples or contexts for each usage to enhance clarity and applicability.",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "The term \"butterfly\" typically refers to insects in the order Lepidoptera, specifically the class of butterflies. Butterflies have a unique life cycle characterized by metamorphosis, which directly connects to their identity. The transformation from larva to adult stage is a defining characteristic that can be considered their own identity condition. Given that the identity value provided is +I, which aligns with the concept of transformation and personal growth, we can infer that butterflies supply their own identity condition based on their life cycle and transformation process.",
+        "value": "+O"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "\n\n[Critic feedback from attempt 1]: The term \"RedApple\" is ambiguous without specific context. While it could indeed represent an individual, especially if prefixed with \"+I\", it might also refer to a brand, a type of apple, or even just a color and a fruit combined. Further information is needed to accurately determine the identity or value of \"RedApple\".",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "The term \"RedApple\" is prefixed with \"+I\", which typically indicates that it refers to an individual in some contexts, such as social media tags or unique identifiers in a database. This prefix helps to clarify that \"RedApple\" is identifying a specific person or entity rather than being interpreted literally as a fruit or a brand.",
+        "value": "+I"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Own Identity meta-property from Guarino and Welty (2000).\n\n**Own Identity (O) - Supplies Identity Condition** - Does this property supply its OWN identity condition?\n   - **+O**: Supplies its own global identity condition.\n     Examples: Person (supplies own IC), Physical Object (supplies own IC)\n   - **-O**: Does not supply own IC (inherits it from a more general property, or has none).\n     Examples: Student (inherits IC from Person), Red (has no IC to supply)\n\n**IMPORTANT CONSTRAINT**: If +O, then +I must be true. You cannot supply an IC without carrying one.\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+O\" | \"-O\",\n  \"reasoning\": \"Brief explanation of whether this entity supplies its own identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Identity Value:",
+          "description": "Previously determined Identity value ('+I' or '-I') — used to enforce the constraint: +O requires +I"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity supplies its own identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Own Identity value: '+O' (supplies own IC) or '-O' (does not supply own IC)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "unity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An Agent is a being or entity that is capable of acting with intention and making choices. Agents are often understood as having coherent sets of capabilities, intentions, and behaviors. While an individual agent may be viewed as an integrated entity with a unified purpose and structure, the concept of Agent itself does not specify this. Agents can vary widely in form and function, from biological organisms to artificial constructs, and their components (like the parts of a robot) are typically well-integrated to achieve their goals. However, the term \"Agent\" by itself refers to any entity that exhibits intentional behavior, which can be diverse and may not always imply a cohesive structure.",
+        "value": "+U"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "\n\n[Critic feedback from attempt 2]: The proposed value and reasoning do not accurately reflect the ontological meta-property of \"unity.\" The term \"unity\" refers more directly to the state of being one, integrated, or unified; it pertains to wholeness and oneness rather than symbolism or metaphorical representations like those of butterflies. While a butterfly can symbolize change and interconnectedness, the proposed value should directly relate to the property of unity itself. Instead of proposing a symbolic usage, you should suggest a value that aligns with the intrinsic meaning and application of \"unity,\" such as a statement indicating that the term \"butterfly\" does not contribute directly to the property of unity unless its symbolical usage is explicitly defined in the domain ontology.\n\nFor example, if \"unity\" were being evaluated based on its usage in the context of biological classification, the value might instead be \"+U\", indicating the term helps define categories where organisms are grouped together. Without such explicit context, the symbolic usage is too abstract and does not correctly evaluate the ontological property.",
+        "usage": "",
+        "reasoning": "The term \"butterfly\" by itself does not directly represent a physical entity or a category of things that form an intrinsic whole. Butterflies are insects with their own biological unity, but the term itself does not inherently convey a sense of integration among instances beyond their common categorization in biology. Symbolic usage of butterflies often represents transformation or beauty, which are not directly related to unity in the ontological sense.",
+        "value": "-U"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "\n\n[Critic feedback from attempt 2]: The proposed value \"A RedApple as a specific instance of a fruit, such as 'Malus domestica 'Red Delicious'' or simply 'Red Delicious Apple.'\" does not correctly capture the ontological property of unity. Unity refers to the property of being a single, complete, and indivisible entity. Instead of defining RedApple as a specific instance of a fruit, you should propose that RedApple itself is a singular and complete entity. For example, you could propose something like \"+U\" (indicating that a RedApple is a unitary entity). The current proposal focuses on the classification, which is related to other properties such as identity (I).",
+        "usage": "",
+        "reasoning": "The term \"RedApple\" is being proposed to represent a specific type of apple known for its red color. The feedback suggests that we need to correctly reflect the ontological property of unity, which means that RedApple should be defined as a singular, complete, and indivisible entity rather than just as an instance of a broader category of fruit. \n\nBy using the indicator \"+U\" to denote a unitary entity, we align with the requirement of capturing the indivisibility and completeness of the RedApple. This approach ensures that the term represents a single, distinct object, avoiding the focus on classification which can introduce complexity regarding identity and other properties.",
+        "value": "+U"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Unity meta-property from Guarino and Welty (2000).\n\n**Unity (U)** - Are instances of this property wholes with integrated parts?\n   - **+U (Unifying)**: Instances are intrinsic wholes with clear mereological structure.\n     Examples: Person (integrated biological system), Car (functional whole)\n   - **-U (Non-Unifying)**: Instances are not necessarily wholes; parts may be arbitrary.\n     Examples: Red Thing (scattered red objects), Amount of Water\n   - **~U (Anti-Unity)**: Instances are strictly aggregates/sums without integration.\n     Examples: Collection, Group, Scattered Object\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+U\" | \"-U\" | \"~U\",\n  \"reasoning\": \"Brief explanation of the unity characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the unity characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Unity value: '+U' (Unifying), '-U' (Non-Unifying), or '~U' (Anti-Unity)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "dependence_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An agent is a being or thing that acts upon another thing. Agents in the abstract can include people, organizations, and natural forces, among others. For agents like persons or organizations, they often operate within specific frameworks or structures. However, as abstract entities, they do not fundamentally depend on these frameworks for their independent existence. An agent's actions may rely on certain contexts, but the entity itself retains its identity and capacity to act independently.",
+        "value": "-D"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"butterfly\" in various contexts can refer to the insect known for its colorful wings and life cycle, or more figuratively, it can represent change, transformation, or beauty. Given this dual nature, the description and usage need to encompass both the literal and figurative meanings.",
+        "value": "A butterfly is a beautiful insect with wings that are typically brightly colored. It undergoes a fascinating metamorphosis, starting as an egg, hatching into a larva, turning into a pupa (chrysalis), and finally emerging as an adult butterfly. Figuratively, \"butterfly\" often symbolizes transformation, lightness, and the delicate balance of nature."
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "\n\n[Critic feedback from attempt 2]: The proposed reasoning does not clearly align with any of the provided meta-properties ('rigidity', 'identity'). The term \"RedApple\" has multiple potential interpretations but the proposed value provided no clear indication of rigidity, identity, or other related properties. Specific context regarding what \"RedApple\" means in a given domain should be determined first before proposing a meta-property value.",
+        "usage": "",
+        "reasoning": "The term \"RedApple\" can be interpreted in various contexts. It could refer to a fruit, a brand name, or a specific product design. Without a specific context, it is challenging to determine which interpretation we should consider. If \"RedApple\" is referring to a fruit, it can be considered as an instance of an apple with the color red. For a product or brand, it might be a specific product or company name with the term \"Red Apple\" as its moniker.\n\nGiven the vagueness of the term, we should first determine the context to accurately apply a meta-property. If we assume the most common interpretation, which is a red apple fruit, then we can explore its rigidity and identity.\n\n1. **Rigidity**: In the context of a fruit, an apple's rigidity can be discussed in terms of its physical structure. An apple is a rigid object, being solid and mostly composed of water and pectin, which gives it a stable shape.\n2. **Identity**: The identity of a red apple can be defined by its characteristics such as its color, shape, and variety. However, specific identity details would depend on the variety of the apple (e.g., Red Delicious, Jonathan).\n\nSince the term \"RedApple\" is ambiguous, we need more information or context to provide a specific meta-property value.",
+        "value": "Unknown\n\n[[ ## completed ## ] ]"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Dependence meta-property from Guarino and Welty (2000).\n\n**Dependence (D)** - Do instances intrinsically depend on other entities?\n   - **+D (Dependent)**: Instances necessarily depend on other entities to exist.\n     Examples: Student (depends on School/Educational Institution), Parasite (depends on Host)\n   - **-D (Independent)**: Instances can exist without depending on specific other entities.\n     Examples: Person (independent), Physical Object (independent)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+D\" | \"-D\",\n  \"reasoning\": \"Brief explanation of the dependence characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the dependence characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Dependence value: '+D' (Dependent) or '-D' (Independent)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "rigidity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "Agent: An Agent is an entity that performs tasks autonomously or on behalf of others. It can operate in multiple domains including artificial intelligence, where an agent is a software system that perceives its environment through sensors and acts upon it through actuators; in computational contexts, an agent could be an autonomous entity in multi-agent systems that interacts with other entities in a given environment; and in customer service, an agent is a human or software system that assists customers with requests or issues. The specific roles and functions of an Agent can vary significantly based on the domain and application.",
+        "proposed_reasoning": "The term \"Agent\" can be applied in various domains and thus it needs a more detailed description to cover its broad uses and specific characteristics. In artificial intelligence, an agent refers to a software system that perceives its environment through sensors and acts upon that environment through actuators. In computational contexts, particularly in the field of multi-agent systems, an agent might refer to an autonomous entity interacting with other entities in a complex environment. In the context of customer service, an agent could be a human or software that performs tasks to assist customers. These different roles and characteristics provide a more comprehensive understanding of what an \"Agent\" entails.",
+        "status": "Completed",
+        "feedback": "The description provided for the term \"Agent\" is thorough and covers various domains including artificial intelligence, computational contexts like multi-agent systems, and customer service. This level of detail is beneficial for understanding the term in different contexts. No further elaboration or changes are suggested for the given proposed value."
+      },
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "-R",
+        "proposed_reasoning": "The term \"Butterfly\" refers to an organism that undergoes a metamorphosis from a larva to an adult form, which changes its physical appearance and behavior significantly during different stages of its life cycle. This transformation indicates that the essence or nature of what it is to be a butterfly is not stable but rather fluid and contingent on the stage it is in. Therefore, the rigidity property, which requires an entity to have an unchanging and consistent essence across all possible worlds, does not apply to butterflies.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. The proposed value `-R` accurately reflects the fact that a butterfly's essence changes throughout its life cycle due to metamorphosis. The reasoning provided effectively explains why rigidity does not apply, as the butterfly exhibits significant transformation in physical appearance and behavior."
+      },
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "+R",
+        "proposed_reasoning": "The term \"RedApple\" refers to a specific brand and product line, and its rigidity stems from the consistent association of this brand with a particular set of product offerings. This brand name is not subject to change based on contextual factors such as market strategies, supply chain variations, or consumer preferences, ensuring a constant and unambiguous identification of the products it represents.",
+        "status": "Processed",
+        "feedback": "The rigidity of \"RedApple\" is correctly identified as coming from its consistent association with a specific brand and product line. The term \"+R\" as a proposed value represents an enhancement or improvement within the brand, indicating continued consistency and unambiguous identification of the products. The reasoning provided justifies that the brand name is not susceptible to changes due to external factors, which adds to its rigidity."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "identity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "-I",
+        "proposed_reasoning": "An agent typically refers to a being or entity that is capable of intentional actions and decision-making. While there is variability in how agents may perform tasks or make decisions, they are generally recognized by their ability to maintain certain characteristics over time, such as personal identity, memory, and continuous functioning. However, without additional constraints, it's challenging to strictly define what features must persist for an entity to retain its agent status across different contexts and scenarios. Nevertheless, the concept of an 'agent' often implies some level of enduring identity and agency.",
+        "status": "Proposed.",
+        "feedback": "The proposed value \"-I\" for the property \"identity\" of the term \"Agent\" is relevant but could be elaborated further. The notation \"-I\" suggests a negative or absence of something, which might imply that an agent's identity is not fixed or stable in all contexts, or that the persistence of identity is not a necessary condition for agency. However, to better align with the typical understanding of \"agent,\" it would be helpful to clarify what specific aspects of identity are negated and why.\n\nFor example, a more nuanced description might be: \"An agent can be defined as a being or entity that is capable of intentional actions and decision-making, but the specific nature of its identity (such as memory, personal attributes, or the continuity of functioning) is not strictly required to retain its agent status in all scenarios. Thus, the identity of an agent may vary or be non-existent in certain contexts, such as during rapid changes in state or when the entity is in a different form or manifestation.\""
+      },
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "Butterfly can refer to both the literal insect and a symbolic representation in literature and art.",
+        "proposed_reasoning": "The term \"Butterfly\" can be approached in several contexts, ranging from its literal usage as a noun referring to an insect known for its colorful wings and delicate nature, to its metaphorical usage where it can symbolize transformation or beauty in various forms of literature, art, and culture.",
+        "status": "REJECT",
+        "feedback": "The term \"Butterfly\" does not inherently possess the concept of identity because identity refers to the unique characteristics and essence of an entity that distinguish it from others. The proposed value suggests a usage of the term in multiple contexts but does not address its uniqueness or distinctiveness as required by the concept of identity. For approval, the analysis should focus on how \"Butterfly\" maintains a unique identity whether used literally or symbolically."
+      },
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "+I",
+        "proposed_reasoning": "The term \"RedApple\" refers to a specific type of fruit, which is a member of the Apple genus but identified by its color. In the context of an ontology, we can consider that each instance of a RedApple might be distinguished by its unique spatio-temporal location, although there is no inherent intrinsic feature that allows us to consistently identify every individual RedApple over time and space without additional identifying information. However, in comparison to the property \"Red,\" which has no inherent means of distinguishing successive instances (since any shade of red could be identical to another except through arbitrary external identifiers), the concept \"RedApple\" carries a stronger grounding in a specific instance within a domain. Thus, while not having perfect intrinsic identity, \"RedApple\" can still potentially refer to specific instances within an ontology due to its contextual specificity.",
+        "status": "Processing",
+        "feedback": "The term \"RedApple\" is derived from the Apple genus but distinguished by its color. In an ontology, it is reasonable to consider that \"RedApple\" might be used to refer to specific instances of the fruit due to its contextual specificity, even though there are no inherent features that allow for consistent identification without additional information. The proposed value \"+I\" suggests that each instance of a RedApple has a unique identity, which aligns with the spatio-temporal distinction mentioned.\n\nHowever, it is important to note that while the color can provide a strong visual identifier, the term \"RedApple\" might still be subject to variation in shades of red, and other factors such as size, shape, and variety might also need to be considered for a more robust ontology. The reasoning provided indicates that the term \"RedApple\" is more grounded in specific instances than just the color \"Red.\""
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "own_identity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "-O",
+        "proposed_reasoning": "An Agent is a being that can either perform actions on itself or have actions performed on it. This concept is broad enough to include a wide variety of entities such as people, animals, and even artificial agents in certain contexts. While it is a general category, it is not something that supplies its own identity condition. Instead, it inherits its identity condition from more specific entities that fall under the broader category of agents, which could be any of the entities mentioned above.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. An Agent's identity is indeed not self-supplied; rather, it is inherited from more specific entities within the broader category. The proposed value '-O' accurately reflects this understanding."
+      },
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+I",
+        "proposed_reasoning": "Butterflies go through a life cycle that includes stages like egg, larva, pupa, and adult. This transformation is an intrinsic and internal process that defines a butterfly's identity. Metamorphosis is a vital characteristic that distinguishes a butterfly from other organisms during its development. It is not an external factor but rather a fundamental part of the butterfly's identity and essence. Therefore, following the OntoClean framework, the correct identity value for \"butterfly\" is +I, indicating that some internal structure (or part) constitutes the object's identity.",
+        "status": "Proposed",
+        "feedback": "The proposed value for the property \"own_identity\" for the term \"Butterfly\" is +I, which aligns with the OntoClean framework. This choice is supported by the fact that metamorphosis, an internal and essential transformation process, defines a significant part of a butterfly's identity. The internal structure or processes are integral to what makes a butterfly unique and different from other organisms, making +I an appropriate representation."
+      },
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "RedApple is identified with the value \"+I\".",
+        "proposed_reasoning": "The term \"RedApple\" with the prefix \"+I\" is recognized as referring to an individual, as it is likely used for unique user identification in digital platforms and databases. The \"+I\" prefix is commonly associated with personal identifiers or social media tags to distinguish between different entities or people.",
+        "status": "REJECT",
+        "feedback": "The term \"RedApple\" does not naturally convey an individual or identity; rather, it appears to be a descriptor of the fruit's color. The \"+I\" prefix should only be applied if the context explicitly identifies \"RedApple\" as an individual entity, such as a specific instance of a red apple in a database. Without additional context indicating that \"RedApple\" is uniquely identifying an individual entity, the use of \"+I\" may be inaccurate."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "unity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "-U",
+        "proposed_reasoning": "The term \"Agent\" is often used in various fields such as robotics, artificial intelligence, economics, and security, where it can refer to distinct entities with different characteristics and functionalities. For example, in robotics, an agent could be a physical robot performing tasks in an environment. In artificial intelligence, an agent might refer to a software program that acts on behalf of a user to perform specific tasks. In economics, the term can describe a person or organization that facilitates transactions between others. Each of these contexts may require a slightly different interpretation of what it means to be an \"agent,\" which contributes to its lack of a single, unified definition.\n\nFurthermore, the concept of an \"agent\" can sometimes be highly abstract and context-dependent. For instance, in the field of security, an agent might refer to a piece of malware or a tool that operates autonomously to protect systems, which contrasts with the more passive or human-like interpretation of \"agent\" in other contexts. Such variability makes it challenging to present the term \"Agent\" as fully unified without qualifying it with its specific context.",
+        "status": "APPROVE",
+        "feedback": "The analysis correctly identifies that the term \"Agent\" does not have a unified definition across different domains and contexts. The proposed value '-U' accurately reflects the lack of a singular, cohesive interpretation of what constitutes an \"Agent.\" This analysis respects the variability and context-dependency inherent in the term."
+      },
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "-U",
+        "proposed_reasoning": "The term \"butterfly\" by itself does not directly represent a physical entity or a category of things that form an intrinsic whole. Butterflies are insects with their own biological unity, but the term itself does not inherently convey a sense of integration among instances beyond their common categorization in biology. Symbolic usage of butterflies often represents transformation or beauty, which are not directly related to unity in the ontological sense.",
+        "status": "REJECT",
+        "feedback": "The proposed value '-U' suggests that the term \"butterfly\" lacks unity, which may not be accurate. While the butterfly as an individual entity has its own intrinsic unity, the term \"butterfly\" can be seen as referring to a category of similar biological entities. This can imply a certain level of unity within the category itself. Additionally, the lack of direct physical or intrinsic integration among different butterflies is a less compelling argument against unity in ontological terms. It would be more precise to assess whether the term itself, when used symbolically or in a broader context, fails to maintain some form of unity."
+      },
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "+U",
+        "proposed_reasoning": "The term \"RedApple\" is being proposed to represent a specific type of apple known for its red color. The feedback suggests that we need to correctly reflect the ontological property of unity, which means that RedApple should be defined as a singular, complete, and indivisible entity rather than just as an instance of a broader category of fruit. \n\nBy using the indicator \"+U\" to denote a unitary entity, we align with the requirement of capturing the indivisibility and completeness of the RedApple. This approach ensures that the term represents a single, distinct object, avoiding the focus on classification which can introduce complexity regarding identity and other properties.",
+        "status": "APPROVE",
+        "feedback": "The proposed value \"+U\" for the term \"RedApple\" is correct. It accurately reflects the ontological property of unity, indicating that RedApple represents a singular, complete, and indivisible entity. This aligns with the requirement to capture the indivisibility and completeness of the RedApple, thus ensuring that it represents a single, distinct object rather than an instance of a broader category of fruit."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "dependence_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "-D",
+        "proposed_reasoning": "An agent is a being or thing that acts upon another thing. Agents in the abstract can include people, organizations, and natural forces, among others. For agents like persons or organizations, they often operate within specific frameworks or structures. However, as abstract entities, they do not fundamentally depend on these frameworks for their independent existence. An agent's actions may rely on certain contexts, but the entity itself retains its identity and capacity to act independently.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. Agents, as abstract entities, retain their independence and do not fundamentally depend on the frameworks or structures within which they operate. The proposed value '-D' appropriately reflects this understanding of the term 'agent'."
+      },
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "A butterfly is a beautiful insect with wings that are typically brightly colored. It undergoes a fascinating metamorphosis, starting as an egg, hatching into a larva, turning into a pupa (chrysalis), and finally emerging as an adult butterfly. Figuratively, \"butterfly\" often symbolizes transformation, lightness, and the delicate balance of nature.",
+        "proposed_reasoning": "The term \"butterfly\" in various contexts can refer to the insect known for its colorful wings and life cycle, or more figuratively, it can represent change, transformation, or beauty. Given this dual nature, the description and usage need to encompass both the literal and figurative meanings.",
+        "status": "In progress",
+        "feedback": "The term \"butterfly\" is accurately described with its literal and figurative meanings. However, to ensure clarity, it might be beneficial to provide specific examples or use cases for each meaning, as well as any cultural or symbolic significance associated with the term."
+      },
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "Unknown\n\n[[ ## completed ## ] ]",
+        "proposed_reasoning": "The term \"RedApple\" can be interpreted in various contexts. It could refer to a fruit, a brand name, or a specific product design. Without a specific context, it is challenging to determine which interpretation we should consider. If \"RedApple\" is referring to a fruit, it can be considered as an instance of an apple with the color red. For a product or brand, it might be a specific product or company name with the term \"Red Apple\" as its moniker.\n\nGiven the vagueness of the term, we should first determine the context to accurately apply a meta-property. If we assume the most common interpretation, which is a red apple fruit, then we can explore its rigidity and identity.\n\n1. **Rigidity**: In the context of a fruit, an apple's rigidity can be discussed in terms of its physical structure. An apple is a rigid object, being solid and mostly composed of water and pectin, which gives it a stable shape.\n2. **Identity**: The identity of a red apple can be defined by its characteristics such as its color, shape, and variety. However, specific identity details would depend on the variety of the apple (e.g., Red Delicious, Jonathan).\n\nSince the term \"RedApple\" is ambiguous, we need more information or context to provide a specific meta-property value.",
+        "status": "In Progress",
+        "feedback": "The proposed value for the term \"RedApple\" is currently unknown due to the ambiguous nature of the term. It could refer to a fruit, a brand, or a product. To provide a more accurate value, additional context is necessary."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.1.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}

@@ -1,0 +1,646 @@
+{
+  "rigidity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "\n\n[Critic feedback from attempt 2]: The reasoning still contains a critical ontological error. The claim that \"an agent cannot cease to be an agent and continue to exist as the same entity\" is false and contradicts the definition of rigidity.\n\n**Key Issues:**\n\n1. **Confusing essential properties with rigid properties**: You're treating \"having the capacity for agency\" as if it must be rigid, but this isn't necessarily true. An entity can have agency as an essential property *while being an agent* without Agent being a rigid property.\n\n2. **Counterexample ignored**: A sophisticated AI system could plausibly:\n   - Exist as a non-agent computational system (t1)\n   - Be upgraded to possess agency (t2) - becoming an Agent\n   - Have its agency removed/degraded (t3) - ceasing to be an Agent\n   - Continue existing as the same computational entity throughout\n   \n   This shows the entity can exist in possible worlds where it is NOT an agent, making Agent **~R (anti-rigid)** or at best **non-rigid**.\n\n3. **Role vs. Kind confusion**: \"Agent\" in most ontological frameworks functions as a role that entities can acquire (through development, design, evolution) rather than a kind they must instantiate from the start of their existence.\n\n**Correct Analysis**: Agent should be **~R (anti-rigid)** because:\n- Entities can become agents (acquiring agency)\n- Entities can cease being agents (losing agency) while continuing to exist\n- \"Agent\" describes a functional capacity that can be gained or lost\n\nPlease revise to classify Agent as ~R with appropriate reasoning about its anti-rigid nature.",
+        "usage": "",
+        "reasoning": "Agent is anti-rigid (~R) because it represents a functional role or capacity that entities can acquire or lose while continuing to exist as the same entity. An entity can exist without being an agent (e.g., a non-sentient computational system or an infant human without developed agency), then gain agency through development, design, or evolution, and potentially lose that agency later (through damage, degradation, or architectural changes) while remaining the same underlying entity. The property of being an agent is contingent and non-essential to the entity's existence across possible worlds. For example, an AI system could exist as mere data storage, be upgraded to possess autonomous decision-making capabilities (becoming an agent), and later have those capabilities removed while the computational entity persists. Similarly, humans exist before developing agency and could theoretically lose agency through severe cognitive impairment while still existing. Agent describes a functional capacity that is acquired rather than intrinsic to existence itself.",
+        "value": "~R"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "\n\n[Critic feedback from attempt 1]: The analysis contains a fundamental misunderstanding of rigidity in OntoClean. The reasoning conflates temporal persistence with modal rigidity.\n\n**Key Issues:**\n\n1. **Life stage confusion**: The analysis correctly identifies that \"butterfly\" is a life stage, but fails to recognize that this makes it NON-rigid. The same individual organism (e.g., a specific insect) exists as a caterpillar, then as a chrysalis, then as a butterfly. If the property \"Butterfly\" were rigid, the organism would have to be a butterfly in ALL possible worlds where it exists - but we know it exists as a caterpillar in earlier stages.\n\n2. **Modal vs. Temporal**: Rigidity is about modal necessity (across possible worlds), not temporal persistence. The statement \"a butterfly cannot stop being a butterfly while continuing to exist\" addresses temporal continuity during the adult phase, not whether being a butterfly is essential to the entity's identity across all possible worlds.\n\n3. **Identity through change**: The very fact that you acknowledge the same organism passes through caterpillar and butterfly stages demonstrates that \"Butterfly\" is NOT essential to that organism's identity - it's a phase property.\n\n**Correct Analysis:**\nButterfly should be classified as **-R (Anti-rigid)** or possibly **~R (Non-rigid)**. It represents a phase in an organism's life cycle. The individual insect necessarily exists without being a butterfly (during its larval stage), which directly contradicts rigid classification.\n\nThe property that might be rigid here is something like \"Lepidopteran organism\" - the biological kind that the individual belongs to throughout its entire existence.",
+        "usage": "",
+        "reasoning": "The critic is correct. \"Butterfly\" represents a phase in the life cycle of a lepidopteran organism. The key insight is that the same individual entity exists through multiple stages: egg, larva (caterpillar), pupa (chrysalis), and adult (butterfly). \n\nAn individual lepidopteran organism can exist without being a butterfly - it necessarily exists as a caterpillar before metamorphosis. This means \"Butterfly\" is not essential to all instances across all possible worlds where those instances exist. The organism exists in worlds where it is still a caterpillar, proving that being a butterfly is not modally necessary to its identity.\n\n\"Butterfly\" is better classified as **~R (Anti-Rigid)** because it represents a phase or life stage - a property that is by definition contingent and temporary. It's a role in the organism's life cycle that the entity must eventually adopt (if it survives to adulthood) but cannot possess from the beginning of its existence.\n\nThe rigid property would be something like \"Lepidopteran\" or \"Member of Order Lepidoptera\" - the biological classification that applies to the organism throughout all stages of its life cycle, in all possible worlds where it exists.",
+        "value": "~R"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "RedApple represents entities that are both apples AND red. The redness property is not essential to being an apple - an apple can change color (from green to red as it ripens, or lose its red color as it decays) while remaining an apple. Similarly, something that is a red apple could stop being red (through color change, paint, lighting conditions, etc.) while still being an apple. Since instances can lose the \"red\" property while maintaining their identity as apples, this is a non-rigid property. The redness is contingent - red apples are not necessarily red in all possible worlds or at all times.",
+        "value": "-R"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Rigidity meta-property from Guarino and Welty (2000).\n\n**Rigidity (R)** - Analyze whether the property is essential to all its instances:\n   - **+R (Rigid)**: Essential to ALL instances in ALL possible worlds.\n     Examples: Person (anything that is a person is necessarily a person), Physical Object\n   - **-R (Non-Rigid)**: Not essential to some instances; instances can gain/lose it.\n     Examples: Student (a person can become/stop being a student), Red Thing\n   - **~R (Anti-Rigid)**: Essential NOT to be essential (contingent by definition).\n     Examples: Role (like Student, Employee), Phase (like Child, Adult)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+R\" | \"-R\" | \"~R\",\n  \"reasoning\": \"Brief explanation of why this entity has this rigidity value.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of why this entity has this rigidity value"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Rigidity value: '+R' (Rigid), '-R' (Non-Rigid), or '~R' (Anti-Rigid)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An Agent carries an identity condition. Agents are entities that can perform actions, make decisions, or cause effects. Whether we're talking about human agents, software agents, organizational agents, or other types of agents, each agent can be distinguished from other agents and re-identified over time. For example, a specific person (human agent) maintains their identity through time via biological continuity, psychological continuity, or social identity. A software agent has identity through its unique instantiation, code, or process ID. An organization as an agent has identity through its legal status, membership, or institutional continuity. The concept of agency inherently requires the ability to track and distinguish individual agents across time and situations, as we need to attribute actions, responsibilities, and capabilities to specific agents.",
+        "value": "+I"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "A butterfly carries a clear identity condition. Each butterfly is a distinct biological organism with continuous physical and biological identity throughout its existence. We can distinguish one butterfly from another through various means: their specific genetic makeup, physical location in space-time, individual wing patterns and markings, and their continuous biological development from egg through larva (caterpillar), pupa (chrysalis), to adult butterfly. Despite the dramatic metamorphosis, there is spatio-temporal continuity - the same organism persists through these life stages. We can re-identify the same butterfly over time by tracking its physical continuity and unique characteristics. This makes \"Butterfly\" a sortal that provides identity conditions for its instances.",
+        "value": "+I"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "RedApple, as a term referring to a physical object (an apple that is red), carries an identity condition. A red apple is a specific physical object with spatio-temporal continuity - it exists at a particular location at a particular time and can be distinguished from other red apples. We can re-identify the same red apple over time by tracking its physical continuity, even as some of its properties change (e.g., it becomes slightly less red, or develops a bruise). Each red apple instance has clear identity criteria: this specific apple is distinct from that specific apple based on their individual physical constitution and spatio-temporal paths. The term inherits identity conditions from being a physical object, despite also having the property \"red\" which itself doesn't carry identity conditions.",
+        "value": "+I"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Identity meta-property from Guarino and Welty (2000).\n\n**Identity (I) - Carries Identity Condition** - Does this property carry an identity condition for its instances?\n   - **+I**: The property carries an Identity Condition (IC). Instances can be distinguished and re-identified.\n     Examples: Person (has IC like DNA, fingerprints), Physical Object (has spatio-temporal continuity)\n   - **-I**: The property does NOT carry an identity condition. No principled way to distinguish instances.\n     Examples: Red (what makes one instance of red the same over time?), Amount of Matter\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+I\" | \"-I\",\n  \"reasoning\": \"Brief explanation of whether this entity carries an identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity carries an identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Identity value: '+I' (carries identity condition) or '-I' (no identity condition)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "own_identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "identity_value": "-I",
+        "reasoning": "Since the identity_value is '-I' (does not carry identity), this entity cannot supply its own identity condition. The constraint \"+O requires +I\" means that to supply an identity condition (+O), an entity must first carry identity (+I). Given that Agent has '-I', it automatically follows that it must have '-O'. An entity cannot supply what it does not possess.",
+        "value": "-O"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "\n\n[Critic feedback from attempt 1]: The analysis contains a conceptual error regarding the own identity (+O) property. While the reasoning correctly identifies that \"Butterfly\" carries identity (+I), the conclusion about supplying its own identity (+O) is problematic.\n\nThe key issue is this: \"Butterfly\" does NOT supply its own identity criterion independently. Instead, butterflies inherit their identity conditions from more general biological categories. A butterfly's identity as a continuous physical organism comes from being an \"Organism\" or \"Animal\" - these more general categories provide the identity criteria (spatiotemporal continuity, biological continuity). \"Butterfly\" itself merely specifies additional constraints (having wings, going through metamorphosis, being a member of order Lepidoptera) but relies on the higher-level category for what makes something the same entity over time.\n\nConsider: if we remove the concept \"Butterfly\" but keep \"Insect\" or \"Organism,\" we can still track the same individual entity through time using the identity criteria from those categories. This demonstrates that \"Butterfly\" is NOT the source of the identity criterion.\n\nTherefore, \"Butterfly\" should be **-O** (does not supply own identity), as it inherits identity conditions from more fundamental biological categories rather than providing them itself. The entity is rigid (+R) and carries identity (+I), but borrows rather than supplies its identity criterion.",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "The critic's feedback correctly identifies the key distinction for the Own Identity property. While \"Butterfly\" does carry identity (+I), meaning its instances can be identified and distinguished over time, it does not supply its own identity criterion.\n\nThe identity condition for a butterfly - what makes it the same individual over time - comes from more general biological categories like \"Organism,\" \"Animal,\" or \"Living Being.\" These higher-level categories provide the fundamental criteria for identity: spatiotemporal continuity, biological continuity as a living organism, and persistence through time as the same physical entity.\n\n\"Butterfly\" adds specific characteristics (metamorphosis, wings, taxonomic classification in Lepidoptera) but these are additional properties, not the source of identity itself. The identity criterion - tracking the same organism through its life stages from egg to caterpillar to chrysalis to butterfly - relies on the biological continuity provided by \"Organism\" as the identity-supplying category.\n\nIf we removed \"Butterfly\" as a concept but retained \"Insect\" or \"Organism,\" we could still track the same individual entity using those more general identity criteria. This demonstrates that \"Butterfly\" inherits rather than supplies its identity condition.\n\nTherefore, \"Butterfly\" is -O: it carries identity (+I, as given) but does not supply its own identity criterion, instead inheriting it from more fundamental ontological categories.",
+        "value": "-O"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "identity_value": "-I",
+        "reasoning": "RedApple has an identity_value of -I, meaning it does not carry an identity condition. According to the fundamental constraint, if an entity does not carry an identity condition (-I), it cannot supply its own identity condition. The constraint states: +O requires +I. Therefore, since RedApple is -I, it must be -O.\n\nAdditionally, \"RedApple\" appears to be a role or qualification (a red-colored apple), which would typically inherit any identity condition from its more general property \"Apple\" rather than supplying its own. As a qualifying property (combining color and object type), it does not introduce a new, independent criterion for identity.",
+        "value": "-O"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Own Identity meta-property from Guarino and Welty (2000).\n\n**Own Identity (O) - Supplies Identity Condition** - Does this property supply its OWN identity condition?\n   - **+O**: Supplies its own global identity condition.\n     Examples: Person (supplies own IC), Physical Object (supplies own IC)\n   - **-O**: Does not supply own IC (inherits it from a more general property, or has none).\n     Examples: Student (inherits IC from Person), Red (has no IC to supply)\n\n**IMPORTANT CONSTRAINT**: If +O, then +I must be true. You cannot supply an IC without carrying one.\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+O\" | \"-O\",\n  \"reasoning\": \"Brief explanation of whether this entity supplies its own identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Identity Value:",
+          "description": "Previously determined Identity value ('+I' or '-I') — used to enforce the constraint: +O requires +I"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity supplies its own identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Own Identity value: '+O' (supplies own IC) or '-O' (does not supply own IC)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "unity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An \"Agent\" in ontological terms refers to an entity capable of performing actions, making decisions, or exerting influence. Instances of Agent (whether human agents, software agents, or organizational agents) possess intrinsic unity through their functional integration around the capacity for agency. An agent has a clear internal organization that enables goal-directed behavior - cognitive/computational processes, decision-making mechanisms, and action-execution capabilities form an integrated whole. The parts of an agent (whether biological systems in humans, code modules in software, or organizational units) work together in a coordinated way to achieve unified agency. This is not an arbitrary collection but a functional whole where components are interdependent for the agent's capacity to act. Unlike scattered collections or mere aggregates, agents exhibit mereological structure with integrated parts that collectively enable their defining characteristic of agency.",
+        "value": "+U"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "A butterfly is a biological organism with a highly integrated physical structure. It consists of interdependent parts (head, thorax, abdomen, wings, legs, antennae, circulatory system, nervous system, digestive system) that work together as a functional whole. The parts have specific spatial relationships and cannot be arbitrarily rearranged while maintaining the entity. A butterfly exhibits clear mereological structure - removing or significantly altering any major component destroys or fundamentally changes the entity. The integration is intrinsic to the organism's nature as a living being, not merely external or conventional. Each butterfly instance constitutes a unified whole with boundaries defined by its biological organization.",
+        "value": "+U"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "A RedApple is an instance of an apple that happens to be red in color. As an apple, it represents a biological organism (a fruit) with an integrated mereological structure - it has a unified physical form with functionally integrated parts (skin, flesh, core, seeds) that work together as a whole. The apple exists as a natural, intrinsic whole with clear boundaries. While \"red\" is an additional property (color), it doesn't change the fundamental unity of the apple itself. The entity RedApple still refers to individual apple instances that are integrated wholes, not arbitrary collections or scattered objects.",
+        "value": "+U"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Unity meta-property from Guarino and Welty (2000).\n\n**Unity (U)** - Are instances of this property wholes with integrated parts?\n   - **+U (Unifying)**: Instances are intrinsic wholes with clear mereological structure.\n     Examples: Person (integrated biological system), Car (functional whole)\n   - **-U (Non-Unifying)**: Instances are not necessarily wholes; parts may be arbitrary.\n     Examples: Red Thing (scattered red objects), Amount of Water\n   - **~U (Anti-Unity)**: Instances are strictly aggregates/sums without integration.\n     Examples: Collection, Group, Scattered Object\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+U\" | \"-U\" | \"~U\",\n  \"reasoning\": \"Brief explanation of the unity characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the unity characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Unity value: '+U' (Unifying), '-U' (Non-Unifying), or '~U' (Anti-Unity)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "dependence_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "\n\n[Critic feedback from attempt 2]: The reasoning conflates two different aspects of dependence that need to be carefully distinguished:\n\n1. **Conceptual/definitional relationships** (how we understand or define a term) vs. **ontological dependence** (whether an instance requires other specific entities to exist)\n\n2. The key question for OntoClean Dependence is: Can an instance of Agent exist without requiring the existence of some other specific entity?\n\nThe proposed reasoning argues that \"Agent\" is dependent because the *concept* requires reference to actions or agency relationships. However, this confuses:\n- **What makes something fall under the concept** (having agency capacities)\n- **Whether an instance needs other entities to exist**\n\nConsider: A person with agency capabilities exists as an agent even when not currently acting. A software agent exists as an agent based on its internal properties (code, decision-making structures) even when idle. The *potential* for agency is an intrinsic property, not a dependence on external entities.\n\n**Correct analysis: Agent should be -D (Independent)**\n\nAn agent can exist and be identified as an agent based on intrinsic properties (cognitive/computational capacities, decision-making abilities, autonomy) without requiring any other specific entity to exist simultaneously. The *capacity* for agency is intrinsic, even though *exercising* that agency involves relationships. This is analogous to how \"Student\" is dependent (requires an institution) but \"Learner\" is independent (intrinsic capacity).\n\nPlease revise to -D with reasoning focused on intrinsic capacities rather than relational contexts.",
+        "usage": "",
+        "reasoning": "An agent possesses intrinsic properties that constitute its agency - namely cognitive or computational capacities, decision-making abilities, and autonomy. These properties belong to the agent itself and do not require the simultaneous existence of any other specific entity. While an agent may engage in actions or relationships with other entities when exercising its agency, the *capacity* for agency is an inherent characteristic. A person remains an agent even when not currently interacting with others; a software agent remains an agent even when idle. The potential for autonomous action and decision-making is intrinsic to the entity itself, similar to how having the capacity to learn makes something a learner regardless of whether active learning is occurring. Therefore, instances of Agent can exist and be identified based on their intrinsic properties without ontological dependence on other specific entities.",
+        "value": "-D"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "\n\n[Critic feedback from attempt 1]: The analysis contains a fundamental misunderstanding of the dependence meta-property in OntoClean. The reasoning conflates physical/ecological dependence with ontological dependence.\n\n**Key Issues:**\n\n1. **Incorrect interpretation of dependence**: The analysis focuses on whether butterflies need \"specific entities\" in their environment, but ontological dependence is about whether an entity's identity or existence depends on other entities being presupposed in its definition.\n\n2. **Missing the relational nature**: A butterfly is defined in part by relations that presuppose other entities:\n   - \"Adult insect\" presupposes the category of insects and developmental stages\n   - \"Order Lepidoptera\" presupposes a taxonomic system\n   - The butterfly lifecycle intrinsically presupposes earlier stages (caterpillar, chrysalis)\n   - Being an \"adult\" is inherently relational - it presupposes immature stages\n\n3. **Biological role relations**: Butterflies as pollinators have a role that presupposes the existence of flowering plants in their very nature as butterflies (not just as a survival need).\n\n**Correct Analysis:**\nButterfly should likely be **+D** (dependent) because:\n- The concept \"butterfly\" presupposes developmental stages (egg, larva, pupa, adult)\n- It's defined as the adult stage of a lepidopteran lifecycle\n- The identity as \"butterfly\" is relational to the broader lifecycle and taxonomic context\n\nThe value should be reconsidered with focus on ontological/conceptual dependence rather than physical autonomy.",
+        "usage": "",
+        "reasoning": "The critic's feedback correctly identifies that ontological dependence concerns whether an entity's identity or definition presupposes other entities, not merely physical or ecological dependencies.\n\nAnalyzing \"Butterfly\" through the lens of ontological dependence:\n\n1. **Definitional dependence**: A butterfly is inherently defined as the adult stage of a lepidopteran insect. The very concept of \"butterfly\" presupposes and is relationally defined by:\n   - The existence of earlier developmental stages (egg, larva/caterpillar, pupa/chrysalis)\n   - The broader taxonomic classification (Order Lepidoptera)\n   - The lifecycle transformation process (metamorphosis)\n\n2. **Identity as relational**: \"Butterfly\" is not an independent concept but rather a phase-specific identity. One cannot understand what a butterfly IS without reference to the lifecycle stages that precede it. The identity \"butterfly\" presupposes \"caterpillar\" and \"chrysalis\" as ontologically prior stages of the same organism.\n\n3. **Conceptual presupposition**: Unlike \"Person\" or \"Rock\" which can be understood as standalone entities, \"Butterfly\" conceptually requires the broader developmental and taxonomic framework to be meaningful.\n\nTherefore, Butterfly exhibits ontological dependence (+D) because instances of butterflies have their identity necessarily tied to and presupposing other entities (developmental stages, taxonomic relations) in their very definition.",
+        "value": "+D"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "\n\n[Critic feedback from attempt 2]: The analysis contains a fundamental misunderstanding of the dependence meta-property in OntoClean. Here are the specific issues:\n\n**Main Problem**: You are confusing logical/conceptual composition with ontological dependence. The fact that \"RedApple\" can be analytically decomposed into \"Red\" and \"Apple\" does not make it ontologically dependent in the OntoClean sense.\n\n**What Dependence Actually Means**: A property P is dependent (+D) if, for its instances to exist, there must necessarily exist instances of some other property Q at the same time. This is about existential dependence of instances, not conceptual decomposition of properties.\n\n**Correct Analysis for RedApple**:\n- RedApple should be **-D (independent)**\n- A red apple can exist as a standalone entity without requiring the simultaneous existence of any other specific entity\n- While a red apple has parts (flesh, skin, stem), and while it instantiates multiple properties (being red, being an apple), these are not cases of ontological dependence in the OntoClean sense\n\n**Key Distinction**: \n- Dependent (+D): Properties like \"Student\" (requires the existence of an educational institution), \"Employee\" (requires an employer), or \"Hole\" (requires a host object)\n- Independent (-D): Properties like \"Apple,\" \"RedApple,\" \"Person\" - entities that can exist without requiring other specific entities to exist simultaneously\n\n**Recommendation**: Revise to -D and explain that red apples are material objects that can exist independently, even though they instantiate multiple properties and have constituent parts.",
+        "usage": "",
+        "reasoning": "After considering the critic's feedback, I recognize my previous error. RedApple should be analyzed as **-D (Independent)**. \n\nA red apple is a material object that can exist as a standalone entity. While it instantiates multiple properties (redness, being an apple) and has constituent parts (flesh, skin, stem, seeds), these do not constitute ontological dependence in the OntoClean sense.\n\nOntological dependence requires that for an instance to exist, there must necessarily exist instances of some other specific property at the same time. A red apple does not depend on any other entity for its existence in this way:\n- It doesn't require a specific tree (it can exist after being picked)\n- It doesn't require a specific location or container\n- It doesn't require the existence of any particular relational entity\n\nUnlike truly dependent entities such as \"Student\" (which requires an educational institution), \"Employee\" (which requires an employer), or \"Parasite\" (which requires a host), a red apple can exist independently. The fact that we can conceptually analyze \"RedApple\" into color and kind does not make instances of RedApple ontologically dependent on other entities.",
+        "value": "-D"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Dependence meta-property from Guarino and Welty (2000).\n\n**Dependence (D)** - Do instances intrinsically depend on other entities?\n   - **+D (Dependent)**: Instances necessarily depend on other entities to exist.\n     Examples: Student (depends on School/Educational Institution), Parasite (depends on Host)\n   - **-D (Independent)**: Instances can exist without depending on specific other entities.\n     Examples: Person (independent), Physical Object (independent)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+D\" | \"-D\",\n  \"reasoning\": \"Brief explanation of the dependence characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the dependence characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Dependence value: '+D' (Dependent) or '-D' (Independent)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "rigidity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "+R",
+        "proposed_reasoning": "Given the critic's feedback, I need to reconsider the interpretation of \"Agent.\" Without additional context specifying that Agent is used as a temporary role or phase, the ontologically standard interpretation treats \"Agent\" as a sortal/kind term referring to entities whose essential nature includes the capacity for agency.\n\nUnder this interpretation, Agent is **+R (Rigid)** because:\n1. Entities that are agents possess agency as part of their essential nature\n2. An agent cannot cease to be an agent and continue to exist as the same entity\n3. Like \"Person\" or \"Rational Being,\" being an agent is a fundamental characteristic that defines what the entity is, not a contingent property it can gain or lose\n4. Temporary inability to exercise agency (e.g., during unconsciousness) does not make something stop being an agent - it remains an agent that is temporarily inactive\n\nThis differs from \"Active Agent\" or \"Currently Acting,\" which would be ~R (anti-rigid) roles/phases that agents can enter and exit while remaining agents.\n\nTherefore, interpreting \"Agent\" as a kind term in the standard ontological sense, it should be classified as Rigid.",
+        "status": "REJECT",
+        "feedback": "The reasoning still contains a critical ontological error. The claim that \"an agent cannot cease to be an agent and continue to exist as the same entity\" is false and contradicts the definition of rigidity.\n\n**Key Issues:**\n\n1. **Confusing essential properties with rigid properties**: You're treating \"having the capacity for agency\" as if it must be rigid, but this isn't necessarily true. An entity can have agency as an essential property *while being an agent* without Agent being a rigid property.\n\n2. **Counterexample ignored**: A sophisticated AI system could plausibly:\n   - Exist as a non-agent computational system (t1)\n   - Be upgraded to possess agency (t2) - becoming an Agent\n   - Have its agency removed/degraded (t3) - ceasing to be an Agent\n   - Continue existing as the same computational entity throughout\n   \n   This shows the entity can exist in possible worlds where it is NOT an agent, making Agent **~R (anti-rigid)** or at best **non-rigid**.\n\n3. **Role vs. Kind confusion**: \"Agent\" in most ontological frameworks functions as a role that entities can acquire (through development, design, evolution) rather than a kind they must instantiate from the start of their existence.\n\n**Correct Analysis**: Agent should be **~R (anti-rigid)** because:\n- Entities can become agents (acquiring agency)\n- Entities can cease being agents (losing agency) while continuing to exist\n- \"Agent\" describes a functional capacity that can be gained or lost\n\nPlease revise to classify Agent as ~R with appropriate reasoning about its anti-rigid nature."
+      },
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+R",
+        "proposed_reasoning": "The critic is correct. \"Butterfly\" refers to adult lepidopterans as a natural kind, not to a temporal phase of an organism's lifecycle. When we classify something as a Butterfly, we are identifying it as an adult lepidopteran with specific biological characteristics (wings, compound eyes, specialized mouthparts, etc.). \n\nIn modal terms: If x is a Butterfly (an adult lepidopteran), then in all possible worlds where x exists as that individual, x must be a Butterfly. An adult lepidopteran cannot cease being a butterfly and continue to exist as the same instance - it cannot \"un-metamorphose\" back into a caterpillar.\n\nThe temporal sequence (egg → larva/caterpillar → pupa → adult butterfly) involves different life stages, but once an organism has become a butterfly, that individual butterfly is necessarily a butterfly for its entire existence as that butterfly. The earlier caterpillar stage represents a different temporal part of the organism's life history, not a modal contingency of the butterfly itself.\n\nTherefore, \"Butterfly\" as a class is rigid: anything that is a butterfly is essentially a butterfly in all possible worlds where it exists.",
+        "status": "REJECT",
+        "feedback": "The proposed analysis contains a fundamental error in applying the rigidity criterion. The reasoning confuses temporal persistence with modal necessity, which is a common mistake in OntoClean analysis.\n\n**The Problem:**\nThe analysis claims that \"once an organism has become a butterfly, that individual butterfly is necessarily a butterfly\" - but this focuses on temporal identity rather than modal identity. Rigidity asks: \"Can the same individual exist in another possible world without being a butterfly?\"\n\n**The Correct Analysis:**\n\"Butterfly\" is actually -R (non-rigid) because:\n1. The same biological individual (the organism) exists as a caterpillar before metamorphosis\n2. In counterfactual scenarios, we can imagine the same organism (same DNA, same biological identity) existing but never completing metamorphosis - perhaps due to environmental conditions, genetic expression differences, or developmental interruptions\n3. The organism would still be the same individual, but would not be a butterfly\n\n**Key Distinction:**\n- The reasoning incorrectly treats \"butterfly\" as referring only to the adult stage in isolation\n- But the individual organism persists through multiple life stages\n- The question is whether that individual MUST be a butterfly in all possible worlds where it exists, and the answer is no - it could exist as only a caterpillar if metamorphosis failed or never occurred\n\n**Revision Needed:**\nChange the value to -R and adjust the reasoning to acknowledge that the same biological individual can exist without being a butterfly (e.g., if it died as a caterpillar or never metamorphosed)."
+      },
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "-R",
+        "proposed_reasoning": "RedApple represents entities that are both apples AND red. The redness property is not essential to being an apple - an apple can change color (from green to red as it ripens, or lose its red color as it decays) while remaining an apple. Similarly, something that is a red apple could stop being red (through color change, paint, lighting conditions, etc.) while still being an apple. Since instances can lose the \"red\" property while maintaining their identity as apples, this is a non-rigid property. The redness is contingent - red apples are not necessarily red in all possible worlds or at all times.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. The reasoning properly identifies that RedApple is anti-rigid (-R) because:\n\n1. It correctly recognizes that \"red\" is a contingent property - apples can change color during ripening (green to red) or degradation without ceasing to be apples.\n\n2. It properly applies the rigidity test: an instance of RedApple can lose the property of being red while maintaining its essential identity as an apple, demonstrating that the property is not essential to all its instances.\n\n3. The reasoning correctly distinguishes between the essential property (being an apple, which would be rigid or at least non-rigid) and the accidental/contingent property (being red, which makes the conjunction anti-rigid).\n\n4. The conclusion that instances are not necessarily red \"in all possible worlds or at all times\" correctly applies modal logic reasoning.\n\nThis is a textbook example of anti-rigidity where a combination of an essential property (Apple) with a contingent property (Red) results in an anti-rigid concept."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "identity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "+I",
+        "proposed_reasoning": "An Agent carries an identity condition. Agents are entities that can perform actions, make decisions, or cause effects. Whether we're talking about human agents, software agents, organizational agents, or other types of agents, each agent can be distinguished from other agents and re-identified over time. For example, a specific person (human agent) maintains their identity through time via biological continuity, psychological continuity, or social identity. A software agent has identity through its unique instantiation, code, or process ID. An organization as an agent has identity through its legal status, membership, or institutional continuity. The concept of agency inherently requires the ability to track and distinguish individual agents across time and situations, as we need to attribute actions, responsibilities, and capabilities to specific agents.",
+        "status": "REJECT",
+        "feedback": "The proposed value of +I is incorrect. The reasoning confuses identity conditions with the general ability to distinguish entities.\n\nKey issues:\n\n1. **Identity vs. Unity**: The reasoning describes unity (+U) rather than identity (+I). Being able to \"distinguish from other agents and re-identify over time\" is a unity criterion, not an identity criterion. Identity criteria specify WHAT KIND OF THING something is, not just that it can be tracked.\n\n2. **Multiple incompatible identity criteria**: The reasoning itself reveals the problem - it lists different types of agents (human, software, organizational) with completely different identity conditions (biological continuity, process ID, legal status). When a term allows for entities with fundamentally different identity criteria under the same concept, this indicates the term does NOT supply identity (+O, not +I).\n\n3. **Role vs. Substance**: \"Agent\" is a role-based concept - something is an agent in virtue of what it does (performs actions, makes decisions), not what it fundamentally is. Different kinds of entities (persons, programs, organizations) can play the agent role while maintaining their own distinct identity criteria.\n\n**Correct analysis**: Agent should be classified as +O (supplies unity but not identity). Agents can be re-identified and distinguished (+U), but the term \"Agent\" itself doesn't provide the identity criterion - that comes from what kind of thing is playing the agent role (person, software, organization, etc.)."
+      },
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+I",
+        "proposed_reasoning": "A butterfly carries a clear identity condition. Each butterfly is a distinct biological organism with continuous physical and biological identity throughout its existence. We can distinguish one butterfly from another through various means: their specific genetic makeup, physical location in space-time, individual wing patterns and markings, and their continuous biological development from egg through larva (caterpillar), pupa (chrysalis), to adult butterfly. Despite the dramatic metamorphosis, there is spatio-temporal continuity - the same organism persists through these life stages. We can re-identify the same butterfly over time by tracking its physical continuity and unique characteristics. This makes \"Butterfly\" a sortal that provides identity conditions for its instances.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. The reasoning properly identifies that \"Butterfly\" carries identity conditions (+I) as a biological sortal. The key points are well-articulated:\n\n1. Individual identity: Each butterfly is a distinct organism that can be individuated and re-identified over time\n2. Spatio-temporal continuity: Despite metamorphosis (egg → larva → pupa → adult), the same biological organism persists with continuous physical existence\n3. Clear criteria for distinguishing instances: genetic makeup, spatial location, unique physical characteristics, and developmental trajectory\n4. Sortal nature: \"Butterfly\" provides the conceptual apparatus to count, distinguish, and track individuals\n\nThe reasoning correctly recognizes that dramatic morphological changes during metamorphosis do not compromise identity - the same individual organism persists through these transformations. This is a textbook example of a sortal concept with well-defined identity conditions, making +I the appropriate value."
+      },
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "-I",
+        "proposed_reasoning": "The critic feedback is correct. \"RedApple\" should be analyzed as -I (non-identity carrying).\n\nThe critical distinction here is between what *provides* identity criteria versus what *inherits* identity criteria. While it's true that any instance of a RedApple is a physical object that can be tracked and re-identified, the identity condition comes from **Apple** (the substance kind), not from **RedApple** itself.\n\n\"RedApple\" represents a **phase** - a temporary state where an apple happens to be red. The same individual apple can:\n- Start as a GreenApple (unripe)\n- Become a RedApple (ripe)\n- Later become a BrownApple (overripe)\n\nThroughout these color changes, we track the *same* apple using the identity criteria provided by **Apple** (spatio-temporal continuity, physical structure). If RedApple carried its own identity condition (+I), then when an apple ripened from green to red, we would have to say a new entity came into existence and the old one ceased to exist - which is incorrect.\n\nThe property \"RedApple\" does not itself supply identity criteria; it merely describes a phase or state that something with an independent identity condition (an Apple) can be in. Therefore, RedApple is -I.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. RedApple is properly classified as -I (non-identity carrying).\n\nThe reasoning accurately captures the key distinction: RedApple represents a phase or temporary state rather than a substance kind that provides its own identity criteria. The examples effectively demonstrate that the same apple individual persists through color changes (green → red → brown), maintaining its identity through the criteria supplied by the superordinate kind \"Apple\" (based on spatio-temporal continuity and physical structure).\n\nThe analysis correctly notes that if RedApple were +I, we would face the absurd consequence of having a new entity come into existence each time an apple changed color. Instead, RedApple is a property that an apple can gain or lose while remaining numerically the same individual.\n\nThis aligns with OntoClean principles where phases, roles, and properties that things can temporarily have are typically -I, while substance kinds that supply the fundamental identity conditions are +I."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "own_identity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "-O",
+        "proposed_reasoning": "Given the critic's feedback, I need to reconsider whether \"Agent\" supplies its own identity condition, even with -I status.\n\nThe constraint \"+O requires +I\" means that if something supplies identity (+O), it must carry identity (+I). However, having -I does NOT automatically make something -O.\n\nFor \"Agent\" specifically:\n- An agent is something that can act, make decisions, or perform actions\n- \"Agent\" is fundamentally a ROLE or FUNCTIONAL property, not a substance\n- The identity of an agent depends on what kind of entity is playing the agent role:\n  * A person acting as an agent has identity through being a person\n  * An organization acting as an agent has identity through being an organization\n  * A software system acting as an agent has identity through being that system\n\n\"Agent\" does NOT supply its own identity criterion. Instead:\n- It is dependent on the underlying entity that fulfills the agent role\n- The same entity can start/stop being an agent without changing its identity\n- Multiple different types of entities (persons, organizations, AI systems) can all be agents, each borrowing identity from their more fundamental type\n\nSince \"Agent\" is a role/function that depends on other properties for identity criteria, and does not provide identity criteria to its instances independent of what they fundamentally are, Agent is -O.\n\nThis is consistent with -I (doesn't carry identity) and -O (doesn't supply identity).",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. \"Agent\" is indeed -O (does not supply its own identity criterion). Your reasoning properly demonstrates that:\n\n1. Agent is a role/functional property, not a sortal that provides identity conditions\n2. The identity of an agent derives from the underlying entity type (person, organization, software system, etc.) that plays the agent role\n3. The same entity can gain or lose the agent role without changing its identity, confirming that \"being an agent\" doesn't supply identity criteria\n4. Different types of entities can all satisfy the agent role, each deriving their identity from their fundamental type rather than from being an agent\n\nYou've also correctly understood that -I does not automatically entail -O, but that the constraint works in the other direction (+O requires +I). Your conclusion that Agent is both -I and -O is consistent and well-justified. The role-based nature of \"Agent\" means it neither carries nor supplies identity conditions."
+      },
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+O",
+        "proposed_reasoning": "The term \"Butterfly\" refers to a biological entity (a specific type of insect). As a natural kind representing individual organisms, butterflies supply their own identity condition. Each butterfly is a distinct physical organism with its own spatiotemporal continuity and biological identity - we can identify and track individual butterflies as unique entities through time. This is not an identity condition inherited from a more general category, but rather one that \"Butterfly\" itself supplies as a sortal for individual organisms. Since the entity already carries identity (+I), and it provides its own criteria for distinguishing one butterfly from another (rather than inheriting this purely from \"Insect\" or \"Animal\"), it supplies its own identity condition.",
+        "status": "REJECT",
+        "feedback": "The analysis contains a conceptual error regarding the own identity (+O) property. While the reasoning correctly identifies that \"Butterfly\" carries identity (+I), the conclusion about supplying its own identity (+O) is problematic.\n\nThe key issue is this: \"Butterfly\" does NOT supply its own identity criterion independently. Instead, butterflies inherit their identity conditions from more general biological categories. A butterfly's identity as a continuous physical organism comes from being an \"Organism\" or \"Animal\" - these more general categories provide the identity criteria (spatiotemporal continuity, biological continuity). \"Butterfly\" itself merely specifies additional constraints (having wings, going through metamorphosis, being a member of order Lepidoptera) but relies on the higher-level category for what makes something the same entity over time.\n\nConsider: if we remove the concept \"Butterfly\" but keep \"Insect\" or \"Organism,\" we can still track the same individual entity through time using the identity criteria from those categories. This demonstrates that \"Butterfly\" is NOT the source of the identity criterion.\n\nTherefore, \"Butterfly\" should be **-O** (does not supply own identity), as it inherits identity conditions from more fundamental biological categories rather than providing them itself. The entity is rigid (+R) and carries identity (+I), but borrows rather than supplies its identity criterion."
+      },
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "-O",
+        "proposed_reasoning": "RedApple has an identity_value of -I, meaning it does not carry an identity condition. According to the fundamental constraint, if an entity does not carry an identity condition (-I), it cannot supply its own identity condition. The constraint states: +O requires +I. Therefore, since RedApple is -I, it must be -O.\n\nAdditionally, \"RedApple\" appears to be a role or qualification (a red-colored apple), which would typically inherit any identity condition from its more general property \"Apple\" rather than supplying its own. As a qualifying property (combining color and object type), it does not introduce a new, independent criterion for identity.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. The reasoning properly applies the fundamental OntoClean constraint that +O (supplies own identity) requires +I (carries identity). Since RedApple was determined to be -I (does not carry identity condition), it logically follows that it must be -O (does not supply own identity condition).\n\nThe additional reasoning about RedApple being a qualifying property (combining color with object type) is also sound. Such qualifications typically depend on their base categories for identity rather than introducing novel identity criteria. A red apple's identity conditions would come from what it means to be an apple, not from the additional qualification of being red.\n\nThe conclusion of -O for RedApple is well-justified and consistent with OntoClean principles."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "unity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "+U",
+        "proposed_reasoning": "An \"Agent\" in ontological terms refers to an entity capable of performing actions, making decisions, or exerting influence. Instances of Agent (whether human agents, software agents, or organizational agents) possess intrinsic unity through their functional integration around the capacity for agency. An agent has a clear internal organization that enables goal-directed behavior - cognitive/computational processes, decision-making mechanisms, and action-execution capabilities form an integrated whole. The parts of an agent (whether biological systems in humans, code modules in software, or organizational units) work together in a coordinated way to achieve unified agency. This is not an arbitrary collection but a functional whole where components are interdependent for the agent's capacity to act. Unlike scattered collections or mere aggregates, agents exhibit mereological structure with integrated parts that collectively enable their defining characteristic of agency.",
+        "status": "REJECT",
+        "feedback": "The proposed value of +U (unity) is questionable for \"Agent\" as a general category. Your reasoning conflates the unity that *particular instances* of agents might have with the unity carried by the *type itself*.\n\nKey issues:\n\n1. **Type vs. Instance confusion**: While individual agents (a specific person, a specific software program) may have unity, the *type* \"Agent\" is too general and heterogeneous. Different agents can have radically different wholes under common identity conditions - a human agent has biological unity, a software agent has computational unity, and a corporate agent has organizational unity. These are fundamentally different unification principles.\n\n2. **Subsumption problem**: \"Agent\" subsumes many subtypes with incompatible unity criteria. A human agent carries unity through biological integration, while an AI agent carries it through functional/computational organization. When a type subsumes entities with different wholes, it typically carries ~U (non-unity).\n\n3. **Missing anti-unity indicators**: You haven't addressed whether agents can lose/gain parts while remaining the same agent, or whether arbitrary sums of agents count as agents. If an agent can change its internal components significantly (e.g., learning, memory changes, organizational restructuring) while remaining the same agent, this suggests the type doesn't carry strict unity conditions.\n\n**Recommendation**: Reconsider whether \"Agent\" should be -U or ~U. The type appears to be a functional category that doesn't impose specific unity conditions - it requires agency capacity but not a particular way of being a whole. Individual subtypes (HumanAgent, SoftwareAgent) might carry +U, but the general type likely does not."
+      },
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+U",
+        "proposed_reasoning": "A butterfly is a biological organism with a highly integrated physical structure. It consists of interdependent parts (head, thorax, abdomen, wings, legs, antennae, circulatory system, nervous system, digestive system) that work together as a functional whole. The parts have specific spatial relationships and cannot be arbitrarily rearranged while maintaining the entity. A butterfly exhibits clear mereological structure - removing or significantly altering any major component destroys or fundamentally changes the entity. The integration is intrinsic to the organism's nature as a living being, not merely external or conventional. Each butterfly instance constitutes a unified whole with boundaries defined by its biological organization.",
+        "status": "APPROVE",
+        "feedback": "The analysis correctly identifies Butterfly as having unity (+U). The reasoning appropriately recognizes that a butterfly is a biological organism with intrinsic integration of its parts - the wings, body segments, circulatory system, nervous system, and other components form a cohesive functional whole with specific spatial relationships. The argument correctly emphasizes that this unity is intrinsic to the organism's biological nature rather than conventional or arbitrary, and that the parts cannot be rearranged or removed without destroying the entity's identity as a butterfly. The mereological structure is well-articulated, showing that butterflies carry a uniform unifying relation across their instances. This is a clear case of positive unity in the OntoClean framework."
+      },
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "+U",
+        "proposed_reasoning": "A RedApple is an instance of an apple that happens to be red in color. As an apple, it represents a biological organism (a fruit) with an integrated mereological structure - it has a unified physical form with functionally integrated parts (skin, flesh, core, seeds) that work together as a whole. The apple exists as a natural, intrinsic whole with clear boundaries. While \"red\" is an additional property (color), it doesn't change the fundamental unity of the apple itself. The entity RedApple still refers to individual apple instances that are integrated wholes, not arbitrary collections or scattered objects.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. RedApple carries +U (unity) because it inherits the unity property from Apple, which is a biological organism with intrinsic mereological integration. The reasoning properly identifies that:\n\n1. An apple has functionally integrated parts (skin, flesh, core, seeds) that constitute a natural whole\n2. The \"red\" qualifier adds a color constraint but doesn't affect the underlying unity of the apple itself\n3. Each instance of RedApple maintains the same integrated structure and clear boundaries as any apple\n\nThe distinction between the essential structural unity of the apple and the accidental color property is well-articulated. RedApple instances remain unified wholes under a common principle (biological organization of a fruit), not arbitrary collections or scattered entities."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "dependence_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "-D",
+        "proposed_reasoning": "An agent possesses intrinsic properties that constitute its agency - namely cognitive or computational capacities, decision-making abilities, and autonomy. These properties belong to the agent itself and do not require the simultaneous existence of any other specific entity. While an agent may engage in actions or relationships with other entities when exercising its agency, the *capacity* for agency is an inherent characteristic. A person remains an agent even when not currently interacting with others; a software agent remains an agent even when idle. The potential for autonomous action and decision-making is intrinsic to the entity itself, similar to how having the capacity to learn makes something a learner regardless of whether active learning is occurring. Therefore, instances of Agent can exist and be identified based on their intrinsic properties without ontological dependence on other specific entities.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. The reasoning properly distinguishes between the intrinsic capacity for agency versus the exercise of agency. Key strengths of this analysis:\n\n1. **Correct classification**: -D (not dependent) is appropriate because an agent's defining properties (cognitive capacities, decision-making abilities, autonomy) are intrinsic to the entity itself.\n\n2. **Proper understanding of dependence**: The analysis correctly recognizes that ontological dependence requires the *simultaneous existence* of another specific entity for the dependent entity to exist and be identified. Agents do not require this.\n\n3. **Clear distinction**: The reasoning effectively separates the capacity for agency (intrinsic) from the exercise of agency (which may involve relations). An agent remains an agent even when not actively engaging with other entities.\n\n4. **Good examples**: The use of idle software agents and non-interacting persons illustrates that agency is a property that persists independently of actual interactions.\n\n5. **Analogical support**: The comparison to learners having learning capacity regardless of active learning reinforces the argument about intrinsic properties.\n\nThe analysis demonstrates a solid grasp of the dependence meta-property and applies it correctly to the concept of Agent."
+      },
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+D",
+        "proposed_reasoning": "The critic's feedback correctly identifies that ontological dependence concerns whether an entity's identity or definition presupposes other entities, not merely physical or ecological dependencies.\n\nAnalyzing \"Butterfly\" through the lens of ontological dependence:\n\n1. **Definitional dependence**: A butterfly is inherently defined as the adult stage of a lepidopteran insect. The very concept of \"butterfly\" presupposes and is relationally defined by:\n   - The existence of earlier developmental stages (egg, larva/caterpillar, pupa/chrysalis)\n   - The broader taxonomic classification (Order Lepidoptera)\n   - The lifecycle transformation process (metamorphosis)\n\n2. **Identity as relational**: \"Butterfly\" is not an independent concept but rather a phase-specific identity. One cannot understand what a butterfly IS without reference to the lifecycle stages that precede it. The identity \"butterfly\" presupposes \"caterpillar\" and \"chrysalis\" as ontologically prior stages of the same organism.\n\n3. **Conceptual presupposition**: Unlike \"Person\" or \"Rock\" which can be understood as standalone entities, \"Butterfly\" conceptually requires the broader developmental and taxonomic framework to be meaningful.\n\nTherefore, Butterfly exhibits ontological dependence (+D) because instances of butterflies have their identity necessarily tied to and presupposing other entities (developmental stages, taxonomic relations) in their very definition.",
+        "status": "REJECT",
+        "feedback": "The reasoning contains a fundamental misunderstanding of ontological dependence in OntoClean. The analysis conflates lifecycle stages and taxonomic classification with ontological dependence, which is incorrect.\n\n**Key issues:**\n\n1. **Lifecycle stages are not ontological dependence**: The fact that a butterfly develops from a caterpillar describes a temporal/biological process, not ontological dependence. An individual butterfly, once it exists, does not depend on the caterpillar still existing for its own existence or identity. The butterfly IS the same organism that was previously a caterpillar, not a separate entity dependent on it.\n\n2. **Taxonomic classification is epistemic, not ontological**: Being classified as Lepidoptera is how we organize knowledge about butterflies, but butterflies don't ontologically depend on this classification system to exist. The classification depends on butterflies, not the reverse.\n\n3. **Incorrect comparison**: The reasoning claims \"Butterfly\" differs from \"Rock\" in requiring a framework to be meaningful, but this confuses our understanding/description with ontological structure. A particular butterfly exists as a concrete individual independent of other entities.\n\n**Correct analysis**: Butterflies should be analyzed as **-D (ontologically independent)**. Individual butterflies are rigid particulars that exist independently once instantiated. They don't require other specific entities to exist for their own identity - they are self-standing organisms. Like \"Person\" or \"Dog,\" \"Butterfly\" picks out independent individuals, even though they undergo metamorphosis.\n\nThe proposed value should be **-D**, not +D."
+      },
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "-D",
+        "proposed_reasoning": "After considering the critic's feedback, I recognize my previous error. RedApple should be analyzed as **-D (Independent)**. \n\nA red apple is a material object that can exist as a standalone entity. While it instantiates multiple properties (redness, being an apple) and has constituent parts (flesh, skin, stem, seeds), these do not constitute ontological dependence in the OntoClean sense.\n\nOntological dependence requires that for an instance to exist, there must necessarily exist instances of some other specific property at the same time. A red apple does not depend on any other entity for its existence in this way:\n- It doesn't require a specific tree (it can exist after being picked)\n- It doesn't require a specific location or container\n- It doesn't require the existence of any particular relational entity\n\nUnlike truly dependent entities such as \"Student\" (which requires an educational institution), \"Employee\" (which requires an employer), or \"Parasite\" (which requires a host), a red apple can exist independently. The fact that we can conceptually analyze \"RedApple\" into color and kind does not make instances of RedApple ontologically dependent on other entities.",
+        "status": "APPROVE",
+        "feedback": "Your analysis is now correct. RedApple should indeed be classified as -D (Independent). You've properly understood that ontological dependence in OntoClean refers to whether instances of a property require the simultaneous existence of instances of another property, not whether the concept can be analyzed into component parts or whether the object has necessary properties.\n\nYour reasoning correctly identifies that:\n1. A red apple is a material object that can exist as a standalone entity\n2. While it has properties (redness, appleness) and parts (flesh, skin, etc.), these are intrinsic to the object itself, not external dependencies\n3. Unlike genuinely dependent entities (Student, Employee, Parasite), a red apple doesn't require any other specific entity to exist alongside it\n\nYou've also appropriately distinguished between conceptual analysis (breaking down \"RedApple\" into color + kind) and ontological dependence (requiring other entities for existence). This is a crucial distinction in OntoClean methodology.\n\nThe classification of -D for RedApple is accurate and well-justified."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.1.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}

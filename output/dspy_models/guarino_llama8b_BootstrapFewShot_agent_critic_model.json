@@ -1,0 +1,646 @@
+{
+  "rigidity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An agent is a self-contained entity that acts in a decision-making capacity. Typically, when we refer to an entity as an agent, it implies that this characteristic is central to its identity and existence in all contexts. Thus, being an agent is an essential property of its instances.",
+        "value": "+R"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "A butterfly is a type of insect that undergoes a distinct developmental process from caterpillar to fly. However, the specific characteristics of a butterfly, such as its shape, size, and coloration, are not absolute and can vary across different species and populations. Additionally, the attributes that make an insect a butterfly are not essential to its identity, as changes in these characteristics do not imply a change in the entity's intrinsic nature.",
+        "value": "-R (Non-Rigid)"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"RedApple\" refers to a specific tangible object with primary attributes of being red and an apple. Given that these defining attributes can change (for example, a tomato turns red but is not an apple; or skin color of apple peel can vary from red to green or bronzy as apple ripens), this term is not essential to all its instances; instances can either gain or lose the combination of red color and qualities of being an apple.",
+        "value": "-R"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Rigidity meta-property from Guarino and Welty (2000).\n\n**Rigidity (R)** - Analyze whether the property is essential to all its instances:\n   - **+R (Rigid)**: Essential to ALL instances in ALL possible worlds.\n     Examples: Person (anything that is a person is necessarily a person), Physical Object\n   - **-R (Non-Rigid)**: Not essential to some instances; instances can gain/lose it.\n     Examples: Student (a person can become/stop being a student), Red Thing\n   - **~R (Anti-Rigid)**: Essential NOT to be essential (contingent by definition).\n     Examples: Role (like Student, Employee), Phase (like Child, Adult)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+R\" | \"-R\" | \"~R\",\n  \"reasoning\": \"Brief explanation of why this entity has this rigidity value.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of why this entity has this rigidity value"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Rigidity value: '+R' (Rigid), '-R' (Non-Rigid), or '~R' (Anti-Rigid)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An agent is an entity that can cause change to the world. Agents are typically characterized by their ability to perceive, reason, and act upon their environment. Agents can be distinguished and re-identified based on their properties, behaviors, and interactions with their environment.",
+        "value": "+I"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "A butterfly, in the context of biology and taxonomy, is a specific class of insect with a particular morphology and life cycle. Its definition implies a clear distinction between different butterflies based on their physical characteristics and behaviors. This allows for the identification and re-identification of individual butterflies, making the property of being a butterfly a carrier of an identity condition.",
+        "value": "+I"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "Red color or Apples themselves do not provide a principled way to distinguish instances, or identify them through spatio-temporal continuity (like DNA), meaning they carry no IC (Identity Condition).",
+        "value": "-I"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Identity meta-property from Guarino and Welty (2000).\n\n**Identity (I) - Carries Identity Condition** - Does this property carry an identity condition for its instances?\n   - **+I**: The property carries an Identity Condition (IC). Instances can be distinguished and re-identified.\n     Examples: Person (has IC like DNA, fingerprints), Physical Object (has spatio-temporal continuity)\n   - **-I**: The property does NOT carry an identity condition. No principled way to distinguish instances.\n     Examples: Red (what makes one instance of red the same over time?), Amount of Matter\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+I\" | \"-I\",\n  \"reasoning\": \"Brief explanation of whether this entity carries an identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity carries an identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Identity value: '+I' (carries identity condition) or '-I' (no identity condition)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "own_identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "Given that an Agent term inherits its identity condition from a more general property like Person, it does not supply its own identity condition.",
+        "value": "-O"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "Butterfly supplies its own identity condition, as it is a distinct entity with its own characteristics, such as having wings and a life cycle. Its identity is not inherited from a more general property, but rather is its own, unique property.",
+        "value": "+O"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "\n\n[Critic feedback from attempt 2]: The analysis is incorrect. The proposed value '-O' (object identity) is correct, but the reasoning is incorrect. 'RedApple' does indeed inherit its identity condition from its superclass 'Fruit', but this alone is not the sole reason for object identity. OntoClean requires that an object has a distinguishing chain of non- accidents (necessary and sufficient conditions) of its own IC. Even a subclass inherits the IC from its most specific superclass, it does not automatically mean 'O' because the subclass must also have its own non-accident characteristics that define it. Please reconsider the proposed value and provide a revised analysis that accurately explains why 'RedApple' should be classified as an object entity.",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "RedApple inherits its identity condition from its superclass 'Fruit', but this alone does not necessarily imply object identity. However, considering the properties of color and type that are necessary to distinguish RedApple from other objects, it can be concluded that RedApple does have a distinguishing chain of non-accidents, thus it supplies its own identity condition.",
+        "value": "+O"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Own Identity meta-property from Guarino and Welty (2000).\n\n**Own Identity (O) - Supplies Identity Condition** - Does this property supply its OWN identity condition?\n   - **+O**: Supplies its own global identity condition.\n     Examples: Person (supplies own IC), Physical Object (supplies own IC)\n   - **-O**: Does not supply own IC (inherits it from a more general property, or has none).\n     Examples: Student (inherits IC from Person), Red (has no IC to supply)\n\n**IMPORTANT CONSTRAINT**: If +O, then +I must be true. You cannot supply an IC without carrying one.\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+O\" | \"-O\",\n  \"reasoning\": \"Brief explanation of whether this entity supplies its own identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Identity Value:",
+          "description": "Previously determined Identity value ('+I' or '-I') — used to enforce the constraint: +O requires +I"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity supplies its own identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Own Identity value: '+O' (supplies own IC) or '-O' (does not supply own IC)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "unity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An agent is a whole that integrates various attributes, behaviors, and capabilities to achieve its goals and objectives. It displays inherent coherence and structural organization, comprising individual parts (e.g., physical structures, cognitive functions) that work together synergistically. This integration is a fundamental characteristic making the agent a unified entity.",
+        "value": "+U"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "A butterfly is a self-contained living organism composed of distinct yet integrated parts, including its body, wings, and organs. These parts work together to form a functional whole that enables the butterfly to fly, feed, and reproduce. The unity of a butterfly is not merely a physical aggregation, but a cohesive entity with a clear mereological structure.",
+        "value": "+U"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "A red apple is a concrete object with a clear physical structure, consisting of various parts (skin, flesh, seeds, etc.) that are integrated to function as a whole unit. This unified entity is not simply a collection of objects, but rather a coherent system with a definite boundary and a specific role or purpose.",
+        "value": "+U"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Unity meta-property from Guarino and Welty (2000).\n\n**Unity (U)** - Are instances of this property wholes with integrated parts?\n   - **+U (Unifying)**: Instances are intrinsic wholes with clear mereological structure.\n     Examples: Person (integrated biological system), Car (functional whole)\n   - **-U (Non-Unifying)**: Instances are not necessarily wholes; parts may be arbitrary.\n     Examples: Red Thing (scattered red objects), Amount of Water\n   - **~U (Anti-Unity)**: Instances are strictly aggregates/sums without integration.\n     Examples: Collection, Group, Scattered Object\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+U\" | \"-U\" | \"~U\",\n  \"reasoning\": \"Brief explanation of the unity characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the unity characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Unity value: '+U' (Unifying), '-U' (Non-Unifying), or '~U' (Anti-Unity)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "dependence_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Agent",
+        "description": "",
+        "usage": "",
+        "reasoning": "An agent is typically defined as something that acts on or in the world by exerting force or energy under its control. In general, an agent achieves its goals by interacting with its environment. This requires at least a basic level of dependence on certain components, such as sensory inputs, decision-making mechanisms, and possibly other agents.",
+        "value": "+D"
+      },
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "\n\n[Critic feedback from attempt 1]: The proposed value of '-D' (independent) is incorrect for the term 'Butterfly' because the agent provides a description of it typically being seen as an independent entity, which actually supports the value '+D'. The agent should consider the common view of a butterfly as an individual entity with its own characteristics and life cycle, rather than relying on other entities. Provide explicit arguments for rejecting the common categorization of the entity as dependent and suggest reevaluating the proposed value to '+D'.",
+        "usage": "",
+        "reasoning": "A butterfly is typically viewed as an individual entity with its own characteristics, life cycle, and behaviors. It is not inherently dependent on other entities to exist. While a butterfly may interact with or be affected by other entities, such as its environment, food sources, or predators, this does not necessarily imply dependence in the sense of Guarino and Welty's definition.",
+        "value": "- D"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "\n\n[Critic feedback from attempt 1]: The proposed reasoning is partially correct, as a RedApple indeed does not intrinsically depend on other entities to exist. However, considering that a RedApple can be created through cultivation, it is more likely that it depends on human cultivation process. OntoClean 'dependence' usually considers the existence of an entity to be dependent on a specific set of features, processes, or interactions with the environment. In this case, since the existence of RedApple is contingent on human cultivation, it would be classified as dependent.",
+        "usage": "",
+        "reasoning": "A RedApple is dependent because its existence is contingent on human cultivation, which introduces a feature/process interaction that contributes to its existence.",
+        "value": "+D"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Dependence meta-property from Guarino and Welty (2000).\n\n**Dependence (D)** - Do instances intrinsically depend on other entities?\n   - **+D (Dependent)**: Instances necessarily depend on other entities to exist.\n     Examples: Student (depends on School/Educational Institution), Parasite (depends on Host)\n   - **-D (Independent)**: Instances can exist without depending on specific other entities.\n     Examples: Person (independent), Physical Object (independent)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+D\" | \"-D\",\n  \"reasoning\": \"Brief explanation of the dependence characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the dependence characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Dependence value: '+D' (Dependent) or '-D' (Independent)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "rigidity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "+R",
+        "proposed_reasoning": "An agent is a self-contained entity that acts in a decision-making capacity. Typically, when we refer to an entity as an agent, it implies that this characteristic is central to its identity and existence in all contexts. Thus, being an agent is an essential property of its instances.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. The proposed value \"+R\" accurately captures the essence of an agent, implying that being an agent is a necessary and permanent characteristic of its instances across all contexts."
+      },
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "-R (Non-Rigid)",
+        "proposed_reasoning": "A butterfly is a type of insect that undergoes a distinct developmental process from caterpillar to fly. However, the specific characteristics of a butterfly, such as its shape, size, and coloration, are not absolute and can vary across different species and populations. Additionally, the attributes that make an insect a butterfly are not essential to its identity, as changes in these characteristics do not imply a change in the entity's intrinsic nature.",
+        "status": "REJECT",
+        "feedback": "The proposed value of '-R' (Non-Rigid) seems to be based on the dynamic changes in characteristics such as shape, size, and coloration across species and populations. However, the discussion on rigidity in OntoClean typically revolves around a concept's ability to remain consistent or unchanged, not about physical attributes like shape or color. Consider revising your reasoning to focus on the ontological implications of the conceptual rigidity, rather than the physical characteristics of the butterfly.\n\nThe reasoning also mentions that changes in characteristics do not imply a change in the entity's intrinsic nature. While this might be relevant to properties like identity or essentiality, it's not directly related to rigidity. To strengthen your argument, try to tie the analysis back to the core idea of conceptual rigidity, perhaps by exploring how the butterfly's conceptual structure or dependencies remain consistent despite these changes. \n\nReview the concept of rigidity in the OntoClean framework and how it applies to abstract concepts like the butterfly's essential nature. Ensure your analysis is tailored to the specific meta-property (rigidity) and provides a clear, ontologically grounded justification for the proposed value."
+      },
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "-R",
+        "proposed_reasoning": "The term \"RedApple\" refers to a specific tangible object with primary attributes of being red and an apple. Given that these defining attributes can change (for example, a tomato turns red but is not an apple; or skin color of apple peel can vary from red to green or bronzy as apple ripens), this term is not essential to all its instances; instances can either gain or lose the combination of red color and qualities of being an apple.",
+        "status": "APPROVE",
+        "feedback": "The proposed value of -R (rigidity) is correct because the attributes of being red and an apple in the term \"RedApple\" are not essential to its instances, as they can vary or change."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "identity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "+I",
+        "proposed_reasoning": "An agent is an entity that can cause change to the world. Agents are typically characterized by their ability to perceive, reason, and act upon their environment. Agents can be distinguished and re-identified based on their properties, behaviors, and interactions with their environment.",
+        "status": "APPROVE",
+        "feedback": "Your analysis is correct. The proposed value of +I (identity) for the term \"Agent\" is appropriate because agents are indeed characterized by their unique properties, behaviors, and interactions, which can be used to distinguish and re-identify them."
+      },
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+I",
+        "proposed_reasoning": "A butterfly, in the context of biology and taxonomy, is a specific class of insect with a particular morphology and life cycle. Its definition implies a clear distinction between different butterflies based on their physical characteristics and behaviors. This allows for the identification and re-identification of individual butterflies, making the property of being a butterfly a carrier of an identity condition.",
+        "status": "APPROVE",
+        "feedback": "The proposed value of +I for the property of 'identity' is correct, as the definition of a butterfly clearly implies a clear distinction between different butterflies, making it a suitable candidate for an identity condition."
+      },
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "-I",
+        "proposed_reasoning": "Red color or Apples themselves do not provide a principled way to distinguish instances, or identify them through spatio-temporal continuity (like DNA), meaning they carry no IC (Identity Condition).",
+        "status": "REJECT",
+        "feedback": "The proposed value '-I' for the identity property is incorrect because it implies that RedApple does not have an identity condition, which is not necessarily true. The reasoning provided mentions that RedApple does not have a principled way to distinguish instances or identify them through spatio-temporal continuity, but this does not necessarily mean it lacks an identity condition. In OntoClean, the identity condition is about the existence of a principled way to distinguish instances, not about the existence of a specific method (like DNA). You should reconsider the proposed value and provide a more accurate analysis of the identity condition for RedApple."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "own_identity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "+O",
+        "proposed_reasoning": "As an Agent is a specific type of Person, it inherits the Person's identity condition but also supplies its own identity condition. This is because an Agent's properties and characteristics, such as being capable of intentional action or making decisions, contribute to its own identity condition.",
+        "status": "REJECT",
+        "feedback": "Your reasoning is close, but the key issue lies in understanding how the OntoClean framework handles inheritance of identity conditions. When a more specific concept inherits an identity condition from a more general one, it doesn't add to the general condition; it either overrides it or accepts it as it is. In the case of an Agent inheriting the identity condition from Person, the Agent's own identity condition doesn't 'contribute to' but rather aligns with or respects the condition already present in the Person concept. Your analysis should focus on how Agent aligns with or deviates from Person's identity condition, rather than adding a new condition."
+      },
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+O",
+        "proposed_reasoning": "Butterfly supplies its own identity condition, as it is a distinct entity with its own characteristics, such as having wings and a life cycle. Its identity is not inherited from a more general property, but rather is its own, unique property.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct because the agent has correctly identified that the Butterfly entity has its own unique identity condition, which is not inherited from a more general property. The proposed value +O (or '+O') is appropriate for this meta-property."
+      },
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "+O",
+        "proposed_reasoning": "RedApple inherits its identity condition from its superclass 'Fruit', but this alone does not necessarily imply object identity. However, considering the properties of color and type that are necessary to distinguish RedApple from other objects, it can be concluded that RedApple does have a distinguishing chain of non-accidents, thus it supplies its own identity condition.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct because it properly considers the distinguishing chain of non-accidents for RedApple, which is crucial in establishing its object identity."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "unity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "+U",
+        "proposed_reasoning": "An agent is a whole that integrates various attributes, behaviors, and capabilities to achieve its goals and objectives. It displays inherent coherence and structural organization, comprising individual parts (e.g., physical structures, cognitive functions) that work together synergistically. This integration is a fundamental characteristic making the agent a unified entity.",
+        "status": "APPROVE",
+        "feedback": "Your analysis is correct. You have properly applied the unity meta-property to the term 'Agent', recognizing its inherent coherence and structural organization, which makes it a unified entity."
+      },
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+U",
+        "proposed_reasoning": "A butterfly is a self-contained living organism composed of distinct yet integrated parts, including its body, wings, and organs. These parts work together to form a functional whole that enables the butterfly to fly, feed, and reproduce. The unity of a butterfly is not merely a physical aggregation, but a cohesive entity with a clear mereological structure.",
+        "status": "APPROVE",
+        "feedback": "The analysis of the unity of a butterfly as +U (a detachable part is not an essential component) is correct because the description highlights the cohesive and mereological nature of a butterfly, where its parts are integrated and work together to form a functional whole. This confirms that a butterfly is indeed a self-contained entity."
+      },
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "+U",
+        "proposed_reasoning": "A red apple is a concrete object with a clear physical structure, consisting of various parts (skin, flesh, seeds, etc.) that are integrated to function as a whole unit. This unified entity is not simply a collection of objects, but rather a coherent system with a definite boundary and a specific role or purpose.",
+        "status": "APPROVE",
+        "feedback": "Your analysis of RedApple's unity (+U) is correct. By highlighting the physical structure, integration of parts, definite boundary, and specific role of the red apple, you have demonstrated a clear understanding of the concept of unity and its application to this entity."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "dependence_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "Agent",
+        "description": "",
+        "proposed_value": "+D",
+        "proposed_reasoning": "An agent is typically defined as something that acts on or in the world by exerting force or energy under its control. In general, an agent achieves its goals by interacting with its environment. This requires at least a basic level of dependence on certain components, such as sensory inputs, decision-making mechanisms, and possibly other agents.",
+        "status": "APPROVE",
+        "feedback": "Your reasoning is correct that an agent typically depends on its environment, sensory inputs, and decision-making mechanisms to achieve its goals, which makes the proposed value of '+D' appropriate for the meta-property 'dependence'. Well done!"
+      },
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "-D",
+        "proposed_reasoning": "A butterfly is typically seen as an independent entity, as it can exist and function without relying explicitly on other specific entities to exist.",
+        "status": "REJECT",
+        "feedback": "The proposed value of '-D' (independent) is incorrect for the term 'Butterfly' because the agent provides a description of it typically being seen as an independent entity, which actually supports the value '+D'. The agent should consider the common view of a butterfly as an individual entity with its own characteristics and life cycle, rather than relying on other entities. Provide explicit arguments for rejecting the common categorization of the entity as dependent and suggest reevaluating the proposed value to '+D'."
+      },
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "- D (Independent)",
+        "proposed_reasoning": "As a type of fruit, a RedApple instance does not intrinsically depend on other entities to exist. It can be found growing on trees, or it can be created through cultivation, but its existence is not contingent upon any specific other entities.",
+        "status": "REJECT",
+        "feedback": "The proposed reasoning is partially correct, as a RedApple indeed does not intrinsically depend on other entities to exist. However, considering that a RedApple can be created through cultivation, it is more likely that it depends on human cultivation process. OntoClean 'dependence' usually considers the existence of an entity to be dependent on a specific set of features, processes, or interactions with the environment. In this case, since the existence of RedApple is contingent on human cultivation, it would be classified as dependent."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.1.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}

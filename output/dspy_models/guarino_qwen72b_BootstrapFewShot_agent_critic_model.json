@@ -1,0 +1,646 @@
+{
+  "rigidity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"Butterfly\" refers to a specific type of insect that has a distinct life cycle and physical characteristics. Being a butterfly is a rigid property because it is essential to all instances of butterflies in all possible worlds. A butterfly cannot exist without being a butterfly; it cannot transform into another type of insect or lose its butterfly nature without ceasing to be a butterfly.",
+        "value": "+R"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"RedApple\" is a combination of a rigid entity (Apple) and a non-rigid property (Red). Being an apple is a rigid property; if something is an apple, it is necessarily an apple in all possible worlds. However, the color red is not a rigid property; an apple can be red in one context and not red in another (e.g., it can change color as it ripens or is affected by external factors). Therefore, \"RedApple\" is non-rigid because the color red is not essential to all instances of apples.",
+        "value": "-R"
+      },
+      {
+        "augmented": true,
+        "term": "Vertebrate",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"Vertebrate\" refers to a group of animals that have a backbone or spinal column. This characteristic is essential to all vertebrates and is a defining feature that does not change across different possible worlds. Therefore, being a vertebrate is a rigid property, as any instance of a vertebrate will always be a vertebrate.",
+        "value": "+R"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Rigidity meta-property from Guarino and Welty (2000).\n\n**Rigidity (R)** - Analyze whether the property is essential to all its instances:\n   - **+R (Rigid)**: Essential to ALL instances in ALL possible worlds.\n     Examples: Person (anything that is a person is necessarily a person), Physical Object\n   - **-R (Non-Rigid)**: Not essential to some instances; instances can gain/lose it.\n     Examples: Student (a person can become/stop being a student), Red Thing\n   - **~R (Anti-Rigid)**: Essential NOT to be essential (contingent by definition).\n     Examples: Role (like Student, Employee), Phase (like Child, Adult)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+R\" | \"-R\" | \"~R\",\n  \"reasoning\": \"Brief explanation of why this entity has this rigidity value.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of why this entity has this rigidity value"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Rigidity value: '+R' (Rigid), '-R' (Non-Rigid), or '~R' (Anti-Rigid)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "A butterfly is a physical entity that has a unique and distinguishable identity. It can be identified and re-identified over time through its physical characteristics, such as its unique wing patterns, size, and behavior, as well as its spatio-temporal location. Therefore, the entity \"butterfly\" carries an identity condition.",
+        "value": "+I"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "A RedApple, despite being a specific type of apple (which generally has an identity condition due to its physical properties and spatio-temporal continuity), is specified by a color attribute (Red). However, the color itself does not carry an identity condition. The apple as a physical object does carry an identity condition because it can be re-identified over time based on its physical attributes and continuity. Therefore, the term \"RedApple\" refers to a physical object and thus carries an identity condition.",
+        "value": "+I"
+      },
+      {
+        "augmented": true,
+        "term": "Vertebrate",
+        "description": "",
+        "usage": "",
+        "reasoning": "The term \"Vertebrate\" refers to a subphylum of animals that possess a vertebral column or backbone. Individual vertebrates can be distinguished and re-identified based on various physical characteristics, such as DNA, unique markings, or other biological traits. Therefore, the term \"Vertebrate\" carries an identity condition (+I).",
+        "value": "+I"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Identity meta-property from Guarino and Welty (2000).\n\n**Identity (I) - Carries Identity Condition** - Does this property carry an identity condition for its instances?\n   - **+I**: The property carries an Identity Condition (IC). Instances can be distinguished and re-identified.\n     Examples: Person (has IC like DNA, fingerprints), Physical Object (has spatio-temporal continuity)\n   - **-I**: The property does NOT carry an identity condition. No principled way to distinguish instances.\n     Examples: Red (what makes one instance of red the same over time?), Amount of Matter\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+I\" | \"-I\",\n  \"reasoning\": \"Brief explanation of whether this entity carries an identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity carries an identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Identity value: '+I' (carries identity condition) or '-I' (no identity condition)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "own_identity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "A Butterfly is a biological entity that can be identified through specific characteristics such as its life cycle, physical appearance, and genetic makeup. These features provide a stable and distinct identity condition for each individual Butterfly, making it capable of supplying its own identity condition.",
+        "value": "+O"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "RedApple is a specific type of physical object, inheriting its identity condition from the more general category of Physical Object, which supplies its own identity condition. However, being a RedApple specifically does not add a new unique identity condition beyond what is already provided by Physical Object. Therefore, RedApple does not supply its own identity condition but inherits it.",
+        "value": "-O"
+      },
+      {
+        "augmented": true,
+        "term": "Vertebrate",
+        "description": "",
+        "usage": "",
+        "identity_value": "+I",
+        "reasoning": "Vertebrates, as a biological classification, have a distinct and specific set of characteristics that define them, such as the presence of a backbone. These characteristics provide a clear and global identity condition for any entity classified as a vertebrate, independent of other more general categories. Therefore, vertebrates supply their own identity condition.",
+        "value": "+O"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Own Identity meta-property from Guarino and Welty (2000).\n\n**Own Identity (O) - Supplies Identity Condition** - Does this property supply its OWN identity condition?\n   - **+O**: Supplies its own global identity condition.\n     Examples: Person (supplies own IC), Physical Object (supplies own IC)\n   - **-O**: Does not supply own IC (inherits it from a more general property, or has none).\n     Examples: Student (inherits IC from Person), Red (has no IC to supply)\n\n**IMPORTANT CONSTRAINT**: If +O, then +I must be true. You cannot supply an IC without carrying one.\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+O\" | \"-O\",\n  \"reasoning\": \"Brief explanation of whether this entity supplies its own identity condition.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Identity Value:",
+          "description": "Previously determined Identity value ('+I' or '-I') — used to enforce the constraint: +O requires +I"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of whether this entity supplies its own identity condition"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Own Identity value: '+O' (supplies own IC) or '-O' (does not supply own IC)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "unity_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "The entity \"Butterfly\" can be considered as an intrinsic whole with a clear mereological structure. A butterfly is a complex biological organism with integrated parts such as wings, body, head, and thorax, all functioning in a coordinated manner to enable its survival and reproduction. Each part of the butterfly is essential and contributes to its overall function, making it a unified whole.",
+        "value": "+U"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "A red apple is a clear example of a unifying entity. It is an intrinsic whole with a mereological structure, where the parts (such as the skin, flesh, and core) are integrated and work together to form a single, coherent object. The apple's red color is a property of its surface but does not affect its unity as a whole.",
+        "value": "+U"
+      },
+      {
+        "augmented": true,
+        "term": "Vertebrate",
+        "description": "",
+        "usage": "",
+        "reasoning": "A vertebrate is a type of animal characterized by the presence of a backbone or spinal column. As a biological entity, a vertebrate is an intrinsic whole with a clear mereological structure, composed of various integrated systems such as the circulatory, nervous, and skeletal systems. These systems work together to maintain the organism's function and survival, making vertebrates a prime example of a unifying entity.",
+        "value": "+U"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Unity meta-property from Guarino and Welty (2000).\n\n**Unity (U)** - Are instances of this property wholes with integrated parts?\n   - **+U (Unifying)**: Instances are intrinsic wholes with clear mereological structure.\n     Examples: Person (integrated biological system), Car (functional whole)\n   - **-U (Non-Unifying)**: Instances are not necessarily wholes; parts may be arbitrary.\n     Examples: Red Thing (scattered red objects), Amount of Water\n   - **~U (Anti-Unity)**: Instances are strictly aggregates/sums without integration.\n     Examples: Collection, Group, Scattered Object\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+U\" | \"-U\" | \"~U\",\n  \"reasoning\": \"Brief explanation of the unity characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the unity characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Unity value: '+U' (Unifying), '-U' (Non-Unifying), or '~U' (Anti-Unity)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "dependence_agent.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "term": "Butterfly",
+        "description": "",
+        "usage": "",
+        "reasoning": "Butterflies, as organisms, do not intrinsically depend on other specific entities to exist. While they rely on their environment for food, shelter, and reproduction, these interactions do not constitute an intrinsic dependence in the sense that a butterfly can exist independently of any single other entity. For example, a butterfly can exist without a specific plant or host, though it needs a suitable environment. Therefore, a butterfly is considered independent in the context of the Dependence meta-property.",
+        "value": "-D"
+      },
+      {
+        "augmented": true,
+        "term": "RedApple",
+        "description": "",
+        "usage": "",
+        "reasoning": "The entity \"RedApple\" is not intrinsically dependent on other entities for its existence. A red apple can exist as a physical object on its own, independent of other entities such as a tree, a farm, or a market. While it may typically be found in these contexts, the existence of a red apple does not require them. Therefore, it is classified as independent.",
+        "value": "-D"
+      },
+      {
+        "augmented": true,
+        "term": "Vertebrate",
+        "description": "",
+        "usage": "",
+        "reasoning": "Vertebrates are a large group of animals that share the characteristic of having a backbone or spinal column. While vertebrates can exist in various environments and under different conditions, they do not intrinsically depend on other specific entities for their existence. They can be found in a wide range of habitats, from oceans to deserts, and can survive independently as long as their basic biological needs (such as food, water, and shelter) are met. Therefore, vertebrates are considered independent in terms of the Dependence meta-property.",
+        "value": "-D"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an expert Ontological Analyst specializing in the Dependence meta-property from Guarino and Welty (2000).\n\n**Dependence (D)** - Do instances intrinsically depend on other entities?\n   - **+D (Dependent)**: Instances necessarily depend on other entities to exist.\n     Examples: Student (depends on School/Educational Institution), Parasite (depends on Host)\n   - **-D (Independent)**: Instances can exist without depending on specific other entities.\n     Examples: Person (independent), Physical Object (independent)\n\nReturn your analysis in strict JSON format:\n{\n  \"value\": \"+D\" | \"-D\",\n  \"reasoning\": \"Brief explanation of the dependence characteristics of this entity.\"\n}",
+      "fields": [
+        {
+          "prefix": "Term:",
+          "description": "The entity/term to analyze"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Usage:",
+          "description": "Optional usage context"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of the dependence characteristics of this entity"
+        },
+        {
+          "prefix": "Value:",
+          "description": "Dependence value: '+D' (Dependent) or '-D' (Independent)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "rigidity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+R",
+        "proposed_reasoning": "The term \"Butterfly\" refers to a specific type of insect that has a distinct life cycle and physical characteristics. Being a butterfly is a rigid property because it is essential to all instances of butterflies in all possible worlds. A butterfly cannot exist without being a butterfly; it cannot transform into another type of insect or lose its butterfly nature without ceasing to be a butterfly.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. The reasoning provided accurately reflects the definition of rigidity. Being a butterfly is an essential and unchanging property of all instances of butterflies across all possible worlds, making the property rigid."
+      },
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "-R",
+        "proposed_reasoning": "The term \"RedApple\" is a combination of a rigid entity (Apple) and a non-rigid property (Red). Being an apple is a rigid property; if something is an apple, it is necessarily an apple in all possible worlds. However, the color red is not a rigid property; an apple can be red in one context and not red in another (e.g., it can change color as it ripens or is affected by external factors). Therefore, \"RedApple\" is non-rigid because the color red is not essential to all instances of apples.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. The term \"RedApple\" combines a rigid entity (Apple) with a non-rigid property (Red). The reasoning accurately explains that while being an apple is a rigid property, the color red is not, as it can vary across different possible worlds. Therefore, the term \"RedApple\" is correctly identified as non-rigid (-R)."
+      },
+      {
+        "augmented": true,
+        "property_name": "rigidity",
+        "term": "Vertebrate",
+        "description": "",
+        "proposed_value": "+R",
+        "proposed_reasoning": "The term \"Vertebrate\" refers to a group of animals that have a backbone or spinal column. This characteristic is essential to all vertebrates and is a defining feature that does not change across different possible worlds. Therefore, being a vertebrate is a rigid property, as any instance of a vertebrate will always be a vertebrate.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. Being a vertebrate is indeed a rigid property because it is essential and does not change across possible worlds. The reasoning provided is sound and aligns with the definition of a rigid property in ontological terms."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "identity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+I",
+        "proposed_reasoning": "A butterfly is a physical entity that has a unique and distinguishable identity. It can be identified and re-identified over time through its physical characteristics, such as its unique wing patterns, size, and behavior, as well as its spatio-temporal location. Therefore, the entity \"butterfly\" carries an identity condition.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. A butterfly is indeed a physical entity that can be uniquely identified and re-identified over time based on its physical characteristics and spatio-temporal location. The reasoning provided supports the assignment of the +I value for the identity meta-property."
+      },
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "+I",
+        "proposed_reasoning": "A RedApple, despite being a specific type of apple (which generally has an identity condition due to its physical properties and spatio-temporal continuity), is specified by a color attribute (Red). However, the color itself does not carry an identity condition. The apple as a physical object does carry an identity condition because it can be re-identified over time based on its physical attributes and continuity. Therefore, the term \"RedApple\" refers to a physical object and thus carries an identity condition.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. The term \"RedApple\" refers to a physical object that can be re-identified over time based on its physical attributes and continuity, despite the color attribute not carrying an identity condition on its own. Therefore, the proposed value of +I is accurate."
+      },
+      {
+        "augmented": true,
+        "property_name": "identity",
+        "term": "Vertebrate",
+        "description": "",
+        "proposed_value": "+I",
+        "proposed_reasoning": "The term \"Vertebrate\" refers to a subphylum of animals that possess a vertebral column or backbone. Individual vertebrates can be distinguished and re-identified based on various physical characteristics, such as DNA, unique markings, or other biological traits. Therefore, the term \"Vertebrate\" carries an identity condition (+I).",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. The term \"Vertebrate\" indeed has a clear identity condition (+I) because individual vertebrates can be distinguished and re-identified using various physical and biological traits, such as DNA and unique markings."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "own_identity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+O",
+        "proposed_reasoning": "A Butterfly is a biological entity that can be identified through specific characteristics such as its life cycle, physical appearance, and genetic makeup. These features provide a stable and distinct identity condition for each individual Butterfly, making it capable of supplying its own identity condition.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. A Butterfly’s life cycle, physical appearance, and genetic makeup indeed provide a stable and distinct identity condition, making it capable of supplying its own identity condition (+O)."
+      },
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "-O",
+        "proposed_reasoning": "RedApple is a specific type of physical object, inheriting its identity condition from the more general category of Physical Object, which supplies its own identity condition. However, being a RedApple specifically does not add a new unique identity condition beyond what is already provided by Physical Object. Therefore, RedApple does not supply its own identity condition but inherits it.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. RedApple, as a specific type of physical object, does not supply its own unique identity condition but inherits it from the more general category of Physical Object. The proposed value of -O accurately reflects this ontological relationship."
+      },
+      {
+        "augmented": true,
+        "property_name": "own_identity",
+        "term": "Vertebrate",
+        "description": "",
+        "proposed_value": "+O",
+        "proposed_reasoning": "Vertebrates, as a biological classification, have a distinct and specific set of characteristics that define them, such as the presence of a backbone. These characteristics provide a clear and global identity condition for any entity classified as a vertebrate, independent of other more general categories. Therefore, vertebrates supply their own identity condition.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. Vertebrates do indeed have a clear and specific set of defining characteristics that provide a global identity condition, independent of other categories. The reasoning aligns well with the definition of the `own_identity` property."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "unity_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "+U",
+        "proposed_reasoning": "The entity \"Butterfly\" can be considered as an intrinsic whole with a clear mereological structure. A butterfly is a complex biological organism with integrated parts such as wings, body, head, and thorax, all functioning in a coordinated manner to enable its survival and reproduction. Each part of the butterfly is essential and contributes to its overall function, making it a unified whole.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. A butterfly is indeed a complex biological organism with a clear mereological structure, where all parts are integrated and function together, making it a unified whole. The reasoning aligns well with the concept of unity (+U)."
+      },
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "+U",
+        "proposed_reasoning": "A red apple is a clear example of a unifying entity. It is an intrinsic whole with a mereological structure, where the parts (such as the skin, flesh, and core) are integrated and work together to form a single, coherent object. The apple's red color is a property of its surface but does not affect its unity as a whole.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. The red apple is indeed a good example of an entity with the +U (unity) property, as it is a coherent whole with integrated parts working together to form a single object. The reasoning provided is clear and aligns with the criteria for unity."
+      },
+      {
+        "augmented": true,
+        "property_name": "unity",
+        "term": "Vertebrate",
+        "description": "",
+        "proposed_value": "+U",
+        "proposed_reasoning": "A vertebrate is a type of animal characterized by the presence of a backbone or spinal column. As a biological entity, a vertebrate is an intrinsic whole with a clear mereological structure, composed of various integrated systems such as the circulatory, nervous, and skeletal systems. These systems work together to maintain the organism's function and survival, making vertebrates a prime example of a unifying entity.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. Vertebrates indeed exhibit the property of unity (+U) as they are coherent wholes with well-integrated systems that function together to maintain the organism's survival. The reasoning provided accurately reflects the biological nature of vertebrates and justifies the assignment of the +U value."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "dependence_critic": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "Butterfly",
+        "description": "",
+        "proposed_value": "-D",
+        "proposed_reasoning": "Butterflies, as organisms, do not intrinsically depend on other specific entities to exist. While they rely on their environment for food, shelter, and reproduction, these interactions do not constitute an intrinsic dependence in the sense that a butterfly can exist independently of any single other entity. For example, a butterfly can exist without a specific plant or host, though it needs a suitable environment. Therefore, a butterfly is considered independent in the context of the Dependence meta-property.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. Butterflies, as organisms, do not have an intrinsic dependence on any specific other entity for their existence, even though they rely on their environment for sustenance and reproduction. The proposed value of -D accurately reflects this understanding of the Dependence meta-property."
+      },
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "RedApple",
+        "description": "",
+        "proposed_value": "-D",
+        "proposed_reasoning": "The entity \"RedApple\" is not intrinsically dependent on other entities for its existence. A red apple can exist as a physical object on its own, independent of other entities such as a tree, a farm, or a market. While it may typically be found in these contexts, the existence of a red apple does not require them. Therefore, it is classified as independent.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. A red apple can indeed exist independently of other entities, and the reasoning provided accurately reflects this. The proposed value of -D (independent) is appropriate."
+      },
+      {
+        "augmented": true,
+        "property_name": "dependence",
+        "term": "Vertebrate",
+        "description": "",
+        "proposed_value": "-D",
+        "proposed_reasoning": "Vertebrates are a large group of animals that share the characteristic of having a backbone or spinal column. While vertebrates can exist in various environments and under different conditions, they do not intrinsically depend on other specific entities for their existence. They can be found in a wide range of habitats, from oceans to deserts, and can survive independently as long as their basic biological needs (such as food, water, and shelter) are met. Therefore, vertebrates are considered independent in terms of the Dependence meta-property.",
+        "status": "APPROVE",
+        "feedback": "The analysis is correct. Vertebrates, as a taxonomic group, do not depend intrinsically on specific other entities for their existence. They can exist independently in various environments, meeting their basic biological needs. This supports the proposed value of -D for Dependence."
+      }
+    ],
+    "signature": {
+      "instructions": "Validate an ontological meta-property analysis.\n\nReview the proposed value and reasoning for a single OntoClean\nmeta-property and decide whether to APPROVE or REJECT it.\nIf rejecting, provide specific, actionable feedback.",
+      "fields": [
+        {
+          "prefix": "Property Name:",
+          "description": "The meta-property being evaluated (e.g. 'rigidity', 'identity')"
+        },
+        {
+          "prefix": "Term:",
+          "description": "The entity/term that was analyzed"
+        },
+        {
+          "prefix": "Description:",
+          "description": "Optional description of the entity"
+        },
+        {
+          "prefix": "Proposed Value:",
+          "description": "The value proposed by the agent (e.g. '+R', '-I', '+O')"
+        },
+        {
+          "prefix": "Proposed Reasoning:",
+          "description": "The reasoning given by the agent for the proposed value"
+        },
+        {
+          "prefix": "Status:",
+          "description": "'APPROVE' if the analysis is correct, 'REJECT' if it needs revision"
+        },
+        {
+          "prefix": "Feedback:",
+          "description": "If REJECT: specific feedback on what is wrong and how to improve. If APPROVE: brief confirmation of why the analysis is correct."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.1.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}
