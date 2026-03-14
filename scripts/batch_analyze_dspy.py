@@ -147,10 +147,17 @@ Examples:
     args = parser.parse_args()
     args.input_owl = os.path.abspath(args.input_owl)
 
-    # Strip the "dspy_" prefix that the Makefile adds to model names for
-    # output-file/agent-name labelling — the analyzer only knows bare shortcuts.
-    if args.model.startswith("dspy_"):
-        args.model = args.model[len("dspy_") :]
+    # Strip the labelling prefixes the Makefile adds to model names.
+    # Format: dspy_<train_model>_<inference_model>  e.g. "dspy_claude_gemma9b"
+    # The analyzer only knows bare shortcuts such as "gemma9b".
+    for prefix in ("dspy_",):
+        if args.model.startswith(prefix):
+            args.model = args.model[len(prefix) :]
+            break
+    for train_prefix in ("claude_", "gemini_"):
+        if args.model.startswith(train_prefix):
+            args.model = args.model[len(train_prefix) :]
+            break
 
     # Validate arguments
     if args.optimize_mode and not args.train_file:

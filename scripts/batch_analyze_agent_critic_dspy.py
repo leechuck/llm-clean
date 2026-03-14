@@ -168,12 +168,16 @@ Examples:
     args = parser.parse_args()
     args.input_owl = os.path.abspath(args.input_owl)
 
-    # Strip the labelling prefix the Makefile adds to model names
-    # (e.g. "dspy_agent_critic_gemma9b" -> "gemma9b").
+    # Strip the labelling prefixes the Makefile adds to model names.
+    # Format: dspy_agent_critic_<train_model>_<inference_model>  e.g. "dspy_agent_critic_claude_gemma9b"
     # The analyzer only knows bare shortcuts such as "gemma9b".
     for prefix in ("dspy_agent_critic_", "dspy_agent_", "dspy_"):
         if args.model.startswith(prefix):
             args.model = args.model[len(prefix) :]
+            break
+    for train_prefix in ("claude_", "gemini_"):
+        if args.model.startswith(train_prefix):
+            args.model = args.model[len(train_prefix) :]
             break
 
     # Validate arguments
