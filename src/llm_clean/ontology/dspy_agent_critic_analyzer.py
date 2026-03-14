@@ -31,7 +31,6 @@ from dotenv import load_dotenv
 
 # Try relative import first, fall back to direct import
 try:
-    from .prompts import get_critic_system_prompt
     from .dspy_agent_analyzer import (
         RigiditySignature,
         IdentitySignature,
@@ -41,7 +40,6 @@ try:
         _classify_entity,
     )
 except ImportError:
-    from prompts import get_critic_system_prompt
     from dspy_agent_analyzer import (
         RigiditySignature,
         IdentitySignature,
