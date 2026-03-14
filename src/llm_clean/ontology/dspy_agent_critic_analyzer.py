@@ -20,6 +20,7 @@ Architecture
 """
 
 import os
+import logging
 import json
 import csv
 import dspy
@@ -490,7 +491,13 @@ class DSPyAgentCriticOntologyAnalyzer:
             api_key=self.api_key,
             api_base="https://openrouter.ai/api/v1",
         )
-        dspy.configure(lm=lm)
+        # Disable the ChatAdapter→JSONAdapter fallback (same rationale as
+        # DSPyAgentOntologyAnalyzer: prevents raw ValueError from JSONAdapter
+        # when weak models hallucinate invalid tool names).
+        dspy.configure(lm=lm, adapter=dspy.ChatAdapter(use_json_adapter_fallback=False))
+
+        logging.getLogger("dspy.predict.react").setLevel(logging.ERROR)
+        logging.getLogger("dspy.adapters.chat_adapter").setLevel(logging.ERROR)
 
         self.module = DSPyAgentCriticOntologyAnalysisModule(
             max_iters=max_iters,

@@ -27,6 +27,7 @@ Architecture
   DSPyAgentOntologyAnalyzer    – public-facing class (mirrors DSPyOntologyAnalyzer API)
 """
 
+import logging
 import os
 import json
 import csv
@@ -590,7 +591,19 @@ class DSPyAgentOntologyAnalyzer:
             api_key=self.api_key,
             api_base="https://openrouter.ai/api/v1",
         )
-        dspy.configure(lm=lm)
+        # Disable the ChatAdapter→JSONAdapter fallback.  When qwen/llama models
+        # hallucinate an invalid next_tool_name the fallback re-raises a raw
+        # ValueError (JSONAdapter.parse doesn't wrap parse_value errors) that
+        # produces a noisy chained traceback in stderr.  With the fallback
+        # disabled, ChatAdapter raises AdapterParseError directly, which
+        # ReAct.forward() propagates out of the loop and our per-agent
+        # except Exception blocks handle cleanly.
+        dspy.configure(lm=lm, adapter=dspy.ChatAdapter(use_json_adapter_fallback=False))
+
+        # Silence the DSPy adapter/react logger for known parse failures so the
+        # chained traceback doesn't clutter stderr during normal operation.
+        logging.getLogger("dspy.predict.react").setLevel(logging.ERROR)
+        logging.getLogger("dspy.adapters.chat_adapter").setLevel(logging.ERROR)
 
         self.module = DSPyAgentOntologyAnalysisModule(max_iters=max_iters)
 
