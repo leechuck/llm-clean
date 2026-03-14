@@ -3,38 +3,31 @@
 Test script for DSPyAgentCriticOntologyAnalyzer.
 
 Tests the agent+critic DSPy analyzer where each meta-property is evaluated
-by a dedicated ReAct agent and then validated by a critic in a feedback loop.
+by a dedicated ChainOfThought predictor and then validated by a Predict-based
+critic in a feedback loop.
 
 Tests:
-1. Critic signature       – verify DSPyCriticSignature fields exist
-2. Critic loop (mock)     – _run_with_critique with a mock agent/critic (no LLM)
-3. Agent tools            – call the standalone tool functions directly (no LLM)
-4. Constraint checking    – verify the +O → +I constraint tool works correctly
-5. Basic analysis         – run the full pipeline on a handful of terms (LLM)
-6. Critique info          – verify critique_info is present and well-formed
-7. Optimization           – BootstrapFewShot on a small training set (optional/LLM)
+1. CriticSignature fields    – verify input/output fields (no LLM)
+2. Critic loop (mock)        – _run_with_critique with mock agent/critic (no LLM)
+3. critique_info structure   – verify analyze() returns well-formed critique_info (no LLM)
+4. Constraint passing        – verify identity_value forwarded to own_identity_agent (no LLM)
+5. Basic analysis            – run the full pipeline on a handful of terms (LLM)
+6. Optimization              – BootstrapFewShot on a small training set (optional/LLM)
 """
 
 import sys
 import os
-import json
-from unittest.mock import MagicMock
 
 # Allow running directly from this directory
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from dspy_agent_critic_analyzer import (
     DSPyAgentCriticOntologyAnalyzer,
-    DSPyCriticSignature,
-    DSPyAgentCriticOntologyAnalysisModule,
+    CriticSignature,
+    AgentCriticOntologyAnalysisModule,
     _run_with_critique,
 )
-from dspy_agent_analyzer import (
-    initiate_task,
-    get_property_definition,
-    get_property_examples,
-    check_constraints,
-)
+from dspy_agent_analyzer import _classify_entity
 
 PROPERTIES = ["rigidity", "identity", "own_identity", "unity", "dependence"]
 
@@ -48,23 +41,20 @@ VALID_VALUES = {
 
 
 # ---------------------------------------------------------------------------
-# Test 1: DSPyCriticSignature fields
+# Test 1: CriticSignature fields
 # ---------------------------------------------------------------------------
 
 
 def test_critic_signature():
-    """Check that DSPyCriticSignature has the expected input/output fields."""
+    """Check that CriticSignature has the expected input/output fields."""
     print("=" * 60)
-    print("Test 1: DSPyCriticSignature fields")
+    print("Test 1: CriticSignature fields (no LLM)")
     print("=" * 60)
 
     errors = []
-    import dspy
 
-    sig = DSPyCriticSignature
-
-    input_fields = list(sig.input_fields.keys())
-    output_fields = list(sig.output_fields.keys())
+    input_fields = list(CriticSignature.input_fields.keys())
+    output_fields = list(CriticSignature.output_fields.keys())
 
     expected_inputs = [
         "property_name",
@@ -80,19 +70,21 @@ def test_critic_signature():
             print(f"  ✓ InputField  '{field}' present")
         else:
             errors.append(f"Missing InputField '{field}'")
+            print(f"  ✗ Missing InputField '{field}'")
 
     for field in expected_outputs:
         if field in output_fields:
             print(f"  ✓ OutputField '{field}' present")
         else:
             errors.append(f"Missing OutputField '{field}'")
+            print(f"  ✗ Missing OutputField '{field}'")
 
     if errors:
-        for err in errors:
-            print(f"  ✗ {err}")
         print(f"\n✗ Signature tests failed ({len(errors)} error(s))")
     else:
         print("\n✓ All signature field tests passed")
+
+    assert not errors, "\n".join(errors)
 
 
 # ---------------------------------------------------------------------------
@@ -109,23 +101,23 @@ def test_critic_loop_mock():
     print("Test 2: Critic feedback loop (mock, no LLM)")
     print("=" * 60)
 
+    import dspy
+
     errors = []
 
     # --- Case A: critic approves on first attempt ---
-    mock_agent = MagicMock()
-    mock_agent.return_value = MagicMock(
-        rigidity="+R", rigidity_reasoning="It is always a person"
-    )
+    class FakeAgent:
+        def __call__(self, **kwargs):
+            return dspy.Prediction(value="+R", reasoning="It is always a person")
 
-    mock_critic = MagicMock()
-    mock_critic.return_value = MagicMock(status="APPROVE", feedback="Looks correct")
+    class FakeCriticApprove:
+        def __call__(self, **kwargs):
+            return dspy.Prediction(status="APPROVE", feedback="Looks correct")
 
     result = _run_with_critique(
-        agent=mock_agent,
-        critic=mock_critic,
+        agent=FakeAgent(),
+        critic=FakeCriticApprove(),
         property_name="rigidity",
-        value_attr="rigidity",
-        reasoning_attr="rigidity_reasoning",
         max_critique_attempts=3,
         term="Person",
         description="A human being",
@@ -135,41 +127,46 @@ def test_critic_loop_mock():
     if result["value"] == "+R":
         print("  ✓ Correct value returned on first APPROVE")
     else:
-        errors.append(f"Expected '+R', got {result['value']!r}")
+        errors.append(f"Case A: expected '+R', got {result['value']!r}")
+        print(f"  ✗ {errors[-1]}")
 
     if result["critique_attempts"] == 1:
         print("  ✓ Only 1 attempt needed for immediate APPROVE")
     else:
-        errors.append(f"Expected 1 attempt, got {result['critique_attempts']}")
+        errors.append(f"Case A: expected 1 attempt, got {result['critique_attempts']}")
+        print(f"  ✗ {errors[-1]}")
 
     if result["approved"] is True:
         print("  ✓ approved=True when critic approves")
     else:
-        errors.append("Expected approved=True")
-
-    if mock_agent.call_count == 1:
-        print("  ✓ Agent called exactly once")
-    else:
-        errors.append(f"Expected 1 agent call, got {mock_agent.call_count}")
+        errors.append("Case A: expected approved=True")
+        print(f"  ✗ {errors[-1]}")
 
     # --- Case B: critic rejects once then approves ---
-    mock_agent2 = MagicMock()
-    mock_agent2.return_value = MagicMock(
-        rigidity="~R", rigidity_reasoning="It is a role"
-    )
+    call_count = [0]
+    descriptions_received = []
 
-    mock_critic2 = MagicMock()
-    mock_critic2.side_effect = [
-        MagicMock(status="REJECT", feedback="Reconsider: Person is rigid"),
-        MagicMock(status="APPROVE", feedback="Now correct"),
-    ]
+    class FakeAgentB:
+        def __call__(self, **kwargs):
+            call_count[0] += 1
+            descriptions_received.append(kwargs.get("description", ""))
+            return dspy.Prediction(value="~R", reasoning="It is a role")
+
+    critique_calls = [0]
+
+    class FakeCriticRejectThenApprove:
+        def __call__(self, **kwargs):
+            critique_calls[0] += 1
+            if critique_calls[0] == 1:
+                return dspy.Prediction(
+                    status="REJECT", feedback="Reconsider: Person is rigid"
+                )
+            return dspy.Prediction(status="APPROVE", feedback="Now correct")
 
     result2 = _run_with_critique(
-        agent=mock_agent2,
-        critic=mock_critic2,
+        agent=FakeAgentB(),
+        critic=FakeCriticRejectThenApprove(),
         property_name="rigidity",
-        value_attr="rigidity",
-        reasoning_attr="rigidity_reasoning",
         max_critique_attempts=3,
         term="Person",
         description="A human being",
@@ -179,41 +176,49 @@ def test_critic_loop_mock():
     if result2["critique_attempts"] == 2:
         print("  ✓ 2 attempts used when critic rejects then approves")
     else:
-        errors.append(f"Expected 2 attempts, got {result2['critique_attempts']}")
+        errors.append(
+            f"Case B: expected 2 attempts, got {result2['critique_attempts']}"
+        )
+        print(f"  ✗ {errors[-1]}")
 
     if result2["approved"] is True:
         print("  ✓ approved=True after eventual APPROVE")
     else:
-        errors.append("Expected approved=True after retry")
+        errors.append("Case B: expected approved=True after retry")
+        print(f"  ✗ {errors[-1]}")
 
-    if mock_agent2.call_count == 2:
+    if call_count[0] == 2:
         print("  ✓ Agent called twice (once per attempt)")
     else:
-        errors.append(f"Expected 2 agent calls, got {mock_agent2.call_count}")
+        errors.append(f"Case B: expected 2 agent calls, got {call_count[0]}")
+        print(f"  ✗ {errors[-1]}")
 
-    # Check that feedback was injected into the description on the second call
-    second_call_kwargs = mock_agent2.call_args_list[1][1]
-    if "Critic feedback" in second_call_kwargs.get("description", ""):
+    # Critic feedback should be injected into description on second call
+    if (
+        len(descriptions_received) >= 2
+        and "Critic feedback" in descriptions_received[1]
+    ):
         print("  ✓ Critic feedback injected into description on retry")
     else:
         errors.append(
-            f"Expected critic feedback in description on retry, got: "
-            f"{second_call_kwargs.get('description', '')!r}"
+            f"Case B: expected critic feedback in description on retry, "
+            f"got: {descriptions_received[1] if len(descriptions_received) >= 2 else '(no second call)'!r}"
         )
+        print(f"  ✗ {errors[-1]}")
 
     # --- Case C: critic always rejects — max attempts hit ---
-    mock_agent3 = MagicMock()
-    mock_agent3.return_value = MagicMock(rigidity="-R", rigidity_reasoning="Not sure")
+    class FakeAgentC:
+        def __call__(self, **kwargs):
+            return dspy.Prediction(value="-R", reasoning="Not sure")
 
-    mock_critic3 = MagicMock()
-    mock_critic3.return_value = MagicMock(status="REJECT", feedback="Still wrong")
+    class FakeCriticAlwaysReject:
+        def __call__(self, **kwargs):
+            return dspy.Prediction(status="REJECT", feedback="Still wrong")
 
     result3 = _run_with_critique(
-        agent=mock_agent3,
-        critic=mock_critic3,
+        agent=FakeAgentC(),
+        critic=FakeCriticAlwaysReject(),
         property_name="rigidity",
-        value_attr="rigidity",
-        reasoning_attr="rigidity_reasoning",
         max_critique_attempts=2,
         term="Person",
         description="A human being",
@@ -223,124 +228,237 @@ def test_critic_loop_mock():
     if result3["critique_attempts"] == 2:
         print("  ✓ Exactly max_critique_attempts used when always rejected")
     else:
-        errors.append(f"Expected 2 attempts (max), got {result3['critique_attempts']}")
+        errors.append(
+            f"Case C: expected 2 attempts (max), got {result3['critique_attempts']}"
+        )
+        print(f"  ✗ {errors[-1]}")
 
     if result3["approved"] is False:
         print("  ✓ approved=False when max attempts reached without approval")
     else:
-        errors.append("Expected approved=False at max attempts")
+        errors.append("Case C: expected approved=False at max attempts")
+        print(f"  ✗ {errors[-1]}")
 
     if "Max critique attempts reached" in result3["critique_feedback"]:
         print("  ✓ critique_feedback indicates max attempts reached")
     else:
         errors.append(
-            f"Expected 'Max critique attempts reached' in feedback, got: "
-            f"{result3['critique_feedback']!r}"
+            f"Case C: expected 'Max critique attempts reached' in feedback, "
+            f"got: {result3['critique_feedback']!r}"
         )
+        print(f"  ✗ {errors[-1]}")
 
     if errors:
-        for err in errors:
-            print(f"  ✗ {err}")
         print(f"\n✗ Critic loop mock tests failed ({len(errors)} error(s))")
     else:
         print("\n✓ All critic loop mock tests passed")
 
+    assert not errors, "\n".join(errors)
+
 
 # ---------------------------------------------------------------------------
-# Test 3: Agent tools (unit-level, no LLM call)
+# Test 3: critique_info structure (mock module, no LLM)
 # ---------------------------------------------------------------------------
 
 
-def test_agent_tools():
-    """Call the ontology tool functions directly to verify they return content."""
+def test_critique_info_structure():
+    """
+    Verify that analyze() returns a well-formed critique_info dict using a
+    mocked module (no LLM).
+
+    The expected shape is:
+        critique_info = {
+            "<prop>": {"attempts": int, "feedback": str, "approved": bool},
+            ...
+        }
+    """
     print("\n" + "=" * 60)
-    print("Test 3: Agent Tools (no LLM)")
+    print("Test 3: critique_info structure (mock module, no LLM)")
     print("=" * 60)
+
+    import dspy
 
     errors = []
 
-    result = initiate_task("test task")
-    if "Task initiated" in result:
-        print("  ✓ initiate_task returns acknowledgement")
-    else:
-        errors.append(f"initiate_task returned unexpected: {result!r}")
+    fake_critique_info = {
+        prop: {
+            "attempts": 1,
+            "feedback": f"Looks good for {prop}",
+            "approved": True,
+        }
+        for prop in PROPERTIES
+    }
+    # Simulate one rejection cycle on dependence
+    fake_critique_info["dependence"] = {
+        "attempts": 3,
+        "feedback": "Max critique attempts reached. Last feedback: still uncertain",
+        "approved": False,
+    }
+
+    fake_prediction = dspy.Prediction(
+        rigidity="+R",
+        rigidity_reasoning="Always a person",
+        identity="+I",
+        identity_reasoning="Has a unique ID",
+        own_identity="+O",
+        own_identity_reasoning="Supplies its own IC",
+        unity="+U",
+        unity_reasoning="Whole entity",
+        dependence="-D",
+        dependence_reasoning="Exists independently",
+        classification="Sortal (Rigid, supplies identity)",
+        critique_info=fake_critique_info,
+    )
+
+    class MockAnalyzer(DSPyAgentCriticOntologyAnalyzer):
+        def __init__(self):
+            # Skip LLM/API setup entirely
+            self.module = lambda **kw: fake_prediction
+            self.train_examples = []
+            self.test_examples = []
+
+    analyzer = MockAnalyzer()
+    result = analyzer.analyze("Person", description="A human being")
+
+    # Check top-level keys
+    for key in ("properties", "reasoning", "classification", "critique_info"):
+        if key in result:
+            print(f"  ✓ Top-level key '{key}' present")
+        else:
+            errors.append(f"Missing top-level key '{key}'")
+            print(f"  ✗ {errors[-1]}")
+
+    ci = result.get("critique_info", {})
 
     for prop in PROPERTIES:
-        defn = get_property_definition(prop)
-        if not defn or "Unknown property" in defn:
-            errors.append(
-                f"get_property_definition('{prop}') returned unexpected: {defn!r}"
-            )
-        else:
-            print(f"  ✓ definition for '{prop}' ({len(defn)} chars)")
+        if prop not in ci:
+            errors.append(f"Missing property '{prop}' in critique_info")
+            print(f"  ✗ Missing property '{prop}' in critique_info")
+            continue
+        entry = ci[prop]
+        for subkey in ("attempts", "feedback", "approved"):
+            if subkey in entry:
+                print(f"  ✓ critique_info['{prop}']['{subkey}'] = {entry[subkey]!r}")
+            else:
+                errors.append(f"Missing subkey '{subkey}' in critique_info['{prop}']")
+                print(f"  ✗ {errors[-1]}")
 
-        examples = get_property_examples(prop)
-        if not examples or "No examples" in examples:
-            errors.append(
-                f"get_property_examples('{prop}') returned unexpected: {examples!r}"
-            )
-        else:
-            print(f"  ✓ examples for '{prop}' ({len(examples)} chars)")
-
-    unknown = get_property_definition("not_a_property")
-    if "Unknown property" in unknown:
-        print("  ✓ Unknown property handled gracefully")
+    # Verify reasoning is a dict, not a string
+    reasoning = result.get("reasoning", {})
+    if isinstance(reasoning, dict) and set(reasoning.keys()) == set(PROPERTIES):
+        print("  ✓ reasoning is a dict with all five property keys")
     else:
-        errors.append(f"Expected graceful unknown-property message, got: {unknown!r}")
+        errors.append(
+            f"Expected reasoning to be a dict with keys {PROPERTIES}, "
+            f"got {type(reasoning).__name__}: {list(reasoning.keys()) if isinstance(reasoning, dict) else reasoning!r}"
+        )
+        print(f"  ✗ {errors[-1]}")
 
     if errors:
-        for err in errors:
-            print(f"  ✗ {err}")
-        print(f"\n✗ Tool tests failed ({len(errors)} error(s))")
+        print(f"\n✗ critique_info structure tests failed ({len(errors)} error(s))")
     else:
-        print("\n✓ All tool tests passed")
+        print("\n✓ All critique_info structure tests passed")
+
+    assert not errors, "\n".join(errors)
 
 
 # ---------------------------------------------------------------------------
-# Test 4: Constraint checking (no LLM call)
+# Test 4: Constraint passing (no LLM)
 # ---------------------------------------------------------------------------
 
 
-def test_constraint_checking():
-    """Verify that check_constraints detects the +O → +I violation."""
+def test_constraint_passing():
+    """
+    Verify that own_identity_agent receives the identity value determined by
+    the identity agent, without making any LLM calls.
+    """
     print("\n" + "=" * 60)
-    print("Test 4: Constraint Checking (no LLM)")
+    print("Test 4: Constraint Passing (no LLM)")
     print("=" * 60)
 
+    import dspy
+
     errors = []
+    received_identity_values = []
 
-    bad_ctx = json.dumps({"identity": "-I"})
-    result = check_constraints("own_identity", "+O", context=bad_ctx)
-    if "CONSTRAINT VIOLATION" in result:
-        print("  ✓ Violation detected: +O with identity=-I")
-    else:
-        errors.append(f"Expected violation for +O/-I, got: {result!r}")
+    class FakePredictor:
+        """Minimal stand-in for a dspy.ChainOfThought predictor."""
 
-    good_ctx = json.dumps({"identity": "+I"})
-    result = check_constraints("own_identity", "+O", context=good_ctx)
-    if "No violations detected" in result:
-        print("  ✓ No violation: +O with identity=+I")
-    else:
-        errors.append(f"Expected no violation for +O/+I, got: {result!r}")
+        def __init__(self, value, prop):
+            self.value_to_return = value
+            self.prop = prop
+            self.callbacks = []
 
-    result = check_constraints("own_identity", "-O", context=bad_ctx)
-    if "No violations detected" in result:
-        print("  ✓ No violation: -O (constraint does not apply)")
-    else:
-        errors.append(f"Expected no violation for -O, got: {result!r}")
+        def __call__(self, **kwargs):
+            if self.prop == "own_identity":
+                received_identity_values.append(kwargs.get("identity_value"))
+            return dspy.Prediction(
+                value=self.value_to_return,
+                reasoning=f"fake reasoning for {self.prop}",
+            )
 
-    result = check_constraints("rigidity", "+R")
-    if "No specific constraints" in result or "No violations detected" in result:
-        print("  ✓ Rigidity has no constraints (handled gracefully)")
+    class FakeCritic:
+        def __call__(self, **kwargs):
+            return dspy.Prediction(status="APPROVE", feedback="ok")
+
+    module = AgentCriticOntologyAnalysisModule.__new__(
+        AgentCriticOntologyAnalysisModule
+    )
+    module._compiled = False
+    module.callbacks = []
+    module.history = []
+    module.max_critique_attempts = 1
+    module.rigidity_agent = FakePredictor("+R", "rigidity")
+    module.identity_agent = FakePredictor("+I", "identity")
+    module.own_identity_agent = FakePredictor("+O", "own_identity")
+    module.unity_agent = FakePredictor("+U", "unity")
+    module.dependence_agent = FakePredictor("-D", "dependence")
+    module.rigidity_critic = FakeCritic()
+    module.identity_critic = FakeCritic()
+    module.own_identity_critic = FakeCritic()
+    module.unity_critic = FakeCritic()
+    module.dependence_critic = FakeCritic()
+
+    result = module(term="Person", description="A human being", usage="")
+
+    if received_identity_values == ["+I"]:
+        print("  ✓ identity_value '+I' forwarded to own_identity_agent")
     else:
-        errors.append(f"Unexpected rigidity constraint result: {result!r}")
+        errors.append(
+            f"own_identity_agent received identity_value={received_identity_values!r}, expected ['+I']"
+        )
+        print(f"  ✗ {errors[-1]}")
+
+    expected_fields = {
+        "rigidity": "+R",
+        "identity": "+I",
+        "own_identity": "+O",
+        "unity": "+U",
+        "dependence": "-D",
+        "classification": "Sortal (Rigid, supplies identity)",
+    }
+    for field, expected in expected_fields.items():
+        got = getattr(result, field)
+        if got == expected:
+            print(f"  ✓ {field}: {got}")
+        else:
+            errors.append(f"{field}: expected '{expected}', got '{got}'")
+            print(f"  ✗ {errors[-1]}")
+
+    # critique_info should be present and have all five properties
+    ci = getattr(result, "critique_info", None)
+    if isinstance(ci, dict) and set(ci.keys()) == set(PROPERTIES):
+        print("  ✓ critique_info present with all five properties")
+    else:
+        errors.append(f"Expected critique_info dict with keys {PROPERTIES}, got {ci!r}")
+        print(f"  ✗ {errors[-1]}")
 
     if errors:
-        for err in errors:
-            print(f"  ✗ {err}")
         print(f"\n✗ Constraint tests failed ({len(errors)} error(s))")
     else:
         print("\n✓ All constraint tests passed")
+
+    assert not errors, "\n".join(errors)
 
 
 # ---------------------------------------------------------------------------
@@ -371,6 +489,9 @@ def test_basic_analysis():
             result = analyzer.analyze(term, description=desc)
 
             props = result["properties"]
+            reasons = result["reasoning"]
+            ci = result.get("critique_info", {})
+
             for prop in PROPERTIES:
                 value = props[prop]
                 valid = value in VALID_VALUES[prop]
@@ -381,20 +502,18 @@ def test_basic_analysis():
                         f"      WARNING: '{value}' is not a recognised value "
                         f"for {prop} {VALID_VALUES[prop]}"
                     )
+                reason_snippet = reasons.get(prop, "")[:80]
+                print(f"    reasoning: {reason_snippet}...")
+
+                # Print critique info per property
+                if prop in ci:
+                    entry = ci[prop]
+                    print(
+                        f"    critique : {entry.get('attempts')} attempt(s), "
+                        f"approved={entry.get('approved')}"
+                    )
 
             print(f"  Classification : {result['classification']}")
-            print(f"  Reasoning      : {result['reasoning'][:120]}...")
-
-            # Test 6 inline: check critique_info
-            ci = result.get("critique_info", {})
-            if ci:
-                print("  Critique info:")
-                for prop in PROPERTIES:
-                    attempts = ci.get(f"{prop}_attempts", "?")
-                    approved = ci.get(f"{prop}_approved", "?")
-                    print(f"    {prop:15}: {attempts} attempt(s), approved={approved}")
-            else:
-                print("  WARNING: critique_info missing from result")
 
         print("\n✓ Basic analysis test completed")
 
@@ -406,96 +525,14 @@ def test_basic_analysis():
 
 
 # ---------------------------------------------------------------------------
-# Test 6: critique_info structure (without LLM, using mock module)
-# ---------------------------------------------------------------------------
-
-
-def test_critique_info_structure():
-    """
-    Verify that the analyze() return dict contains a well-formed critique_info
-    dict, using a mock module (no LLM).
-    """
-    print("\n" + "=" * 60)
-    print("Test 6: critique_info structure (mock module, no LLM)")
-    print("=" * 60)
-
-    errors = []
-
-    # Build a fake result that the module would return
-    import dspy
-
-    fake_prediction = dspy.Prediction(
-        rigidity="+R",
-        identity="+I",
-        own_identity="+O",
-        unity="+U",
-        dependence="-D",
-        classification="Sortal",
-        reasoning="Test reasoning",
-        critique_info={
-            "rigidity_attempts": 1,
-            "rigidity_feedback": "Good",
-            "rigidity_approved": True,
-            "identity_attempts": 2,
-            "identity_feedback": "Revised after feedback",
-            "identity_approved": True,
-            "own_identity_attempts": 1,
-            "own_identity_feedback": "Good",
-            "own_identity_approved": True,
-            "unity_attempts": 1,
-            "unity_feedback": "Good",
-            "unity_approved": True,
-            "dependence_attempts": 3,
-            "dependence_feedback": "Max critique attempts reached. Last feedback: ...",
-            "dependence_approved": False,
-        },
-    )
-
-    # Patch the module's forward call
-    class _MockAnalyzer(DSPyAgentCriticOntologyAnalyzer):
-        def __init__(self):
-            # Skip LLM setup
-            import dspy as _dspy
-
-            self.module = MagicMock()
-            self.module.return_value = fake_prediction
-            self.train_examples = []
-            self.test_examples = []
-
-    analyzer = _MockAnalyzer()
-    result = analyzer.analyze("Person", description="A human being")
-
-    ci = result.get("critique_info")
-    if ci is None:
-        errors.append("critique_info key missing from analyze() result")
-    else:
-        print("  ✓ critique_info key present")
-
-        for prop in PROPERTIES:
-            for suffix in ("attempts", "feedback", "approved"):
-                key = f"{prop}_{suffix}"
-                if key in ci:
-                    print(f"  ✓ critique_info['{key}'] = {ci[key]!r}")
-                else:
-                    errors.append(f"Missing key '{key}' in critique_info")
-
-    if errors:
-        for err in errors:
-            print(f"  ✗ {err}")
-        print(f"\n✗ critique_info structure tests failed ({len(errors)} error(s))")
-    else:
-        print("\n✓ All critique_info structure tests passed")
-
-
-# ---------------------------------------------------------------------------
-# Test 7: Optimization (optional — many LLM calls)
+# Test 6: Optimization (optional — many LLM calls)
 # ---------------------------------------------------------------------------
 
 
 def test_optimization():
     """Bootstrap few-shot optimize on a small labeled training set."""
     print("\n" + "=" * 60)
-    print("Test 7: BootstrapFewShot Optimization (LLM)")
+    print("Test 6: BootstrapFewShot Optimization (LLM)")
     print("=" * 60)
 
     try:
@@ -598,9 +635,8 @@ if __name__ == "__main__":
     # Tests that require no LLM calls
     test_critic_signature()
     test_critic_loop_mock()
-    test_agent_tools()
-    test_constraint_checking()
     test_critique_info_structure()
+    test_constraint_passing()
 
     # Tests that make LLM calls
     print()
