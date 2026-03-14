@@ -1,0 +1,233 @@
+{
+  "evaluation_summary": {
+    "ground_truth_file": "data/raw/ground_truth.tsv",
+    "prediction_file": "output/analyzed_entities/dspy_agent_critic_analyzed_entities_claude_BootstrapFewShot_dspy_agent_critic_claude_gemma9b.tsv",
+    "total_ground_truth_terms": 22,
+    "overall_metrics": {
+      "accuracy": 0.62,
+      "precision": 0.59,
+      "recall": 0.54,
+      "f1_score": 0.48,
+      "support": 110,
+      "tp": 55,
+      "fp": 45,
+      "tn": 109,
+      "fn": 55
+    },
+    "per_property_metrics": {
+      "rigidity": {
+        "accuracy": 0.27,
+        "macro_avg": {
+          "accuracy": 0.56,
+          "precision": 0.5,
+          "recall": 0.58,
+          "f1_score": 0.29,
+          "support": 22,
+          "tp": 6,
+          "fp": 13,
+          "tn": 31,
+          "fn": 16
+        },
+        "per_class": {
+          "-R": {
+            "accuracy": 0.82,
+            "precision": 0.2,
+            "recall": 1.0,
+            "f1_score": 0.33,
+            "support": 1,
+            "tp": 1,
+            "fp": 4,
+            "tn": 17,
+            "fn": 0
+          },
+          "~R": {
+            "accuracy": 0.5,
+            "precision": 0.31,
+            "recall": 0.67,
+            "f1_score": 0.42,
+            "support": 6,
+            "tp": 4,
+            "fp": 9,
+            "tn": 7,
+            "fn": 2
+          },
+          "+R": {
+            "accuracy": 0.36,
+            "precision": 1.0,
+            "recall": 0.07,
+            "f1_score": 0.12,
+            "support": 15,
+            "tp": 1,
+            "fp": 0,
+            "tn": 7,
+            "fn": 14
+          }
+        }
+      },
+      "identity": {
+        "accuracy": 0.45,
+        "macro_avg": {
+          "accuracy": 0.52,
+          "precision": 0.59,
+          "recall": 0.54,
+          "f1_score": 0.44,
+          "support": 22,
+          "tp": 10,
+          "fp": 9,
+          "tn": 13,
+          "fn": 12
+        },
+        "per_class": {
+          "+I": {
+            "accuracy": 0.5,
+            "precision": 1.0,
+            "recall": 0.42,
+            "f1_score": 0.59,
+            "support": 19,
+            "tp": 8,
+            "fp": 0,
+            "tn": 3,
+            "fn": 11
+          },
+          "-I": {
+            "accuracy": 0.55,
+            "precision": 0.18,
+            "recall": 0.67,
+            "f1_score": 0.29,
+            "support": 3,
+            "tp": 2,
+            "fp": 9,
+            "tn": 10,
+            "fn": 1
+          }
+        }
+      },
+      "own_identity": {
+        "accuracy": 0.5,
+        "macro_avg": {
+          "accuracy": 0.55,
+          "precision": 0.63,
+          "recall": 0.53,
+          "f1_score": 0.52,
+          "support": 22,
+          "tp": 11,
+          "fp": 9,
+          "tn": 13,
+          "fn": 11
+        },
+        "per_class": {
+          "+O": {
+            "accuracy": 0.59,
+            "precision": 0.83,
+            "recall": 0.38,
+            "f1_score": 0.53,
+            "support": 13,
+            "tp": 5,
+            "fp": 1,
+            "tn": 8,
+            "fn": 8
+          },
+          "-O": {
+            "accuracy": 0.5,
+            "precision": 0.43,
+            "recall": 0.67,
+            "f1_score": 0.52,
+            "support": 9,
+            "tp": 6,
+            "fp": 8,
+            "tn": 5,
+            "fn": 3
+          }
+        }
+      },
+      "unity": {
+        "accuracy": 0.5,
+        "macro_avg": {
+          "accuracy": 0.68,
+          "precision": 0.5,
+          "recall": 0.35,
+          "f1_score": 0.41,
+          "support": 22,
+          "tp": 11,
+          "fp": 10,
+          "tn": 34,
+          "fn": 11
+        },
+        "per_class": {
+          "-U": {
+            "accuracy": 0.68,
+            "precision": 0.5,
+            "recall": 0.43,
+            "f1_score": 0.46,
+            "support": 7,
+            "tp": 3,
+            "fp": 3,
+            "tn": 12,
+            "fn": 4
+          },
+          "~U": {
+            "accuracy": 0.59,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 2,
+            "tp": 0,
+            "fp": 7,
+            "tn": 13,
+            "fn": 2
+          },
+          "+U": {
+            "accuracy": 0.77,
+            "precision": 1.0,
+            "recall": 0.62,
+            "f1_score": 0.76,
+            "support": 13,
+            "tp": 8,
+            "fp": 0,
+            "tn": 9,
+            "fn": 5
+          }
+        }
+      },
+      "dependence": {
+        "accuracy": 0.77,
+        "macro_avg": {
+          "accuracy": 0.8,
+          "precision": 0.74,
+          "recall": 0.71,
+          "f1_score": 0.72,
+          "support": 22,
+          "tp": 17,
+          "fp": 4,
+          "tn": 18,
+          "fn": 5
+        },
+        "per_class": {
+          "-D": {
+            "accuracy": 0.77,
+            "precision": 0.88,
+            "recall": 0.82,
+            "f1_score": 0.85,
+            "support": 17,
+            "tp": 14,
+            "fp": 2,
+            "tn": 3,
+            "fn": 3
+          },
+          "+D": {
+            "accuracy": 0.82,
+            "precision": 0.6,
+            "recall": 0.6,
+            "f1_score": 0.6,
+            "support": 5,
+            "tp": 3,
+            "fp": 2,
+            "tn": 15,
+            "fn": 2
+          }
+        }
+      }
+    },
+    "agent_name": "dspy_agent_critic_claude_gemma9b"
+  }
+}
