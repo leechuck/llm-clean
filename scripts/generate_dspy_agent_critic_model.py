@@ -173,13 +173,6 @@ Examples:
     )
 
     parser.add_argument(
-        "--max-iters",
-        type=int,
-        default=5,
-        help="Maximum ReAct iterations per property agent (default: 5)",
-    )
-
-    parser.add_argument(
         "--max-critique-attempts",
         type=int,
         default=3,
@@ -278,7 +271,6 @@ Examples:
     print(f"  Output path:            {args.output}")
     print(f"  Model:                  {args.model}")
     print(f"  Optimizer:              {args.optimizer}")
-    print(f"  Max ReAct iters:        {args.max_iters}")
     print(f"  Max critique attempts:  {args.max_critique_attempts}")
     if args.optimizer == "MIPROv2":
         print(f"  Optimization mode:      {args.auto}")
@@ -295,7 +287,6 @@ Examples:
             model=args.model,
             train_file=args.train_file,
             test_file=args.test_file,
-            max_iters=args.max_iters,
             max_critique_attempts=args.max_critique_attempts,
         )
     except Exception as e:
