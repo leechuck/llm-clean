@@ -566,52 +566,52 @@ define batch-non-agent-dspy
 endef
 
 batch-non-agent-dspy-anthropic-%-gemma9b:
-	$(call batch-non-agent-dspy,claude,$*,dspy_gemma9b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_claude_gemma9b)
 
 batch-non-agent-dspy-anthropic-%-qwen7b:
-	$(call batch-non-agent-dspy,claude,$*,dspy_qwen7b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_claude_qwen7b)
 
 batch-non-agent-dspy-anthropic-%-llama8b:
-	$(call batch-non-agent-dspy,claude,$*,dspy_llama8b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_claude_llama8b)
 
 batch-non-agent-dspy-anthropic-%-llama3b:
-	$(call batch-non-agent-dspy,claude,$*,dspy_llama3b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_claude_llama3b)
 
 batch-non-agent-dspy-gemini-%-gemma9b:
-	$(call batch-non-agent-dspy,gemini,$*,dspy_gemma9b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_gemini_gemma9b)
 
 batch-non-agent-dspy-gemini-%-qwen7b:
-	$(call batch-non-agent-dspy,gemini,$*,dspy_qwen7b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_gemini_qwen7b)
 
 batch-non-agent-dspy-gemini-%-llama8b:
-	$(call batch-non-agent-dspy,gemini,$*,dspy_llama8b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_gemini_llama8b)
 
 batch-non-agent-dspy-gemini-%-llama3b:
-	$(call batch-non-agent-dspy,gemini,$*,dspy_llama3b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_gemini_llama3b)
 
 batch-non-agent-dspy-anthropic-%-gpt4o-mini:
-	$(call batch-non-agent-dspy,claude,$*,dspy_gpt4o-mini)
+	$(call batch-non-agent-dspy,claude,$*,dspy_claude_gpt4o-mini)
 
 batch-non-agent-dspy-anthropic-%-mistral-small-3.1:
-	$(call batch-non-agent-dspy,claude,$*,dspy_mistral-small-3.1)
+	$(call batch-non-agent-dspy,claude,$*,dspy_claude_mistral-small-3.1)
 
 batch-non-agent-dspy-anthropic-%-llama70b:
-	$(call batch-non-agent-dspy,claude,$*,dspy_llama70b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_claude_llama70b)
 
 batch-non-agent-dspy-anthropic-%-qwen72b:
-	$(call batch-non-agent-dspy,claude,$*,dspy_qwen72b)
+	$(call batch-non-agent-dspy,claude,$*,dspy_claude_qwen72b)
 
 batch-non-agent-dspy-gemini-%-gpt4o-mini:
-	$(call batch-non-agent-dspy,gemini,$*,dspy_gpt4o-mini)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_gemini_gpt4o-mini)
 
 batch-non-agent-dspy-gemini-%-mistral-small-3.1:
-	$(call batch-non-agent-dspy,gemini,$*,dspy_mistral-small-3.1)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_gemini_mistral-small-3.1)
 
 batch-non-agent-dspy-gemini-%-llama70b:
-	$(call batch-non-agent-dspy,gemini,$*,dspy_llama70b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_gemini_llama70b)
 
 batch-non-agent-dspy-gemini-%-qwen72b:
-	$(call batch-non-agent-dspy,gemini,$*,dspy_qwen72b)
+	$(call batch-non-agent-dspy,gemini,$*,dspy_gemini_qwen72b)
 
 batch-non-agent-dspy-anthropic-small-models: \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-gemma9b \
@@ -657,52 +657,52 @@ define batch-agent-dspy
 endef
 
 batch-agent-dspy-anthropic-%-gemma9b:
-	$(call batch-agent-dspy,claude,$*,dspy_agent_gemma9b)
+	$(call batch-agent-dspy,claude,$*,dspy_agent_claude_gemma9b)
 
 batch-agent-dspy-anthropic-%-qwen7b:
-	$(call batch-agent-dspy,claude,$*,dspy_agent_qwen7b)
+	$(call batch-agent-dspy,claude,$*,dspy_agent_claude_qwen7b)
 
 batch-agent-dspy-anthropic-%-llama8b:
-	$(call batch-agent-dspy,claude,$*,dspy_agent_llama8b)
+	$(call batch-agent-dspy,claude,$*,dspy_agent_claude_llama8b)
 
 batch-agent-dspy-anthropic-%-llama3b:
-	$(call batch-agent-dspy,claude,$*,dspy_agent_llama3b)
+	$(call batch-agent-dspy,claude,$*,dspy_agent_claude_llama3b)
 
 batch-agent-dspy-gemini-%-gemma9b:
-	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemma9b)
+	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemini_gemma9b)
 
 batch-agent-dspy-gemini-%-qwen7b:
-	$(call batch-agent-dspy,gemini,$*,dspy_agent_qwen7b)
+	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemini_qwen7b)
 
 batch-agent-dspy-gemini-%-llama8b:
-	$(call batch-agent-dspy,gemini,$*,dspy_agent_llama8b)
+	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemini_llama8b)
 
 batch-agent-dspy-gemini-%-llama3b:
-	$(call batch-agent-dspy,gemini,$*,dspy_agent_llama3b)
+	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemini_llama3b)
 
 batch-agent-dspy-anthropic-%-gpt4o-mini:
-	$(call batch-agent-dspy,claude,$*,dspy_agent_gpt4o-mini)
+	$(call batch-agent-dspy,claude,$*,dspy_agent_claude_gpt4o-mini)
 
 batch-agent-dspy-anthropic-%-mistral-small-3.1:
-	$(call batch-agent-dspy,claude,$*,dspy_agent_mistral-small-3.1)
+	$(call batch-agent-dspy,claude,$*,dspy_agent_claude_mistral-small-3.1)
 
 batch-agent-dspy-anthropic-%-llama70b:
-	$(call batch-agent-dspy,claude,$*,dspy_agent_llama70b)
+	$(call batch-agent-dspy,claude,$*,dspy_agent_claude_llama70b)
 
 batch-agent-dspy-anthropic-%-qwen72b:
-	$(call batch-agent-dspy,claude,$*,dspy_agent_qwen72b)
+	$(call batch-agent-dspy,claude,$*,dspy_agent_claude_qwen72b)
 
 batch-agent-dspy-gemini-%-gpt4o-mini:
-	$(call batch-agent-dspy,gemini,$*,dspy_agent_gpt4o-mini)
+	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemini_gpt4o-mini)
 
 batch-agent-dspy-gemini-%-mistral-small-3.1:
-	$(call batch-agent-dspy,gemini,$*,dspy_agent_mistral-small-3.1)
+	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemini_mistral-small-3.1)
 
 batch-agent-dspy-gemini-%-llama70b:
-	$(call batch-agent-dspy,gemini,$*,dspy_agent_llama70b)
+	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemini_llama70b)
 
 batch-agent-dspy-gemini-%-qwen72b:
-	$(call batch-agent-dspy,gemini,$*,dspy_agent_qwen72b)
+	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemini_qwen72b)
 
 batch-agent-dspy-anthropic-small-models: \
 	batch-agent-dspy-anthropic-BootstrapFewShot-gemma9b \
@@ -748,52 +748,52 @@ define batch-agent-critic-dspy
 endef
 
 batch-agent-critic-dspy-anthropic-%-gemma9b:
-	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_gemma9b)
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_claude_gemma9b)
 
 batch-agent-critic-dspy-anthropic-%-qwen7b:
-	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_qwen7b)
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_claude_qwen7b)
 
 batch-agent-critic-dspy-anthropic-%-llama8b:
-	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_llama8b)
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_claude_llama8b)
 
 batch-agent-critic-dspy-anthropic-%-llama3b:
-	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_llama3b)
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_claude_llama3b)
 
 batch-agent-critic-dspy-gemini-%-gemma9b:
-	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemma9b)
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemini_gemma9b)
 
 batch-agent-critic-dspy-gemini-%-qwen7b:
-	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_qwen7b)
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemini_qwen7b)
 
 batch-agent-critic-dspy-gemini-%-llama8b:
-	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_llama8b)
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemini_llama8b)
 
 batch-agent-critic-dspy-gemini-%-llama3b:
-	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_llama3b)
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemini_llama3b)
 
 batch-agent-critic-dspy-anthropic-%-gpt4o-mini:
-	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_gpt4o-mini)
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_claude_gpt4o-mini)
 
 batch-agent-critic-dspy-anthropic-%-mistral-small-3.1:
-	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_mistral-small-3.1)
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_claude_mistral-small-3.1)
 
 batch-agent-critic-dspy-anthropic-%-llama70b:
-	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_llama70b)
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_claude_llama70b)
 
 batch-agent-critic-dspy-anthropic-%-qwen72b:
-	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_qwen72b)
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_claude_qwen72b)
 
 batch-agent-critic-dspy-gemini-%-gpt4o-mini:
-	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gpt4o-mini)
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemini_gpt4o-mini)
 
 batch-agent-critic-dspy-gemini-%-mistral-small-3.1:
-	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_mistral-small-3.1)
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemini_mistral-small-3.1)
 
 batch-agent-critic-dspy-gemini-%-llama70b:
-	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_llama70b)
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemini_llama70b)
 
 batch-agent-critic-dspy-gemini-%-qwen72b:
-	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_qwen72b)
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemini_qwen72b)
 
 batch-agent-critic-dspy-anthropic-small-models: \
 	batch-agent-critic-dspy-anthropic-BootstrapFewShot-gemma9b \
