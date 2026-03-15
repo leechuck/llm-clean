@@ -299,11 +299,12 @@ make generate-llama70b-dspy-agent-models
 make generate-qwen72b-dspy-agent-models
 make generate-gpt4o-mini-dspy-agent-models
 make generate-mistral-small-dspy-agent-models
+make generate-mistral7b-dspy-agent-models
 
 # All large models (anthropic, gemini, llama70b, qwen72b)
 make generate-large-llm-dspy-agent-models
 
-# All small models (gemma9b, qwen7b, llama8b, llama3b, gpt4o-mini, mistral-small)
+# All small models (gemma9b, qwen7b, llama8b, llama3b, gpt4o-mini, mistral-small, mistral7b)
 make generate-small-llm-dspy-agent-models
 ```
 
@@ -418,7 +419,7 @@ make generate-llama70b-dspy-agent-critic-models
 # All large models (anthropic, gemini, llama70b, qwen72b)
 make generate-large-llm-dspy-agent-critic-models
 
-# All small models (gemma9b, qwen7b, llama8b, llama3b, gpt4o-mini, mistral-small)
+# All small models (gemma9b, qwen7b, llama8b, llama3b, gpt4o-mini, mistral-small, mistral7b)
 make generate-small-llm-dspy-agent-critic-models
 ```
 
