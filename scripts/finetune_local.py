@@ -80,7 +80,7 @@ def step_train(
     if adapter_weights:
         skip(f"Adapter already exists at {adapter}  (delete to retrain)")
         return
-    print(f"    Training for {iters} iterations  |  lr={lr}  |  lora_layers={lora_layers}")
+    print(f"    Training for {iters} iterations  |  lr={lr}  |  num_layers={lora_layers}")
     run(
         [
             "mlx_lm.lora",
@@ -89,7 +89,7 @@ def step_train(
             "--data", str(data),
             "--iters", str(iters),
             "--learning-rate", lr,
-            "--lora-layers", str(lora_layers),
+            "--num-layers", str(lora_layers),
             "--adapter-path", str(adapter),
         ],
         dry_run,
@@ -195,7 +195,7 @@ Requirements:
                         help="LoRA training iterations (default: 600)")
     parser.add_argument("--lr", default="1e-4",
                         help="Learning rate (default: 1e-4)")
-    parser.add_argument("--lora-layers", type=int, default=8,
+    parser.add_argument("--num-layers", type=int, default=8,
                         help="Number of LoRA layers (default: 8)")
 
     # Skip flags
@@ -240,7 +240,7 @@ Requirements:
     print(f"  MLX path:       {mlx_path}")
     print(f"  Training data:  {data}  ({record_count} records)")
     print(f"  Adapter:        {adapter}")
-    print(f"  Iterations:     {args.iters}  |  lr={args.lr}  |  lora_layers={args.lora_layers}")
+    print(f"  Iterations:     {args.iters}  |  lr={args.lr}  |  num_layers={args.num_layers}")
     print(f"  Fused model:    {fused}")
     print(f"  GGUF:           {gguf}")
     print(f"  Ollama name:    {args.ollama_name}")
@@ -259,7 +259,7 @@ Requirements:
         skip("--skip-download passed")
 
     if not args.skip_train:
-        step_train(mlx_path, data, args.iters, args.lr, args.lora_layers, adapter, args.dry_run)
+        step_train(mlx_path, data, args.iters, args.lr, args.num_layers, adapter, args.dry_run)
     else:
         step(2, 4, "Fine-tune with LoRA")
         skip("--skip-train passed")
