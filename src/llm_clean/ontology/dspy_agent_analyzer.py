@@ -353,7 +353,7 @@ class DSPyAgentOntologyAnalyzer:
         "meta-llama/llama-3.1-8b-instruct",
         "meta-llama/llama-3.3-70b-instruct",
         "mistralai/mistral-small-3.1-24b-instruct",
-        "mistralai/mistral-7b-instruct-v0.3",
+        "mistralai/mistral-7b-instruct",
         "qwen/qwen-2.5-72b-instruct",
     ]
 
@@ -367,7 +367,7 @@ class DSPyAgentOntologyAnalyzer:
         "gpt4o-mini": "openai/gpt-4o-mini",
         "llama70b": "meta-llama/llama-3.3-70b-instruct",
         "mistral-small-3.1": "mistralai/mistral-small-3.1-24b-instruct",
-        "mistral7b": "mistralai/mistral-7b-instruct-v0.3",
+        "mistral7b": "mistralai/mistral-7b-instruct",
         "qwen72b": "qwen/qwen-2.5-72b-instruct",
     }
 
@@ -394,7 +394,7 @@ class DSPyAgentOntologyAnalyzer:
                    - "gpt4o-mini"        -> openai/gpt-4o-mini
                    - "llama70b"          -> meta-llama/llama-3.3-70b-instruct
                    - "mistral-small-3.1" -> mistralai/mistral-small-3.1-24b-instruct
-                   - "mistral7b"         -> mistralai/mistral-7b-instruct-v0.3
+                   - "mistral7b"         -> mistralai/mistral-7b-instruct
                    - "qwen72b"           -> qwen/qwen-2.5-72b-instruct
             optimized_module_path: Path to a saved optimized module (optional).
             train_file: Path to training data file (TSV, CSV, or JSON) (optional).

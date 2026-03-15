@@ -171,7 +171,7 @@ Requirements:
 
     # Model / path arguments
     parser.add_argument("--hf-model", default="mistralai/Mistral-7B-Instruct-v0.3",
-                        help="HuggingFace model ID (default: mistralai/Mistral-7B-Instruct-v0.3)")
+                        help="HuggingFace model ID (default: mistralai/Mistral-7B-Instruct-v0.3 — note: OpenRouter shortcut 'mistral7b' routes to mistralai/mistral-7b-instruct)")
     parser.add_argument("--mlx-path", type=Path,
                         default=project_root / "output/fine-tunning/models/mistral-7b-mlx",
                         help="MLX model output directory (default: output/fine-tunning/models/mistral-7b-mlx)")
