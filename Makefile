@@ -31,7 +31,9 @@
         batch-agent-critic-dspy-anthropic-small-models batch-agent-critic-dspy-gemini-small-models \
         batch-agent-critic-dspy-small-models \
         finetune-mistral7b finetune-gemma9b finetune-qwen7b finetune-llama8b finetune-llama3b \
-        finetune-all-local
+        finetune-all-local \
+        test-finetuned-mistral7b test-finetuned-gemma9b test-finetuned-qwen7b \
+        test-finetuned-llama8b test-finetuned-llama3b test-finetuned-all
 
 # Default target
 .DEFAULT_GOAL := help
@@ -1022,6 +1024,40 @@ finetune-llama3b: ## Fine-tune Llama-3.2-3B-Instruct locally (llama3b)
 		--ollama-name llama3b-ontoclean
 
 finetune-all-local: finetune-mistral7b finetune-gemma9b finetune-qwen7b finetune-llama8b finetune-llama3b ## Fine-tune all five small models locally
+
+TEST_OUTPUT_DIR = output/finetuned_tests
+
+test-finetuned-mistral7b: ## Test mistral7b-ontoclean on guarino_messy.owl
+	@echo "$(BLUE)Testing mistral7b-ontoclean...$(NC)"
+	uv run python scripts/test_finetuned_ontoclean.py \
+		--model mistral7b-ontoclean \
+		--output $(TEST_OUTPUT_DIR)/mistral7b_ontoclean_results.tsv
+
+test-finetuned-gemma9b: ## Test gemma9b-ontoclean on guarino_messy.owl
+	@echo "$(BLUE)Testing gemma9b-ontoclean...$(NC)"
+	uv run python scripts/test_finetuned_ontoclean.py \
+		--model gemma9b-ontoclean \
+		--output $(TEST_OUTPUT_DIR)/gemma9b_ontoclean_results.tsv
+
+test-finetuned-qwen7b: ## Test qwen7b-ontoclean on guarino_messy.owl
+	@echo "$(BLUE)Testing qwen7b-ontoclean...$(NC)"
+	uv run python scripts/test_finetuned_ontoclean.py \
+		--model qwen7b-ontoclean \
+		--output $(TEST_OUTPUT_DIR)/qwen7b_ontoclean_results.tsv
+
+test-finetuned-llama8b: ## Test llama8b-ontoclean on guarino_messy.owl
+	@echo "$(BLUE)Testing llama8b-ontoclean...$(NC)"
+	uv run python scripts/test_finetuned_ontoclean.py \
+		--model llama8b-ontoclean \
+		--output $(TEST_OUTPUT_DIR)/llama8b_ontoclean_results.tsv
+
+test-finetuned-llama3b: ## Test llama3b-ontoclean on guarino_messy.owl
+	@echo "$(BLUE)Testing llama3b-ontoclean...$(NC)"
+	uv run python scripts/test_finetuned_ontoclean.py \
+		--model llama3b-ontoclean \
+		--output $(TEST_OUTPUT_DIR)/llama3b_ontoclean_results.tsv
+
+test-finetuned-all: test-finetuned-mistral7b test-finetuned-gemma9b test-finetuned-qwen7b test-finetuned-llama8b test-finetuned-llama3b ## Test all five fine-tuned models
 
 ##@ Complete Workflows
 
