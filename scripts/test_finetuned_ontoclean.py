@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
 """
-Test a locally fine-tuned Ollama model against guarino_messy.owl.
+Test a locally fine-tuned model against guarino_messy.owl.
 
-Calls any fine-tuned Ollama model (default: mistral7b-ontoclean) for each
-entity in guarino_messy.owl, parses its meta-property predictions, and
-compares them against ground_truth.tsv.
+Supports two backends:
+  - Ollama  (default): model registered via 'ollama create'
+  - mlx_lm server:     for models whose GGUF export is unsupported
+                       (e.g. Gemma 2 — mlx_lm always writes 'llama'
+                       architecture metadata, causing Ollama to crash)
 
 Usage:
-    python scripts/test_finetuned_ontoclean.py
+    # Ollama backend (default)
+    python scripts/test_finetuned_ontoclean.py --model mistral7b-ontoclean
+
+    # mlx_lm server backend (for Gemma and other non-LLaMA architectures)
+    mlx_lm.server --model output/fine-tunning/models/gemma9b-ontoclean-fused --port 8080
+    python scripts/test_finetuned_ontoclean.py --endpoint http://localhost:8080/v1 --model gemma9b
+
     python scripts/test_finetuned_ontoclean.py --limit 5
-    python scripts/test_finetuned_ontoclean.py --model qwen7b-ontoclean
     python scripts/test_finetuned_ontoclean.py --no-compare
     python scripts/test_finetuned_ontoclean.py --output output/finetuned_test.tsv
 """
@@ -57,32 +64,64 @@ Return ONLY valid JSON in this exact format:
 }"""
 
 # ---------------------------------------------------------------------------
-# Ollama helpers
+# API helpers
 # ---------------------------------------------------------------------------
 
-def call_ollama(model: str, term: str, description: str = "") -> dict | None:
-    """Call the Ollama model and return parsed JSON result, or None on failure."""
+OLLAMA_ENDPOINT  = "http://localhost:11434/api/chat"
+OPENAI_ENDPOINT  = "/chat/completions"   # appended to --endpoint base URL
+
+
+def call_model(model: str, term: str, description: str = "",
+               endpoint: str | None = None) -> dict | None:
+    """
+    Call the model and return parsed JSON result, or None on failure.
+
+    If endpoint is None, uses the Ollama /api/chat format.
+    If endpoint is set (e.g. http://localhost:8080/v1), uses the
+    OpenAI-compatible /chat/completions format served by mlx_lm.server.
+    """
     user_content = f"Term: {term}"
     if description:
         user_content += f"\nDescription: {description}"
 
-    payload = {
-        "model": model,
-        "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user",   "content": user_content},
-        ],
-        "stream": False,
-        "options": {"temperature": 0.1},
-    }
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user",   "content": user_content},
+    ]
 
     try:
-        resp = requests.post("http://localhost:11434/api/chat", json=payload, timeout=120)
-        resp.raise_for_status()
-        content = resp.json()["message"]["content"]
+        if endpoint:
+            # OpenAI-compatible endpoint (mlx_lm.server)
+            url = endpoint.rstrip("/") + OPENAI_ENDPOINT
+            payload = {
+                "model": model,
+                "messages": messages,
+                "temperature": 0.1,
+            }
+            resp = requests.post(url, json=payload, timeout=120)
+            resp.raise_for_status()
+            content = resp.json()["choices"][0]["message"]["content"]
+        else:
+            # Ollama /api/chat endpoint
+            payload = {
+                "model": model,
+                "messages": messages,
+                "stream": False,
+                "options": {"temperature": 0.1},
+            }
+            resp = requests.post(OLLAMA_ENDPOINT, json=payload, timeout=120)
+            resp.raise_for_status()
+            content = resp.json()["message"]["content"]
+
         return parse_response(content)
-    except requests.exceptions.ConnectionError:
-        print("Error: Ollama not running. Start with: ollama serve", file=sys.stderr)
+
+    except requests.exceptions.ConnectionError as e:
+        if endpoint:
+            print(f"Error: mlx_lm server not reachable at {endpoint}.\n"
+                  f"Start with: mlx_lm.server --model <fused-model-path> --port 8080",
+                  file=sys.stderr)
+        else:
+            print("Error: Ollama not running. Start with: ollama serve", file=sys.stderr)
         sys.exit(1)
     except Exception as e:
         print(f"  Warning: request failed for '{term}': {e}", file=sys.stderr)
@@ -164,10 +203,16 @@ def render_property(predicted: str, gold: str) -> str:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Test mistral7b-ontoclean on guarino_messy.owl",
+        description="Test a locally fine-tuned model on guarino_messy.owl",
     )
     parser.add_argument("--model",     default="mistral7b-ontoclean",
-                        help="Ollama model name (default: mistral7b-ontoclean)")
+                        help="Model name: Ollama model name or mlx_lm model id "
+                             "(default: mistral7b-ontoclean)")
+    parser.add_argument("--endpoint",  default=None,
+                        help="OpenAI-compatible API base URL for mlx_lm.server "
+                             "(e.g. http://localhost:8080/v1). "
+                             "If omitted, uses Ollama at localhost:11434. "
+                             "Use for models with broken GGUF export (e.g. Gemma 2).")
     parser.add_argument("--owl",       default=str(OWL_FILE),
                         help="Path to OWL file")
     parser.add_argument("--gt",        default=str(GROUND_TRUTH),
@@ -187,8 +232,10 @@ def main():
 
     ground_truth = {} if args.no_compare else load_ground_truth(Path(args.gt))
 
+    backend = f"mlx_lm.server ({args.endpoint})" if args.endpoint else "Ollama"
     print(f"\n{'='*60}")
     print(f"  Testing {args.model} on {len(entities)} entities")
+    print(f"  Backend: {backend}")
     print(f"{'='*60}\n")
 
     rows = []
@@ -199,7 +246,7 @@ def main():
         desc = entity["description"]
         print(f"[{i:2}/{len(entities)}] {term}")
 
-        result = call_ollama(args.model, term, desc)
+        result = call_model(args.model, term, desc, endpoint=args.endpoint)
 
         if result is None:
             print(f"       ✗ No valid response\n")

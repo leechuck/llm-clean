@@ -1034,10 +1034,13 @@ test-finetuned-mistral7b: ## Test mistral7b-ontoclean on guarino_messy.owl
 		--model mistral7b-ontoclean \
 		--output $(TEST_OUTPUT_DIR)/mistral7b_ontoclean_results.tsv
 
-test-finetuned-gemma9b: ## Test gemma9b-ontoclean on guarino_messy.owl
-	@echo "$(BLUE)Testing gemma9b-ontoclean...$(NC)"
+test-finetuned-gemma9b: ## Test gemma9b-ontoclean via mlx_lm.server (Gemma 2 GGUF export unsupported)
+	@echo "$(BLUE)Testing gemma9b-ontoclean via mlx_lm.server...$(NC)"
+	@echo "NOTE: Start mlx_lm.server first:"
+	@echo "  mlx_lm.server --model $(FINETUNE_MODELS_DIR)/gemma9b-ontoclean-fused --port 8080"
 	uv run python scripts/test_finetuned_ontoclean.py \
 		--model gemma9b-ontoclean \
+		--endpoint http://localhost:8080/v1 \
 		--output $(TEST_OUTPUT_DIR)/gemma9b_ontoclean_results.tsv
 
 test-finetuned-qwen7b: ## Test qwen7b-ontoclean on guarino_messy.owl
