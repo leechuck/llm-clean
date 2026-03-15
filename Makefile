@@ -1046,6 +1046,7 @@ test-finetuned-gemma9b: ## Test gemma9b-ontoclean via mlx_lm.server
 	uv run python scripts/test_with_mlx_server.py \
 		--model-path $(FINETUNE_MODELS_DIR)/gemma9b-ontoclean-fused \
 		--model-name gemma9b-ontoclean \
+		--no-system-role \
 		--output $(TEST_OUTPUT_DIR)/gemma9b_ontoclean_results.tsv
 
 test-finetuned-qwen7b: ## Test qwen7b-ontoclean via mlx_lm.server

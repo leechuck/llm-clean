@@ -72,7 +72,8 @@ OPENAI_ENDPOINT  = "/chat/completions"   # appended to --endpoint base URL
 
 
 def call_model(model: str, term: str, description: str = "",
-               endpoint: str | None = None) -> dict | None:
+               endpoint: str | None = None,
+               no_system_role: bool = False) -> dict | None:
     """
     Call the model and return parsed JSON result, or None on failure.
 
@@ -84,10 +85,15 @@ def call_model(model: str, term: str, description: str = "",
     if description:
         user_content += f"\nDescription: {description}"
 
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user",   "content": user_content},
-    ]
+    if no_system_role:
+        # Models like Gemma 2 reject the 'system' role in their chat template.
+        # Prepend the system prompt directly into the user message instead.
+        messages = [{"role": "user", "content": f"{SYSTEM_PROMPT}\n\n{user_content}"}]
+    else:
+        messages = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user",   "content": user_content},
+        ]
 
     try:
         if endpoint:
@@ -128,22 +134,65 @@ def call_model(model: str, term: str, description: str = "",
         return None
 
 
+# Fuzzy mapping: any key matching these patterns → canonical property name.
+# Handles model hallucinations like "own_t_identity", "own_  identity", etc.
+_KEY_PATTERNS = [
+    (re.compile(r"own.{0,5}identity", re.I), "own_identity"),
+    (re.compile(r"rigidity",           re.I), "rigidity"),
+    (re.compile(r"\bidentity\b",       re.I), "identity"),
+    (re.compile(r"\bunity\b",          re.I), "unity"),
+    (re.compile(r"dependence",         re.I), "dependence"),
+    (re.compile(r"classification",     re.I), "classification"),
+    (re.compile(r"reasoning",          re.I), "reasoning"),
+    (re.compile(r"\bproperties\b",     re.I), "properties"),
+]
+
+
+def canonicalise_key(k: str) -> str:
+    """Map a possibly-garbled key to its canonical property name."""
+    for pattern, canonical in _KEY_PATTERNS:
+        if pattern.search(k):
+            return canonical
+    # fallback: collapse whitespace/underscores
+    return re.sub(r"[\s_]+", "_", k.strip()).lower()
+
+
+def normalise_keys(obj: dict) -> dict:
+    """Recursively canonicalise all keys in a dict."""
+    if not isinstance(obj, dict):
+        return obj
+    return {canonicalise_key(k): normalise_keys(v) if isinstance(v, dict) else v
+            for k, v in obj.items()}
+
+
+def extract_first_json(text: str) -> str | None:
+    """Return the first complete {...} block, ignoring trailing text."""
+    depth = 0
+    start = None
+    for i, ch in enumerate(text):
+        if ch == "{":
+            if start is None:
+                start = i
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0 and start is not None:
+                return text[start:i + 1]
+    return None
+
+
 def parse_response(text: str) -> dict | None:
-    """Extract JSON from model response, handling markdown fences."""
+    """Extract JSON from model response, handling markdown fences and trailing text."""
     # Strip markdown code fences
     text = re.sub(r"```(?:json)?\s*", "", text).strip().rstrip("`").strip()
     # Remove trailing commas before } or ]
     text = re.sub(r",\s*([}\]])", r"\1", text)
+    # Extract first complete JSON object (model may append extra text after })
+    block = extract_first_json(text) or text
     try:
-        return json.loads(text)
+        return normalise_keys(json.loads(block))
     except json.JSONDecodeError:
-        # Try to find JSON block within response
-        match = re.search(r"\{.*\}", text, re.DOTALL)
-        if match:
-            try:
-                return json.loads(match.group())
-            except json.JSONDecodeError:
-                pass
+        pass
     return None
 
 
@@ -221,6 +270,10 @@ def main():
                         help="Analyse only first N entities")
     parser.add_argument("--no-compare", action="store_true",
                         help="Skip ground truth comparison")
+    parser.add_argument("--no-system-role", action="store_true",
+                        help="Merge system prompt into first user message "
+                             "(required for Gemma 2 and other models that reject "
+                             "the 'system' role in their chat template)")
     parser.add_argument("--output",    default=None,
                         help="Save results to TSV file")
     args = parser.parse_args()
@@ -246,7 +299,8 @@ def main():
         desc = entity["description"]
         print(f"[{i:2}/{len(entities)}] {term}")
 
-        result = call_model(args.model, term, desc, endpoint=args.endpoint)
+        result = call_model(args.model, term, desc, endpoint=args.endpoint,
+                            no_system_role=args.no_system_role)
 
         if result is None:
             print(f"       ✗ No valid response\n")

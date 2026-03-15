@@ -76,6 +76,9 @@ Examples:
                         help="Limit number of entities (passed to test script)")
     parser.add_argument("--no-compare", action="store_true",
                         help="Skip ground truth comparison (passed to test script)")
+    parser.add_argument("--no-system-role", action="store_true",
+                        help="Merge system prompt into first user message "
+                             "(required for Gemma 2; passed to test script)")
     args = parser.parse_args()
 
     model_path = Path(args.model_path)
@@ -125,6 +128,8 @@ Examples:
             test_cmd += ["--limit", str(args.limit)]
         if args.no_compare:
             test_cmd.append("--no-compare")
+        if args.no_system_role:
+            test_cmd.append("--no-system-role")
 
         result = subprocess.run(test_cmd, cwd=str(project_root))
         sys.exit(result.returncode)
