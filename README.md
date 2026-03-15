@@ -446,9 +446,11 @@ The test suite covers:
 
 ### 🔧 Local Fine-Tuning (Apple Silicon / macOS)
 
-To fine-tune a model locally on your MacBook using ground truth data:
+Produces a fine-tuned Ollama model from `ground_truth.tsv` in two stages:
+1. Generate training data (once)
+2. Run the automated fine-tuning pipeline
 
-**Step 1: Generate fine-tuning data from `ground_truth.tsv`**
+**Stage 1 — Generate fine-tuning data**
 
 ```bash
 # Use a strong model to generate reasoning traces (labels come from ground truth)
@@ -463,52 +465,48 @@ uv run scripts/generate_finetune_data.py --skip-reasoning
 
 Output: `output/fine-tunning/finetune_data.jsonl` — chat-format JSONL with ground-truth property values and LLM-generated reasoning traces.
 
-> A pre-generated copy (22 examples, Gemini reasoning) is included in the repository at `output/fine-tunning/finetune_data.jsonl` and can be used directly without re-running this step.
+> A pre-generated copy (22 examples, Gemini reasoning) is already included at `output/fine-tunning/finetune_data.jsonl`. Skip Stage 1 and run Stage 2 directly.
 
-**Step 2: Fine-tune with mlx-lm (Apple Silicon only)**
-
-```bash
-# Download base model (first time only)
-mlx_lm.convert --hf-path Qwen/Qwen2.5-7B-Instruct \
-    --mlx-path models/qwen2.5-7b-mlx
-
-# Fine-tune with LoRA
-mlx_lm.lora \
-    --model models/qwen2.5-7b-mlx \
-    --train \
-    --data output/fine-tunning/finetune_data.jsonl \
-    --iters 600 \
-    --learning-rate 1e-4 \
-    --lora-layers 8 \
-    --adapter-path adapters/qwen7b-ontoclean
-```
-
-**Step 3: Fuse and load into Ollama**
+**Stage 2 — Run the fine-tuning pipeline**
 
 ```bash
-# Fuse LoRA adapter into model weights
-mlx_lm.fuse \
-    --model models/qwen2.5-7b-mlx \
-    --adapter-path adapters/qwen7b-ontoclean \
-    --save-path models/qwen7b-ontoclean-fused
+# Full pipeline with defaults (Qwen2.5-7B-Instruct → qwen7b-ontoclean Ollama model)
+python scripts/finetune_local.py
 
-# Convert to GGUF
-python llama.cpp/convert_hf_to_gguf.py models/qwen7b-ontoclean-fused \
-    --outfile models/qwen7b-ontoclean.gguf --outtype q4_k_m
+# Preview all commands without executing
+python scripts/finetune_local.py --dry-run
 
-# Load into Ollama
-echo 'FROM ./models/qwen7b-ontoclean.gguf' > Modelfile
-ollama create qwen7b-ontoclean -f Modelfile
+# Resume after a step already completed
+python scripts/finetune_local.py --skip-download --skip-train
+
+# Use a different base model
+python scripts/finetune_local.py \
+  --hf-model mistralai/Mistral-7B-Instruct-v0.3 \
+  --mlx-path models/mistral-7b-mlx \
+  --ollama-name mistral7b-ontoclean
 ```
+
+`finetune_local.py` runs four steps automatically:
+
+| Step | Tool | Output |
+|------|------|--------|
+| 1 — Download & convert | `mlx_lm.convert` | `models/qwen2.5-7b-mlx/` |
+| 2 — LoRA fine-tune | `mlx_lm.lora` | `adapters/qwen7b-ontoclean/` |
+| 3 — Fuse + export GGUF | `mlx_lm.fuse --export-gguf` | `models/qwen7b-ontoclean.gguf` |
+| 4 — Register model | `ollama create` | `ollama run qwen7b-ontoclean` |
+
+Each step is skipped automatically if its output already exists.
 
 **Hardware requirements:**
 
-| Model | Min RAM | Notes |
-|-------|---------|-------|
-| Qwen2.5-7B | ~16GB | Practical on most M-series MacBooks |
-| Mistral Small 24B | ~48GB | Requires M2/M3 Ultra or higher |
+| Model | Min unified RAM | Notes |
+|-------|----------------|-------|
+| Qwen2.5-7B | ~16 GB | Practical on most M-series MacBooks |
+| Mistral Small 24B | ~48 GB | Requires M2/M3 Ultra or higher |
 
-> `mlx-lm` is installed automatically on macOS via `uv sync`. It is skipped on Linux/Windows.
+**Dependencies** (installed automatically on macOS via `uv sync`, skipped on Linux/Windows):
+
+`mlx-lm`, `transformers`, `sentencepiece`, `safetensors`, `gguf`, `llama-cpp-python`
 
 ---
 
