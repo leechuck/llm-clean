@@ -486,6 +486,29 @@ Output: `output/fine-tunning/data/finetune_data.jsonl` — chat-format JSONL wit
 
 > A pre-generated copy (22 examples, Gemini reasoning) is already included at `output/fine-tunning/data/finetune_data.jsonl`. Skip Stage 1 and run Stage 2 directly.
 
+**HuggingFace authentication (required for gated models)**
+
+Some models require accepting a license agreement on HuggingFace before they can be downloaded:
+
+| Model | Gated? | Action required |
+|-------|--------|----------------|
+| `mistralai/Mistral-7B-Instruct-v0.3` | No | None |
+| `Qwen/Qwen2.5-7B-Instruct` | No | None |
+| `meta-llama/Llama-3.1-8B-Instruct` | Yes | Accept license + HF token |
+| `meta-llama/Llama-3.2-3B-Instruct` | Yes | Accept license + HF token |
+| `google/gemma-2-9b-it` | Yes | Accept license + HF token |
+
+For gated models:
+
+1. Visit the model page on [huggingface.co](https://huggingface.co) and click **"Agree and access repository"**
+2. Create an access token at [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
+3. Log in locally:
+
+```bash
+uv run huggingface-cli login
+# paste your token when prompted
+```
+
 **Stage 2 — Run the fine-tuning pipeline**
 
 Use the Makefile targets (recommended) or call `finetune_local.py` directly.
