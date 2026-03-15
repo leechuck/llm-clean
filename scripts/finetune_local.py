@@ -131,23 +131,46 @@ def step_train(
 def step_fuse_and_gguf(
     mlx_path: Path, adapter: Path, fused: Path, gguf: Path, dry_run: bool
 ) -> None:
-    """Fuse the LoRA adapter and export GGUF in one mlx_lm.fuse call."""
+    """
+    Fuse the LoRA adapter into the base model, then export GGUF.
+
+    Done in two passes to avoid a mlx_lm bug where --export-gguf on the
+    fuse step tries to serialize column-major (MLX) arrays, crashing with
+    "can only serialize row-major arrays".  Pass 1 writes row-major
+    safetensors; pass 2 loads those and converts to GGUF cleanly.
+    """
     step(3, 4, "Fuse adapter and export GGUF")
     if gguf.exists():
         skip(f"GGUF already exists at {gguf}")
         return
+
+    # Pass 1: fuse adapter → HuggingFace safetensors (row-major on disk)
+    if not fused.exists() or not (fused / "config.json").exists():
+        print(f"    Pass 1: fusing adapter into {fused}")
+        run(
+            [
+                "mlx_lm.fuse",
+                "--model", str(mlx_path),
+                "--adapter-path", str(adapter),
+                "--save-path", str(fused),
+            ],
+            dry_run,
+        )
+        ok(f"Fused model saved to {fused}")
+    else:
+        print(f"    Pass 1: fused model already exists at {fused}, skipping fuse")
+
+    # Pass 2: reload fused safetensors → GGUF (weights are now row-major)
+    print(f"    Pass 2: exporting GGUF to {gguf}")
     run(
         [
             "mlx_lm.fuse",
-            "--model", str(mlx_path),
-            "--adapter-path", str(adapter),
-            "--save-path", str(fused),
+            "--model", str(fused),
             "--export-gguf",
             "--gguf-path", str(gguf),
         ],
         dry_run,
     )
-    ok(f"Fused model saved to {fused}")
     ok(f"GGUF exported to {gguf}")
 
 
