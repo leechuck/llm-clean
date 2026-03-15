@@ -20,7 +20,6 @@ from pathlib import Path
 
 
 def patch_permute_weights():
-    import numpy as np
     import mlx.core as mx
     import mlx_lm.gguf as gguf_module
 
@@ -28,9 +27,11 @@ def patch_permute_weights():
 
     def patched(weights, n_head, n_head_kv=None):
         result = original(weights, n_head, n_head_kv)
-        # swapaxes() leaves a non-contiguous view; round-trip through numpy
-        # to get a C-contiguous (row-major) copy that mx.save_gguf accepts.
-        return mx.array(np.ascontiguousarray(np.array(result)))
+        # swapaxes() leaves a non-contiguous view that mx.save_gguf rejects.
+        # flatten() returns a 1-D contiguous copy; reshape() back to the
+        # original shape produces a row-major (C-contiguous) array.
+        # Stays entirely in MLX to avoid numpy bfloat16 buffer issues.
+        return result.flatten().reshape(result.shape)
 
     gguf_module.permute_weights = patched
 
