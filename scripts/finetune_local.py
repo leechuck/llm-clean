@@ -121,6 +121,7 @@ def step_train(
             "--learning-rate", lr,
             "--num-layers", str(lora_layers),
             "--adapter-path", str(adapter),
+            "--val-batches", "0",   # disable validation (dataset too small)
         ],
         dry_run,
     )
