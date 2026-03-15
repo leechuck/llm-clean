@@ -399,6 +399,7 @@ class DSPyAgentCriticOntologyAnalyzer:
         "gpt4o-mini",
         "llama70b",
         "mistral-small-3.1",
+        "mistral7b",
         "qwen72b",
         # Full model names
         "google/gemini-3-flash-preview",
@@ -410,6 +411,7 @@ class DSPyAgentCriticOntologyAnalyzer:
         "meta-llama/llama-3.1-8b-instruct",
         "meta-llama/llama-3.3-70b-instruct",
         "mistralai/mistral-small-3.1-24b-instruct",
+        "mistralai/mistral-7b-instruct-v0.3",
         "qwen/qwen-2.5-72b-instruct",
     ]
 
@@ -423,6 +425,7 @@ class DSPyAgentCriticOntologyAnalyzer:
         "gpt4o-mini": "openai/gpt-4o-mini",
         "llama70b": "meta-llama/llama-3.3-70b-instruct",
         "mistral-small-3.1": "mistralai/mistral-small-3.1-24b-instruct",
+        "mistral7b": "mistralai/mistral-7b-instruct-v0.3",
         "qwen72b": "qwen/qwen-2.5-72b-instruct",
     }
 
