@@ -159,7 +159,7 @@ Examples:
         help=(
             "Model to use (default: llama3b). "
             "Shortcuts: gemini, anthropic, gemma9b, qwen7b, llama3b, llama8b, "
-            "gpt4o-mini, llama70b, mistral-small-3.1, qwen72b"
+            "gpt4o-mini, llama70b, mistral-small-3.1, mistral7b, qwen72b"
         ),
     )
 
