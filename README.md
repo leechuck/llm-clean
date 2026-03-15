@@ -211,11 +211,29 @@ python scripts/generate_dspy_model.py train.tsv test.tsv out.json --optimizer mi
 - Using trained models for inference
 - Evaluation and comparison workflows
 
+**Supported model shortcuts:**
+
+| Shortcut | Full model (OpenRouter) |
+|----------|------------------------|
+| `gemini` | `google/gemini-3-flash-preview` |
+| `anthropic` | `anthropic/claude-4.5-sonnet` |
+| `gemma9b` | `google/gemma-2-9b-it` |
+| `qwen7b` | `qwen/qwen-2.5-7b-instruct` |
+| `llama3b` | `meta-llama/llama-3.2-3b-instruct` |
+| `llama8b` | `meta-llama/llama-3.1-8b-instruct` |
+| `gpt4o-mini` | `openai/gpt-4o-mini` |
+| `llama70b` | `meta-llama/llama-3.3-70b-instruct` |
+| `mistral-small-3.1` | `mistralai/mistral-small-3.1-24b-instruct` |
+| `mistral7b` | `mistralai/mistral-7b-instruct-v0.3` |
+| `qwen72b` | `qwen/qwen-2.5-72b-instruct` |
+
+Full OpenRouter model names can also be passed directly to `--model`.
+
 **Benefits of DSPy:**
 - ✅ Automatic prompt optimization based on training data
 - ✅ Multiple optimizer options for different use cases
 - ✅ Reproducible and measurable improvements
-- ✅ Works across different model types (Llama, Gemini, Claude, GPT-4, etc.)
+- ✅ Works across different model types (Llama, Gemini, Claude, GPT-4, Mistral, etc.)
 - ✅ No manual prompt engineering required
 - ✅ Defaults optimized for small datasets (~20 samples)
 
