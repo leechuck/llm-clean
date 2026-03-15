@@ -561,24 +561,47 @@ Each step is skipped automatically if its output already exists.
 
 **Testing the fine-tuned model**
 
-Once registered in Ollama, evaluate the model against `guarino_messy.owl` and `ground_truth.tsv`:
+Use the Makefile targets (which start/stop `mlx_lm.server` automatically):
 
 ```bash
-# Full evaluation against all 22 entities
-uv run python scripts/test_finetuned_ontoclean.py --model mistral7b-ontoclean
+make test-finetuned-mistral7b
+make test-finetuned-gemma9b     # uses --no-system-role (Gemma rejects system messages)
+make test-finetuned-qwen7b
+make test-finetuned-llama8b
+make test-finetuned-llama3b
+make test-finetuned-all         # run all five sequentially
+```
 
-# Quick smoke test — first 5 entities
-uv run python scripts/test_finetuned_ontoclean.py --model mistral7b-ontoclean --limit 5
+Results are saved to `output/finetuned_tests/<model>_ontoclean_results.tsv`.
 
-# Save results to TSV
-uv run python scripts/test_finetuned_ontoclean.py --model mistral7b-ontoclean \
-    --output output/finetuned_test.tsv
+Or call the scripts directly for more control:
 
-# Test any other fine-tuned model (e.g. after make finetune-qwen7b)
-uv run python scripts/test_finetuned_ontoclean.py --model qwen7b-ontoclean
+```bash
+# Via mlx_lm.server wrapper (handles server lifecycle automatically)
+uv run python scripts/test_with_mlx_server.py \
+    --model-path output/fine-tunning/models/mistral7b-ontoclean-fused \
+    --output output/finetuned_tests/mistral7b_ontoclean_results.tsv
+
+# For Gemma (no system role)
+uv run python scripts/test_with_mlx_server.py \
+    --model-path output/fine-tunning/models/gemma9b-ontoclean-fused \
+    --no-system-role \
+    --output output/finetuned_tests/gemma9b_ontoclean_results.tsv
 ```
 
 The script prints per-entity property scores with ✓/✗ markers and an overall accuracy summary.
+
+**Fine-tuned model evaluation results** (22 entities from `guarino_messy.owl`, ground truth from `data/raw/ground_truth.tsv`, 100 LoRA iterations, lr=2e-5):
+
+| Model | Overall | Rigidity | Identity | Own Identity | Unity | Dependence |
+|-------|---------|----------|----------|--------------|-------|------------|
+| `qwen7b` | **74.5%** | 16/22 | 20/22 | 16/22 | 13/22 | 17/22 |
+| `llama8b` | 70.0% | 15/22 | 19/22 | 13/22 | 13/22 | 17/22 |
+| `gemma9b` | 52.7% | 10/22 | 18/22 | 5/22 | 11/22 | 14/22 |
+| `llama3b` | 49.1% | 15/22 | 11/22 | 9/22 | 9/22 | 10/22 |
+| `mistral7b` | 47.3% | 4/22 | 13/22 | 9/22 | 11/22 | 15/22 |
+
+> Results are in `output/finetuned_tests/`. Models were fine-tuned on 22 ground-truth examples using LoRA with the default settings in `finetune_local.py`. Qwen2.5-7B and Llama-3.1-8B showed the strongest performance on this small dataset.
 
 ---
 
