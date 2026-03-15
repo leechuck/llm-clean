@@ -1028,37 +1028,45 @@ finetune-all-local: finetune-mistral7b finetune-gemma9b finetune-qwen7b finetune
 
 TEST_OUTPUT_DIR = output/finetuned_tests
 
-test-finetuned-mistral7b: ## Test mistral7b-ontoclean on guarino_messy.owl
+# All test targets use mlx_lm.server (via test_with_mlx_server.py) to bypass
+# the Ollama GGUF crash: mlx_lm's convert_to_gguf writes 'llama' architecture
+# metadata for all models, causing Ollama to crash on non-LLaMA architectures
+# and on some LLaMA models too. Serving the fused safetensors directly avoids
+# the GGUF step entirely.
+
+test-finetuned-mistral7b: ## Test mistral7b-ontoclean via mlx_lm.server
 	@echo "$(BLUE)Testing mistral7b-ontoclean...$(NC)"
-	uv run python scripts/test_finetuned_ontoclean.py \
-		--model mistral7b-ontoclean \
+	uv run python scripts/test_with_mlx_server.py \
+		--model-path $(FINETUNE_MODELS_DIR)/mistral7b-ontoclean-fused \
+		--model-name mistral7b-ontoclean \
 		--output $(TEST_OUTPUT_DIR)/mistral7b_ontoclean_results.tsv
 
-test-finetuned-gemma9b: ## Test gemma9b-ontoclean via mlx_lm.server (Gemma 2 GGUF export unsupported)
-	@echo "$(BLUE)Testing gemma9b-ontoclean via mlx_lm.server...$(NC)"
-	@echo "NOTE: Start mlx_lm.server first:"
-	@echo "  mlx_lm.server --model $(FINETUNE_MODELS_DIR)/gemma9b-ontoclean-fused --port 8080"
-	uv run python scripts/test_finetuned_ontoclean.py \
-		--model gemma9b-ontoclean \
-		--endpoint http://localhost:8080/v1 \
+test-finetuned-gemma9b: ## Test gemma9b-ontoclean via mlx_lm.server
+	@echo "$(BLUE)Testing gemma9b-ontoclean...$(NC)"
+	uv run python scripts/test_with_mlx_server.py \
+		--model-path $(FINETUNE_MODELS_DIR)/gemma9b-ontoclean-fused \
+		--model-name gemma9b-ontoclean \
 		--output $(TEST_OUTPUT_DIR)/gemma9b_ontoclean_results.tsv
 
-test-finetuned-qwen7b: ## Test qwen7b-ontoclean on guarino_messy.owl
+test-finetuned-qwen7b: ## Test qwen7b-ontoclean via mlx_lm.server
 	@echo "$(BLUE)Testing qwen7b-ontoclean...$(NC)"
-	uv run python scripts/test_finetuned_ontoclean.py \
-		--model qwen7b-ontoclean \
+	uv run python scripts/test_with_mlx_server.py \
+		--model-path $(FINETUNE_MODELS_DIR)/qwen7b-ontoclean-fused \
+		--model-name qwen7b-ontoclean \
 		--output $(TEST_OUTPUT_DIR)/qwen7b_ontoclean_results.tsv
 
-test-finetuned-llama8b: ## Test llama8b-ontoclean on guarino_messy.owl
+test-finetuned-llama8b: ## Test llama8b-ontoclean via mlx_lm.server
 	@echo "$(BLUE)Testing llama8b-ontoclean...$(NC)"
-	uv run python scripts/test_finetuned_ontoclean.py \
-		--model llama8b-ontoclean \
+	uv run python scripts/test_with_mlx_server.py \
+		--model-path $(FINETUNE_MODELS_DIR)/llama8b-ontoclean-fused \
+		--model-name llama8b-ontoclean \
 		--output $(TEST_OUTPUT_DIR)/llama8b_ontoclean_results.tsv
 
-test-finetuned-llama3b: ## Test llama3b-ontoclean on guarino_messy.owl
+test-finetuned-llama3b: ## Test llama3b-ontoclean via mlx_lm.server
 	@echo "$(BLUE)Testing llama3b-ontoclean...$(NC)"
-	uv run python scripts/test_finetuned_ontoclean.py \
-		--model llama3b-ontoclean \
+	uv run python scripts/test_with_mlx_server.py \
+		--model-path $(FINETUNE_MODELS_DIR)/llama3b-ontoclean-fused \
+		--model-name llama3b-ontoclean \
 		--output $(TEST_OUTPUT_DIR)/llama3b_ontoclean_results.tsv
 
 test-finetuned-all: test-finetuned-mistral7b test-finetuned-gemma9b test-finetuned-qwen7b test-finetuned-llama8b test-finetuned-llama3b ## Test all five fine-tuned models
