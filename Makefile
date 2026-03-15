@@ -29,7 +29,9 @@
         batch-agent-dspy-anthropic-small-models batch-agent-dspy-gemini-small-models \
         batch-agent-dspy-small-models \
         batch-agent-critic-dspy-anthropic-small-models batch-agent-critic-dspy-gemini-small-models \
-        batch-agent-critic-dspy-small-models
+        batch-agent-critic-dspy-small-models \
+        finetune-mistral7b finetune-gemma9b finetune-qwen7b finetune-llama8b finetune-llama3b \
+        finetune-all-local
 
 # Default target
 .DEFAULT_GOAL := help
@@ -957,6 +959,69 @@ batch-non-agent-expanded: ## Run expanded non-agent batch analysis (13 models x 
 	./scripts/reproduce_expanded_non_agent.sh
 
 reports: collect-non-agent collect-agent collect-critic batch-non-agent-expanded ## Generate all analysis reports
+
+##@ Local Fine-Tuning (Apple Silicon / macOS)
+
+FINETUNE_DATA = output/fine-tunning/data/finetune_data.jsonl
+FINETUNE_MODELS_DIR = output/fine-tunning/models
+FINETUNE_ADAPTERS_DIR = output/fine-tunning/adapters
+
+finetune-mistral7b: ## Fine-tune Mistral-7B-Instruct-v0.3 locally (mistral7b)
+	@echo "$(BLUE)Fine-tuning Mistral 7B locally...$(NC)"
+	uv run python scripts/finetune_local.py \
+		--hf-model mistralai/Mistral-7B-Instruct-v0.3 \
+		--mlx-path $(FINETUNE_MODELS_DIR)/mistral-7b-mlx \
+		--data $(FINETUNE_DATA) \
+		--adapter $(FINETUNE_ADAPTERS_DIR)/mistral7b-ontoclean \
+		--fused $(FINETUNE_MODELS_DIR)/mistral7b-ontoclean-fused \
+		--gguf $(FINETUNE_MODELS_DIR)/mistral7b-ontoclean.gguf \
+		--ollama-name mistral7b-ontoclean
+
+finetune-gemma9b: ## Fine-tune Gemma-2-9B-IT locally (gemma9b)
+	@echo "$(BLUE)Fine-tuning Gemma 9B locally...$(NC)"
+	uv run python scripts/finetune_local.py \
+		--hf-model google/gemma-2-9b-it \
+		--mlx-path $(FINETUNE_MODELS_DIR)/gemma-9b-mlx \
+		--data $(FINETUNE_DATA) \
+		--adapter $(FINETUNE_ADAPTERS_DIR)/gemma9b-ontoclean \
+		--fused $(FINETUNE_MODELS_DIR)/gemma9b-ontoclean-fused \
+		--gguf $(FINETUNE_MODELS_DIR)/gemma9b-ontoclean.gguf \
+		--ollama-name gemma9b-ontoclean
+
+finetune-qwen7b: ## Fine-tune Qwen2.5-7B-Instruct locally (qwen7b)
+	@echo "$(BLUE)Fine-tuning Qwen 7B locally...$(NC)"
+	uv run python scripts/finetune_local.py \
+		--hf-model Qwen/Qwen2.5-7B-Instruct \
+		--mlx-path $(FINETUNE_MODELS_DIR)/qwen2.5-7b-mlx \
+		--data $(FINETUNE_DATA) \
+		--adapter $(FINETUNE_ADAPTERS_DIR)/qwen7b-ontoclean \
+		--fused $(FINETUNE_MODELS_DIR)/qwen7b-ontoclean-fused \
+		--gguf $(FINETUNE_MODELS_DIR)/qwen7b-ontoclean.gguf \
+		--ollama-name qwen7b-ontoclean
+
+finetune-llama8b: ## Fine-tune Llama-3.1-8B-Instruct locally (llama8b)
+	@echo "$(BLUE)Fine-tuning Llama 8B locally...$(NC)"
+	uv run python scripts/finetune_local.py \
+		--hf-model meta-llama/Llama-3.1-8B-Instruct \
+		--mlx-path $(FINETUNE_MODELS_DIR)/llama-8b-mlx \
+		--data $(FINETUNE_DATA) \
+		--adapter $(FINETUNE_ADAPTERS_DIR)/llama8b-ontoclean \
+		--fused $(FINETUNE_MODELS_DIR)/llama8b-ontoclean-fused \
+		--gguf $(FINETUNE_MODELS_DIR)/llama8b-ontoclean.gguf \
+		--ollama-name llama8b-ontoclean
+
+finetune-llama3b: ## Fine-tune Llama-3.2-3B-Instruct locally (llama3b)
+	@echo "$(BLUE)Fine-tuning Llama 3B locally...$(NC)"
+	uv run python scripts/finetune_local.py \
+		--hf-model meta-llama/Llama-3.2-3B-Instruct \
+		--mlx-path $(FINETUNE_MODELS_DIR)/llama-3b-mlx \
+		--data $(FINETUNE_DATA) \
+		--adapter $(FINETUNE_ADAPTERS_DIR)/llama3b-ontoclean \
+		--fused $(FINETUNE_MODELS_DIR)/llama3b-ontoclean-fused \
+		--gguf $(FINETUNE_MODELS_DIR)/llama3b-ontoclean.gguf \
+		--ollama-name llama3b-ontoclean
+
+finetune-all-local: finetune-mistral7b finetune-gemma9b finetune-qwen7b finetune-llama8b finetune-llama3b ## Fine-tune all five small models locally
 
 ##@ Complete Workflows
 
