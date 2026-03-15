@@ -2,12 +2,13 @@
 """
 Fine-tune a model locally on Apple Silicon using mlx-lm.
 
-Runs five steps in sequence:
+Runs four steps in sequence:
   1. Download & convert base model to MLX format  (skipped if already done)
   2. Fine-tune with LoRA via mlx-lm
-  3. Fuse LoRA adapter into model weights
-  4. Convert fused model to GGUF via llama.cpp
-  5. Register the GGUF as an Ollama model
+  3. Fuse LoRA adapter into model weights and export GGUF  (mlx_lm.fuse --export-gguf)
+  4. Register the GGUF as an Ollama model
+
+No llama.cpp installation required — GGUF export is handled by mlx-lm directly.
 
 Usage:
     python scripts/finetune_local.py
@@ -56,7 +57,7 @@ def step(n: int, total: int, title: str) -> None:
 # ---------------------------------------------------------------------------
 
 def step_download(hf_model: str, mlx_path: Path, dry_run: bool) -> None:
-    step(1, 5, "Download & convert base model to MLX")
+    step(1, 4, "Download & convert base model to MLX")
     if mlx_path.exists() and (mlx_path / "config.json").exists():
         skip(f"MLX model already exists at {mlx_path}")
         return
@@ -74,7 +75,7 @@ def step_train(
     adapter: Path,
     dry_run: bool,
 ) -> None:
-    step(2, 5, "Fine-tune with LoRA")
+    step(2, 4, "Fine-tune with LoRA")
     adapter_weights = list(adapter.glob("*.safetensors")) if adapter.exists() else []
     if adapter_weights:
         skip(f"Adapter already exists at {adapter}  (delete to retrain)")
@@ -96,10 +97,13 @@ def step_train(
     ok(f"LoRA adapter saved to {adapter}")
 
 
-def step_fuse(mlx_path: Path, adapter: Path, fused: Path, dry_run: bool) -> None:
-    step(3, 5, "Fuse LoRA adapter into model weights")
-    if fused.exists() and (fused / "config.json").exists():
-        skip(f"Fused model already exists at {fused}")
+def step_fuse_and_gguf(
+    mlx_path: Path, adapter: Path, fused: Path, gguf: Path, dry_run: bool
+) -> None:
+    """Fuse the LoRA adapter and export GGUF in one mlx_lm.fuse call."""
+    step(3, 4, "Fuse adapter and export GGUF")
+    if gguf.exists():
+        skip(f"GGUF already exists at {gguf}")
         return
     run(
         [
@@ -107,41 +111,17 @@ def step_fuse(mlx_path: Path, adapter: Path, fused: Path, dry_run: bool) -> None
             "--model", str(mlx_path),
             "--adapter-path", str(adapter),
             "--save-path", str(fused),
+            "--export-gguf",
+            "--gguf-path", str(gguf),
         ],
         dry_run,
     )
     ok(f"Fused model saved to {fused}")
-
-
-def step_gguf(fused: Path, gguf: Path, quant: str, llamacpp: Path, dry_run: bool) -> None:
-    step(4, 5, "Convert to GGUF for Ollama")
-    if gguf.exists():
-        skip(f"GGUF already exists at {gguf}")
-        return
-    convert_script = llamacpp / "convert_hf_to_gguf.py"
-    if not convert_script.exists() and not dry_run:
-        print(
-            f"\nError: llama.cpp not found at '{llamacpp}'.\n"
-            f"Clone it with:\n"
-            f"  git clone https://github.com/ggerganov/llama.cpp {llamacpp}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-    run(
-        [
-            sys.executable,
-            str(convert_script),
-            str(fused),
-            "--outfile", str(gguf),
-            "--outtype", quant,
-        ],
-        dry_run,
-    )
-    ok(f"GGUF saved to {gguf}")
+    ok(f"GGUF exported to {gguf}")
 
 
 def step_ollama(gguf: Path, ollama_name: str, dry_run: bool) -> None:
-    step(5, 5, "Register with Ollama")
+    step(4, 4, "Register with Ollama")
     modelfile = gguf.parent / "Modelfile"
     modelfile_content = f"FROM {gguf.resolve()}\n"
 
@@ -186,7 +166,6 @@ Requirements:
   - macOS with Apple Silicon (M1/M2/M3/M4)
   - mlx-lm  (uv sync, or: pip install mlx-lm)
   - ollama  (https://ollama.com)
-  - llama.cpp cloned locally (for GGUF conversion)
         """,
     )
 
@@ -206,8 +185,6 @@ Requirements:
                         help="GGUF output file (default: models/qwen7b-ontoclean.gguf)")
     parser.add_argument("--ollama-name", default="qwen7b-ontoclean",
                         help="Ollama model name (default: qwen7b-ontoclean)")
-    parser.add_argument("--llamacpp", default="llama.cpp",
-                        help="Path to llama.cpp directory (default: llama.cpp)")
 
     # Training hyperparameters
     parser.add_argument("--iters", type=int, default=600,
@@ -216,8 +193,6 @@ Requirements:
                         help="Learning rate (default: 1e-4)")
     parser.add_argument("--lora-layers", type=int, default=8,
                         help="Number of LoRA layers (default: 8)")
-    parser.add_argument("--quant", default="q4_k_m",
-                        help="GGUF quantization type (default: q4_k_m)")
 
     # Skip flags
     parser.add_argument("--skip-download", action="store_true",
@@ -225,11 +200,9 @@ Requirements:
     parser.add_argument("--skip-train", action="store_true",
                         help="Skip step 2 — adapter already trained")
     parser.add_argument("--skip-fuse", action="store_true",
-                        help="Skip step 3 — model already fused")
-    parser.add_argument("--skip-gguf", action="store_true",
-                        help="Skip step 4 — GGUF already exists")
+                        help="Skip step 3 — fuse + GGUF export already done")
     parser.add_argument("--skip-ollama", action="store_true",
-                        help="Skip step 5 — skip Ollama registration")
+                        help="Skip step 4 — skip Ollama registration")
     parser.add_argument("--dry-run", action="store_true",
                         help="Print commands without executing them")
 
@@ -241,7 +214,6 @@ Requirements:
     adapter  = Path(args.adapter)
     fused    = Path(args.fused)
     gguf     = Path(args.gguf)
-    llamacpp = Path(args.llamacpp)
 
     # Pre-flight checks
     print("\n" + "="*60)
@@ -266,7 +238,7 @@ Requirements:
     print(f"  Adapter:        {adapter}")
     print(f"  Iterations:     {args.iters}  |  lr={args.lr}  |  lora_layers={args.lora_layers}")
     print(f"  Fused model:    {fused}")
-    print(f"  GGUF:           {gguf}  (quant: {args.quant})")
+    print(f"  GGUF:           {gguf}")
     print(f"  Ollama name:    {args.ollama_name}")
     if args.dry_run:
         print("\n  *** DRY RUN — commands will be printed but not executed ***")
@@ -279,31 +251,25 @@ Requirements:
     if not args.skip_download:
         step_download(args.hf_model, mlx_path, args.dry_run)
     else:
-        step(1, 5, "Download & convert base model to MLX")
+        step(1, 4, "Download & convert base model to MLX")
         skip("--skip-download passed")
 
     if not args.skip_train:
         step_train(mlx_path, data, args.iters, args.lr, args.lora_layers, adapter, args.dry_run)
     else:
-        step(2, 5, "Fine-tune with LoRA")
+        step(2, 4, "Fine-tune with LoRA")
         skip("--skip-train passed")
 
     if not args.skip_fuse:
-        step_fuse(mlx_path, adapter, fused, args.dry_run)
+        step_fuse_and_gguf(mlx_path, adapter, fused, gguf, args.dry_run)
     else:
-        step(3, 5, "Fuse LoRA adapter into model weights")
+        step(3, 4, "Fuse adapter and export GGUF")
         skip("--skip-fuse passed")
-
-    if not args.skip_gguf:
-        step_gguf(fused, gguf, args.quant, llamacpp, args.dry_run)
-    else:
-        step(4, 5, "Convert to GGUF for Ollama")
-        skip("--skip-gguf passed")
 
     if not args.skip_ollama:
         step_ollama(gguf, args.ollama_name, args.dry_run)
     else:
-        step(5, 5, "Register with Ollama")
+        step(4, 4, "Register with Ollama")
         skip("--skip-ollama passed")
 
     # Summary

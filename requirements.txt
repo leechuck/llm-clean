@@ -94,3 +94,8 @@ zipp==3.23.0
 zstandard==0.25.0
 # Fine-tuning on Apple Silicon (macOS only)
 mlx-lm>=0.21.0; sys_platform == "darwin"
+transformers>=4.40.0; sys_platform == "darwin"
+sentencepiece==0.2.1; sys_platform == "darwin"
+safetensors==0.7.0; sys_platform == "darwin"
+gguf==0.18.0; sys_platform == "darwin"
+llama-cpp-python==0.3.16; sys_platform == "darwin"
