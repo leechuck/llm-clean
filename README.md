@@ -463,14 +463,14 @@ uv run scripts/generate_finetune_data.py --model gemini
 uv run scripts/generate_finetune_data.py --skip-reasoning
 ```
 
-Output: `output/fine-tunning/finetune_data.jsonl` — chat-format JSONL with ground-truth property values and LLM-generated reasoning traces.
+Output: `output/fine-tunning/data/finetune_data.jsonl` — chat-format JSONL with ground-truth property values and LLM-generated reasoning traces.
 
-> A pre-generated copy (22 examples, Gemini reasoning) is already included at `output/fine-tunning/finetune_data.jsonl`. Skip Stage 1 and run Stage 2 directly.
+> A pre-generated copy (22 examples, Gemini reasoning) is already included at `output/fine-tunning/data/finetune_data.jsonl`. Skip Stage 1 and run Stage 2 directly.
 
 **Stage 2 — Run the fine-tuning pipeline**
 
 ```bash
-# Full pipeline with defaults (Qwen2.5-7B-Instruct → qwen7b-ontoclean Ollama model)
+# Full pipeline with defaults (Mistral-7B-Instruct-v0.3 → mistral7b-ontoclean Ollama model)
 python scripts/finetune_local.py
 
 # Preview all commands without executing
@@ -481,19 +481,18 @@ python scripts/finetune_local.py --skip-download --skip-train
 
 # Use a different base model
 python scripts/finetune_local.py \
-  --hf-model mistralai/Mistral-7B-Instruct-v0.3 \
-  --mlx-path models/mistral-7b-mlx \
-  --ollama-name mistral7b-ontoclean
+  --hf-model Qwen/Qwen2.5-7B-Instruct \
+  --ollama-name qwen7b-ontoclean
 ```
 
 `finetune_local.py` runs four steps automatically:
 
 | Step | Tool | Output |
 |------|------|--------|
-| 1 — Download & convert | `mlx_lm.convert` | `models/qwen2.5-7b-mlx/` |
-| 2 — LoRA fine-tune | `mlx_lm.lora` | `adapters/qwen7b-ontoclean/` |
-| 3 — Fuse + export GGUF | `mlx_lm.fuse --export-gguf` | `models/qwen7b-ontoclean.gguf` |
-| 4 — Register model | `ollama create` | `ollama run qwen7b-ontoclean` |
+| 1 — Download & convert | `mlx_lm.convert` | `output/fine-tunning/models/mistral-7b-mlx/` |
+| 2 — LoRA fine-tune | `mlx_lm.lora` | `output/fine-tunning/adapters/mistral7b-ontoclean/` |
+| 3 — Fuse + export GGUF | `mlx_lm.fuse --export-gguf` | `output/fine-tunning/models/mistral7b-ontoclean.gguf` |
+| 4 — Register model | `ollama create` | `ollama run mistral7b-ontoclean` |
 
 Each step is skipped automatically if its output already exists.
 
@@ -501,7 +500,7 @@ Each step is skipped automatically if its output already exists.
 
 | Model | Min unified RAM | Notes |
 |-------|----------------|-------|
-| Qwen2.5-7B | ~16 GB | Practical on most M-series MacBooks |
+| Mistral-7B | ~16 GB | Practical on most M-series MacBooks |
 | Mistral Small 24B | ~48 GB | Requires M2/M3 Ultra or higher |
 
 **Dependencies** (installed automatically on macOS via `uv sync`, skipped on Linux/Windows):
