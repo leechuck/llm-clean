@@ -170,25 +170,25 @@ Requirements:
     )
 
     # Model / path arguments
-    parser.add_argument("--hf-model", default="Qwen/Qwen2.5-7B-Instruct",
-                        help="HuggingFace model ID (default: Qwen/Qwen2.5-7B-Instruct)")
+    parser.add_argument("--hf-model", default="mistralai/Mistral-7B-Instruct-v0.3",
+                        help="HuggingFace model ID (default: mistralai/Mistral-7B-Instruct-v0.3)")
     parser.add_argument("--mlx-path", type=Path,
-                        default=project_root / "output/fine-tunning/models/qwen2.5-7b-mlx",
-                        help="MLX model output directory (default: models/qwen2.5-7b-mlx)")
+                        default=project_root / "output/fine-tunning/models/mistral-7b-mlx",
+                        help="MLX model output directory (default: output/fine-tunning/models/mistral-7b-mlx)")
     parser.add_argument("--data", type=Path,
-                        default=project_root / "output/fine-tunning/finetune_data.jsonl",
+                        default=project_root / "output/fine-tunning/data/finetune_data.jsonl",
                         help="Training JSONL file")
     parser.add_argument("--adapter", type=Path,
-                        default=project_root / "output/fine-tunning/adapters/qwen7b-ontoclean",
-                        help="LoRA adapter output directory (default: adapters/qwen7b-ontoclean)")
+                        default=project_root / "output/fine-tunning/adapters/mistral7b-ontoclean",
+                        help="LoRA adapter output directory (default: output/fine-tunning/adapters/mistral7b-ontoclean)")
     parser.add_argument("--fused", type=Path,
-                        default=project_root / "output/fine-tunning/models/qwen7b-ontoclean-fused",
-                        help="Fused model output directory (default: models/qwen7b-ontoclean-fused)")
+                        default=project_root / "output/fine-tunning/models/mistral7b-ontoclean-fused",
+                        help="Fused model output directory (default: output/fine-tunning/models/mistral7b-ontoclean-fused)")
     parser.add_argument("--gguf", type=Path,
-                        default=project_root / "models/qwen7b-ontoclean.gguf",
-                        help="GGUF output file (default: models/qwen7b-ontoclean.gguf)")
-    parser.add_argument("--ollama-name", default="qwen7b-ontoclean",
-                        help="Ollama model name (default: qwen7b-ontoclean)")
+                        default=project_root / "output/fine-tunning/models/mistral7b-ontoclean.gguf",
+                        help="GGUF output file (default: output/fine-tunning/models/mistral7b-ontoclean.gguf)")
+    parser.add_argument("--ollama-name", default="mistral7b-ontoclean",
+                        help="Ollama model name (default: mistral7b-ontoclean)")
 
     # Training hyperparameters
     parser.add_argument("--iters", type=int, default=600,
