@@ -488,8 +488,22 @@ Output: `output/fine-tunning/data/finetune_data.jsonl` — chat-format JSONL wit
 
 **Stage 2 — Run the fine-tuning pipeline**
 
+Use the Makefile targets (recommended) or call `finetune_local.py` directly.
+
 ```bash
-# Full pipeline with defaults (HuggingFace: Mistral-7B-Instruct-v0.3 → mistral7b-ontoclean Ollama model)
+# Fine-tune individual models via Make
+make finetune-mistral7b   # mistralai/Mistral-7B-Instruct-v0.3
+make finetune-gemma9b     # google/gemma-2-9b-it
+make finetune-qwen7b      # Qwen/Qwen2.5-7B-Instruct
+make finetune-llama8b     # meta-llama/Llama-3.1-8B-Instruct
+make finetune-llama3b     # meta-llama/Llama-3.2-3B-Instruct
+make finetune-all-local   # run all five sequentially
+```
+
+Or call the script directly for more control:
+
+```bash
+# Full pipeline with defaults (Mistral-7B-Instruct-v0.3 → mistral7b-ontoclean)
 # Note: OpenRouter inference uses mistralai/mistral-7b-instruct-v0.1 (shortcut: mistral7b)
 python scripts/finetune_local.py
 
@@ -498,11 +512,6 @@ python scripts/finetune_local.py --dry-run
 
 # Resume after a step already completed
 python scripts/finetune_local.py --skip-download --skip-train
-
-# Use a different base model
-python scripts/finetune_local.py \
-  --hf-model Qwen/Qwen2.5-7B-Instruct \
-  --ollama-name qwen7b-ontoclean
 ```
 
 `finetune_local.py` runs four steps automatically:
