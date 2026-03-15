@@ -444,6 +444,72 @@ The test suite covers:
 
 ---
 
+### 🔧 Local Fine-Tuning (Apple Silicon / macOS)
+
+To fine-tune a model locally on your MacBook using ground truth data:
+
+**Step 1: Generate fine-tuning data from `ground_truth.tsv`**
+
+```bash
+# Use a strong model to generate reasoning traces (labels come from ground truth)
+uv run scripts/generate_finetune_data.py --model anthropic
+
+# Or with Gemini (faster/cheaper)
+uv run scripts/generate_finetune_data.py --model gemini
+
+# Test without API calls
+uv run scripts/generate_finetune_data.py --skip-reasoning
+```
+
+Output: `output/fine-tunning/finetune_data.jsonl` — chat-format JSONL with ground-truth property values and LLM-generated reasoning traces.
+
+**Step 2: Fine-tune with mlx-lm (Apple Silicon only)**
+
+```bash
+# Download base model (first time only)
+mlx_lm.convert --hf-path Qwen/Qwen2.5-7B-Instruct \
+    --mlx-path models/qwen2.5-7b-mlx
+
+# Fine-tune with LoRA
+mlx_lm.lora \
+    --model models/qwen2.5-7b-mlx \
+    --train \
+    --data output/fine-tunning/finetune_data.jsonl \
+    --iters 600 \
+    --learning-rate 1e-4 \
+    --lora-layers 8 \
+    --adapter-path adapters/qwen7b-ontoclean
+```
+
+**Step 3: Fuse and load into Ollama**
+
+```bash
+# Fuse LoRA adapter into model weights
+mlx_lm.fuse \
+    --model models/qwen2.5-7b-mlx \
+    --adapter-path adapters/qwen7b-ontoclean \
+    --save-path models/qwen7b-ontoclean-fused
+
+# Convert to GGUF
+python llama.cpp/convert_hf_to_gguf.py models/qwen7b-ontoclean-fused \
+    --outfile models/qwen7b-ontoclean.gguf --outtype q4_k_m
+
+# Load into Ollama
+echo 'FROM ./models/qwen7b-ontoclean.gguf' > Modelfile
+ollama create qwen7b-ontoclean -f Modelfile
+```
+
+**Hardware requirements:**
+
+| Model | Min RAM | Notes |
+|-------|---------|-------|
+| Qwen2.5-7B | ~16GB | Practical on most M-series MacBooks |
+| Mistral Small 24B | ~48GB | Requires M2/M3 Ultra or higher |
+
+> `mlx-lm` is installed automatically on macOS via `uv sync`. It is skipped on Linux/Windows.
+
+---
+
 ### Traditional Analysis Modes
 
 For direct inference without optimization, LLM-Clean provides two primary modes:
