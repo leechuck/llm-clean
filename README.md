@@ -463,6 +463,8 @@ uv run scripts/generate_finetune_data.py --skip-reasoning
 
 Output: `output/fine-tunning/finetune_data.jsonl` — chat-format JSONL with ground-truth property values and LLM-generated reasoning traces.
 
+> A pre-generated copy (22 examples, Gemini reasoning) is included in the repository at `output/fine-tunning/finetune_data.jsonl` and can be used directly without re-running this step.
+
 **Step 2: Fine-tune with mlx-lm (Apple Silicon only)**
 
 ```bash
