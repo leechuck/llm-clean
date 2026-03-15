@@ -13,18 +13,18 @@
         collect-non-agent collect-agent collect-critic \
         reports reproduce-static reproduce-batch \
         generate-gpt4o-mini-dspy-models generate-llama70b-dspy-models \
-        generate-mistral-small-dspy-models generate-qwen72b-dspy-models \
+        generate-mistral-small-dspy-models generate-mistral7b-dspy-models generate-qwen72b-dspy-models \
         generate-anthropic-dspy-agent-models generate-gemini-dspy-agent-models \
         generate-gemma9b-dspy-agent-models generate-qwen7b-dspy-agent-models \
         generate-llama8b-dspy-agent-models generate-llama3b-dspy-agent-models \
         generate-gpt4o-mini-dspy-agent-models generate-llama70b-dspy-agent-models \
-        generate-mistral-small-dspy-agent-models generate-qwen72b-dspy-agent-models \
+        generate-mistral-small-dspy-agent-models generate-mistral7b-dspy-agent-models generate-qwen72b-dspy-agent-models \
         generate-large-llm-dspy-agent-models generate-small-llm-dspy-agent-models \
         generate-anthropic-dspy-agent-critic-models generate-gemini-dspy-agent-critic-models \
         generate-gemma9b-dspy-agent-critic-models generate-qwen7b-dspy-agent-critic-models \
         generate-llama8b-dspy-agent-critic-models generate-llama3b-dspy-agent-critic-models \
         generate-gpt4o-mini-dspy-agent-critic-models generate-llama70b-dspy-agent-critic-models \
-        generate-mistral-small-dspy-agent-critic-models generate-qwen72b-dspy-agent-critic-models \
+        generate-mistral-small-dspy-agent-critic-models generate-mistral7b-dspy-agent-critic-models generate-qwen72b-dspy-agent-critic-models \
         generate-large-llm-dspy-agent-critic-models generate-small-llm-dspy-agent-critic-models \
         batch-agent-dspy-anthropic-small-models batch-agent-dspy-gemini-small-models \
         batch-agent-dspy-small-models \
@@ -312,7 +312,16 @@ generate-mistral-small-%-dspy-model: ## Generate DSPy model for Mistral Small an
 
 generate-mistral-small-dspy-models: \
 	generate-mistral-small-BootstrapFewShot-dspy-model \
-	
+
+generate-mistral7b-%-dspy-model: ## Generate DSPy model for Mistral 7B analyses
+	@echo "$(BLUE)Generating DSPy model for Mistral 7B analyses...$(NC)"
+	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model mistral7b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_mistral7b_$*_model.json
+
+generate-mistral7b-dspy-models: \
+	generate-mistral7b-BootstrapFewShot-dspy-model
+
 generate-qwen72b-%-dspy-model: ## Generate DSPy model for Qwen 2.5 72B analyses
 	@echo "$(BLUE)Generating DSPy model for Qwen 2.5 72B analyses...$(NC)"
 	uv run python scripts/generate_dspy_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen72b \
@@ -328,7 +337,8 @@ generate-small-llm-dspy-models: \
 	generate-llama8b-BootstrapFewShot-dspy-model \
 	generate-llama3b-BootstrapFewShot-dspy-model \
 	generate-gpt4o-mini-BootstrapFewShot-dspy-model \
-	generate-mistral-small-BootstrapFewShot-dspy-model
+	generate-mistral-small-BootstrapFewShot-dspy-model \
+	generate-mistral7b-BootstrapFewShot-dspy-model
 	
 ##@ Generate DSPy Agent Models
 
@@ -411,8 +421,17 @@ generate-mistral-small-%-dspy-agent-model: ## Generate DSPy agent model for Mist
 	--output output/dspy_models/guarino_mistral-small_$*_agent_model.json
 
 generate-mistral-small-dspy-agent-models: \
-	generate-mistral-small-BootstrapFewShot-dspy-agent-model 
-	
+	generate-mistral-small-BootstrapFewShot-dspy-agent-model
+
+generate-mistral7b-%-dspy-agent-model: ## Generate DSPy agent model for Mistral 7B analyses
+	@echo "$(BLUE)Generating DSPy agent model for Mistral 7B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model mistral7b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_mistral7b_$*_agent_model.json
+
+generate-mistral7b-dspy-agent-models: \
+	generate-mistral7b-BootstrapFewShot-dspy-agent-model
+
 generate-qwen72b-%-dspy-agent-model: ## Generate DSPy agent model for Qwen 2.5 72B analyses
 	@echo "$(BLUE)Generating DSPy agent model for Qwen 2.5 72B analyses...$(NC)"
 	uv run python scripts/generate_dspy_agent_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen72b \
@@ -434,7 +453,8 @@ generate-small-llm-dspy-agent-models: \
 	generate-llama8b-dspy-agent-models \
 	generate-llama3b-dspy-agent-models \
 	generate-gpt4o-mini-dspy-agent-models \
-	generate-mistral-small-dspy-agent-models
+	generate-mistral-small-dspy-agent-models \
+	generate-mistral7b-dspy-agent-models
 
 ##@ DSPy Agent+Critic Model Generation
 
@@ -519,6 +539,15 @@ generate-mistral-small-%-dspy-agent-critic-model: ## Generate DSPy agent+critic 
 generate-mistral-small-dspy-agent-critic-models: \
 	generate-mistral-small-BootstrapFewShot-dspy-agent-critic-model
 
+generate-mistral7b-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for Mistral 7B analyses
+	@echo "$(BLUE)Generating DSPy agent+critic model for Mistral 7B analyses...$(NC)"
+	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model mistral7b \
+	--optimizer $* \
+	--output output/dspy_models/guarino_mistral7b_$*_agent_critic_model.json
+
+generate-mistral7b-dspy-agent-critic-models: \
+	generate-mistral7b-BootstrapFewShot-dspy-agent-critic-model
+
 generate-qwen72b-%-dspy-agent-critic-model: ## Generate DSPy agent+critic model for Qwen 2.5 72B analyses
 	@echo "$(BLUE)Generating DSPy agent+critic model for Qwen 2.5 72B analyses...$(NC)"
 	uv run python scripts/generate_dspy_agent_critic_model.py $(TRAIN_FILE) $(TEST_FILE) --model qwen72b \
@@ -540,7 +569,8 @@ generate-small-llm-dspy-agent-critic-models: \
 	generate-llama8b-dspy-agent-critic-models \
 	generate-llama3b-dspy-agent-critic-models \
 	generate-gpt4o-mini-dspy-agent-critic-models \
-	generate-mistral-small-dspy-agent-critic-models
+	generate-mistral-small-dspy-agent-critic-models \
+	generate-mistral7b-dspy-agent-critic-models
 
 ##@ Batch Analysis Non-Agent DSPy Compiled Models
 ONTOLOGY_FILE = output/ontologies/guarino_messy.owl
@@ -597,6 +627,9 @@ batch-non-agent-dspy-anthropic-%-gpt4o-mini:
 batch-non-agent-dspy-anthropic-%-mistral-small-3.1:
 	$(call batch-non-agent-dspy,claude,$*,dspy_claude_mistral-small-3.1)
 
+batch-non-agent-dspy-anthropic-%-mistral7b:
+	$(call batch-non-agent-dspy,claude,$*,dspy_claude_mistral7b)
+
 batch-non-agent-dspy-anthropic-%-llama70b:
 	$(call batch-non-agent-dspy,claude,$*,dspy_claude_llama70b)
 
@@ -608,6 +641,9 @@ batch-non-agent-dspy-gemini-%-gpt4o-mini:
 
 batch-non-agent-dspy-gemini-%-mistral-small-3.1:
 	$(call batch-non-agent-dspy,gemini,$*,dspy_gemini_mistral-small-3.1)
+
+batch-non-agent-dspy-gemini-%-mistral7b:
+	$(call batch-non-agent-dspy,gemini,$*,dspy_gemini_mistral7b)
 
 batch-non-agent-dspy-gemini-%-llama70b:
 	$(call batch-non-agent-dspy,gemini,$*,dspy_gemini_llama70b)
@@ -622,6 +658,7 @@ batch-non-agent-dspy-anthropic-small-models: \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-llama3b \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-gpt4o-mini \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-mistral-small-3.1 \
+	batch-non-agent-dspy-anthropic-BootstrapFewShot-mistral7b \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-llama70b \
 	batch-non-agent-dspy-anthropic-BootstrapFewShot-qwen72b
 
@@ -632,6 +669,7 @@ batch-non-agent-dspy-gemini-small-models: \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-llama3b \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-gpt4o-mini \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-mistral-small-3.1 \
+	batch-non-agent-dspy-gemini-BootstrapFewShot-mistral7b \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-llama70b \
 	batch-non-agent-dspy-gemini-BootstrapFewShot-qwen72b
 
@@ -690,6 +728,9 @@ batch-agent-dspy-anthropic-%-gpt4o-mini:
 batch-agent-dspy-anthropic-%-mistral-small-3.1:
 	$(call batch-agent-dspy,claude,$*,dspy_agent_claude_mistral-small-3.1)
 
+batch-agent-dspy-anthropic-%-mistral7b:
+	$(call batch-agent-dspy,claude,$*,dspy_agent_claude_mistral7b)
+
 batch-agent-dspy-anthropic-%-llama70b:
 	$(call batch-agent-dspy,claude,$*,dspy_agent_claude_llama70b)
 
@@ -701,6 +742,9 @@ batch-agent-dspy-gemini-%-gpt4o-mini:
 
 batch-agent-dspy-gemini-%-mistral-small-3.1:
 	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemini_mistral-small-3.1)
+
+batch-agent-dspy-gemini-%-mistral7b:
+	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemini_mistral7b)
 
 batch-agent-dspy-gemini-%-llama70b:
 	$(call batch-agent-dspy,gemini,$*,dspy_agent_gemini_llama70b)
@@ -715,6 +759,7 @@ batch-agent-dspy-anthropic-small-models: \
 	batch-agent-dspy-anthropic-BootstrapFewShot-llama3b \
 	batch-agent-dspy-anthropic-BootstrapFewShot-gpt4o-mini \
 	batch-agent-dspy-anthropic-BootstrapFewShot-mistral-small-3.1 \
+	batch-agent-dspy-anthropic-BootstrapFewShot-mistral7b \
 	batch-agent-dspy-anthropic-BootstrapFewShot-llama70b \
 	batch-agent-dspy-anthropic-BootstrapFewShot-qwen72b
 
@@ -725,6 +770,7 @@ batch-agent-dspy-gemini-small-models: \
 	batch-agent-dspy-gemini-BootstrapFewShot-llama3b \
 	batch-agent-dspy-gemini-BootstrapFewShot-gpt4o-mini \
 	batch-agent-dspy-gemini-BootstrapFewShot-mistral-small-3.1 \
+	batch-agent-dspy-gemini-BootstrapFewShot-mistral7b \
 	batch-agent-dspy-gemini-BootstrapFewShot-llama70b \
 	batch-agent-dspy-gemini-BootstrapFewShot-qwen72b
 
@@ -783,6 +829,9 @@ batch-agent-critic-dspy-anthropic-%-gpt4o-mini:
 batch-agent-critic-dspy-anthropic-%-mistral-small-3.1:
 	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_claude_mistral-small-3.1)
 
+batch-agent-critic-dspy-anthropic-%-mistral7b:
+	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_claude_mistral7b)
+
 batch-agent-critic-dspy-anthropic-%-llama70b:
 	$(call batch-agent-critic-dspy,claude,$*,dspy_agent_critic_claude_llama70b)
 
@@ -794,6 +843,9 @@ batch-agent-critic-dspy-gemini-%-gpt4o-mini:
 
 batch-agent-critic-dspy-gemini-%-mistral-small-3.1:
 	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemini_mistral-small-3.1)
+
+batch-agent-critic-dspy-gemini-%-mistral7b:
+	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemini_mistral7b)
 
 batch-agent-critic-dspy-gemini-%-llama70b:
 	$(call batch-agent-critic-dspy,gemini,$*,dspy_agent_critic_gemini_llama70b)
@@ -808,6 +860,7 @@ batch-agent-critic-dspy-anthropic-small-models: \
 	batch-agent-critic-dspy-anthropic-BootstrapFewShot-llama3b \
 	batch-agent-critic-dspy-anthropic-BootstrapFewShot-gpt4o-mini \
 	batch-agent-critic-dspy-anthropic-BootstrapFewShot-mistral-small-3.1 \
+	batch-agent-critic-dspy-anthropic-BootstrapFewShot-mistral7b \
 	batch-agent-critic-dspy-anthropic-BootstrapFewShot-llama70b \
 	batch-agent-critic-dspy-anthropic-BootstrapFewShot-qwen72b
 
@@ -818,6 +871,7 @@ batch-agent-critic-dspy-gemini-small-models: \
 	batch-agent-critic-dspy-gemini-BootstrapFewShot-llama3b \
 	batch-agent-critic-dspy-gemini-BootstrapFewShot-gpt4o-mini \
 	batch-agent-critic-dspy-gemini-BootstrapFewShot-mistral-small-3.1 \
+	batch-agent-critic-dspy-gemini-BootstrapFewShot-mistral7b \
 	batch-agent-critic-dspy-gemini-BootstrapFewShot-llama70b \
 	batch-agent-critic-dspy-gemini-BootstrapFewShot-qwen72b
 
