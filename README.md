@@ -536,6 +536,27 @@ Each step is skipped automatically if its output already exists.
 
 `mlx-lm`, `transformers`, `sentencepiece`, `safetensors`, `gguf`, `llama-cpp-python`
 
+**Testing the fine-tuned model**
+
+Once registered in Ollama, evaluate the model against `guarino_messy.owl` and `ground_truth.tsv`:
+
+```bash
+# Full evaluation against all 22 entities
+uv run python scripts/test_finetuned_ontoclean.py --model mistral7b-ontoclean
+
+# Quick smoke test — first 5 entities
+uv run python scripts/test_finetuned_ontoclean.py --model mistral7b-ontoclean --limit 5
+
+# Save results to TSV
+uv run python scripts/test_finetuned_ontoclean.py --model mistral7b-ontoclean \
+    --output output/finetuned_test.tsv
+
+# Test any other fine-tuned model (e.g. after make finetune-qwen7b)
+uv run python scripts/test_finetuned_ontoclean.py --model qwen7b-ontoclean
+```
+
+The script prints per-entity property scores with ✓/✗ markers and an overall accuracy summary.
+
 ---
 
 ### Traditional Analysis Modes

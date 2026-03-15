@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
-Test mistral7b-ontoclean against guarino_messy.owl.
+Test a locally fine-tuned Ollama model against guarino_messy.owl.
 
-Calls the locally fine-tuned Ollama model (mistral7b-ontoclean) for each
+Calls any fine-tuned Ollama model (default: mistral7b-ontoclean) for each
 entity in guarino_messy.owl, parses its meta-property predictions, and
 compares them against ground_truth.tsv.
 
 Usage:
-    python scripts/test_mistral7b_ontoclean.py
-    python scripts/test_mistral7b_ontoclean.py --limit 5
-    python scripts/test_mistral7b_ontoclean.py --model mistral7b-ontoclean --no-compare
-    python scripts/test_mistral7b_ontoclean.py --output results/mistral7b_test.tsv
+    python scripts/test_finetuned_ontoclean.py
+    python scripts/test_finetuned_ontoclean.py --limit 5
+    python scripts/test_finetuned_ontoclean.py --model qwen7b-ontoclean
+    python scripts/test_finetuned_ontoclean.py --no-compare
+    python scripts/test_finetuned_ontoclean.py --output output/finetuned_test.tsv
 """
 
 import argparse
