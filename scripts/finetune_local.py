@@ -18,6 +18,8 @@ Usage:
 """
 
 import argparse
+import json
+import math
 import os
 import subprocess
 import sys
@@ -66,6 +68,33 @@ def step_download(hf_model: str, mlx_path: Path, dry_run: bool) -> None:
     ok(f"Model converted to {mlx_path}")
 
 
+def prepare_data_dir(data: Path, dry_run: bool) -> Path:
+    """
+    mlx_lm.lora --data expects a directory containing train.jsonl and valid.jsonl.
+    Split the source JSONL 90/10 into that directory and return its path.
+    """
+    data_dir = data.parent / "mlx_data"
+    train_file = data_dir / "train.jsonl"
+    valid_file = data_dir / "valid.jsonl"
+
+    if train_file.exists() and valid_file.exists():
+        print(f"    Data directory already prepared at {data_dir}")
+        return data_dir
+
+    print(f"    Splitting {data.name} → train.jsonl / valid.jsonl (90/10)")
+    if not dry_run:
+        records = [json.loads(line) for line in data.read_text().splitlines() if line.strip()]
+        split = max(1, math.floor(len(records) * 0.9))
+        data_dir.mkdir(parents=True, exist_ok=True)
+        train_file.write_text("\n".join(json.dumps(r) for r in records[:split]))
+        valid_file.write_text("\n".join(json.dumps(r) for r in records[split:]))
+        ok(f"train.jsonl: {split} records, valid.jsonl: {len(records) - split} records")
+    else:
+        print(f"    [dry-run] would write train.jsonl / valid.jsonl to {data_dir}")
+
+    return data_dir
+
+
 def step_train(
     mlx_path: Path,
     data: Path,
@@ -80,13 +109,14 @@ def step_train(
     if adapter_weights:
         skip(f"Adapter already exists at {adapter}  (delete to retrain)")
         return
+    data_dir = prepare_data_dir(data, dry_run)
     print(f"    Training for {iters} iterations  |  lr={lr}  |  num_layers={lora_layers}")
     run(
         [
             "mlx_lm.lora",
             "--model", str(mlx_path),
             "--train",
-            "--data", str(data),
+            "--data", str(data_dir),
             "--iters", str(iters),
             "--learning-rate", lr,
             "--num-layers", str(lora_layers),
