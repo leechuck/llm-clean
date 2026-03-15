@@ -489,7 +489,8 @@ Output: `output/fine-tunning/data/finetune_data.jsonl` — chat-format JSONL wit
 **Stage 2 — Run the fine-tuning pipeline**
 
 ```bash
-# Full pipeline with defaults (Mistral-7B-Instruct-v0.3 → mistral7b-ontoclean Ollama model)
+# Full pipeline with defaults (HuggingFace: Mistral-7B-Instruct-v0.3 → mistral7b-ontoclean Ollama model)
+# Note: OpenRouter inference uses mistralai/mistral-7b-instruct (shortcut: mistral7b)
 python scripts/finetune_local.py
 
 # Preview all commands without executing
