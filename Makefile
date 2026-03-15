@@ -578,7 +578,7 @@ MODEL_DIR = output/dspy_models
 ANALYZED_OUTPUT_DIR = output/analyzed_entities
 EVALUATION_RESULTS_DIR = output/evaluation_results
 
-# The function $(lastword $(subst -, ,$@)) is used to extract the model name from the target name. 
+# The function $(shell echo $@ | sed 's/.*BootstrapFewShot-//') is used to extract the model name from the target name. 
 # E.g., If the target is batch-agent-dspy-anthropic-BootstrapFewShot-gemma9b, the function will return "gemma9b".
 define batch-non-agent-dspy
 	@echo "DSPy Batch Analyzing guarino_$(1)_$(2)_model.json using model $(3)"
@@ -594,7 +594,7 @@ define batch-non-agent-dspy
 			data/raw/ground_truth.tsv
 		) \
 	--agent-name $(3) \
-	--output $(EVALUATION_RESULTS_DIR)/classify_dspy_$(1)_$(2)_$(lastword $(subst -, ,$@)).csv
+	--output $(EVALUATION_RESULTS_DIR)/classify_dspy_$(1)_$(2)_$(shell echo $@ | sed 's/.*BootstrapFewShot-//').csv
 endef
 
 batch-non-agent-dspy-anthropic-%-gemma9b:
@@ -679,7 +679,7 @@ batch-non-agent-dspy-small-models: \
 
 ##@ Batch Analysis Agent DSPy Compiled Models
 
-# The function $(lastword $(subst -, ,$@)) is used to extract the model name from the target name. 
+# The function $(shell echo $@ | sed 's/.*BootstrapFewShot-//') is used to extract the model name from the target name. 
 # E.g., If the target is batch-agent-dspy-anthropic-BootstrapFewShot-gemma9b, the function will return "gemma9b".
 define batch-agent-dspy
 	@echo "DSPy Agent Batch Analyzing guarino_$(1)_$(2)_agent_model.json using model $(3)"
@@ -695,7 +695,7 @@ define batch-agent-dspy
 			data/raw/ground_truth.tsv
 		) \
 	--agent-name $(3) \
-	--output $(EVALUATION_RESULTS_DIR)/classify_dspy_agent_$(1)_$(2)_$(lastword $(subst -, ,$@)).csv
+	--output $(EVALUATION_RESULTS_DIR)/classify_dspy_agent_$(1)_$(2)_$(shell echo $@ | sed 's/.*BootstrapFewShot-//').csv
 endef
 
 batch-agent-dspy-anthropic-%-gemma9b:
@@ -780,7 +780,7 @@ batch-agent-dspy-small-models: \
 
 ##@ Batch Analysis Agent+Critic DSPy Compiled Models
 
-# The function $(lastword $(subst -, ,$@)) is used to extract the model name from the target name. 
+# The function $(shell echo $@ | sed 's/.*BootstrapFewShot-//') is used to extract the model name from the target name. 
 # E.g., If the target is batch-agent-dspy-anthropic-BootstrapFewShot-gemma9b, the function will return "gemma9b".
 define batch-agent-critic-dspy
 	@echo "DSPy Agent+Critic Batch Analyzing guarino_$(1)_$(2)_agent_critic_model.json using model $(3)"
@@ -796,7 +796,7 @@ define batch-agent-critic-dspy
 			data/raw/ground_truth.tsv
 		) \
 	--agent-name $(3) \
-	--output $(EVALUATION_RESULTS_DIR)/classify_dspy_agent_critic_$(1)_$(2)_$(lastword $(subst -, ,$@)).csv
+	--output $(EVALUATION_RESULTS_DIR)/classify_dspy_agent_critic_$(1)_$(2)_$(shell echo $@ | sed 's/.*BootstrapFewShot-//').csv
 endef
 
 batch-agent-critic-dspy-anthropic-%-gemma9b:
