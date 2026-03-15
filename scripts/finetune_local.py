@@ -273,10 +273,16 @@ Requirements:
                         help="Ollama model name (default: mistral7b-ontoclean)")
 
     # Training hyperparameters
-    parser.add_argument("--iters", type=int, default=600,
-                        help="LoRA training iterations (default: 600)")
-    parser.add_argument("--lr", default="1e-4",
-                        help="Learning rate (default: 1e-4)")
+    # With ~22 training examples (batch_size=4 → ~5 steps/epoch):
+    #   100 iters ≈ 18 epochs  — recommended for small datasets
+    #   600 iters ≈ 109 epochs — severe overfit, garbled model output
+    parser.add_argument("--iters", type=int, default=100,
+                        help="LoRA training iterations (default: 100). "
+                             "Use 100 for small datasets (~22 examples) to avoid "
+                             "overfitting; 600+ only for 200+ examples.")
+    parser.add_argument("--lr", default="2e-5",
+                        help="Learning rate (default: 2e-5). "
+                             "Use 2e-5 for small datasets; 1e-4 for larger ones.")
     parser.add_argument("--num-layers", type=int, default=8,
                         help="Number of LoRA layers (default: 8)")
 
