@@ -979,7 +979,7 @@ finetune-mistral7b: ## Fine-tune Mistral-7B-Instruct-v0.3 locally (mistral7b)
 		--gguf $(FINETUNE_MODELS_DIR)/mistral7b-ontoclean.gguf \
 		--ollama-name mistral7b-ontoclean
 
-finetune-gemma9b: ## Fine-tune Gemma-2-9B-IT locally (gemma9b)
+finetune-gemma9b: ## Fine-tune Gemma-2-9B-IT locally (gemma9b) — requires HF token + license agreement
 	@echo "$(BLUE)Fine-tuning Gemma 9B locally...$(NC)"
 	uv run python scripts/finetune_local.py \
 		--hf-model google/gemma-2-9b-it \
@@ -988,7 +988,8 @@ finetune-gemma9b: ## Fine-tune Gemma-2-9B-IT locally (gemma9b)
 		--adapter $(FINETUNE_ADAPTERS_DIR)/gemma9b-ontoclean \
 		--fused $(FINETUNE_MODELS_DIR)/gemma9b-ontoclean-fused \
 		--gguf $(FINETUNE_MODELS_DIR)/gemma9b-ontoclean.gguf \
-		--ollama-name gemma9b-ontoclean
+		--ollama-name gemma9b-ontoclean \
+		--no-system-role
 
 finetune-qwen7b: ## Fine-tune Qwen2.5-7B-Instruct locally (qwen7b)
 	@echo "$(BLUE)Fine-tuning Qwen 7B locally...$(NC)"

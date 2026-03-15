@@ -68,12 +68,35 @@ def step_download(hf_model: str, mlx_path: Path, dry_run: bool) -> None:
     ok(f"Model converted to {mlx_path}")
 
 
-def prepare_data_dir(data: Path, dry_run: bool) -> Path:
+def merge_system_into_user(record: dict) -> dict:
+    """
+    Merge the system message into the first user message.
+
+    Some models (e.g. Gemma) do not support a 'system' role in their chat
+    template.  This helper prepends the system content to the first user
+    message so the same training data can be used for those models.
+    """
+    messages = record.get("messages", [])
+    if not messages or messages[0].get("role") != "system":
+        return record
+    system_content = messages[0]["content"]
+    rest = list(messages[1:])
+    if rest and rest[0].get("role") == "user":
+        rest[0] = {"role": "user", "content": f"{system_content}\n\n{rest[0]['content']}"}
+    return {"messages": rest}
+
+
+def prepare_data_dir(data: Path, dry_run: bool, no_system_role: bool = False) -> Path:
     """
     mlx_lm.lora --data expects a directory containing train.jsonl and valid.jsonl.
     Split the source JSONL 90/10 into that directory and return its path.
+
+    If no_system_role=True, merge the system message into the first user
+    message (required for models like Gemma whose chat template rejects
+    the 'system' role).
     """
-    data_dir = data.parent / "mlx_data"
+    suffix   = "_nosys" if no_system_role else ""
+    data_dir   = data.parent / f"mlx_data{suffix}"
     train_file = data_dir / "train.jsonl"
     valid_file = data_dir / "valid.jsonl"
 
@@ -81,9 +104,12 @@ def prepare_data_dir(data: Path, dry_run: bool) -> Path:
         print(f"    Data directory already prepared at {data_dir}")
         return data_dir
 
-    print(f"    Splitting {data.name} → train.jsonl / valid.jsonl (90/10)")
+    label = " (system role merged into user)" if no_system_role else ""
+    print(f"    Splitting {data.name} → train.jsonl / valid.jsonl (90/10){label}")
     if not dry_run:
         records = [json.loads(line) for line in data.read_text().splitlines() if line.strip()]
+        if no_system_role:
+            records = [merge_system_into_user(r) for r in records]
         split = max(1, math.floor(len(records) * 0.9))
         data_dir.mkdir(parents=True, exist_ok=True)
         train_file.write_text("\n".join(json.dumps(r) for r in records[:split]))
@@ -103,13 +129,14 @@ def step_train(
     lora_layers: int,
     adapter: Path,
     dry_run: bool,
+    no_system_role: bool = False,
 ) -> None:
     step(2, 4, "Fine-tune with LoRA")
     adapter_weights = list(adapter.glob("*.safetensors")) if adapter.exists() else []
     if adapter_weights:
         skip(f"Adapter already exists at {adapter}  (delete to retrain)")
         return
-    data_dir = prepare_data_dir(data, dry_run)
+    data_dir = prepare_data_dir(data, dry_run, no_system_role=no_system_role)
     print(f"    Training for {iters} iterations  |  lr={lr}  |  num_layers={lora_layers}")
     run(
         [
@@ -253,6 +280,11 @@ Requirements:
     parser.add_argument("--num-layers", type=int, default=8,
                         help="Number of LoRA layers (default: 8)")
 
+    # Data flags
+    parser.add_argument("--no-system-role", action="store_true",
+                        help="Merge system message into first user message "
+                             "(required for models whose chat template rejects 'system', e.g. Gemma)")
+
     # Skip flags
     parser.add_argument("--skip-download", action="store_true",
                         help="Skip step 1 — model already converted to MLX")
@@ -314,7 +346,8 @@ Requirements:
         skip("--skip-download passed")
 
     if not args.skip_train:
-        step_train(mlx_path, data, args.iters, args.lr, args.num_layers, adapter, args.dry_run)
+        step_train(mlx_path, data, args.iters, args.lr, args.num_layers, adapter, args.dry_run,
+                   no_system_role=args.no_system_role)
     else:
         step(2, 4, "Fine-tune with LoRA")
         skip("--skip-train passed")
