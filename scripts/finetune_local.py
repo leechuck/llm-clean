@@ -134,17 +134,22 @@ def step_fuse_and_gguf(
     """
     Fuse the LoRA adapter into the base model, then export GGUF.
 
-    Done in two passes to avoid a mlx_lm bug where --export-gguf on the
-    fuse step tries to serialize column-major (MLX) arrays, crashing with
-    "can only serialize row-major arrays".  Pass 1 writes row-major
-    safetensors; pass 2 loads those and converts to GGUF cleanly.
+    Two passes:
+      Pass 1 — mlx_lm.fuse: merges adapter weights into the base model and
+               saves as HuggingFace safetensors.
+      Pass 2 — export_gguf.py: loads the fused safetensors and converts to
+               GGUF, patching mlx_lm's permute_weights() to produce
+               C-contiguous arrays that mx.save_gguf() can serialize.
+               (mlx_lm.fuse --export-gguf crashes with "can only serialize
+               row-major arrays" because swapaxes() leaves non-contiguous
+               views; export_gguf.py fixes this via a numpy round-trip.)
     """
     step(3, 4, "Fuse adapter and export GGUF")
     if gguf.exists():
         skip(f"GGUF already exists at {gguf}")
         return
 
-    # Pass 1: fuse adapter → HuggingFace safetensors (row-major on disk)
+    # Pass 1: fuse adapter → HuggingFace safetensors
     if not fused.exists() or not (fused / "config.json").exists():
         print(f"    Pass 1: fusing adapter into {fused}")
         run(
@@ -158,17 +163,13 @@ def step_fuse_and_gguf(
         )
         ok(f"Fused model saved to {fused}")
     else:
-        print(f"    Pass 1: fused model already exists at {fused}, skipping fuse")
+        print(f"    Pass 1: fused model already at {fused}, skipping fuse")
 
-    # Pass 2: reload fused safetensors → GGUF (weights are now row-major)
+    # Pass 2: export GGUF via patched helper (avoids row-major bug)
+    export_script = Path(__file__).parent / "export_gguf.py"
     print(f"    Pass 2: exporting GGUF to {gguf}")
     run(
-        [
-            "mlx_lm.fuse",
-            "--model", str(fused),
-            "--export-gguf",
-            "--gguf-path", str(gguf),
-        ],
+        [sys.executable, str(export_script), "--model", str(fused), "--gguf-path", str(gguf)],
         dry_run,
     )
     ok(f"GGUF exported to {gguf}")
