@@ -11,7 +11,7 @@ This script:
 Usage:
     python scripts/generate_finetune_data.py
     python scripts/generate_finetune_data.py --ground-truth data/raw/ground_truth.tsv
-    python scripts/generate_finetune_data.py --model anthropic --output output/finetune_data.jsonl
+    python scripts/generate_finetune_data.py --model anthropic --output output/data/finetune_data.jsonl
 """
 
 import argparse
@@ -131,14 +131,14 @@ Examples:
   # Custom paths
   python scripts/generate_finetune_data.py \\
       --ground-truth data/raw/ground_truth.tsv \\
-      --output output/finetune_data.jsonl \\
+      --output output/fine-tunning/data/finetune_data.jsonl \\
       --model anthropic
 
 After running, fine-tune with mlx-lm:
   mlx_lm.lora \\
       --model models/qwen2.5-7b-mlx \\
       --train \\
-      --data output/finetune_data.jsonl \\
+      --data output/fine-tunning/data/finetune_data.jsonl \\
       --iters 1000 \\
       --adapter-path adapters/qwen7b-ontoclean
         """,
@@ -151,8 +151,8 @@ After running, fine-tune with mlx-lm:
     )
     parser.add_argument(
         "--output",
-        default="output/fine-tunning/finetune_data.jsonl",
-        help="Output JSONL file path (default: output/fine-tunning/finetune_data.jsonl)",
+        default="output/fine-tunning/data/finetune_data.jsonl",
+        help="Output JSONL file path (default: output/fine-tunning/data/finetune_data.jsonl)",
     )
     parser.add_argument(
         "--model",

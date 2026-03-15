@@ -172,16 +172,20 @@ Requirements:
     # Model / path arguments
     parser.add_argument("--hf-model", default="Qwen/Qwen2.5-7B-Instruct",
                         help="HuggingFace model ID (default: Qwen/Qwen2.5-7B-Instruct)")
-    parser.add_argument("--mlx-path", default="models/qwen2.5-7b-mlx",
+    parser.add_argument("--mlx-path", type=Path,
+                        default=project_root / "output/fine-tunning/models/qwen2.5-7b-mlx",
                         help="MLX model output directory (default: models/qwen2.5-7b-mlx)")
-    parser.add_argument("--data",
-                        default=str(project_root / "output/fine-tunning/finetune_data.jsonl"),
+    parser.add_argument("--data", type=Path,
+                        default=project_root / "output/fine-tunning/finetune_data.jsonl",
                         help="Training JSONL file")
-    parser.add_argument("--adapter", default="adapters/qwen7b-ontoclean",
+    parser.add_argument("--adapter", type=Path,
+                        default=project_root / "output/fine-tunning/adapters/qwen7b-ontoclean",
                         help="LoRA adapter output directory (default: adapters/qwen7b-ontoclean)")
-    parser.add_argument("--fused", default="models/qwen7b-ontoclean-fused",
+    parser.add_argument("--fused", type=Path,
+                        default=project_root / "output/fine-tunning/models/qwen7b-ontoclean-fused",
                         help="Fused model output directory (default: models/qwen7b-ontoclean-fused)")
-    parser.add_argument("--gguf", default="models/qwen7b-ontoclean.gguf",
+    parser.add_argument("--gguf", type=Path,
+                        default=project_root / "models/qwen7b-ontoclean.gguf",
                         help="GGUF output file (default: models/qwen7b-ontoclean.gguf)")
     parser.add_argument("--ollama-name", default="qwen7b-ontoclean",
                         help="Ollama model name (default: qwen7b-ontoclean)")
