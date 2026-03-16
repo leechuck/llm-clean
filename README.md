@@ -591,17 +591,32 @@ uv run python scripts/test_with_mlx_server.py \
 
 The script prints per-entity property scores with ✓/✗ markers and an overall accuracy summary.
 
-**Fine-tuned model evaluation results** (22 entities from `guarino_messy.owl`, ground truth from `data/raw/ground_truth.tsv`, 100 LoRA iterations, lr=2e-5):
+**Generating classification reports**
 
-| Model | Overall | Rigidity | Identity | Own Identity | Unity | Dependence |
-|-------|---------|----------|----------|--------------|-------|------------|
-| `qwen7b` | **74.5%** | 16/22 | 20/22 | 16/22 | 13/22 | 17/22 |
-| `llama8b` | 70.0% | 15/22 | 19/22 | 13/22 | 13/22 | 17/22 |
-| `gemma9b` | 52.7% | 10/22 | 18/22 | 5/22 | 11/22 | 14/22 |
-| `llama3b` | 49.1% | 15/22 | 11/22 | 9/22 | 9/22 | 10/22 |
-| `mistral7b` | 47.3% | 4/22 | 13/22 | 9/22 | 11/22 | 15/22 |
+After testing, generate detailed precision/recall/F1 reports for each fine-tuned model:
 
-> Results are in `output/finetuned_tests/`. Models were fine-tuned on 22 ground-truth examples using LoRA with the default settings in `finetune_local.py`. Qwen2.5-7B and Llama-3.1-8B showed the strongest performance on this small dataset.
+```bash
+make classify-finetuned-mistral7b
+make classify-finetuned-gemma9b
+make classify-finetuned-qwen7b
+make classify-finetuned-llama8b
+make classify-finetuned-llama3b
+make classify-finetuned-models    # all five at once
+```
+
+Reports are written to `output/evaluation_results/classify_finetuned_<model>.csv`.
+
+**Fine-tuned model evaluation results** (22 entities, 100 LoRA iterations, lr=2e-5):
+
+| Model | Accuracy | Precision | Recall | F1 | Rigidity | Identity | Own Identity | Unity | Dependence |
+|-------|---------|-----------|--------|----|----------|----------|--------------|-------|------------|
+| `qwen7b` | **81.4%** | 0.73 | 0.67 | 0.66 | 16/22 | 20/22 | 16/22 | 13/22 | 17/22 |
+| `llama8b` | 75.0% | 0.31 | 0.43 | 0.36 | 15/22 | 19/22 | 13/22 | 13/22 | 17/22 |
+| `gemma9b` | 67.4% | 0.47 | 0.45 | 0.43 | 10/22 | 18/22 | 5/22 | 11/22 | 14/22 |
+| `mistral7b` | 59.9% | 0.40 | 0.36 | 0.32 | 4/22 | 13/22 | 9/22 | 11/22 | 15/22 |
+| `llama3b` | 57.6% | 0.36 | 0.39 | 0.33 | 15/22 | 11/22 | 9/22 | 9/22 | 10/22 |
+
+> Full per-property and per-class metrics are in `output/evaluation_results/classify_finetuned_*.csv`. Models were fine-tuned on 22 ground-truth examples. Qwen2.5-7B achieved the highest accuracy and F1; Llama-3.1-8B had higher raw accuracy but lower precision/F1 due to class imbalance in predictions.
 
 ---
 
