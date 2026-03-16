@@ -30,6 +30,8 @@
         batch-agent-dspy-small-models \
         batch-agent-critic-dspy-anthropic-small-models batch-agent-critic-dspy-gemini-small-models \
         batch-agent-critic-dspy-small-models \
+        classify-finetuned-mistral7b classify-finetuned-gemma9b classify-finetuned-qwen7b \
+        classify-finetuned-llama8b classify-finetuned-llama3b classify-finetuned-models \
         finetune-mistral7b finetune-gemma9b finetune-qwen7b finetune-llama8b finetune-llama3b \
         finetune-all-local \
         test-finetuned-mistral7b test-finetuned-gemma9b test-finetuned-qwen7b \
@@ -974,6 +976,54 @@ batch-non-agent-expanded: ## Run expanded non-agent batch analysis (13 models x 
 	./scripts/reproduce_expanded_non_agent.sh
 
 reports: collect-non-agent collect-agent collect-critic batch-non-agent-expanded ## Generate all analysis reports
+
+##@ Classification Metrics — Fine-Tuned Models
+
+FINETUNED_RESULTS_DIR = output/finetuned_tests
+FINETUNED_CLASSIFY_DIR = output/evaluation_results
+GROUND_TRUTH = data/raw/ground_truth.tsv
+
+classify-finetuned-mistral7b: ## Classification report for mistral7b fine-tuned model
+	@echo "$(BLUE)Generating classification report for mistral7b-ontoclean...$(NC)"
+	uv run python scripts/evaluate_classification_metrics.py \
+		$(FINETUNED_RESULTS_DIR)/mistral7b_ontoclean_results.tsv \
+		$(GROUND_TRUTH) \
+		--agent-name finetuned-mistral7b \
+		--output $(FINETUNED_CLASSIFY_DIR)/classify_finetuned_mistral7b.csv
+
+classify-finetuned-gemma9b: ## Classification report for gemma9b fine-tuned model
+	@echo "$(BLUE)Generating classification report for gemma9b-ontoclean...$(NC)"
+	uv run python scripts/evaluate_classification_metrics.py \
+		$(FINETUNED_RESULTS_DIR)/gemma9b_ontoclean_results.tsv \
+		$(GROUND_TRUTH) \
+		--agent-name finetuned-gemma9b \
+		--output $(FINETUNED_CLASSIFY_DIR)/classify_finetuned_gemma9b.csv
+
+classify-finetuned-qwen7b: ## Classification report for qwen7b fine-tuned model
+	@echo "$(BLUE)Generating classification report for qwen7b-ontoclean...$(NC)"
+	uv run python scripts/evaluate_classification_metrics.py \
+		$(FINETUNED_RESULTS_DIR)/qwen7b_ontoclean_results.tsv \
+		$(GROUND_TRUTH) \
+		--agent-name finetuned-qwen7b \
+		--output $(FINETUNED_CLASSIFY_DIR)/classify_finetuned_qwen7b.csv
+
+classify-finetuned-llama8b: ## Classification report for llama8b fine-tuned model
+	@echo "$(BLUE)Generating classification report for llama8b-ontoclean...$(NC)"
+	uv run python scripts/evaluate_classification_metrics.py \
+		$(FINETUNED_RESULTS_DIR)/llama8b_ontoclean_results.tsv \
+		$(GROUND_TRUTH) \
+		--agent-name finetuned-llama8b \
+		--output $(FINETUNED_CLASSIFY_DIR)/classify_finetuned_llama8b.csv
+
+classify-finetuned-llama3b: ## Classification report for llama3b fine-tuned model
+	@echo "$(BLUE)Generating classification report for llama3b-ontoclean...$(NC)"
+	uv run python scripts/evaluate_classification_metrics.py \
+		$(FINETUNED_RESULTS_DIR)/llama3b_ontoclean_results.tsv \
+		$(GROUND_TRUTH) \
+		--agent-name finetuned-llama3b \
+		--output $(FINETUNED_CLASSIFY_DIR)/classify_finetuned_llama3b.csv
+
+classify-finetuned-models: classify-finetuned-mistral7b classify-finetuned-gemma9b classify-finetuned-qwen7b classify-finetuned-llama8b classify-finetuned-llama3b ## Classification reports for all five fine-tuned models
 
 ##@ Local Fine-Tuning (Apple Silicon / macOS)
 
