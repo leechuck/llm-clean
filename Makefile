@@ -1,4 +1,4 @@
-.PHONY: help all clean setup directories \
+.PHONY: help all clean setup directories hf-login hf-whoami \
         download-paper generate-owl \
         benchmark-zeroshot benchmark-agentic \
         batch-non-agent batch-non-agent-claude batch-non-agent-gemini \
@@ -61,6 +61,19 @@ clean: ## Remove generated files and outputs
 	@echo "$(GREEN)Cleaned output files$(NC)"
 
 ##@ Setup
+
+hf-login: ## Authenticate with HuggingFace (required for gated models: Llama, Gemma)
+	@echo "$(BLUE)Logging in to HuggingFace...$(NC)"
+	@echo "You will need a HuggingFace access token."
+	@echo "Create one at: https://huggingface.co/settings/tokens"
+	@echo "Also accept the model license agreements at:"
+	@echo "  https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct"
+	@echo "  https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct"
+	@echo "  https://huggingface.co/google/gemma-2-9b-it"
+	uv run huggingface-cli login
+
+hf-whoami: ## Show currently authenticated HuggingFace user
+	uv run huggingface-cli whoami
 
 setup: directories ## Setup environment and directories
 	@if [ ! -f .env ]; then \

@@ -46,22 +46,57 @@ OPENROUTER_API_KEY=your_key # for full model names
 ```
 
 ### HuggingFace authentication (for gated models)
-Llama and Gemma models require accepting a license agreement before download.
 
-1. Visit the model page on [huggingface.co](https://huggingface.co) and click **"Agree and access repository"**
-2. Create an access token at [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
-3. Log in:
+Llama and Gemma models are gated — you must accept a license agreement on HuggingFace and authenticate locally before `mlx_lm.convert` can download them.
+
+| Model | Gated? | License page |
+|-------|--------|-------------|
+| `mistralai/Mistral-7B-Instruct-v0.3` | No | — |
+| `Qwen/Qwen2.5-7B-Instruct` | No | — |
+| `meta-llama/Llama-3.1-8B-Instruct` | **Yes** | [huggingface.co/meta-llama/Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct) |
+| `meta-llama/Llama-3.2-3B-Instruct` | **Yes** | [huggingface.co/meta-llama/Llama-3.2-3B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct) |
+| `google/gemma-2-9b-it` | **Yes** | [huggingface.co/google/gemma-2-9b-it](https://huggingface.co/google/gemma-2-9b-it) |
+
+#### Step 1 — Accept the license agreements
+
+For each gated model you intend to fine-tune, visit its HuggingFace page and click **"Agree and access repository"**. You must be logged in to huggingface.co to do this.
+
+#### Step 2 — Create a HuggingFace access token
+
+1. Go to [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
+2. Click **"New token"**
+3. Give it a name (e.g. `llm-clean-finetune`)
+4. Select **"Read"** role (sufficient for downloading models)
+5. Click **"Generate token"** and copy the token — it starts with `hf_`
+
+> Keep your token private. Do not commit it to the repository.
+
+#### Step 3 — Authenticate locally
+
 ```bash
-uv run huggingface-cli login
+make hf-login
 ```
 
-| Model | Gated? |
-|-------|--------|
-| `mistralai/Mistral-7B-Instruct-v0.3` | No |
-| `Qwen/Qwen2.5-7B-Instruct` | No |
-| `meta-llama/Llama-3.1-8B-Instruct` | **Yes** |
-| `meta-llama/Llama-3.2-3B-Instruct` | **Yes** |
-| `google/gemma-2-9b-it` | **Yes** |
+This runs `huggingface-cli login` and prompts for your token. The token is stored in `~/.cache/huggingface/token` and used automatically by `mlx_lm.convert` when downloading gated models.
+
+To verify authentication:
+```bash
+make hf-whoami
+```
+
+#### Setting the token via environment variable (alternative)
+
+Instead of interactive login, you can set the token as an environment variable:
+
+```bash
+# Add to your shell profile (~/.zshrc or ~/.bashrc) for persistence
+export HF_TOKEN=hf_your_token_here
+
+# Or add to the project .env file
+echo "HF_TOKEN=hf_your_token_here" >> .env
+```
+
+`mlx_lm.convert` reads `HF_TOKEN` automatically if set.
 
 ---
 
@@ -339,6 +374,18 @@ Results are written to `output/finetuned_tests/<model>_ontoclean_results.tsv`.
 ---
 
 ## Troubleshooting
+
+### "Cannot access gated repo" / 401 Unauthorized
+You have not accepted the license agreement or your token is missing/expired.
+
+1. Accept the license at the model's HuggingFace page
+2. Run `make hf-login` to re-authenticate
+3. Verify with `make hf-whoami`
+
+If using the `HF_TOKEN` environment variable, check it is set correctly:
+```bash
+echo $HF_TOKEN   # should print hf_...
+```
 
 ### "No endpoints found" / 404 on OpenRouter
 The HuggingFace model ID (for local fine-tuning) differs from the OpenRouter model ID (for inference). The scripts handle this automatically via the shortcut mapping in `dspy_analyzer.py`.
