@@ -1,0 +1,30 @@
+Background. OntoClean provides a principled methodology for detecting
+awkward taxonomic decisions in ontologies, but its application
+requires manual annotation of every class with five modal
+meta-properties (rigidity, identity, own-identity, unity, dependence),
+a cost that has kept it out of routine use on biomedical ontologies,
+exactly where the analysis would be most informative.
+
+Method. Here, we present a workflow that uses a fine-tuned large
+language model (LoRA-adapted Qwen-2.5-7B-Instruct) to assign the five
+OntoClean meta-properties automatically. We classify the hierarchy
+with the ELK reasoner and check OntoClean constraints (R1–R3, I1,
+U1–U2, O1) on every inferred (sub, super) pair. A second LLM pass
+audits each violation as a real defect, a downstream cascade, or a
+predictor error.
+
+Results. Applied to the Emotion Ontology (64 classes), the workflow
+surfaces 303 violations, including a plausible rigidity conflict on
+the GO chain "sweat secretion ⊑ secretion by tissue" and a contested
+unity assignment on "phenomenal cognitive experience". The audit
+attributes 83.5% of the violations to cascades from a few upstream
+mislabelings on GO/BFO process classes, where the model over-assigns
+identity to occurrents. We show that this limitation is reducible at
+zero training cost: re-running inference with a BFO-grounded system
+prompt cuts violations from 303 to 72 (−76.2%), removes the entire R2
+cluster, and collapses the residue to four specific mislabeled classes.
+
+Conclusion. LLM-assigned OntoClean is a viable route to scaling
+principled ontology evaluation across biomedicine. Aggregate violation
+counts should not serve as quality signals without auditing; full
+removal of cascades will require BFO-aware fine-tuning.
