@@ -106,6 +106,86 @@ In every case the OntoClean labels are **not asserted in OWL**, so no OWL reason
 2. *Modelling guidance* — wrong rigidity tags steer curators toward role-modelling patterns for what should be natural kinds, distorting all future extensions;
 3. *Cross-ontology alignment* — mappings to BFO/DOLCE/UFO that respect meta-properties will route the affected classes inconsistently with their parents or children, producing silent data-integration errors rather than reasoner-visible inconsistencies.
 
+## BFO-augmented prompt experiment
+
+To test the diagnosis above (most violations are downstream of the model not knowing BFO's occurrent identity rule), the same finetuned model (`qwen7b-ontoclean`, IBEX `/ibex/scratch/projects/c2014/rob/ontoclean/models/qwen7b-ontoclean/merged`) was re-run on the same 64 EMRO entities with a **modified system prompt only** — no retraining. The new prompt adds:
+
+- a CONTINUANT vs OCCURRENT distinction
+- a critical rule that occurrents (BFO process / GO biological_process / event-describing classes) default to **−I, −O, ~U, +D**, only deviating if the definition explicitly states an identity criterion or whole-making principle
+- continuant cheat-sheet for sortals / roles / qualities / mixins
+- 5 worked examples (3 occurrents incl. `secretion by tissue` and `cognition`, 2 continuants)
+
+Inference run: IBEX job 46419512, GTX 1080 Ti, ~3 h wall time. Outputs:
+- `output/emro_ontoclean_predictions_bfo.tsv`
+- `output/emro_ontoclean_violations_bfo.tsv`
+
+### Headline numbers
+
+| Metric | Baseline | BFO prompt | Δ |
+|---|---|---|---|
+| **Total violations** | 303 | **72** | **−76 %** |
+| I1 (identity) | 135 | 27 | −80 % |
+| U1 (unity) | 84 | 27 | −68 % |
+| U2 (anti-unity) | 67 | 18 | −73 % |
+| R2 (rigidity) | 17 | **0** | **−100 %** |
+| O1 warnings | — | 2 | new |
+| Predictions changed | — | **64 / 64** | every entity flipped |
+
+### Classification distribution shift
+
+| Classification | Baseline | BFO |
+|---|---|---|
+| Process | 4 | **53** |
+| Quality | 1 | 7 |
+| Sortal | 0 | 3 |
+| Mixin | 14 | 1 |
+| Role | **40** | 0 |
+| Property | 2 | 0 |
+| Process Quality / Biological Process / Characteristic | 3 | 0 |
+
+The baseline model treated EMRO's mostly-process content as continuant Roles played by bearers; the BFO-prompted run correctly recognises EMRO as a process ontology.
+
+### Anatomy of the 72 remaining violations (+ 2 warnings) — the same cascade pattern as baseline, just much smaller
+
+Just as in the baseline analysis, the residual violations are **not 74 independent errors** — they all trace back to the same kind of root-cascade structure, but the number of root errors has collapsed from "many GO/BFO process classes" down to **exactly 4 mislabeled classes**:
+
+| # rows | Constraint(s) | Root mislabeling | What the model got wrong |
+|---:|---|---|---|
+| **44** | 21 × I1, 21 × U1, 2 × O1 | **`system process`** predicted as Process but with `+I, +O, +U` instead of `−I, −O, ~U` | The classification label is right (Process) but the meta-property values still treat it as a continuant kind. Every subclass of `system process` is correctly `−I` and `~U`, so neither `+I` nor `+U` propagates downward — generating one I1 and one U1 per descendant pair, plus two O1 warnings where descendants are also `+O`. |
+| **12** | 6 × I1, 6 × U1 | **`regulation of biological quality`** predicted as a continuant **Sortal** (`+R, +I, +O, +U, −D`) | Should be a Process (regulatory occurrent). Same cascade: every descendant is a `−I, ~U` process, so `+I` and `+U` fail to inherit, producing 6 I1 + 6 U1. |
+| **12** | 12 × U2 | **`emotional experience (feeling)`** and **`sensory experience`** each predicted as Sortals (`+U`) | Both sit under the chain `phenomenal cognitive experience → cognition → nervous system process → multicellular organismal process → biological_process → process`, every link of which is correctly `~U`. A single `+U` child therefore violates U2 against **every** `~U` ancestor in the chain — producing 6 U2 per child = 12 U2 in total. |
+| **6** | 6 × U2 | The same `+U` mislabeling on `system process` (3 rows) and on `regulation of biological quality` (3 rows) | Each is `+U` while sitting under `~U` process ancestors, generating one U2 per ancestor in their respective subsumption chains. |
+
+**Sum: 44 + 12 + 12 + 6 = 74. Every single violation/warning attributed.**
+
+### How the residual errors relate to each other
+
+There are really just **two failure modes** behind the four root errors:
+
+1. **`system process` and `regulation of biological quality` are still being treated as continuants on the meta-property axis even when classified as Process.** The BFO prompt fixed the classification label but not all the property assignments for these two specific terms. They sit at an awkward boundary in EMRO's hierarchy — both are descendants of `process` but their definitions read like "regulatory function" and "system function", which the model still pattern-matches to "thing that has a function" (a sortal/role bearer) rather than to "the regulating event itself".
+
+2. **`emotional experience (feeling)` and `sensory experience` are being treated as continuant sortals**, not as the phenomenal events their parent (`phenomenal cognitive experience`, now correctly Process ~U) marks them as. This was already the source of the 2 DONT_KNOW rows in the baseline review, and it remains the only philosophically-genuinely-hard part of EMRO: are subjective experiences events or substantial bearers? The BFO prompt didn't resolve this because the prompt does not directly tell the model how to handle phenomenal terms — only how to handle BFO occurrents and GO processes.
+
+### Comparison to the baseline residue
+
+| Aspect | Baseline | BFO prompt |
+|---|---|---|
+| Root mislabelings driving cascades | many process classes (GO/BFO occurrents over-assigned `+I`) | **4 specific classes** |
+| Cascading rows | 253 (`CASCADES_FROM_DIRECT`) | **74 (every row attributable)** |
+| Real ontology defects flagged | 1 (the GO `sweat secretion` R2) | **0** — the R2 is gone |
+| Philosophically open cases | 2 (DONT_KNOW on phenomenal cognitive experience) | **2** (still emotional/sensory experience as continuant vs occurrent) |
+| Total violations | 303 | 72 |
+
+### What would close the rest
+
+Eliminating the four root errors would, by the cascade math above, reduce the violation count from 74 → 0. Two cheap interventions could plausibly do it:
+
+1. **Strengthen the BFO rule for "system X" and "regulation of X" patterns.** The current prompt's occurrent rule fires reliably on classes whose definitions describe events ("release of", "controlled X by Y", "process during which") but is less robust on classes whose definitions describe a *capacity* or *function* — `system process` and `regulation of biological quality` slip through. Adding one sentence of the form *"GO classes whose names begin with 'regulation of' or end in 'system process' are still occurrents and inherit the −I, −O, ~U, +D defaults"* would likely capture both root errors.
+
+2. **Add a phenomenal-event rule.** A second one-liner *"Phenomenal experiences (feelings, perceptions, sensations) are subjective occurrents — not substantial sortals — and inherit the same occurrent defaults as their parent class"* should flip `emotional experience` and `sensory experience` from Sortal to Process and eliminate the U2 + O1 cluster.
+
+A second prompt iteration with these two additions is the obvious next step before any retraining.
+
 ## Takeaway
 
-Under the current pipeline, EMRO appears largely OntoClean-consistent: the violations surfaced by the predictor are overwhelmingly traceable to a few systematic mislabelings of process-typed parent classes, not to genuine ontological flaws in EMRO. Improving meta-property prediction for upstream GO/BFO process terms should eliminate most of the reported violations.
+Under the current pipeline, EMRO appears largely OntoClean-consistent: the violations surfaced by the predictor are overwhelmingly traceable to a few systematic mislabelings of process-typed parent classes, not to genuine ontological flaws in EMRO. The BFO-augmented prompt experiment empirically confirms this — a single prompt change (no retraining) reduced violations from 303 to 72 (−76 %), eliminated the only ONTOLOGY_ISSUE, and collapsed the residue down to 4 specific root mislabelings whose cascades fully account for every remaining row. The two philosophically contested cases from the baseline (status of phenomenal experiences) remain the hardest part of the analysis, as expected.
