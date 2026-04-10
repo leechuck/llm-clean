@@ -1,0 +1,421 @@
+term	uri	rigidity	identity	own_identity	unity	dependence	classification	reasoning	error
+emotion process	http://purl.bioontology.org/ontology/EMRO/0000000								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+phenomenal cognitive experience	http://purl.bioontology.org/ontology/EMRO/0000001								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+emotional experience (feeling)	http://purl.bioontology.org/ontology/EMRO/0000002								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+N2bdab95099824e33850f4853048aa4c0	N2bdab95099824e33850f4853048aa4c0								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+anxiety process	http://purl.bioontology.org/ontology/EMRO/0000003								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+fear process	http://purl.bioontology.org/ontology/EMRO/0000004								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+sensory experience	http://purl.bioontology.org/ontology/EMRO/0000005								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+motoric response to emotion	http://purl.bioontology.org/ontology/EMRO/0000006								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+psychophysiological response to emotion	http://purl.bioontology.org/ontology/EMRO/0000007								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+N2b9f2703f890459586d6e120eaca223e	N2b9f2703f890459586d6e120eaca223e								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+Naeb8c03c7844488e9b379db47145bc8f	Naeb8c03c7844488e9b379db47145bc8f								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+sweat secretion response to emotion	http://purl.bioontology.org/ontology/EMRO/0000008								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+positive emotional valence	http://purl.bioontology.org/ontology/EMRO/0000009								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+muscle tension response to emotion	http://purl.bioontology.org/ontology/EMRO/0000010								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+increased heart response to emotion	http://purl.bioontology.org/ontology/EMRO/0000011								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+increased breathing rate response to emotion	http://purl.bioontology.org/ontology/EMRO/0000012								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+cognitive response to emotion	http://purl.bioontology.org/ontology/EMRO/0000013								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+cognitive appraisal process	http://purl.bioontology.org/ontology/EMRO/0000014								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+syncope response to emotion	http://purl.bioontology.org/ontology/EMRO/0000015								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+negative emotional valence	http://purl.bioontology.org/ontology/EMRO/0000016								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+neutral emotional valence	http://purl.bioontology.org/ontology/EMRO/0000017								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+muscle tension response to fear	http://purl.bioontology.org/ontology/EMRO/0000019								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+psychophysiological response to fear	http://purl.bioontology.org/ontology/EMRO/0000020								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+N06c71c0cf4044113b8e2bfe5873212f0	N06c71c0cf4044113b8e2bfe5873212f0								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+psychophysiological response to anxiety	http://purl.bioontology.org/ontology/EMRO/0000021								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+N3becdb4417b941c2a76434061979259b	N3becdb4417b941c2a76434061979259b								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+muscle tension response to anxiety	http://purl.bioontology.org/ontology/EMRO/0000022								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+cognitive response to fear	http://purl.bioontology.org/ontology/EMRO/0000023								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+cognitive response to anxiety	http://purl.bioontology.org/ontology/EMRO/0000024								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+sweat secretion response to fear	http://purl.bioontology.org/ontology/EMRO/0000025								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+sweat secretion response to anxiety	http://purl.bioontology.org/ontology/EMRO/0000026								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+increased heart response to fear	http://purl.bioontology.org/ontology/EMRO/0000027								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+increased heart response to anxiety	http://purl.bioontology.org/ontology/EMRO/0000028								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+increased breathing rate response to fear	http://purl.bioontology.org/ontology/EMRO/0000029								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+increased breathing rate response to anxiety	http://purl.bioontology.org/ontology/EMRO/0000030								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+syncope response to fear	http://purl.bioontology.org/ontology/EMRO/0000031								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+syncope response to anxiety	http://purl.bioontology.org/ontology/EMRO/0000032								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+motoric response to fear	http://purl.bioontology.org/ontology/EMRO/0000033								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+motoric response to anxiety	http://purl.bioontology.org/ontology/EMRO/0000034								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+emotional valence	http://purl.bioontology.org/ontology/EMRO/0000035								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+process	http://purl.obolibrary.org/obo/BFO_0000015								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+characteristic	http://purl.obolibrary.org/obo/COB_0000502								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+system process	http://purl.obolibrary.org/obo/GO_0003008								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+muscle system process	http://purl.obolibrary.org/obo/GO_0003012								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+circulatory system process	http://purl.obolibrary.org/obo/GO_0003013								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+heart process	http://purl.obolibrary.org/obo/GO_0003015								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+respiratory system process	http://purl.obolibrary.org/obo/GO_0003016								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+transport	http://purl.obolibrary.org/obo/GO_0006810								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+muscle contraction	http://purl.obolibrary.org/obo/GO_0006936								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+respiratory gaseous exchange by respiratory system	http://purl.obolibrary.org/obo/GO_0007585								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+body fluid secretion	http://purl.obolibrary.org/obo/GO_0007589								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+behavior	http://purl.obolibrary.org/obo/GO_0007610								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+biological_process	http://purl.obolibrary.org/obo/GO_0008150								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+multicellular organismal process	http://purl.obolibrary.org/obo/GO_0032501								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+secretion by tissue	http://purl.obolibrary.org/obo/GO_0032941								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+locomotion	http://purl.obolibrary.org/obo/GO_0040011								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+secretion	http://purl.obolibrary.org/obo/GO_0046903								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+nervous system process	http://purl.obolibrary.org/obo/GO_0050877								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+regulation of body fluid levels	http://purl.obolibrary.org/obo/GO_0050878								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+cognition	http://purl.obolibrary.org/obo/GO_0050890								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+localization	http://purl.obolibrary.org/obo/GO_0051179								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+establishment of localization	http://purl.obolibrary.org/obo/GO_0051234								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+motor behavior	http://purl.obolibrary.org/obo/GO_0061744								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+biological regulation	http://purl.obolibrary.org/obo/GO_0065007								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+regulation of biological quality	http://purl.obolibrary.org/obo/GO_0065008								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+sweat secretion	http://purl.obolibrary.org/obo/GO_0160269								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+quality	http://purl.obolibrary.org/obo/PATO_0000001								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+process quality	http://purl.obolibrary.org/obo/PATO_0001236								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+obsolete class	http://www.geneontology.org/formats/oboInOwl#ObsoleteClass								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
+Thing	http://www.w3.org/2002/07/owl#Thing								"Invalid format specifier ' ""+R"" | ""-R"" | ""~R"",
+    ""identity"": ""+I"" | ""-I"",
+    ""own_identity"": ""+O"" | ""-O"",
+    ""unity"": ""+U"" | ""-U"" | ""~U"",
+    ""dependence"": ""+D"" | ""-D""
+  ' for object of type 'str'"
