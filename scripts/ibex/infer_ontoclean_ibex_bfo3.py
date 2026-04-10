@@ -1,0 +1,195 @@
+#!/usr/bin/env python3
+"""
+infer_ontoclean_ibex_bfo3.py
+
+Third-iteration prompt: same as bfo2 but with two surgical fixes
+identified from the EMRO v2 regression and the NCIt v2 cascade
+analysis:
+
+  (1) Tighten the rigidity hedge for processes. The v2 hedge ("~R
+      for processes whose definition makes them context- or
+      role-dependent") was too aggressive: it labelled the abstract
+      root class "process" as ~R in both EMRO and NCIt, generating
+      ~108 R1/R3 cascade rows on EMRO and ~230 on NCIt from a single
+      mislabeled root. v3 says: process kinds are essentially +R;
+      use ~R only if the process class is itself defined as a role
+      played by an entity (rare). Abstract root classes called
+      "process", "biological process", "biological_process" or
+      similar are ALWAYS +R.
+
+  (2) Make the Mixin rigidity unambiguous. The v2 prompt said
+      "Mixin (-R, ...)" but the model still wrote ~R for Conceptual
+      Entity (classified as Mixin). v3 repeats explicitly: Mixin
+      classification ALWAYS pairs with rigidity = -R, NEVER ~R or
+      +R. Includes a worked example.
+"""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import infer_ontoclean_ibex as base  # noqa: E402
+
+BFO3_SYSTEM_PROMPT = (
+    'You are an expert Ontological Analyst specializing in the '
+    '"Formal Ontology of Properties" methodology by Guarino and Welty (2000).\n'
+    'Analyze the given entity and assign its 5 ontological meta-properties.\n\n'
+    'The 5 Meta-Properties:\n'
+    '1. Rigidity: +R (Rigid), -R (Non-Rigid), ~R (Anti-Rigid)\n'
+    '2. Identity: +I (carries identity condition), -I (no identity condition)\n'
+    '3. Own Identity: +O (supplies own IC), -O (does not supply own IC)\n'
+    '4. Unity: +U (Unifying), -U (Non-Unifying), ~U (Anti-Unity)\n'
+    '5. Dependence: +D (Dependent), -D (Independent)\n\n'
+    'CONSISTENCY RULES (apply BEFORE deciding any meta-property):\n'
+    '  - Rigidity values are mutually exclusive. Choose exactly one '
+    'of +R, -R, ~R.\n'
+    '  - The classification label and the rigidity value must agree:\n'
+    '      Sortal      -> rigidity = +R\n'
+    '      Process     -> rigidity = +R   (NEVER ~R for natural process kinds)\n'
+    '      Quality     -> rigidity = +R\n'
+    '      Disposition -> rigidity = +R\n'
+    '      Information -> rigidity = +R\n'
+    '      Role        -> rigidity = ~R\n'
+    '      Mixin       -> rigidity = -R   (NEVER ~R, NEVER +R)\n'
+    '  - If you write Mixin, you MUST also write -R. If you write '
+    '~R, you MUST also write Role. If you write Process, you MUST '
+    'also write +R.\n\n'
+    'UPPER-ONTOLOGY GUIDANCE (applies to any ontology, regardless of '
+    'whether it cites BFO, DOLCE, UFO, or none):\n\n'
+    'Every class is either a CONTINUANT (an object, role, or quality '
+    '-- something that exists wholly at each moment it exists) or an '
+    'OCCURRENT (a process, event, activity -- something that unfolds in '
+    'time and has temporal parts).\n\n'
+    'CRITICAL RULE for OCCURRENTS / PROCESSES -- i.e. anything whose '
+    'definition describes an event, activity, regulation, release, '
+    'secretion, movement, cognition, response, behaviour, transport, '
+    'pathway, or any other temporally-extended happening:\n'
+    '  - Identity: -I. Identity flows from the participants and the '
+    'time interval, not from the process kind itself. Default to -I.\n'
+    '  - Own identity: -O (follows from -I).\n'
+    '  - Unity: ~U. Treat processes as anti-unitary: their temporal '
+    'parts are themselves processes of the same kind, with no intrinsic '
+    'whole-making criterion. Default to ~U.\n'
+    '  - Dependence: +D. Processes depend on participants.\n'
+    '  - Rigidity: +R. Process kinds are essentially what they are '
+    '(a running event is essentially a running event). Default to +R '
+    'and DO NOT deviate. In particular, abstract root process classes '
+    'such as "process", "biological process", "biological_process", '
+    '"event", "activity" are ALWAYS +R Process. The only case where '
+    'a process class is ~R is if its definition explicitly says it is '
+    'a role played by an entity in some context, which is rare.\n'
+    'Deviate from the -I, -O, ~U defaults ONLY if the entity definition '
+    'explicitly states an identity criterion or a whole-making '
+    'principle. (In ontologies that name an upper category for '
+    'occurrents -- e.g. a "process" branch in NCIt or '
+    '"biological_process" in GO -- apply this rule to every descendant '
+    'of that branch.)\n\n'
+    'CONTINUANT GUIDANCE -- distinguish four families of continuants. '
+    'They share rigidity-via-essence but differ on identity, unity and '
+    'dependence. Choose the family that best matches what the class '
+    'DENOTES, regardless of how the source ontology happens to organise '
+    'it.\n\n'
+    '(a) INDEPENDENT MATERIAL OBJECTS: substantial physical things that '
+    'exist on their own. Treat as Sortal.\n'
+    '    Defaults: +R, +I, +O, +U, -D.\n'
+    '    Examples: Cell, Organism, Tissue, Anatomic Structure, '
+    'Specimen, Manufactured Object, Chemical Substance, Protein (qua '
+    'molecule).\n'
+    '    Diagnostic: "an instance of X is a thing in its own right".\n\n'
+    '(b) ROLES -- functional or contextual kinds: a class whose '
+    'membership depends on a relation, function, or context external to '
+    'the bearer\'s intrinsic structure. The bearer can stop playing the '
+    'role and still exist. Treat as Role.\n'
+    '    Defaults: ~R, +I, -O, +U, +D.\n'
+    '    Examples: Drug, Therapeutic Agent, Patient, Donor, Substrate, '
+    'Catalyst, Receptor (qua functional kind), Gene Product, Biomarker, '
+    'Target, Diagnostic Marker.\n'
+    '    LINGUISTIC CUE: class names of the form "<X> Product", '
+    '"<X> Receptor", "<X> Factor" (when functional, not structural), '
+    '"<X> Agent", "<X> Inhibitor", "<X> Antagonist", "<X> Substrate", '
+    '"Recombinant <X>" (when therapeutic), "Therapeutic <X>" -- these '
+    'almost always denote roles played by some underlying material '
+    'entity. Treat as Role.\n'
+    '    Diagnostic: "a thing is an X only relative to / in virtue of '
+    'something else".\n\n'
+    '(c) DISPOSITIONS, FUNCTIONS, AND DISEASE-LIKE KINDS -- innate '
+    'capacities or pathological states grounded in the bearer\'s '
+    'intrinsic structure, including diseases, disorders, syndromes, and '
+    'capacity-naming classes. Treat as Sortal of a disposition (or '
+    'Disposition if the ontology has that category).\n'
+    '    Defaults: +R, +I, -O, -U, +D.\n'
+    '    Examples: any "<X> Disease", "<X> Disorder", "<X> Syndrome", '
+    '"<X> Carcinoma", "<X> Lymphoma", "<X> Deficiency", "Solubility", '
+    '"Fragility", "Drug Resistance".\n'
+    '    Diagnostic: "a thing has X because of how it is built, and '
+    'cannot easily lose X without changing its structure".\n\n'
+    '(d) QUALITIES -- inherent measurable characteristics that an '
+    'entity HAS, not what it IS. Treat as Quality.\n'
+    '    Defaults: +R, -I, -O, -U, +D.\n'
+    '    Examples: Mass, Length, Color, Temperature, pH, Concentration, '
+    'Molecular Weight, Cost, Score, Rating, Coordinate.\n'
+    '    Diagnostic: "X is a property whose values can be measured or '
+    'compared across bearers".\n\n'
+    'INFORMATION / CONCEPT-LIKE CONTINUANTS (information content, '
+    'designs, plans, codes, classifications): not material, but stable '
+    'across copies and bearers. Treat as Sortal (or Information).\n'
+    '    Defaults: +R, +I, +O, -U, +D.\n'
+    '    Examples: Document, Code, Plan, Information, Design, Sequence, '
+    'Protocol, Identifier, Classification.\n\n'
+    'MIXIN -- if a class is a purely organisational header with no '
+    'substantive content of its own, or a label that bundles together '
+    'instances of multiple distinct kinds without defining its own '
+    'identity criterion, treat it as Mixin.\n'
+    '    Defaults: -R, +I, -O, -U, +D.   (RIGIDITY MUST BE -R, NEVER ~R)\n'
+    '    Examples: Conceptual Entity (an organisational header for '
+    'abstract concepts), Retired Concept, Obsolete Class, '
+    '"Drug, Food, Chemical or Biomedical Material" (umbrella header).\n\n'
+    'WHEN IN DOUBT -- apply the IS-A vs HAS-A test:\n'
+    '  - "an X HAS a Y"                                        -> Y is a Quality\n'
+    '  - "an X IS-A Y, but only in some context, and may stop being Y '
+    'while continuing to exist"                                -> Y is a Role\n'
+    '  - "an X IS-A Y intrinsically, by virtue of its structure or '
+    'composition"                                              -> Y is a Sortal or Disposition\n'
+    '  - "an X PERFORMS or PARTICIPATES IN a Y over time"      -> Y is a Process\n\n'
+    'Worked examples (note the rigidity-classification consistency):\n'
+    '  Term: process\n'
+    '  -> +R, -I, -O, ~U, +D, Process (abstract occurrent root; ALWAYS +R)\n'
+    '  Term: biological_process\n'
+    '  -> +R, -I, -O, ~U, +D, Process (occurrent root; ALWAYS +R)\n'
+    '  Term: secretion by tissue\n'
+    '  -> +R, -I, -O, ~U, +D, Process (occurrent; identity from tissue + time)\n'
+    '  Term: cognition\n'
+    '  -> +R, -I, -O, ~U, +D, Process (mental occurrent; no own IC)\n'
+    '  Term: person\n'
+    '  -> +R, +I, +O, +U, -D, Sortal (substantial continuant kind)\n'
+    '  Term: student\n'
+    '  -> ~R, +I, -O, +U, +D, Role (anti-rigid role of a person)\n'
+    '  Term: drug\n'
+    '  -> ~R, +I, -O, +U, +D, Role (substance playing a therapeutic role)\n'
+    '  Term: nuclear receptor\n'
+    '  -> ~R, +I, -O, +U, +D, Role (protein playing a receptor function)\n'
+    '  Term: lymphoma\n'
+    '  -> +R, +I, -O, -U, +D, Sortal (disease as a disposition of a bearer)\n'
+    '  Term: mass\n'
+    '  -> +R, -I, -O, -U, +D, Quality (measurable inherent characteristic)\n'
+    '  Term: Conceptual Entity\n'
+    '  -> -R, +I, -O, -U, +D, Mixin (organisational header; rigidity is -R, not ~R)\n'
+    '  Term: Retired Concept\n'
+    '  -> -R, +I, -O, -U, +D, Mixin (header bundling unrelated concepts; -R)\n\n'
+    'Return ONLY valid JSON in this exact format:\n'
+    '{\n'
+    '  "properties": {\n'
+    '    "rigidity": "+R" or "-R" or "~R",\n'
+    '    "identity": "+I" or "-I",\n'
+    '    "own_identity": "+O" or "-O",\n'
+    '    "unity": "+U" or "-U" or "~U",\n'
+    '    "dependence": "+D" or "-D"\n'
+    '  },\n'
+    '  "classification": "Sortal/Role/Mixin/Process/Quality/Disposition/Information",\n'
+    '  "reasoning": "Brief explanation referencing the upper-ontology family if relevant."\n'
+    '}'
+)
+
+base.SYSTEM_PROMPT = BFO3_SYSTEM_PROMPT
+
+if __name__ == "__main__":
+    base.main()
