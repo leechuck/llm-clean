@@ -1,0 +1,560 @@
+####################################################################
+# reproduce batch analysis on using a single file (i.e., no agents)
+####################################################################
+
+### batch analysis with anthropic's claude model
+
+# claude w/o any input files; this will use hardcode prompts
+uv run python scripts/batch_analyze_owl.py data/raw/emro.owl \
+--model anthropic \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_no_files.tsv
+
+# use PDF of Guarino's "Formal Ontology in Information Systems" paper as input file
+uv run python scripts/batch_analyze_owl.py data/raw/emro.owl \
+--model anthropic \
+--background-file data/raw/01-guarino00formal.pdf \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_pdf.tsv
+
+# use Guarino's PDF converted to text
+uv run python scripts/batch_analyze_owl.py data/raw/emro.owl \
+--model anthropic \
+--background-file data/raw/converted_text_files/guarino_text_files/01-guarino00formal-converted.txt \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_text.tsv
+
+# use Guarino's PDF converted to text but with correction made
+uv run python scripts/batch_analyze_owl.py data/raw/emro.owl \
+--model anthropic \
+--background-file data/raw/converted_text_files/guarino_text_files/01-guarino00formal-converted.txt \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_corrected_text.tsv
+
+### batch analysis with gemini
+
+# gemini w/o any input files; this will use hardcode prompts
+uv run python scripts/batch_analyze_owl.py data/raw/emro.owl \
+--model gemini \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_no_files.tsv
+
+# use PDF of Guarino's "Formal Ontology in Information Systems" paper as input file
+uv run python scripts/batch_analyze_owl.py data/raw/emro.owl \
+--model gemini \
+--background-file data/raw/01-guarino00formal.pdf \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_pdf.tsv
+
+# use Guarino's PDF converted to text
+uv run python scripts/batch_analyze_owl.py data/raw/emro.owl \
+--model gemini \
+--background-file data/raw/converted_text_files/guarino_text_files/01-guarino00formal-converted.txt \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_text.tsv
+
+# use Guarino's PDF converted to text but with correction made
+uv run python scripts/batch_analyze_owl.py data/raw/emro.owl \
+--model gemini \
+--background-file data/raw/converted_text_files/guarino_text_files/01-guarino00formal-converted.txt \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_corrected_text.tsv
+
+#**** We do not have a ground truth for EMRO. So, comment this out *****#
+
+# ####################################################################
+# # evaluate batch analysis using a single file (i.e., no agents)
+# ####################################################################
+
+# ### evaluate anthropic's claude model
+
+# # evaluate output using no files (i.e., hardcoded prompts)
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent anthropic \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_claude_no_files.json
+
+# # classification metrics for no files
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name anthropic-no-files \
+# --output output/evaluation_results/emro_claude_gemini/classify_claude_no_files.csv
+
+# # evaluate output using PDF of Guarino's "Formal Ontology in Information Systems" paper as input file
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_pdf.tsv \
+# data/raw/ground_truth.tsv \
+# --agent anthropic \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_claude_pdf.json
+
+# # classification metrics for PDF
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_pdf.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name anthropic-pdf \
+# --output output/evaluation_results/emro_claude_gemini/classify_claude_pdf.csv
+
+# # evaluate output using Guarino's PDF converted to text
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_text.tsv \
+# data/raw/ground_truth.tsv \
+# --agent anthropic \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_claude_text.json
+
+# # classification metrics for converted text
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_text.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name anthropic-text \
+# --output output/evaluation_results/emro_claude_gemini/classify_claude_text.csv
+
+# # evaluate output using Guarino's PDF converted to text but with correction made
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_corrected_text.tsv \
+# data/raw/ground_truth.tsv \
+# --agent anthropic \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_claude_corrected_text.json
+
+# # classification metrics for corrected text
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_corrected_text.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name anthropic-corrected \
+# --output output/evaluation_results/emro_claude_gemini/classify_claude_corrected_text.csv
+
+# ### evaluate gemini model
+
+# # evaluate output using no files (i.e., hardcoded prompts)
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent gemini \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_gemini_no_files.json
+
+# # classification metrics for no files
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name gemini-no-files \
+# --output output/evaluation_results/emro_claude_gemini/classify_gemini_no_files.csv
+
+# # evaluate output using PDF of Guarino's "Formal Ontology in Information Systems" paper as input file
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_pdf.tsv \
+# data/raw/ground_truth.tsv \
+# --agent gemini \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_gemini_pdf.json
+
+# # classification metrics for PDF
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_pdf.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name gemini-pdf \
+# --output output/evaluation_results/emro_claude_gemini/classify_gemini_pdf.csv
+
+# # evaluate output using Guarino's PDF converted to text
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_text.tsv \
+# data/raw/ground_truth.tsv \
+# --agent gemini \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_gemini_text.json
+
+# # classification metrics for converted text
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_text.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name gemini-text \
+# --output output/evaluation_results/emro_claude_gemini/classify_gemini_text.csv
+
+# # evaluate output using Guarino's PDF converted to text but with correction made
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_corrected_text.tsv \
+# data/raw/ground_truth.tsv \
+# --agent gemini \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_gemini_corrected_text.json
+
+# # classification metrics for corrected text
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_corrected_text.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name gemini-corrected \
+# --output output/evaluation_results/emro_claude_gemini/classify_gemini_corrected_text.csv
+
+# ### save non-agent evaluation results in a single tsv file for easier reporting and visualization
+# uv run python scripts/collect_evaluations.py \
+#   --files output/evaluation_results/emro_claude_gemini/evaluate_claude_no_files.json \
+#   		  output/evaluation_results/emro_claude_gemini/evaluate_claude_pdf.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_text.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_corrected_text.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_no_files.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_pdf.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_text.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_corrected_text.json \
+#   --indexes no-files pdf text corrected no-files pdf text corrected \
+#   --output output/collect_non_agent_results.tsv
+
+# # save non-agent evaluation results as a markdown file
+# uv run python scripts/collect_evaluations.py \
+#   --files output/evaluation_results/emro_claude_gemini/evaluate_claude_no_files.json \
+#   		  output/evaluation_results/emro_claude_gemini/evaluate_claude_pdf.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_text.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_corrected_text.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_no_files.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_pdf.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_text.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_corrected_text.json \
+#   --indexes no-files pdf text corrected no-files pdf text corrected \
+#   --output output/collect_non_agent_results.md
+
+# # save markdow file as report in the reports folder
+# cp output/collect_non_agent_results.md docs/reports/emro_claude_gemini/NON_AGENT_BATCH_ANALYSIS_REPORT.md
+
+####################################################################
+# reproduce batch analysis on using agents
+####################################################################
+
+### agent batch analysis with anthropic's claude model
+
+# claude w/o any input files; this will use hardcode prompts
+uv run python scripts/batch_analyze_owl_agents.py data/raw/emro.owl \
+--model anthropic \
+--no-default-backgrounds \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_no_files.tsv
+
+# use specific sections of Guarino's file (no introduction section) 
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents.py data/raw/emro.owl \
+--model anthropic \
+--default-background-file-type simple \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_using_files_no_intro.tsv
+
+# use specific sections of Guarino's file, but include the introduction section as well 
+# since it contains important context about the paper and ontology 
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents.py data/raw/emro.owl \
+--model anthropic \
+--default-background-file-type augmented \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_using_files_with_intro.tsv
+
+### agent batch analysis using gemini
+
+# gemini w/o any input files; this will use hardcode prompts
+uv run python scripts/batch_analyze_owl_agents.py data/raw/emro.owl \
+--model gemini \
+--no-default-backgrounds \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_no_files.tsv
+
+# use specific sections of Guarino's file (no introduction section)
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents.py data/raw/emro.owl \
+--model gemini \
+--default-background-file-type simple \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_using_files_no_intro.tsv
+
+# use specific sections of Guarino's file, but include the introduction section as well 
+# since it contains important context about the paper and ontology
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents.py data/raw/emro.owl \
+--model gemini \
+--default-background-file-type augmented \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_using_files_with_intro.tsv
+
+#**** We do not have a ground truth for EMRO. So, comment this out *****#
+
+# ####################################################################
+# # evaluate batch analysis using agents
+# ####################################################################
+
+# ### evaluate agent batch analysis with anthropic's claude model
+
+# # evaluate output using no files (i.e., hardcoded prompts)
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent anthropic \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_no_files.json
+
+# # classification metrics for agents no files
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name anthropic-agents-no-files \
+# --output output/evaluation_results/emro_claude_gemini/classify_claude_agents_no_files.csv
+
+# # evaluate output using specific sections of Guarino's file (no introduction section)
+# # the sections are extracted from the converted text file with corrections made
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_using_files_no_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent anthropic \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_using_files_no_intro.json 
+
+# # classification metrics for agents no intro
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_using_files_no_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name anthropic-agents-no-intro \
+# --output output/evaluation_results/emro_claude_gemini/classify_claude_agents_no_intro.csv
+
+# # evaluate output using specific sections of Guarino's file, but include the introduction section as well 
+# # since it contains important context about the paper and ontology
+# # the sections are extracted from the converted text file with corrections made
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_using_files_with_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent anthropic \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_using_files_with_intro.json
+
+# # classification metrics for agents with intro
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_using_files_with_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name anthropic-agents-with-intro \
+# --output output/evaluation_results/emro_claude_gemini/classify_claude_agents_with_intro.csv
+
+# ### evaluate agent batch analysis with gemini
+
+# # evaluate output using no files (i.e., hardcoded prompts)
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent gemini \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_no_files.json
+
+# # classification metrics for agents no files
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name gemini-agents-no-files \
+# --output output/evaluation_results/emro_claude_gemini/classify_gemini_agents_no_files.csv
+
+# # evaluate output using specific sections of Guarino's file (no introduction section)
+# # the sections are extracted from the converted text file with corrections made
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_using_files_no_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent gemini \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_using_files_no_intro.json
+
+# # classification metrics for agents no intro
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_using_files_no_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name gemini-agents-no-intro \
+# --output output/evaluation_results/emro_claude_gemini/classify_gemini_agents_no_intro.csv
+
+# # evaluate output using specific sections of Guarino's file, but include the introduction section as well 
+# # since it contains important context about the paper and ontology
+# # the sections are extracted from the converted text file with corrections made
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_using_files_with_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent gemini \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_using_files_with_intro.json
+
+# # classification metrics for agents with intro
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_using_files_with_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name gemini-agents-with-intro \
+# --output output/evaluation_results/emro_claude_gemini/classify_gemini_agents_with_intro.csv
+
+# ### save agent evaluation results in a single tsv file for easier reporting and visualization
+# uv run python scripts/collect_evaluations.py \
+#   --files output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_no_files.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_using_files_no_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_using_files_with_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_no_files.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_using_files_no_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_using_files_with_intro.json \
+#   --indexes no-files no-intro with-intro no-files no-intro with-intro \
+#   --output output/collect_agent_results.tsv
+
+# # save both agent evvaluation results as a markdown file
+# uv run python scripts/collect_evaluations.py \
+#   --files output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_no_files.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_using_files_no_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_using_files_with_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_no_files.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_using_files_no_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_using_files_with_intro.json \
+#   --indexes no-files no-intro with-intro no-files no-intro with-intro \
+#   --output output/collect_agent_results.md
+
+#   # save markdow file as report in the reports folder
+#   cp output/collect_agent_results.md docs/reports/emro_claude_gemini/AGENT_BATCH_ANALYSIS_REPORT.md
+
+####################################################################
+# reproduce batch analysis using agents with critic validation
+####################################################################
+
+### agent critic batch analysis with anthropic's claude model
+
+# claude w/o any input files; this will use hardcode prompts
+uv run python scripts/batch_analyze_owl_agents_critic.py data/raw/emro.owl \
+--model anthropic \
+--no-default-backgrounds \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_critic_no_files.tsv
+
+# use specific sections of Guarino's file (no introduction section)
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents_critic.py data/raw/emro.owl \
+--model anthropic \
+--default-background-file-type simple \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_critic_using_files_no_intro.tsv
+
+# use specific sections of Guarino's file, but include the introduction section as well
+# since it contains important context about the paper and ontology
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents_critic.py data/raw/emro.owl \
+--model anthropic \
+--default-background-file-type augmented \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_critic_using_files_with_intro.tsv
+
+### agent critic batch analysis using gemini
+
+# gemini w/o any input files; this will use hardcode prompts
+uv run python scripts/batch_analyze_owl_agents_critic.py data/raw/emro.owl \
+--model gemini \
+--no-default-backgrounds \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_critic_no_files.tsv
+
+# use specific sections of Guarino's file (no introduction section)
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents_critic.py data/raw/emro.owl \
+--model gemini \
+--default-background-file-type simple \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_critic_using_files_no_intro.tsv
+
+# use specific sections of Guarino's file, but include the introduction section as well
+# since it contains important context about the paper and ontology
+# the sections are extracted from the converted text file with corrections made
+uv run python scripts/batch_analyze_owl_agents_critic.py data/raw/emro.owl \
+--model gemini \
+--default-background-file-type augmented \
+--max-critique-attempts 3 \
+--output output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_critic_using_files_with_intro.tsv
+
+#**** We do not have a ground truth for EMRO. So, comment this out *****#
+
+# ####################################################################
+# # evaluate batch analysis using agents with critic validation
+# ####################################################################
+
+# ### evaluate agent critic batch analysis with anthropic's claude model
+
+# # evaluate output using no files (i.e., hardcoded prompts)
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_critic_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent anthropic \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_critic_no_files.json
+
+# # classification metrics for critic no files
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_critic_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name anthropic-critic-no-files \
+# --output output/evaluation_results/emro_claude_gemini/classify_claude_critic_no_files.csv
+
+# # evaluate output using specific sections of Guarino's file (no introduction section)
+# # the sections are extracted from the converted text file with corrections made
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_critic_using_files_no_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent anthropic \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_critic_using_files_no_intro.json
+
+# # classification metrics for critic no intro
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_critic_using_files_no_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name anthropic-critic-no-intro \
+# --output output/evaluation_results/emro_claude_gemini/classify_claude_critic_no_intro.csv
+
+# # evaluate output using specific sections of Guarino's file, but include the introduction section as well
+# # since it contains important context about the paper and ontology
+# # the sections are extracted from the converted text file with corrections made
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_critic_using_files_with_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent anthropic \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_critic_using_files_with_intro.json
+
+# # classification metrics for critic with intro
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_claude_agents_critic_using_files_with_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name anthropic-critic-with-intro \
+# --output output/evaluation_results/emro_claude_gemini/classify_claude_critic_with_intro.csv
+
+# ### evaluate agent critic batch analysis with gemini
+
+# # evaluate output using no files (i.e., hardcoded prompts)
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_critic_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent gemini \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_critic_no_files.json
+
+# # classification metrics for critic no files
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_critic_no_files.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name gemini-critic-no-files \
+# --output output/evaluation_results/emro_claude_gemini/classify_gemini_critic_no_files.csv
+
+# # evaluate output using specific sections of Guarino's file (no introduction section)
+# # the sections are extracted from the converted text file with corrections made
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_critic_using_files_no_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent gemini \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_critic_using_files_no_intro.json
+
+# # classification metrics for critic no intro
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_critic_using_files_no_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name gemini-critic-no-intro \
+# --output output/evaluation_results/emro_claude_gemini/classify_gemini_critic_no_intro.csv
+
+# # evaluate output using specific sections of Guarino's file, but include the introduction section as well
+# # since it contains important context about the paper and ontology
+# # the sections are extracted from the converted text file with corrections made
+# uv run python scripts/evaluate_analysis.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_critic_using_files_with_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent gemini \
+# --output output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_critic_using_files_with_intro.json
+
+# # classification metrics for critic with intro
+# uv run python scripts/evaluate_classification_metrics.py \
+# output/analyzed_entities/emro_claude_gemini/analyzed_entities_gemini_agents_critic_using_files_with_intro.tsv \
+# data/raw/ground_truth.tsv \
+# --agent-name gemini-critic-with-intro \
+# --output output/evaluation_results/emro_claude_gemini/classify_gemini_critic_with_intro.csv
+
+# ### save agent critic evaluation results in a single tsv file for easier reporting and visualization
+# uv run python scripts/collect_evaluations.py \
+#   --files output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_critic_no_files.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_critic_using_files_no_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_critic_using_files_with_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_critic_no_files.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_critic_using_files_no_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_critic_using_files_with_intro.json \
+#   --indexes no-files no-intro with-intro no-files no-intro with-intro \
+#   --output output/collect_agent_critic_results.tsv
+
+# # save agent critic evaluation results as a markdown file
+# uv run python scripts/collect_evaluations.py \
+#   --files output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_critic_no_files.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_critic_using_files_no_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_claude_agents_critic_using_files_with_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_critic_no_files.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_critic_using_files_no_intro.json \
+#           output/evaluation_results/emro_claude_gemini/evaluate_gemini_agents_critic_using_files_with_intro.json \
+#   --indexes no-files no-intro with-intro no-files no-intro with-intro \
+#   --output output/collect_agent_critic_results.md
+
+# # save markdown file as report in the reports folder
+# cp output/collect_agent_critic_results.md docs/reports/emro_claude_gemini/AGENT_CRITIC_BATCH_ANALYSIS_REPORT.md
