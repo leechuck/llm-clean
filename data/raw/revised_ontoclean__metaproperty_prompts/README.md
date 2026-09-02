@@ -19,9 +19,9 @@ See ** Metaproperty prompts supplied to LLMs** section below for the prompts use
 Results of the prompts are saved in the directories/files:
 
 * Dependence
-  * Dependence - ChatGPT.md  
-  * Dependence - Claude.md   
-  * Dependence - Gemini.md
+  * [Dependence%20-%20ChatGPT.md](Dependence/Dependence%20-%20ChatGPT.md)
+  * [Dependence%20-%20Claude.md](Dependence/Dependence%20-%20Claude.md)
+  * [Dependence%20-%20Gemini.md](Dependence/ependence%20-%20Gemini.md)
 
 * Identity
   * Identity - ChatGPT.md  
