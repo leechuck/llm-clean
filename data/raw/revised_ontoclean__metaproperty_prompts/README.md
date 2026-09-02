@@ -14,7 +14,7 @@ After the LLM responded, each metaproperty was revised using the prompt:
 Please suggest alternative wording for the following description of `<metaproperty>`, and put your response in markdown format:  
 `<insert corresponding prompt from prompts.py>`
 
-See ** Metaproperty prompts supplied to LLMs** section below for the prompts used.
+See **Metaproperty prompts supplied to LLMs** section below for the prompts used.
 
 Results of the prompts are saved in the directories/files:
 
