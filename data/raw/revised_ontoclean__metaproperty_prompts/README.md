@@ -29,9 +29,9 @@ Results of the prompts are saved in the LLM-Responses directory:
   * [Identity-Gemini.md](LLM-Responses/Identity/Identity-Gemini.md)
 
 * LLM-Responses/Own-Identity
-  * [Own-Identity-ChatGPT.md](LLM-Responses/OwnIdentity/OwnIdentity-ChatGPT.md)
-  * [Own-Identity-Claude.md](LLM-Responses/OwnIdentity/OwnIdentity-Claude.md)
-  * [Own-Identity-Gemini.md](LLM-Responses/OwnIdentity/OwnIdentity-Gemini.md)
+  * [Own-Identity-ChatGPT.md](LLM-Responses/Own-Identity/Own-Identity-ChatGPT.md)
+  * [Own-Identity-Claude.md](LLM-Responses/Own-Identity/Own-Identity-Claude.md)
+  * [Own-Identity-Gemini.md](LLM-Responses/Own-Identity/Own-Identity-Gemini.md)
 
 * LLM-Responses/Rigidity
   * [Rigidity-ChatGPT.md](LLM-Responses/Rigidity/Rigidity-ChatGPT.md)
