@@ -21,7 +21,7 @@ Results of the prompts are saved in the directories/files:
 * Dependence
   * [Dependence-ChatGPT.md](Dependence/Dependence-ChatGPT.md)
   * [Dependence-Claude.md](Dependence/Dependence-Claude.md)
-  * [Dependence-Gemini.md](Dependence/ependence-Gemini.md)
+  * [Dependence-Gemini.md](Dependence/Dependence-Gemini.md)
 
 * Identity
   * [Identity-ChatGPT.md](Identity/Identity-ChatGPT.md)
