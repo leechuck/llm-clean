@@ -14,34 +14,34 @@ After the LLM responded, each metaproperty was revised using the prompt:
 > Please suggest alternative wording for the following description of `<metaproperty>`, and put your response in markdown format:  
 `<insert corresponding prompt from prompts.py>`
 
-See **Metaproperty prompts supplied to LLMs** section below for the prompts used.
+See **Metaproperty prompts supplied to LLMs** section below for the content of `<insert corresponding prompt from prompts.py>`.
 
-Results of the prompts are saved in the directories/files:
+Results of the prompts are saved in the LLM-Responses directory:
 
-* Dependence
-  * [Dependence-ChatGPT.md](Dependence/Dependence-ChatGPT.md)
-  * [Dependence-Claude.md](Dependence/Dependence-Claude.md)
-  * [Dependence-Gemini.md](Dependence/Dependence-Gemini.md)
+* LLM-Responses/Dependence
+  * [Dependence-ChatGPT.md](LLM-Responses/Dependence/Dependence-ChatGPT.md)
+  * [Dependence-Claude.md](LLM-Responses/Dependence/Dependence-Claude.md)
+  * [Dependence-Gemini.md](LLM-Responses/Dependence/Dependence-Gemini.md)
 
-* Identity
-  * [Identity-ChatGPT.md](Identity/Identity-ChatGPT.md)
-  * [Identity-Claude.md](Identity/Identity-Claude.md)
-  * [Identity-Gemini.md](Identity/Identity-Gemini.md)
+* LLM-Responses/Identity
+  * [Identity-ChatGPT.md](LLM-Responses/Identity/Identity-ChatGPT.md)
+  * [Identity-Claude.md](LLM-Responses/Identity/Identity-Claude.md)
+  * [Identity-Gemini.md](LLM-Responses/Identity/Identity-Gemini.md)
 
-* Own-Identity
-  * [Own-Identity-ChatGPT.md](OwnIdentity/OwnIdentity-ChatGPT.md)
-  * [Own-Identity-Claude.md](OwnIdentity/OwnIdentity-Claude.md)
-  * [Own-Identity-Gemini.md](OwnIdentity/OwnIdentity-Gemini.md)
+* LLM-Responses/Own-Identity
+  * [Own-Identity-ChatGPT.md](LLM-Responses/OwnIdentity/OwnIdentity-ChatGPT.md)
+  * [Own-Identity-Claude.md](LLM-Responses/OwnIdentity/OwnIdentity-Claude.md)
+  * [Own-Identity-Gemini.md](LLM-Responses/OwnIdentity/OwnIdentity-Gemini.md)
 
-* Rigidity
-  * [Rigidity-ChatGPT.md](Rigidity/Rigidity-ChatGPT.md)
-  * [Rigidity-Claude.md](Rigidity/Rigidity-Claude.md)
-  * [Rigidity-Gemini.md](Rigidity/Rigidity-Gemini.md)
+* LLM-Responses/Rigidity
+  * [Rigidity-ChatGPT.md](LLM-Responses/Rigidity/Rigidity-ChatGPT.md)
+  * [Rigidity-Claude.md](LLM-Responses/Rigidity/Rigidity-Claude.md)
+  * [Rigidity-Gemini.md](LLM-Responses/Rigidity/Rigidity-Gemini.md)
 
-* Unity
-  * [Unity-ChatGPT.md](Unity/Unity-ChatGPT.md)
-  * [Unity-Claude.md](Unity/Unity-Claude.md)
-  * [Unity-Gemini.md](Unity/Unity-Gemini.md)
+* LLM-Responses/Unity
+  * [Unity-ChatGPT.md](LLM-Responses/Unity/Unity-ChatGPT.md)
+  * [Unity-Claude.md](LLM-Responses/Unity/Unity-Claude.md)
+  * [Unity-Gemini.md](LLM-Responses/Unity/Unity-Gemini.md)
 
 ## Synthesized revision 
 For each LLM specific metaproperty, the LLM was asked to synthesize all three metaproperty file into a single concise instruction for determining the metaproperty. The prompt used was:
