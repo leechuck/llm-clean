@@ -7,11 +7,11 @@ Claude, Gemini, and ChatGPT were instructed to revise/simplify the hardcoded pro
 * Claude Opus 5
 
 Each LLM was given the following prompt:  
-I am working a project using AI to determine ontoclean metaproperties in an ontology. documenation about ontoclean can be found here: https://en.wikipedia.org/wiki/OntoClean
+> I am working a project using AI to determine ontoclean metaproperties in an ontology. documenation about ontoclean can be found here: https://en.wikipedia.org/wiki/OntoClean
 The definitions of the  metaproperties technical. I want to make theme easier to understand for an AI agent. I will give you definitions for each metaproperty. Please suggest an alternative definition that is easier to understand.
 
 After the LLM responded, each metaproperty was revised using the prompt:  
-Please suggest alternative wording for the following description of `<metaproperty>`, and put your response in markdown format:  
+> Please suggest alternative wording for the following description of `<metaproperty>`, and put your response in markdown format:  
 `<insert corresponding prompt from prompts.py>`
 
 See **Metaproperty prompts supplied to LLMs** section below for the prompts used.
@@ -44,12 +44,12 @@ Results of the prompts are saved in the directories/files:
   * [Unity-Gemini.md](Unity/Unity-Gemini.md)
 
 ## Synthesized revision 
-For each LLM specific metaproperty, Gemini Latest Pro was asked to synthesize all three metaproperty file into a single concise instruction for determining the metaproperty. The prompt used was:
+For each LLM specific metaproperty, the LLM was asked to synthesize all three metaproperty file into a single concise instruction for determining the metaproperty. The prompt used was:
 
-The attached files contain three proposed revisions of instructions for an LLM to evaluate Ontoclean's `<metaproperty name>` metaproperty. Please review the metaproperty revisions and create a single concise instruction. Do not include tests, formal definitions, or other filters. Only return the revised instruction. Format your answer in markdown.
+> The attached files contain three proposed revisions of instructions for an LLM to evaluate Ontoclean's `<metaproperty name>` metaproperty. Please review the metaproperty revisions and create a single concise instruction. Do not include tests, formal definitions, or other filters. Only return the revised instruction. Format your answer in markdown.
 
 Due to excessive wordiness by Claude, I had to add instructions to only return the the revision:  
-The attached files contain three proposed revisions for instructions on LLM how to evaluate Ontoclean's `<metaproperty name>` metaproperty. Please review the metaproperty revisions and create a single concise instruction. **I don't need the labels, decision procedure, errors to avoid. I only need the revision. Only return the suggested revision, and nothing else.** Format your answer in markdown.
+> The attached files contain three proposed revisions for instructions on LLM how to evaluate Ontoclean's `<metaproperty name>` metaproperty. Please review the metaproperty revisions and create a single concise instruction. **I don't need the labels, decision procedure, errors to avoid. I only need the revision. Only return the suggested revision, and nothing else.** Format your answer in markdown.
 
 The synthesized revisions are in the Synthesized directories:
 * Synthesized/Dependence
