@@ -51,27 +51,27 @@ For each LLM specific metaproperty, the LLM was asked to synthesize all three me
 Due to excessive wordiness by Claude, I had to add instructions to only return the the revision:  
 > The attached files contain three proposed revisions for instructions on LLM how to evaluate Ontoclean's `<metaproperty name>` metaproperty. Please review the metaproperty revisions and create a single concise instruction. **I don't need the labels, decision procedure, errors to avoid. I only need the revision. Only return the suggested revision, and nothing else.** Format your answer in markdown.
 
-The synthesized revisions are in the Synthesized directories:
-* Synthesized/Dependence
-  * [Dependence-synthesized-ChatGPT.md](Synthesized/Dependence/Dependence-synthesized-ChatGPT.md)
-  * [Dependence-synthesized-Claude.md](Synthesized/Dependence/Dependence-synthesized-Claude.md)
-  * [Dependence-synthesized-Gemini.md](Synthesized/Dependence/Dependence-synthesized-Gemini.md)
-* Synthesized/Identity
-  * [Identity-synthesized-ChatGPT.md](Synthesized/Identity/Identity-synthesized-ChatGPT.md)
-  * [Identity-synthesized-Claude.md](Synthesized/Identity/Identity-synthesized-Claude.md)
-  * [Identity-synthesized-Gemini.md](Synthesized/Identity/Identity-synthesized-Gemini.md)
-* Synthesized/Own-Identity
-  * [Own-Identity-synthesized-ChatGPT.md](Synthesized/Own-Identity/Own-Identity-synthesized-ChatGPT.md)
-  * [Own-Identity-synthesized-Claude.md](Synthesized/Own-Identity/Own-Identity-synthesized-Claude.md)
-  * [Own-Identity-synthesized-Gemini.md](Synthesized/Own-Identity/Own-Identity-synthesized-Gemini.md)
-* Synthesized/Rigidity
-  * [Rigidity-synthesized-ChatGPT.md](Synthesized/Rigidity/Rigidity-synthesized-ChatGPT.md)
-  * [Rigidity-synthesized-Claude.md](Synthesized/Rigidity/Rigidity-synthesized-Claude.md)
-  * [Rigidity-synthesized-Gemini.md](Synthesized/Rigidity/Rigidity-synthesized-Gemini.md)
-* Synthesized/Unity
-  * [Unity-synthesized-ChatGPT.md](Synthesized/Unity/Unity-synthesized-ChatGPT.md)
-  * [Unity-synthesized-Claude.md](Synthesized/Unity/Unity-synthesized-Claude.md)
-  * [Unity-synthesized-Gemini.md](Synthesized/Unity/Unity-synthesized-Gemini.md)
+The synthesized revisions are in the Synthesized-Prompts directories:
+* Synthesized-Prompts/Dependence
+  * [Dependence-synthesized-ChatGPT.md](Synthesized-Prompts/Dependence/Dependence-synthesized-ChatGPT.md)
+  * [Dependence-synthesized-Claude.md](Synthesized-Prompts/Dependence/Dependence-synthesized-Claude.md)
+  * [Dependence-synthesized-Gemini.md](Synthesized-Prompts/Dependence/Dependence-synthesized-Gemini.md)
+* Synthesized-Prompts/Identity
+  * [Identity-synthesized-ChatGPT.md](Synthesized-Prompts/Identity/Identity-synthesized-ChatGPT.md)
+  * [Identity-synthesized-Claude.md](Synthesized-Prompts/Identity/Identity-synthesized-Claude.md)
+  * [Identity-synthesized-Gemini.md](Synthesized-Prompts/Identity/Identity-synthesized-Gemini.md)
+* Synthesized-Prompts/Own-Identity
+  * [Own-Identity-synthesized-ChatGPT.md](Synthesized-Prompts/Own-Identity/Own-Identity-synthesized-ChatGPT.md)
+  * [Own-Identity-synthesized-Claude.md](Synthesized-Prompts/Own-Identity/Own-Identity-synthesized-Claude.md)
+  * [Own-Identity-synthesized-Gemini.md](Synthesized-Prompts/Own-Identity/Own-Identity-synthesized-Gemini.md)
+* Synthesized-Prompts/Rigidity
+  * [Rigidity-synthesized-ChatGPT.md](Synthesized-Prompts/Rigidity/Rigidity-synthesized-ChatGPT.md)
+  * [Rigidity-synthesized-Claude.md](Synthesized-Prompts/Rigidity/Rigidity-synthesized-Claude.md)
+  * [Rigidity-synthesized-Gemini.md](Synthesized-Prompts/Rigidity/Rigidity-synthesized-Gemini.md)
+* Synthesized-Prompts/Unity
+  * [Unity-synthesized-ChatGPT.md](Synthesized-Prompts/Unity/Unity-synthesized-ChatGPT.md)
+  * [Unity-synthesized-Claude.md](Synthesized-Prompts/Unity/Unity-synthesized-Claude.md)
+  * [Unity-synthesized-Gemini.md](Synthesized-Prompts/Unity/Unity-synthesized-Gemini.md)
 
 ## Tests for metaproperties
 Interestingly, Gemini also supplied "tests" for determining metaproperties.
