@@ -103,6 +103,7 @@ The synthesized revisions are in the Synthesized-Prompts directories:
   * [Unity-synthesized-Claude.md](Synthesized-Prompts/Unity/Unity-synthesized-Claude.md)
   * [Unity-synthesized-Gemini.md](Synthesized-Prompts/Unity/Unity-synthesized-Gemini.md)
 
+---
 ## Tests for metaproperties
 Interestingly, Gemini also supplied "tests" for determining metaproperties.
 
@@ -179,6 +180,7 @@ To help the AI agent accurately classify a concept, you can include these simple
 *   Is this concept just a word for "a bunch of other things"?
     *   *If YES* $\rightarrow$ likely **~U** (A "forest" is just a bunch of trees; a "crowd" is a bunch of people).
 
+---
 
 ## Metaproperty Prompts Supplied to LLMs
 
