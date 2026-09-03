@@ -1,0 +1,3 @@
+## Own Identity — Supplies Its Own Identity Condition
+
+Classify a class as **+O** only when it is rigid, already carries identity, and introduces the global ontological rule for deciding when its instances are one and the same individual. The rule must apply throughout the instance’s existence, not merely during a role, phase, registration, or administrative context. Classify a class as **-O** when it lacks identity, is not rigid, only has a local or practical identifier, or merely inherits its identity condition from a more general class without adding a new compatible criterion. Own Identity is therefore about where the identity rule originates in the taxonomy, not whether instances can be named, recognized, or assigned IDs.

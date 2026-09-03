@@ -1,0 +1,3 @@
+## Identity — Carries an Identity Condition
+
+Classify a class as **+I** when it supplies or inherits a principled ontological criterion for what counts as one and the same instance—so its instances can be counted, distinguished from one another, and re-identified over time. This criterion is about sameness, not merely practical recognition through names, IDs, database keys, or observable features. Classify a class as **-I** when it only expresses a quality, state, modifier, or overly general category and cannot answer “same one or different one?” without borrowing an identity criterion from another sortal class. Identity is inherited from superclasses and is distinct from unity: something may carry identity even if it is not a unified whole.

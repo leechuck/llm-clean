@@ -1,0 +1,3 @@
+## Dependence — External Dependence
+
+Classify a class as **+D** when every instance necessarily requires some **other, distinct, external entity** in order to be an instance of that class. The required entity may be generic, such as some employer, host, institution, bearer, spouse, owner, or bounded object; it need not be one fixed individual. Do **not** count the instance’s own parts, material, constituents, members, causes, creators, survival needs, or background conditions. Classify a class as **-D** when an instance can coherently be that kind of thing without any required external counterpart, even if it has parts, origins, needs, or ordinary interactions. Dependence has only these two values.
