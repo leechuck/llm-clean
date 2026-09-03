@@ -61,9 +61,9 @@ The synthesized revisions are in the Synthesized directories:
   * [Identity-synthesized-Claude.md](Synthesized/Identity/Identity-synthesized-Claude.md)
   * [Identity-synthesized-Gemini.md](Synthesized/Identity/Identity-synthesized-Gemini.md)
 * Synthesized/Own-Identity
-  * [Own-Identity-synthesized-ChatGPT.md](Synthesized/Own-Identity-synthesized-ChatGPT.md)
-  * [Own-Identity-synthesized-Claude.md](Synthesized/Own-Identity-synthesized-Claude.md)
-  * [Own-Identity-synthesized-Gemini.md](Synthesized/Own-Identity-synthesized-Gemini.md)
+  * [Own-Identity-synthesized-ChatGPT.md](Synthesized/Own-Identity/Own-Identity-synthesized-ChatGPT.md)
+  * [Own-Identity-synthesized-Claude.md](Synthesized/Own-Identity/Own-Identity-synthesized-Claude.md)
+  * [Own-Identity-synthesized-Gemini.md](Synthesized/Own-Identity/Own-Identity-synthesized-Gemini.md)
 * Synthesized/Rigidity
   * [Rigidity-synthesized-ChatGPT.md](Synthesized/Rigidity/Rigidity-synthesized-ChatGPT.md)
   * [Rigidity-synthesized-Claude.md](Synthesized/Rigidity/Rigidity-synthesized-Claude.md)
