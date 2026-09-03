@@ -19,29 +19,29 @@ See **Metaproperty prompts supplied to LLMs** section below for the prompts used
 Results of the prompts are saved in the directories/files:
 
 * Dependence
-  * [Dependence - ChatGPT.md](Dependence/Dependence%20-%20ChatGPT.md)
-  * [Dependence - Claude.md](Dependence/Dependence%20-%20Claude.md)
-  * [Dependence - Gemini.md](Dependence/ependence%20-%20Gemini.md)
+  * [Dependence-ChatGPT.md](Dependence/Dependence-ChatGPT.md)
+  * [Dependence-Claude.md](Dependence/Dependence-Claude.md)
+  * [Dependence-Gemini.md](Dependence/ependence-Gemini.md)
 
 * Identity
-  * [Identity - ChatGPT.md](Identity/Identity%20-%20ChatGPT.md)
-  * [Identity - Claude.md](Identity/Identity%20-%20Claude.md)
-  * [Identity - Gemini.md](Identity/Identity%20-%20Gemini.md)
+  * [Identity-ChatGPT.md](Identity/Identity-ChatGPT.md)
+  * [Identity-Claude.md](Identity/Identity-Claude.md)
+  * [Identity-Gemini.md](Identity/Identity-Gemini.md)
 
-* Own Identity
-  * [Own Identity - ChatGPT.md](Own%20Identity/Own%20Identity%20-%20ChatGPT.md)
-  * [Own Identity - Claude.md](Own%20Identity/Own%20Identity%20-%20Claude.md)
-  * [Own Identity - Gemini.md](Own%20Identity/Own%20Identity%20-%20Gemini.md)
+* Own-Identity
+  * [Own-Identity-ChatGPT.md](OwnIdentity/OwnIdentity-ChatGPT.md)
+  * [Own-Identity-Claude.md](OwnIdentity/OwnIdentity-Claude.md)
+  * [Own-Identity-Gemini.md](OwnIdentity/OwnIdentity-Gemini.md)
 
 * Rigidity
-  * [Rigidity - ChatGPT.md](Rigidity/Rigidity%20-%20ChatGPT.md)
-  * [Rigidity - Claude.md](Rigidity/Rigidity%20-%20Claude.md)
-  * [Rigidity - Gemini.md](Rigidity/Rigidity%20-%20Gemini.md)
+  * [Rigidity-ChatGPT.md](Rigidity/Rigidity-ChatGPT.md)
+  * [Rigidity-Claude.md](Rigidity/Rigidity-Claude.md)
+  * [Rigidity-Gemini.md](Rigidity/Rigidity-Gemini.md)
 
 * Unity
-  * [Unity - ChatGPT.md](Unity/Unity%20-%20ChatGPT.md)
-  * [Unity - Claude.md](Unity/Unity%20-%20Claude.md)
-  * [Unity - Gemini.md](Unity/Unity%20-%20Gemini.md)
+  * [Unity-ChatGPT.md](Unity/Unity-ChatGPT.md)
+  * [Unity-Claude.md](Unity/Unity-Claude.md)
+  * [Unity-Gemini.md](Unity/Unity-Gemini.md)
 
 ## Synthesized revision 
 For each LLM specific metaproperty, Gemini Latest Pro was asked to synthesize all three metaproperty file into a single concise instruction for determining the metaproperty. The prompt used was:
@@ -49,11 +49,11 @@ For each LLM specific metaproperty, Gemini Latest Pro was asked to synthesize al
 The attached files contain three proposed revisions of instructions for an LLM to evaluate Ontoclean's `<metaproperty name>` metaproperty. Please review the metaproperty revisions and create a single concise instruction. Do not include tests, formal definitions, or other filters. Only return the revised instruction. Format your answer in markdown.
 
 The synthesized revisions are in the files:
-* [Dependence - synthesized.md](Dependence%20-%20synthesized.md)
-* [Identity - synthesized.md](Identity%20-%20synthesized.md)
-* [Own Identity - synthesized.md](Own%20Identity%20-%20synthesized.md)
-* [Rigidity - synthesized.md](Rigidity%20-%20synthesized.md)
-* [Unity - synthesized.md](Unity%20-%20synthesized.md)
+* [Dependence-synthesized.md](Synthesized/Dependence-synthesized.md)
+* [Identity- synthesized.md](Synthesized/Identity-synthesized.md)
+* [Own Identity-synthesized.md](Synthesized/OwnIdentity-synthesized.md)
+* [Rigidity-synthesized.md](Synthesized/Rigidity-synthesized.md)
+* [Unity-synthesized.md](Synthesized/Unity-synthesized.md)
 
 ## Tests for metaproperties
 Interestingly, Gemini also supplied "tests" for determining metaproperties.
