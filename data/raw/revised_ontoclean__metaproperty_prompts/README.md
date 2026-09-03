@@ -1,6 +1,5 @@
 # Revised Metaproperty Prompts
 
-## LLM revisions
 Claude, Gemini, and ChatGPT were instructed to revise/simplify the hardcoded prompts for determining dependence, identity, own identity, rigidity, and unity found in `llm-clean/src/llm_clean/ontology/prompts.py`. The LLMs were access through OpenRouter, and the LLMs selected (on `2026-09-01`) were:
 * Gemini Pro Latest 
 * GPT-5.5 Pro
@@ -14,9 +13,11 @@ After the LLM responded, each metaproperty was revised using the prompt:
 > Please suggest alternative wording for the following description of `<metaproperty>`, and put your response in markdown format:  
 `<insert corresponding prompt from prompts.py>`
 
-See **Metaproperty prompts supplied to LLMs** section below for the content of `<insert corresponding prompt from prompts.py>`.
+See **Metaproperty Prompts Supplied to LLMs** section below for the content of `<insert corresponding prompt from prompts.py>`.
 
-Results of the prompts are saved in the LLM-Responses directory:
+
+## LLM Responses
+The responses from the LLMs are saved in the LLM-Responses directory:
 
 * LLM-Responses/Dependence
   * [Dependence-ChatGPT.md](LLM-Responses/Dependence/Dependence-ChatGPT.md)
@@ -43,8 +44,37 @@ Results of the prompts are saved in the LLM-Responses directory:
   * [Unity-Claude.md](LLM-Responses/Unity/Unity-Claude.md)
   * [Unity-Gemini.md](LLM-Responses/Unity/Unity-Gemini.md)
 
-## Synthesized revision 
-For each LLM specific metaproperty, the LLM was asked to synthesize all three metaproperty file into a single concise instruction for determining the metaproperty. The prompt used was:
+
+## LLM Prompts
+The LLM responses included extra information that might confuse the LLM. This extra information was deleted and saved in the LLM-Prompts directory:
+
+* LLM-Prompts/Dependence
+  * [Dependence-ChatGPT.md](LLM-Prompts/Dependence/Dependence-ChatGPT.md)
+  * [Dependence-Claude.md](LLM-Prompts/Dependence/Dependence-Claude.md)
+  * [Dependence-Gemini.md](LLM-Prompts/Dependence/Dependence-Gemini.md)
+
+* LLM-Prompts/Identity
+  * [Identity-ChatGPT.md](LLM-Prompts/Identity/Identity-ChatGPT.md)
+  * [Identity-Claude.md](LLM-Prompts/Identity/Identity-Claude.md)
+  * [Identity-Gemini.md](LLM-Prompts/Identity/Identity-Gemini.md)
+
+* LLM-Prompts/Own-Identity
+  * [Own-Identity-ChatGPT.md](LLM-Prompts/Own-Identity/Own-Identity-ChatGPT.md)
+  * [Own-Identity-Claude.md](LLM-Prompts/Own-Identity/Own-Identity-Claude.md)
+  * [Own-Identity-Gemini.md](LLM-Prompts/Own-Identity/Own-Identity-Gemini.md)
+
+* LLM-Prompts/Rigidity
+  * [Rigidity-ChatGPT.md](LLM-Prompts/Rigidity/Rigidity-ChatGPT.md)
+  * [Rigidity-Claude.md](LLM-Prompts/Rigidity/Rigidity-Claude.md)
+  * [Rigidity-Gemini.md](LLM-Prompts/Rigidity/Rigidity-Gemini.md)
+
+* LLM-Prompts/Unity
+  * [Unity-ChatGPT.md](LLM-Prompts/Unity/Unity-ChatGPT.md)
+  * [Unity-Claude.md](LLM-Prompts/Unity/Unity-Claude.md)
+  * [Unity-Gemini.md](LLM-Prompts/Unity/Unity-Gemini.md)
+
+## Synthesized Prompts 
+For each LLM specific metaproperty, the LLM was asked to synthesize all three metaproperty responses into a single concise instruction for determining the metaproperty. The prompt used was:
 
 > The attached files contain three proposed revisions of instructions for an LLM to evaluate Ontoclean's `<metaproperty name>` metaproperty. Please review the metaproperty revisions and create a single concise instruction. Do not include tests, formal definitions, or other filters. Only return the revised instruction. Format your answer in markdown.
 
@@ -150,7 +180,7 @@ To help the AI agent accurately classify a concept, you can include these simple
     *   *If YES* $\rightarrow$ likely **~U** (A "forest" is just a bunch of trees; a "crowd" is a bunch of people).
 
 
-## Metaproperty prompts supplied to LLMs
+## Metaproperty Prompts Supplied to LLMs
 
 ### Dependence
 Please suggest alternative wording for the following description of Dependence, and put your response in markdown format:
